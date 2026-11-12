@@ -1,0 +1,17 @@
+# Fichiers produits par Python et pytest
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Fichiers du système et des éditeurs
+.DS_Store
+.idea/
+
+# Fichiers de travail de l'outil de critique du design
+.impeccable/
+
+# Compilation LaTeX : projet_soutenance.py la refait, puis copie les PDF dans soutenance/
+soutenance/construction/
+
+# Fichiers de verrouillage d'Excel, pendant qu'un classeur est ouvert
+~$*

@@ -1,0 +1,44 @@
+# Thème « Verso de l'emballage » de l'interface du projet (projet_gui.py).
+# Les couleurs et les polices reprennent projet_design.py. Les polices Archivo sont servies
+# depuis le dossier static/, d'où enableStaticServing.
+# Streamlit lit ce fichier parce qu'il est placé à côté du script, d'où qu'on le lance.
+
+[server]
+enableStaticServing = true
+
+[theme]
+base = "light"
+primaryColor = "#000000"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#E9E9E6"
+textColor = "#000000"
+linkColor = "#000000"
+borderColor = "#000000"
+dataframeBorderColor = "#000000"
+dataframeHeaderBackgroundColor = "#E9E9E6"
+showWidgetBorder = true
+baseRadius = "none"
+buttonRadius = "none"
+font = "Archivo, sans-serif"
+headingFont = "Archivo Condensed, Archivo, sans-serif"
+chartCategoricalColors = ["#038141", "#85BB2F", "#FECB02", "#EE8100", "#E63E11"]
+
+[[theme.fontFaces]]
+family = "Archivo"
+url = "app/static/Archivo-Regular.ttf"
+weight = 400
+
+[[theme.fontFaces]]
+family = "Archivo"
+url = "app/static/Archivo-SemiBold.ttf"
+weight = 600
+
+[[theme.fontFaces]]
+family = "Archivo"
+url = "app/static/Archivo-Bold.ttf"
+weight = 700
+
+[[theme.fontFaces]]
+family = "Archivo Condensed"
+url = "app/static/ArchivoCondensed-ExtraBold.ttf"
+weight = "700 900"

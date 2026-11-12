@@ -1,0 +1,40 @@
+% rapport.tex : le rapport du projet MR-Sort (rendu le dimanche 10 janvier 2027, 23 h 59).
+% Les chiffres viennent de chiffres.tex, écrit par projet_rapport.py : aucun chiffre à la main.
+% Compiler depuis le dossier rapport/ : latexmk -xelatex rapport.tex
+\documentclass[11pt]{article}
+\usepackage{verso}
+
+\input{chiffres}
+
+\begin{document}
+
+% --- Page de titre ---
+\begin{titlepage}
+  \raggedright
+  {\small M2 MIAGE ID-SITN, université Paris Dauphine-PSL\par}
+  {\small Transparence des algorithmes pour la décision, Brice Mayag\par}
+  \vspace*{5cm}
+  \rule{\linewidth}{8pt}\par\vspace{10pt}
+  {\policeTitre\fontsize{40}{44}\selectfont Un modèle transparent\\ d'évaluation des plats préparés\par}
+  \vspace{12pt}
+  {\policeDemiGras\fontsize{16}{20}\selectfont Approcher le Nutri-Score par MR-Sort, puis proposer le SuperNutri-score\par}
+  \vspace{6pt}
+  \rule{\linewidth}{1pt}\par
+  \vfill
+  {\small Groupe : à compléter\par}
+  {\small Année 2026-2027\par}
+\end{titlepage}
+
+\input{sections/00_declaration_ia}
+
+\tableofcontents
+\newpage
+
+\input{sections/01_introduction}
+\input{sections/02_nutriscore}
+\input{sections/03_mrsort}
+\input{sections/04_supernutri}
+\input{sections/05_visualisation}
+\input{sections/06_conclusion}
+
+\end{document}

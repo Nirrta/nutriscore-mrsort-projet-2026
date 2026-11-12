@@ -1,0 +1,10 @@
+openpyxl
+pandas
+numpy
+scipy>=1.9
+streamlit>=1.44
+altair
+matplotlib
+python-pptx
+fonttools
+pytest

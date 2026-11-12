@@ -1,0 +1,5402 @@
+{
+  "base": {
+    "nombrePlats": 125,
+    "parClasse": 25,
+    "graine": 2026,
+    "dateExtraction": "2026-10-28",
+    "pagesTirees": {
+      "A": [
+        52,
+        55
+      ],
+      "B": [
+        6
+      ],
+      "C": [
+        42
+      ],
+      "D": [
+        17
+      ],
+      "E": [
+        4,
+        7,
+        9
+      ]
+    },
+    "entonnoir": {
+      "candidats repérés": 732,
+      "fiche disponible": 730,
+      "plat préparé vendu en France": 696,
+      "Nutri-Score 2023 calculé": 686,
+      "cas général du Nutri-Score": 594,
+      "sept composantes connues": 237,
+      "NOVA et additifs connus": 230,
+      "valeurs plausibles": 224,
+      "sans doublon": 224
+    },
+    "vivierParClasse": {
+      "A": 47,
+      "B": 50,
+      "C": 58,
+      "D": 33,
+      "E": 36
+    }
+  },
+  "nutriscore": {
+    "total": 125,
+    "reproduits": 125,
+    "ecarts": [],
+    "divergencesFigure4": [],
+    "casParticuliers": {
+      "fromage": {
+        "total": 50,
+        "reproduits": 49,
+        "ecarts": [
+          "8032484861879 Piada Speck et Fromage : OFF 24 E, calcul 21 E (OFF le marque à la fois fromage et viande rouge, et cumule leurs règles)"
+        ]
+      },
+      "viandeRouge": {
+        "total": 183,
+        "reproduits": 182,
+        "ecarts": [
+          "3481910516848 4 saucisses paysannes au fromage : OFF 21 E, calcul 20 E (OFF compte un point de plus pour une valeur pile sur un seuil : sel, 1,8 g)"
+        ]
+      },
+      "matieresGrasses": {
+        "total": 82,
+        "reproduits": 82,
+        "ecarts": []
+      },
+      "boisson": {
+        "total": 20,
+        "reproduits": 19,
+        "ecarts": [
+          "3416957800360 Gardianne de taureau au vin des Costières de Nîmes : OFF 10 E, calcul 5 C (OFF le marque à la fois boisson et viande rouge, et cumule leurs règles)"
+        ]
+      },
+      "eau": {
+        "total": 14,
+        "reproduits": 14,
+        "ecarts": []
+      }
+    },
+    "seuilsPile": {
+      "saturated_fat": {
+        "strict": 164,
+        "inclusif": 0,
+        "exemples": []
+      },
+      "salt": {
+        "strict": 449,
+        "inclusif": 4,
+        "exemples": [
+          "3256477079507",
+          "3327512645381",
+          "3481910516848",
+          "3760052233005"
+        ]
+      },
+      "sugars": {
+        "strict": 55,
+        "inclusif": 0,
+        "exemples": []
+      },
+      "proteins": {
+        "strict": 47,
+        "inclusif": 0,
+        "exemples": []
+      },
+      "fiber": {
+        "strict": 24,
+        "inclusif": 0,
+        "exemples": []
+      },
+      "energy": {
+        "strict": 3,
+        "inclusif": 0,
+        "exemples": []
+      }
+    },
+    "vivierEtendu": {
+      "total": 438,
+      "reproduits": 437,
+      "ecarts": [
+        "3760052233005 Voyage aux Antilles : OFF 3 C, calcul 2 B (OFF compte un point de plus pour une valeur pile sur un seuil : sel, 0,8 g)"
+      ]
+    }
+  },
+  "mrsort": {
+    "modeles": [
+      {
+        "nom": "sept",
+        "mode": "poids",
+        "lam": 0.6,
+        "methode": "profils fixés (médianes), poids appris",
+        "bienRanges": 90,
+        "total": 125,
+        "exactitude": 0.72,
+        "aUneClassePres": 0.976,
+        "matrice": [
+          [
+            21,
+            3,
+            1,
+            0,
+            0
+          ],
+          [
+            5,
+            15,
+            4,
+            1,
+            0
+          ],
+          [
+            0,
+            5,
+            13,
+            7,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            19,
+            5
+          ],
+          [
+            1,
+            0,
+            0,
+            2,
+            22
+          ]
+        ],
+        "criteres": [
+          "en",
+          "sa",
+          "su",
+          "so",
+          "pr",
+          "fi",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.0802,
+          "sa": 0.4396,
+          "su": 0.0802,
+          "so": 0.0802,
+          "pr": 0.0812,
+          "fi": 0.0792,
+          "fr": 0.1594
+        },
+        "profils": [
+          {
+            "en": 1266.0,
+            "sa": 7.35,
+            "su": 2.95,
+            "so": 1.58749998807905,
+            "pr": 9.55,
+            "fi": 1.8,
+            "fr": 0.9
+          },
+          {
+            "en": 794.25,
+            "sa": 3.45,
+            "su": 2.3499999999999996,
+            "so": 1.02249998807905,
+            "pr": 9.55,
+            "fi": 1.8,
+            "fr": 10.23
+          },
+          {
+            "en": 483.85000045597553,
+            "sa": 1.4500000000000002,
+            "su": 1.7999999999999998,
+            "so": 0.72,
+            "pr": 9.55,
+            "fi": 1.8,
+            "fr": 29.887500000000003
+          },
+          {
+            "en": 363.35000045597553,
+            "sa": 0.55,
+            "su": 1.7999999999999998,
+            "so": 0.62,
+            "pr": 9.55,
+            "fi": 1.8,
+            "fr": 51.164566326530604
+          }
+        ],
+        "marge": 0.0,
+        "intervalles": {
+          "en": [
+            0.002,
+            0.159
+          ],
+          "sa": [
+            0.334,
+            0.498
+          ],
+          "su": [
+            0.002,
+            0.159
+          ],
+          "so": [
+            0.002,
+            0.159
+          ],
+          "pr": [
+            0.081,
+            0.199
+          ],
+          "fi": [
+            0.001,
+            0.132
+          ],
+          "fr": [
+            0.001,
+            0.159
+          ]
+        }
+      },
+      {
+        "nom": "sept",
+        "mode": "poids",
+        "lam": 0.7,
+        "methode": "profils fixés (médianes), poids appris",
+        "bienRanges": 90,
+        "total": 125,
+        "exactitude": 0.72,
+        "aUneClassePres": 0.968,
+        "matrice": [
+          [
+            18,
+            4,
+            3,
+            0,
+            0
+          ],
+          [
+            4,
+            15,
+            5,
+            1,
+            0
+          ],
+          [
+            0,
+            3,
+            15,
+            7,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            19,
+            5
+          ],
+          [
+            0,
+            0,
+            0,
+            2,
+            23
+          ]
+        ],
+        "criteres": [
+          "en",
+          "sa",
+          "su",
+          "so",
+          "pr",
+          "fi",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.0755,
+          "sa": 0.549,
+          "su": 0.0755,
+          "so": 0.0755,
+          "pr": 0.149,
+          "fi": 0.0745,
+          "fr": 0.001
+        },
+        "profils": [
+          {
+            "en": 1266.0,
+            "sa": 7.35,
+            "su": 2.95,
+            "so": 1.58749998807905,
+            "pr": 9.55,
+            "fi": 1.8,
+            "fr": 0.9
+          },
+          {
+            "en": 794.25,
+            "sa": 3.45,
+            "su": 2.3499999999999996,
+            "so": 1.02249998807905,
+            "pr": 9.55,
+            "fi": 1.8,
+            "fr": 10.23
+          },
+          {
+            "en": 483.85000045597553,
+            "sa": 1.4500000000000002,
+            "su": 1.7999999999999998,
+            "so": 0.72,
+            "pr": 9.55,
+            "fi": 1.8,
+            "fr": 29.887500000000003
+          },
+          {
+            "en": 363.35000045597553,
+            "sa": 0.55,
+            "su": 1.7999999999999998,
+            "so": 0.62,
+            "pr": 9.55,
+            "fi": 1.8,
+            "fr": 51.164566326530604
+          }
+        ],
+        "marge": 0.0,
+        "intervalles": {
+          "en": [
+            0.002,
+            0.119
+          ],
+          "sa": [
+            0.501,
+            0.623
+          ],
+          "su": [
+            0.002,
+            0.119
+          ],
+          "so": [
+            0.002,
+            0.119
+          ],
+          "pr": [
+            0.061,
+            0.149
+          ],
+          "fi": [
+            0.001,
+            0.099
+          ],
+          "fr": [
+            0.001,
+            0.119
+          ]
+        }
+      },
+      {
+        "nom": "trois",
+        "mode": "poids",
+        "lam": 0.6,
+        "methode": "profils fixés (médianes), poids appris",
+        "bienRanges": 73,
+        "total": 125,
+        "exactitude": 0.584,
+        "aUneClassePres": 0.928,
+        "matrice": [
+          [
+            15,
+            5,
+            3,
+            0,
+            2
+          ],
+          [
+            9,
+            3,
+            10,
+            3,
+            0
+          ],
+          [
+            1,
+            4,
+            16,
+            4,
+            0
+          ],
+          [
+            0,
+            0,
+            3,
+            18,
+            4
+          ],
+          [
+            0,
+            0,
+            0,
+            4,
+            21
+          ]
+        ],
+        "criteres": [
+          "en",
+          "so",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.401,
+          "so": 0.199,
+          "fr": 0.4
+        },
+        "profils": [
+          {
+            "en": 1266.0,
+            "so": 1.58749998807905,
+            "fr": 0.9
+          },
+          {
+            "en": 794.25,
+            "so": 1.02249998807905,
+            "fr": 10.23
+          },
+          {
+            "en": 483.85000045597553,
+            "so": 0.72,
+            "fr": 29.887500000000003
+          },
+          {
+            "en": 363.35000045597553,
+            "so": 0.62,
+            "fr": 51.164566326530604
+          }
+        ],
+        "marge": 0.0,
+        "intervalles": {
+          "en": [
+            0.401,
+            0.599
+          ],
+          "so": [
+            0.001,
+            0.4
+          ],
+          "fr": [
+            0.001,
+            0.4
+          ]
+        }
+      },
+      {
+        "nom": "trois",
+        "mode": "poids",
+        "lam": 0.7,
+        "methode": "profils fixés (médianes), poids appris",
+        "bienRanges": 73,
+        "total": 125,
+        "exactitude": 0.584,
+        "aUneClassePres": 0.928,
+        "matrice": [
+          [
+            15,
+            5,
+            3,
+            0,
+            2
+          ],
+          [
+            9,
+            3,
+            10,
+            3,
+            0
+          ],
+          [
+            1,
+            4,
+            16,
+            4,
+            0
+          ],
+          [
+            0,
+            0,
+            3,
+            18,
+            4
+          ],
+          [
+            0,
+            0,
+            0,
+            4,
+            21
+          ]
+        ],
+        "criteres": [
+          "en",
+          "so",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.4,
+          "so": 0.3,
+          "fr": 0.3
+        },
+        "profils": [
+          {
+            "en": 1266.0,
+            "so": 1.58749998807905,
+            "fr": 0.9
+          },
+          {
+            "en": 794.25,
+            "so": 1.02249998807905,
+            "fr": 10.23
+          },
+          {
+            "en": 483.85000045597553,
+            "so": 0.72,
+            "fr": 29.887500000000003
+          },
+          {
+            "en": 363.35000045597553,
+            "so": 0.62,
+            "fr": 51.164566326530604
+          }
+        ],
+        "marge": 0.0,
+        "intervalles": {
+          "en": [
+            0.4,
+            0.699
+          ],
+          "so": [
+            0.001,
+            0.3
+          ],
+          "fr": [
+            0.001,
+            0.3
+          ]
+        }
+      }
+    ],
+    "inversions": {
+      "sept": {
+        "nombre": 0,
+        "exemple": null
+      },
+      "trois": {
+        "nombre": 143,
+        "exemple": {
+          "meilleur": {
+            "nom": "Purée de pomme de terre, beurre et crème d'Isigny",
+            "label": "D",
+            "en": 741,
+            "so": 0.49,
+            "fr": 0
+          },
+          "moinsBon": {
+            "nom": "Colin d'Alaska",
+            "label": "A",
+            "en": 774,
+            "so": 0.61,
+            "fr": 0
+          }
+        }
+      }
+    }
+  },
+  "baseEtendue": {
+    "nombrePlats": 375,
+    "parClasse": 75,
+    "ajoutParClasse": 50,
+    "graine": 2026,
+    "dateExtraction": "2026-11-07",
+    "pagesAjoutees": {
+      "A": [
+        59
+      ],
+      "B": [
+        22
+      ],
+      "C": [
+        98
+      ],
+      "D": [
+        38,
+        57
+      ],
+      "E": [
+        1,
+        2,
+        3,
+        8
+      ]
+    },
+    "entonnoir": {
+      "candidats repérés": 1632,
+      "fiche disponible": 1629,
+      "plat préparé vendu en France": 1549,
+      "Nutri-Score 2023 calculé": 1526,
+      "cas général du Nutri-Score": 1333,
+      "sept composantes connues": 459,
+      "NOVA et additifs connus": 450,
+      "valeurs plausibles": 438,
+      "sans doublon": 438
+    },
+    "vivierParClasse": {
+      "A": 75,
+      "B": 87,
+      "C": 117,
+      "D": 78,
+      "E": 81
+    },
+    "vivierHorsBase": {
+      "A": 50,
+      "B": 62,
+      "C": 92,
+      "D": 53,
+      "E": 56
+    }
+  },
+  "mrsortEtendu": {
+    "modeles": [
+      {
+        "nom": "sept",
+        "mode": "poids",
+        "lam": 0.6,
+        "methode": "profils fixés (médianes), poids appris, départagés par la plus grande marge",
+        "bienRanges": 259,
+        "total": 375,
+        "exactitude": 0.6906666666666667,
+        "aUneClassePres": 0.9493333333333334,
+        "matrice": [
+          [
+            52,
+            14,
+            8,
+            1,
+            0
+          ],
+          [
+            11,
+            43,
+            19,
+            2,
+            0
+          ],
+          [
+            6,
+            13,
+            38,
+            17,
+            1
+          ],
+          [
+            0,
+            1,
+            5,
+            60,
+            9
+          ],
+          [
+            0,
+            0,
+            0,
+            9,
+            66
+          ]
+        ],
+        "criteres": [
+          "en",
+          "sa",
+          "su",
+          "so",
+          "pr",
+          "fi",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.237,
+          "sa": 0.276,
+          "su": 0.096,
+          "so": 0.276,
+          "pr": 0.019,
+          "fi": 0.038,
+          "fr": 0.058
+        },
+        "profils": [
+          {
+            "en": 1290.049998378755,
+            "sa": 7.275,
+            "su": 3.0,
+            "so": 1.65,
+            "pr": 9.9,
+            "fi": 1.7,
+            "fr": 4.235
+          },
+          {
+            "en": 836.1499983787551,
+            "sa": 3.55,
+            "su": 2.25,
+            "so": 1.015,
+            "pr": 9.9,
+            "fi": 1.75,
+            "fr": 13.21
+          },
+          {
+            "en": 567.5,
+            "sa": 1.49999998807907,
+            "su": 1.85,
+            "so": 0.74,
+            "pr": 9.9,
+            "fi": 1.75,
+            "fr": 29.475
+          },
+          {
+            "en": 416.20000000000005,
+            "sa": 0.6999999880790699,
+            "su": 1.85,
+            "so": 0.575,
+            "pr": 9.9,
+            "fi": 2.15,
+            "fr": 42.214484126984146
+          }
+        ],
+        "marge": 0.009,
+        "intervalles": {
+          "en": [
+            0.201,
+            0.298
+          ],
+          "sa": [
+            0.251,
+            0.331
+          ],
+          "su": [
+            0.003,
+            0.132
+          ],
+          "so": [
+            0.25,
+            0.299
+          ],
+          "pr": [
+            0.001,
+            0.098
+          ],
+          "fi": [
+            0.001,
+            0.066
+          ],
+          "fr": [
+            0.002,
+            0.099
+          ]
+        }
+      },
+      {
+        "nom": "sept",
+        "mode": "poids",
+        "lam": 0.7,
+        "methode": "profils fixés (médianes), poids appris, départagés par la plus grande marge",
+        "bienRanges": 240,
+        "total": 375,
+        "exactitude": 0.64,
+        "aUneClassePres": 0.9413333333333334,
+        "matrice": [
+          [
+            46,
+            18,
+            10,
+            1,
+            0
+          ],
+          [
+            11,
+            41,
+            21,
+            2,
+            0
+          ],
+          [
+            6,
+            11,
+            33,
+            23,
+            2
+          ],
+          [
+            0,
+            1,
+            2,
+            50,
+            22
+          ],
+          [
+            0,
+            0,
+            0,
+            5,
+            70
+          ]
+        ],
+        "criteres": [
+          "en",
+          "sa",
+          "su",
+          "so",
+          "pr",
+          "fi",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.092,
+          "sa": 0.539,
+          "su": 0.092,
+          "so": 0.139,
+          "pr": 0.046,
+          "fi": 0.0,
+          "fr": 0.092
+        },
+        "profils": [
+          {
+            "en": 1290.049998378755,
+            "sa": 7.275,
+            "su": 3.0,
+            "so": 1.65,
+            "pr": 9.9,
+            "fi": 1.7,
+            "fr": 4.235
+          },
+          {
+            "en": 836.1499983787551,
+            "sa": 3.55,
+            "su": 2.25,
+            "so": 1.015,
+            "pr": 9.9,
+            "fi": 1.75,
+            "fr": 13.21
+          },
+          {
+            "en": 567.5,
+            "sa": 1.49999998807907,
+            "su": 1.85,
+            "so": 0.74,
+            "pr": 9.9,
+            "fi": 1.75,
+            "fr": 29.475
+          },
+          {
+            "en": 416.20000000000005,
+            "sa": 0.6999999880790699,
+            "su": 1.85,
+            "so": 0.575,
+            "pr": 9.9,
+            "fi": 2.15,
+            "fr": 42.214484126984146
+          }
+        ],
+        "marge": 0.022,
+        "intervalles": {
+          "en": [
+            0.002,
+            0.149
+          ],
+          "sa": [
+            0.46,
+            0.598
+          ],
+          "su": [
+            0.002,
+            0.149
+          ],
+          "so": [
+            0.076,
+            0.199
+          ],
+          "pr": [
+            0.001,
+            0.099
+          ],
+          "fi": [
+            0.0,
+            0.099
+          ],
+          "fr": [
+            0.002,
+            0.149
+          ]
+        }
+      },
+      {
+        "nom": "trois",
+        "mode": "poids",
+        "lam": 0.6,
+        "methode": "profils fixés (médianes), poids appris, départagés par la plus grande marge",
+        "bienRanges": 233,
+        "total": 375,
+        "exactitude": 0.6213333333333333,
+        "aUneClassePres": 0.9226666666666666,
+        "matrice": [
+          [
+            44,
+            11,
+            10,
+            2,
+            8
+          ],
+          [
+            17,
+            32,
+            22,
+            3,
+            1
+          ],
+          [
+            3,
+            15,
+            34,
+            21,
+            2
+          ],
+          [
+            0,
+            0,
+            6,
+            59,
+            10
+          ],
+          [
+            0,
+            0,
+            0,
+            11,
+            64
+          ]
+        ],
+        "criteres": [
+          "en",
+          "so",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.5,
+          "so": 0.301,
+          "fr": 0.199
+        },
+        "profils": [
+          {
+            "en": 1290.049998378755,
+            "so": 1.65,
+            "fr": 4.235
+          },
+          {
+            "en": 836.1499983787551,
+            "so": 1.015,
+            "fr": 13.21
+          },
+          {
+            "en": 567.5,
+            "so": 0.74,
+            "fr": 29.475
+          },
+          {
+            "en": 416.20000000000005,
+            "so": 0.575,
+            "fr": 42.214484126984146
+          }
+        ],
+        "marge": 0.099,
+        "intervalles": {
+          "en": [
+            0.401,
+            0.599
+          ],
+          "so": [
+            0.001,
+            0.4
+          ],
+          "fr": [
+            0.001,
+            0.4
+          ]
+        }
+      },
+      {
+        "nom": "trois",
+        "mode": "poids",
+        "lam": 0.7,
+        "methode": "profils fixés (médianes), poids appris, départagés par la plus grande marge",
+        "bienRanges": 233,
+        "total": 375,
+        "exactitude": 0.6213333333333333,
+        "aUneClassePres": 0.9226666666666666,
+        "matrice": [
+          [
+            44,
+            11,
+            10,
+            2,
+            8
+          ],
+          [
+            17,
+            32,
+            22,
+            3,
+            1
+          ],
+          [
+            3,
+            15,
+            34,
+            21,
+            2
+          ],
+          [
+            0,
+            0,
+            6,
+            59,
+            10
+          ],
+          [
+            0,
+            0,
+            0,
+            11,
+            64
+          ]
+        ],
+        "criteres": [
+          "en",
+          "so",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.6,
+          "so": 0.2,
+          "fr": 0.2
+        },
+        "profils": [
+          {
+            "en": 1290.049998378755,
+            "so": 1.65,
+            "fr": 4.235
+          },
+          {
+            "en": 836.1499983787551,
+            "so": 1.015,
+            "fr": 13.21
+          },
+          {
+            "en": 567.5,
+            "so": 0.74,
+            "fr": 29.475
+          },
+          {
+            "en": 416.20000000000005,
+            "so": 0.575,
+            "fr": 42.214484126984146
+          }
+        ],
+        "marge": 0.1,
+        "intervalles": {
+          "en": [
+            0.4,
+            0.699
+          ],
+          "so": [
+            0.001,
+            0.3
+          ],
+          "fr": [
+            0.001,
+            0.3
+          ]
+        }
+      }
+    ],
+    "inversions": {
+      "sept": {
+        "nombre": 0,
+        "exemple": null
+      },
+      "trois": {
+        "nombre": 997,
+        "exemple": {
+          "meilleur": {
+            "nom": "Purée de pomme de terre, beurre et crème d'Isigny",
+            "label": "D",
+            "en": 741,
+            "so": 0.49,
+            "fr": 0
+          },
+          "moinsBon": {
+            "nom": "Colin d'Alaska",
+            "label": "A",
+            "en": 774,
+            "so": 0.61,
+            "fr": 0
+          }
+        }
+      }
+    }
+  },
+  "generalisation": {
+    "modeles": [
+      {
+        "nom": "sept",
+        "mode": "poids",
+        "lam": 0.6,
+        "base": {
+          "bienRanges": 90,
+          "total": 125,
+          "exactitude": 0.72
+        },
+        "ajout": {
+          "bienRanges": 137,
+          "total": 250,
+          "exactitude": 0.548,
+          "exactitudeEquilibree": 0.548,
+          "aUneClassePres": 0.904,
+          "matrice": [
+            [
+              22,
+              18,
+              9,
+              1,
+              0
+            ],
+            [
+              7,
+              24,
+              18,
+              1,
+              0
+            ],
+            [
+              6,
+              7,
+              22,
+              15,
+              0
+            ],
+            [
+              1,
+              1,
+              5,
+              29,
+              14
+            ],
+            [
+              1,
+              2,
+              2,
+              5,
+              40
+            ]
+          ]
+        }
+      },
+      {
+        "nom": "sept",
+        "mode": "poids",
+        "lam": 0.7,
+        "base": {
+          "bienRanges": 90,
+          "total": 125,
+          "exactitude": 0.72
+        },
+        "ajout": {
+          "bienRanges": 136,
+          "total": 250,
+          "exactitude": 0.544,
+          "exactitudeEquilibree": 0.544,
+          "aUneClassePres": 0.916,
+          "matrice": [
+            [
+              22,
+              18,
+              9,
+              1,
+              0
+            ],
+            [
+              6,
+              22,
+              21,
+              1,
+              0
+            ],
+            [
+              5,
+              7,
+              19,
+              19,
+              0
+            ],
+            [
+              1,
+              1,
+              3,
+              30,
+              15
+            ],
+            [
+              1,
+              1,
+              1,
+              4,
+              43
+            ]
+          ]
+        }
+      },
+      {
+        "nom": "trois",
+        "mode": "poids",
+        "lam": 0.6,
+        "base": {
+          "bienRanges": 73,
+          "total": 125,
+          "exactitude": 0.584
+        },
+        "ajout": {
+          "bienRanges": 136,
+          "total": 250,
+          "exactitude": 0.544,
+          "exactitudeEquilibree": 0.544,
+          "aUneClassePres": 0.904,
+          "matrice": [
+            [
+              21,
+              11,
+              10,
+              2,
+              6
+            ],
+            [
+              9,
+              10,
+              28,
+              2,
+              1
+            ],
+            [
+              1,
+              8,
+              19,
+              20,
+              2
+            ],
+            [
+              0,
+              0,
+              3,
+              42,
+              5
+            ],
+            [
+              0,
+              0,
+              0,
+              6,
+              44
+            ]
+          ]
+        }
+      },
+      {
+        "nom": "trois",
+        "mode": "poids",
+        "lam": 0.7,
+        "base": {
+          "bienRanges": 73,
+          "total": 125,
+          "exactitude": 0.584
+        },
+        "ajout": {
+          "bienRanges": 136,
+          "total": 250,
+          "exactitude": 0.544,
+          "exactitudeEquilibree": 0.544,
+          "aUneClassePres": 0.904,
+          "matrice": [
+            [
+              21,
+              11,
+              10,
+              2,
+              6
+            ],
+            [
+              9,
+              10,
+              28,
+              2,
+              1
+            ],
+            [
+              1,
+              8,
+              19,
+              20,
+              2
+            ],
+            [
+              0,
+              0,
+              3,
+              42,
+              5
+            ],
+            [
+              0,
+              0,
+              0,
+              6,
+              44
+            ]
+          ]
+        }
+      },
+      {
+        "nom": "sept",
+        "mode": "profils",
+        "lam": 0.6,
+        "base": {
+          "bienRanges": 114,
+          "total": 125,
+          "exactitude": 0.912
+        },
+        "ajout": {
+          "bienRanges": 170,
+          "total": 250,
+          "exactitude": 0.68,
+          "exactitudeEquilibree": 0.6799999999999999,
+          "aUneClassePres": 0.984,
+          "matrice": [
+            [
+              22,
+              27,
+              1,
+              0,
+              0
+            ],
+            [
+              2,
+              37,
+              11,
+              0,
+              0
+            ],
+            [
+              0,
+              15,
+              29,
+              6,
+              0
+            ],
+            [
+              0,
+              3,
+              3,
+              34,
+              10
+            ],
+            [
+              0,
+              0,
+              0,
+              2,
+              48
+            ]
+          ]
+        }
+      },
+      {
+        "nom": "sept",
+        "mode": "profils",
+        "lam": 0.7,
+        "base": {
+          "bienRanges": 120,
+          "total": 125,
+          "exactitude": 0.96
+        },
+        "ajout": {
+          "bienRanges": 168,
+          "total": 250,
+          "exactitude": 0.672,
+          "exactitudeEquilibree": 0.6719999999999999,
+          "aUneClassePres": 0.936,
+          "matrice": [
+            [
+              35,
+              5,
+              10,
+              0,
+              0
+            ],
+            [
+              14,
+              17,
+              18,
+              1,
+              0
+            ],
+            [
+              5,
+              10,
+              31,
+              4,
+              0
+            ],
+            [
+              0,
+              0,
+              5,
+              36,
+              9
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              49
+            ]
+          ]
+        }
+      },
+      {
+        "nom": "trois",
+        "mode": "profils",
+        "lam": 0.6,
+        "base": {
+          "bienRanges": 92,
+          "total": 125,
+          "exactitude": 0.736
+        },
+        "ajout": {
+          "bienRanges": 134,
+          "total": 250,
+          "exactitude": 0.536,
+          "exactitudeEquilibree": 0.536,
+          "aUneClassePres": 0.876,
+          "matrice": [
+            [
+              15,
+              16,
+              12,
+              2,
+              5
+            ],
+            [
+              3,
+              25,
+              18,
+              4,
+              0
+            ],
+            [
+              4,
+              10,
+              16,
+              18,
+              2
+            ],
+            [
+              0,
+              2,
+              6,
+              38,
+              4
+            ],
+            [
+              0,
+              0,
+              0,
+              10,
+              40
+            ]
+          ]
+        }
+      },
+      {
+        "nom": "trois",
+        "mode": "profils",
+        "lam": 0.7,
+        "base": {
+          "bienRanges": 92,
+          "total": 125,
+          "exactitude": 0.736
+        },
+        "ajout": {
+          "bienRanges": 134,
+          "total": 250,
+          "exactitude": 0.536,
+          "exactitudeEquilibree": 0.536,
+          "aUneClassePres": 0.876,
+          "matrice": [
+            [
+              15,
+              16,
+              12,
+              2,
+              5
+            ],
+            [
+              3,
+              25,
+              18,
+              4,
+              0
+            ],
+            [
+              4,
+              10,
+              16,
+              18,
+              2
+            ],
+            [
+              0,
+              2,
+              6,
+              38,
+              4
+            ],
+            [
+              0,
+              0,
+              0,
+              10,
+              40
+            ]
+          ]
+        }
+      },
+      {
+        "nom": "sept",
+        "mode": "complet",
+        "lam": 0.6,
+        "base": {
+          "bienRanges": 122,
+          "total": 125,
+          "exactitude": 0.976
+        },
+        "ajout": {
+          "bienRanges": 173,
+          "total": 250,
+          "exactitude": 0.692,
+          "exactitudeEquilibree": 0.6920000000000001,
+          "aUneClassePres": 0.94,
+          "matrice": [
+            [
+              31,
+              9,
+              10,
+              0,
+              0
+            ],
+            [
+              3,
+              30,
+              17,
+              0,
+              0
+            ],
+            [
+              4,
+              10,
+              33,
+              3,
+              0
+            ],
+            [
+              0,
+              0,
+              7,
+              33,
+              10
+            ],
+            [
+              0,
+              1,
+              0,
+              3,
+              46
+            ]
+          ]
+        }
+      },
+      {
+        "nom": "sept",
+        "mode": "complet",
+        "lam": 0.7,
+        "base": {
+          "bienRanges": 120,
+          "total": 125,
+          "exactitude": 0.96
+        },
+        "ajout": {
+          "bienRanges": 168,
+          "total": 250,
+          "exactitude": 0.672,
+          "exactitudeEquilibree": 0.6719999999999999,
+          "aUneClassePres": 0.936,
+          "matrice": [
+            [
+              35,
+              5,
+              10,
+              0,
+              0
+            ],
+            [
+              14,
+              17,
+              18,
+              1,
+              0
+            ],
+            [
+              5,
+              10,
+              31,
+              4,
+              0
+            ],
+            [
+              0,
+              0,
+              5,
+              36,
+              9
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              49
+            ]
+          ]
+        }
+      },
+      {
+        "nom": "trois",
+        "mode": "complet",
+        "lam": 0.6,
+        "base": {
+          "bienRanges": 92,
+          "total": 125,
+          "exactitude": 0.736
+        },
+        "ajout": {
+          "bienRanges": 134,
+          "total": 250,
+          "exactitude": 0.536,
+          "exactitudeEquilibree": 0.536,
+          "aUneClassePres": 0.876,
+          "matrice": [
+            [
+              15,
+              16,
+              12,
+              2,
+              5
+            ],
+            [
+              3,
+              25,
+              18,
+              4,
+              0
+            ],
+            [
+              4,
+              10,
+              16,
+              18,
+              2
+            ],
+            [
+              0,
+              2,
+              6,
+              38,
+              4
+            ],
+            [
+              0,
+              0,
+              0,
+              10,
+              40
+            ]
+          ]
+        }
+      },
+      {
+        "nom": "trois",
+        "mode": "complet",
+        "lam": 0.7,
+        "base": {
+          "bienRanges": 92,
+          "total": 125,
+          "exactitude": 0.736
+        },
+        "ajout": {
+          "bienRanges": 134,
+          "total": 250,
+          "exactitude": 0.536,
+          "exactitudeEquilibree": 0.536,
+          "aUneClassePres": 0.876,
+          "matrice": [
+            [
+              15,
+              16,
+              12,
+              2,
+              5
+            ],
+            [
+              3,
+              25,
+              18,
+              4,
+              0
+            ],
+            [
+              4,
+              10,
+              16,
+              18,
+              2
+            ],
+            [
+              0,
+              2,
+              6,
+              38,
+              4
+            ],
+            [
+              0,
+              0,
+              0,
+              10,
+              40
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "courbeApprentissage": {
+    "lam": 0.6,
+    "tenusAPart": 15,
+    "tirages": 10,
+    "sept": [
+      {
+        "taille": 25,
+        "appris": 0.784,
+        "tenusAPart": 0.592,
+        "ecartType": 0.08224023826645603,
+        "tirages": [
+          {
+            "appris": 0.84,
+            "tenusAPart": 0.42666666666666664
+          },
+          {
+            "appris": 0.72,
+            "tenusAPart": 0.5333333333333333
+          },
+          {
+            "appris": 0.76,
+            "tenusAPart": 0.5599999999999999
+          },
+          {
+            "appris": 0.8,
+            "tenusAPart": 0.6266666666666667
+          },
+          {
+            "appris": 0.88,
+            "tenusAPart": 0.6266666666666667
+          },
+          {
+            "appris": 0.68,
+            "tenusAPart": 0.5733333333333334
+          },
+          {
+            "appris": 0.68,
+            "tenusAPart": 0.5466666666666666
+          },
+          {
+            "appris": 0.8,
+            "tenusAPart": 0.6666666666666666
+          },
+          {
+            "appris": 0.88,
+            "tenusAPart": 0.72
+          },
+          {
+            "appris": 0.8,
+            "tenusAPart": 0.64
+          }
+        ]
+      },
+      {
+        "taille": 50,
+        "appris": 0.766,
+        "tenusAPart": 0.6,
+        "ecartType": 0.02666666666666668,
+        "tirages": [
+          {
+            "appris": 0.78,
+            "tenusAPart": 0.6
+          },
+          {
+            "appris": 0.7,
+            "tenusAPart": 0.5733333333333334
+          },
+          {
+            "appris": 0.8,
+            "tenusAPart": 0.6
+          },
+          {
+            "appris": 0.8,
+            "tenusAPart": 0.5866666666666667
+          },
+          {
+            "appris": 0.78,
+            "tenusAPart": 0.6
+          },
+          {
+            "appris": 0.8,
+            "tenusAPart": 0.6
+          },
+          {
+            "appris": 0.84,
+            "tenusAPart": 0.5866666666666667
+          },
+          {
+            "appris": 0.72,
+            "tenusAPart": 0.5733333333333334
+          },
+          {
+            "appris": 0.76,
+            "tenusAPart": 0.6133333333333333
+          },
+          {
+            "appris": 0.68,
+            "tenusAPart": 0.6666666666666667
+          }
+        ]
+      },
+      {
+        "taille": 75,
+        "appris": 0.732,
+        "tenusAPart": 0.6266666666666667,
+        "ecartType": 0.030792014356780053,
+        "tirages": [
+          {
+            "appris": 0.7733333333333333,
+            "tenusAPart": 0.6266666666666667
+          },
+          {
+            "appris": 0.7466666666666666,
+            "tenusAPart": 0.6266666666666667
+          },
+          {
+            "appris": 0.6666666666666666,
+            "tenusAPart": 0.68
+          },
+          {
+            "appris": 0.7066666666666667,
+            "tenusAPart": 0.6533333333333333
+          },
+          {
+            "appris": 0.7466666666666667,
+            "tenusAPart": 0.6
+          },
+          {
+            "appris": 0.7733333333333333,
+            "tenusAPart": 0.5866666666666667
+          },
+          {
+            "appris": 0.7333333333333333,
+            "tenusAPart": 0.5866666666666667
+          },
+          {
+            "appris": 0.72,
+            "tenusAPart": 0.64
+          },
+          {
+            "appris": 0.7333333333333333,
+            "tenusAPart": 0.6133333333333333
+          },
+          {
+            "appris": 0.72,
+            "tenusAPart": 0.6533333333333333
+          }
+        ]
+      },
+      {
+        "taille": 100,
+        "appris": 0.733,
+        "tenusAPart": 0.624,
+        "ecartType": 0.025762447548781223,
+        "tirages": [
+          {
+            "appris": 0.74,
+            "tenusAPart": 0.6266666666666667
+          },
+          {
+            "appris": 0.71,
+            "tenusAPart": 0.64
+          },
+          {
+            "appris": 0.75,
+            "tenusAPart": 0.6266666666666667
+          },
+          {
+            "appris": 0.7000000000000001,
+            "tenusAPart": 0.64
+          },
+          {
+            "appris": 0.71,
+            "tenusAPart": 0.5866666666666667
+          },
+          {
+            "appris": 0.79,
+            "tenusAPart": 0.6533333333333333
+          },
+          {
+            "appris": 0.76,
+            "tenusAPart": 0.64
+          },
+          {
+            "appris": 0.72,
+            "tenusAPart": 0.5733333333333334
+          },
+          {
+            "appris": 0.73,
+            "tenusAPart": 0.64
+          },
+          {
+            "appris": 0.72,
+            "tenusAPart": 0.6133333333333333
+          }
+        ]
+      },
+      {
+        "taille": 125,
+        "appris": 0.7432,
+        "tenusAPart": 0.68,
+        "ecartType": 0.03874576838702821,
+        "tirages": [
+          {
+            "appris": 0.744,
+            "tenusAPart": 0.6266666666666667
+          },
+          {
+            "appris": 0.696,
+            "tenusAPart": 0.6933333333333334
+          },
+          {
+            "appris": 0.744,
+            "tenusAPart": 0.6266666666666667
+          },
+          {
+            "appris": 0.768,
+            "tenusAPart": 0.6666666666666666
+          },
+          {
+            "appris": 0.752,
+            "tenusAPart": 0.7066666666666667
+          },
+          {
+            "appris": 0.736,
+            "tenusAPart": 0.7466666666666667
+          },
+          {
+            "appris": 0.76,
+            "tenusAPart": 0.7066666666666667
+          },
+          {
+            "appris": 0.768,
+            "tenusAPart": 0.6533333333333333
+          },
+          {
+            "appris": 0.728,
+            "tenusAPart": 0.7066666666666667
+          },
+          {
+            "appris": 0.736,
+            "tenusAPart": 0.6666666666666666
+          }
+        ]
+      },
+      {
+        "taille": 150,
+        "appris": 0.7086666666666667,
+        "tenusAPart": 0.6413333333333333,
+        "ecartType": 0.060434639727662366,
+        "tirages": [
+          {
+            "appris": 0.7266666666666667,
+            "tenusAPart": 0.64
+          },
+          {
+            "appris": 0.6466666666666667,
+            "tenusAPart": 0.6533333333333333
+          },
+          {
+            "appris": 0.6866666666666666,
+            "tenusAPart": 0.6133333333333333
+          },
+          {
+            "appris": 0.76,
+            "tenusAPart": 0.7466666666666667
+          },
+          {
+            "appris": 0.7,
+            "tenusAPart": 0.6
+          },
+          {
+            "appris": 0.7133333333333334,
+            "tenusAPart": 0.6799999999999999
+          },
+          {
+            "appris": 0.6466666666666666,
+            "tenusAPart": 0.52
+          },
+          {
+            "appris": 0.7000000000000001,
+            "tenusAPart": 0.64
+          },
+          {
+            "appris": 0.7933333333333333,
+            "tenusAPart": 0.6266666666666667
+          },
+          {
+            "appris": 0.7133333333333334,
+            "tenusAPart": 0.6933333333333334
+          }
+        ]
+      },
+      {
+        "taille": 200,
+        "appris": 0.708,
+        "tenusAPart": 0.6386666666666667,
+        "ecartType": 0.053499740393970374,
+        "tirages": [
+          {
+            "appris": 0.685,
+            "tenusAPart": 0.6666666666666667
+          },
+          {
+            "appris": 0.72,
+            "tenusAPart": 0.6
+          },
+          {
+            "appris": 0.72,
+            "tenusAPart": 0.5466666666666666
+          },
+          {
+            "appris": 0.68,
+            "tenusAPart": 0.6533333333333333
+          },
+          {
+            "appris": 0.735,
+            "tenusAPart": 0.64
+          },
+          {
+            "appris": 0.695,
+            "tenusAPart": 0.6266666666666667
+          },
+          {
+            "appris": 0.73,
+            "tenusAPart": 0.6133333333333333
+          },
+          {
+            "appris": 0.6799999999999999,
+            "tenusAPart": 0.7466666666666667
+          },
+          {
+            "appris": 0.735,
+            "tenusAPart": 0.6133333333333333
+          },
+          {
+            "appris": 0.7,
+            "tenusAPart": 0.68
+          }
+        ]
+      },
+      {
+        "taille": 250,
+        "appris": 0.7064,
+        "tenusAPart": 0.6386666666666667,
+        "ecartType": 0.041905242902482355,
+        "tirages": [
+          {
+            "appris": 0.728,
+            "tenusAPart": 0.6666666666666666
+          },
+          {
+            "appris": 0.68,
+            "tenusAPart": 0.6533333333333333
+          },
+          {
+            "appris": 0.7000000000000001,
+            "tenusAPart": 0.56
+          },
+          {
+            "appris": 0.712,
+            "tenusAPart": 0.6266666666666667
+          },
+          {
+            "appris": 0.708,
+            "tenusAPart": 0.6533333333333333
+          },
+          {
+            "appris": 0.684,
+            "tenusAPart": 0.64
+          },
+          {
+            "appris": 0.7040000000000001,
+            "tenusAPart": 0.6
+          },
+          {
+            "appris": 0.7,
+            "tenusAPart": 0.72
+          },
+          {
+            "appris": 0.72,
+            "tenusAPart": 0.6266666666666667
+          },
+          {
+            "appris": 0.728,
+            "tenusAPart": 0.64
+          }
+        ]
+      },
+      {
+        "taille": 300,
+        "appris": 0.6893333333333334,
+        "tenusAPart": 0.6533333333333333,
+        "ecartType": 0.05586580039989571,
+        "tirages": [
+          {
+            "appris": 0.6866666666666666,
+            "tenusAPart": 0.6
+          },
+          {
+            "appris": 0.6933333333333334,
+            "tenusAPart": 0.6933333333333334
+          },
+          {
+            "appris": 0.69,
+            "tenusAPart": 0.6533333333333333
+          },
+          {
+            "appris": 0.6966666666666667,
+            "tenusAPart": 0.72
+          },
+          {
+            "appris": 0.68,
+            "tenusAPart": 0.64
+          },
+          {
+            "appris": 0.6966666666666667,
+            "tenusAPart": 0.6
+          },
+          {
+            "appris": 0.6900000000000001,
+            "tenusAPart": 0.5866666666666667
+          },
+          {
+            "appris": 0.67,
+            "tenusAPart": 0.72
+          },
+          {
+            "appris": 0.6766666666666666,
+            "tenusAPart": 0.72
+          },
+          {
+            "appris": 0.7133333333333334,
+            "tenusAPart": 0.6
+          }
+        ]
+      }
+    ],
+    "trois": [
+      {
+        "taille": 25,
+        "appris": 0.66,
+        "tenusAPart": 0.5613333333333334,
+        "ecartType": 0.06361923771476208,
+        "tirages": [
+          {
+            "appris": 0.64,
+            "tenusAPart": 0.49333333333333335
+          },
+          {
+            "appris": 0.6,
+            "tenusAPart": 0.4666666666666667
+          },
+          {
+            "appris": 0.64,
+            "tenusAPart": 0.5066666666666667
+          },
+          {
+            "appris": 0.72,
+            "tenusAPart": 0.52
+          },
+          {
+            "appris": 0.68,
+            "tenusAPart": 0.56
+          },
+          {
+            "appris": 0.6,
+            "tenusAPart": 0.5866666666666667
+          },
+          {
+            "appris": 0.6,
+            "tenusAPart": 0.5866666666666667
+          },
+          {
+            "appris": 0.68,
+            "tenusAPart": 0.6666666666666666
+          },
+          {
+            "appris": 0.68,
+            "tenusAPart": 0.6
+          },
+          {
+            "appris": 0.76,
+            "tenusAPart": 0.6266666666666667
+          }
+        ]
+      },
+      {
+        "taille": 50,
+        "appris": 0.638,
+        "tenusAPart": 0.5706666666666667,
+        "ecartType": 0.0434556677745078,
+        "tirages": [
+          {
+            "appris": 0.66,
+            "tenusAPart": 0.52
+          },
+          {
+            "appris": 0.54,
+            "tenusAPart": 0.5866666666666667
+          },
+          {
+            "appris": 0.74,
+            "tenusAPart": 0.5466666666666666
+          },
+          {
+            "appris": 0.74,
+            "tenusAPart": 0.6266666666666667
+          },
+          {
+            "appris": 0.62,
+            "tenusAPart": 0.49333333333333335
+          },
+          {
+            "appris": 0.64,
+            "tenusAPart": 0.5733333333333334
+          },
+          {
+            "appris": 0.58,
+            "tenusAPart": 0.5466666666666666
+          },
+          {
+            "appris": 0.66,
+            "tenusAPart": 0.5866666666666667
+          },
+          {
+            "appris": 0.6,
+            "tenusAPart": 0.6133333333333333
+          },
+          {
+            "appris": 0.6,
+            "tenusAPart": 0.6133333333333334
+          }
+        ]
+      },
+      {
+        "taille": 75,
+        "appris": 0.6386666666666667,
+        "tenusAPart": 0.5453333333333333,
+        "ecartType": 0.05200189930054669,
+        "tirages": [
+          {
+            "appris": 0.68,
+            "tenusAPart": 0.49333333333333335
+          },
+          {
+            "appris": 0.64,
+            "tenusAPart": 0.5599999999999999
+          },
+          {
+            "appris": 0.52,
+            "tenusAPart": 0.5866666666666667
+          },
+          {
+            "appris": 0.6,
+            "tenusAPart": 0.56
+          },
+          {
+            "appris": 0.7333333333333334,
+            "tenusAPart": 0.6133333333333334
+          },
+          {
+            "appris": 0.68,
+            "tenusAPart": 0.52
+          },
+          {
+            "appris": 0.68,
+            "tenusAPart": 0.5866666666666667
+          },
+          {
+            "appris": 0.6266666666666667,
+            "tenusAPart": 0.52
+          },
+          {
+            "appris": 0.5733333333333334,
+            "tenusAPart": 0.44
+          },
+          {
+            "appris": 0.6533333333333333,
+            "tenusAPart": 0.5733333333333334
+          }
+        ]
+      },
+      {
+        "taille": 100,
+        "appris": 0.619,
+        "tenusAPart": 0.5653333333333334,
+        "ecartType": 0.042722186100259275,
+        "tirages": [
+          {
+            "appris": 0.63,
+            "tenusAPart": 0.5733333333333334
+          },
+          {
+            "appris": 0.61,
+            "tenusAPart": 0.6266666666666667
+          },
+          {
+            "appris": 0.63,
+            "tenusAPart": 0.4933333333333333
+          },
+          {
+            "appris": 0.54,
+            "tenusAPart": 0.6266666666666667
+          },
+          {
+            "appris": 0.61,
+            "tenusAPart": 0.52
+          },
+          {
+            "appris": 0.6799999999999999,
+            "tenusAPart": 0.56
+          },
+          {
+            "appris": 0.64,
+            "tenusAPart": 0.56
+          },
+          {
+            "appris": 0.59,
+            "tenusAPart": 0.5733333333333334
+          },
+          {
+            "appris": 0.61,
+            "tenusAPart": 0.5333333333333333
+          },
+          {
+            "appris": 0.65,
+            "tenusAPart": 0.5866666666666667
+          }
+        ]
+      },
+      {
+        "taille": 125,
+        "appris": 0.628,
+        "tenusAPart": 0.612,
+        "ecartType": 0.033525372738926425,
+        "tirages": [
+          {
+            "appris": 0.624,
+            "tenusAPart": 0.5599999999999999
+          },
+          {
+            "appris": 0.608,
+            "tenusAPart": 0.6
+          },
+          {
+            "appris": 0.616,
+            "tenusAPart": 0.5866666666666667
+          },
+          {
+            "appris": 0.664,
+            "tenusAPart": 0.6266666666666667
+          },
+          {
+            "appris": 0.624,
+            "tenusAPart": 0.64
+          },
+          {
+            "appris": 0.624,
+            "tenusAPart": 0.6666666666666666
+          },
+          {
+            "appris": 0.632,
+            "tenusAPart": 0.6
+          },
+          {
+            "appris": 0.664,
+            "tenusAPart": 0.5733333333333334
+          },
+          {
+            "appris": 0.608,
+            "tenusAPart": 0.64
+          },
+          {
+            "appris": 0.616,
+            "tenusAPart": 0.6266666666666667
+          }
+        ]
+      },
+      {
+        "taille": 150,
+        "appris": 0.604,
+        "tenusAPart": 0.5826666666666667,
+        "ecartType": 0.03387704711139466,
+        "tirages": [
+          {
+            "appris": 0.6266666666666667,
+            "tenusAPart": 0.5333333333333333
+          },
+          {
+            "appris": 0.5133333333333333,
+            "tenusAPart": 0.5866666666666667
+          },
+          {
+            "appris": 0.62,
+            "tenusAPart": 0.56
+          },
+          {
+            "appris": 0.66,
+            "tenusAPart": 0.6133333333333333
+          },
+          {
+            "appris": 0.6066666666666667,
+            "tenusAPart": 0.5733333333333334
+          },
+          {
+            "appris": 0.6066666666666667,
+            "tenusAPart": 0.6
+          },
+          {
+            "appris": 0.5733333333333334,
+            "tenusAPart": 0.56
+          },
+          {
+            "appris": 0.6,
+            "tenusAPart": 0.6533333333333333
+          },
+          {
+            "appris": 0.6333333333333333,
+            "tenusAPart": 0.56
+          },
+          {
+            "appris": 0.6,
+            "tenusAPart": 0.5866666666666667
+          }
+        ]
+      },
+      {
+        "taille": 200,
+        "appris": 0.6105,
+        "tenusAPart": 0.5666666666666667,
+        "ecartType": 0.051159397480983713,
+        "tirages": [
+          {
+            "appris": 0.595,
+            "tenusAPart": 0.5733333333333334
+          },
+          {
+            "appris": 0.64,
+            "tenusAPart": 0.5466666666666666
+          },
+          {
+            "appris": 0.63,
+            "tenusAPart": 0.4933333333333333
+          },
+          {
+            "appris": 0.5800000000000001,
+            "tenusAPart": 0.6666666666666666
+          },
+          {
+            "appris": 0.615,
+            "tenusAPart": 0.56
+          },
+          {
+            "appris": 0.63,
+            "tenusAPart": 0.52
+          },
+          {
+            "appris": 0.61,
+            "tenusAPart": 0.6
+          },
+          {
+            "appris": 0.6,
+            "tenusAPart": 0.5733333333333334
+          },
+          {
+            "appris": 0.59,
+            "tenusAPart": 0.52
+          },
+          {
+            "appris": 0.615,
+            "tenusAPart": 0.6133333333333333
+          }
+        ]
+      },
+      {
+        "taille": 250,
+        "appris": 0.6088,
+        "tenusAPart": 0.5706666666666667,
+        "ecartType": 0.05020451998735266,
+        "tirages": [
+          {
+            "appris": 0.624,
+            "tenusAPart": 0.5866666666666667
+          },
+          {
+            "appris": 0.596,
+            "tenusAPart": 0.5733333333333334
+          },
+          {
+            "appris": 0.608,
+            "tenusAPart": 0.52
+          },
+          {
+            "appris": 0.608,
+            "tenusAPart": 0.52
+          },
+          {
+            "appris": 0.604,
+            "tenusAPart": 0.5333333333333333
+          },
+          {
+            "appris": 0.592,
+            "tenusAPart": 0.6266666666666667
+          },
+          {
+            "appris": 0.612,
+            "tenusAPart": 0.5599999999999999
+          },
+          {
+            "appris": 0.604,
+            "tenusAPart": 0.6666666666666666
+          },
+          {
+            "appris": 0.644,
+            "tenusAPart": 0.52
+          },
+          {
+            "appris": 0.596,
+            "tenusAPart": 0.6
+          }
+        ]
+      },
+      {
+        "taille": 300,
+        "appris": 0.6086666666666667,
+        "tenusAPart": 0.632,
+        "ecartType": 0.05936287238067199,
+        "tirages": [
+          {
+            "appris": 0.6166666666666667,
+            "tenusAPart": 0.6
+          },
+          {
+            "appris": 0.5866666666666667,
+            "tenusAPart": 0.7066666666666667
+          },
+          {
+            "appris": 0.6,
+            "tenusAPart": 0.6799999999999999
+          },
+          {
+            "appris": 0.6066666666666667,
+            "tenusAPart": 0.6266666666666667
+          },
+          {
+            "appris": 0.6066666666666667,
+            "tenusAPart": 0.6533333333333333
+          },
+          {
+            "appris": 0.62,
+            "tenusAPart": 0.6133333333333333
+          },
+          {
+            "appris": 0.62,
+            "tenusAPart": 0.5066666666666667
+          },
+          {
+            "appris": 0.6033333333333334,
+            "tenusAPart": 0.6533333333333333
+          },
+          {
+            "appris": 0.6033333333333334,
+            "tenusAPart": 0.6933333333333334
+          },
+          {
+            "appris": 0.6233333333333333,
+            "tenusAPart": 0.5866666666666667
+          }
+        ]
+      }
+    ]
+  },
+  "mrsortProfils": {
+    "modeles": [
+      {
+        "nom": "sept",
+        "mode": "profils",
+        "lam": 0.6,
+        "methode": "poids fixés (points maximaux du Nutri-Score), profils appris",
+        "bienRanges": 114,
+        "total": 125,
+        "exactitude": 0.912,
+        "aUneClassePres": 1.0,
+        "matrice": [
+          [
+            20,
+            5,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            25,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            5,
+            20,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            24,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            25
+          ]
+        ],
+        "criteres": [
+          "en",
+          "sa",
+          "su",
+          "so",
+          "pr",
+          "fi",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.1388888888888889,
+          "sa": 0.1388888888888889,
+          "su": 0.20833333333333334,
+          "so": 0.2777777777777778,
+          "pr": 0.09722222222222222,
+          "fi": 0.06944444444444445,
+          "fr": 0.06944444444444445
+        },
+        "profils": [
+          {
+            "en": 1089.5,
+            "sa": 5.45,
+            "su": 7.1,
+            "so": 2.4000000000000004,
+            "pr": -0.59999999403954,
+            "fi": 2.45,
+            "fr": 20.310000000000002
+          },
+          {
+            "en": 769.5,
+            "sa": 3.65,
+            "su": 6.3,
+            "so": 1.24249998807905,
+            "pr": 4.1,
+            "fi": 3.1,
+            "fr": 29.80221354166665
+          },
+          {
+            "en": 465.15,
+            "sa": 1.55,
+            "su": 3.74999997615815,
+            "so": 1.03,
+            "pr": 4.449999999999999,
+            "fi": 3.25,
+            "fr": 58.0
+          },
+          {
+            "en": 465.15,
+            "sa": 1.15,
+            "su": -1,
+            "so": 0.815,
+            "pr": 7.15,
+            "fi": 3.55,
+            "fr": 75.4017857142857
+          }
+        ],
+        "optimum": 114,
+        "borne": 121,
+        "optimal": false
+      },
+      {
+        "nom": "sept",
+        "mode": "profils",
+        "lam": 0.7,
+        "methode": "poids fixés (points maximaux du Nutri-Score), profils appris",
+        "bienRanges": 120,
+        "total": 125,
+        "exactitude": 0.96,
+        "aUneClassePres": 0.992,
+        "matrice": [
+          [
+            25,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            21,
+            2,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            24,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            25,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            25
+          ]
+        ],
+        "criteres": [
+          "en",
+          "sa",
+          "su",
+          "so",
+          "pr",
+          "fi",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.1388888888888889,
+          "sa": 0.1388888888888889,
+          "su": 0.20833333333333334,
+          "so": 0.2777777777777778,
+          "pr": 0.09722222222222222,
+          "fi": 0.06944444444444445,
+          "fr": 0.06944444444444445
+        },
+        "profils": [
+          {
+            "en": 1089.5,
+            "sa": 5.95,
+            "su": 7.1,
+            "so": 3.4699999999999998,
+            "pr": -0.59999999403954,
+            "fi": -1,
+            "fr": 20.310000000000002
+          },
+          {
+            "en": 805.0,
+            "sa": 4.199999999999999,
+            "su": 6.8,
+            "so": 1.24249998807905,
+            "pr": 1.75,
+            "fi": -1,
+            "fr": 31.925
+          },
+          {
+            "en": 170.4,
+            "sa": 1.65,
+            "su": 6.8,
+            "so": 1.03,
+            "pr": 5.75,
+            "fi": -1,
+            "fr": 33.47256203527035
+          },
+          {
+            "en": 146.8,
+            "sa": 1.15,
+            "su": 6.8,
+            "so": 0.815,
+            "pr": 6.85,
+            "fi": 1.15,
+            "fr": 35.237562035270344
+          }
+        ],
+        "optimum": 120,
+        "borne": 120,
+        "optimal": true
+      },
+      {
+        "nom": "trois",
+        "mode": "profils",
+        "lam": 0.6,
+        "methode": "poids fixés (points maximaux du Nutri-Score), profils appris",
+        "bienRanges": 92,
+        "total": 125,
+        "exactitude": 0.736,
+        "aUneClassePres": 0.952,
+        "matrice": [
+          [
+            12,
+            8,
+            3,
+            0,
+            2
+          ],
+          [
+            0,
+            17,
+            7,
+            1,
+            0
+          ],
+          [
+            0,
+            6,
+            19,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            22,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            3,
+            22
+          ]
+        ],
+        "criteres": [
+          "en",
+          "so",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.2857142857142857,
+          "so": 0.5714285714285714,
+          "fr": 0.14285714285714285
+        },
+        "profils": [
+          {
+            "en": 1289.95,
+            "so": 4.15921052631579,
+            "fr": 20.310000000000002
+          },
+          {
+            "en": 830.5,
+            "so": 1.295,
+            "fr": 29.80221354166665
+          },
+          {
+            "en": 355.6,
+            "so": 1.03,
+            "fr": 29.80221354166665
+          },
+          {
+            "en": 145.5,
+            "so": 0.815,
+            "fr": 75.4017857142857
+          }
+        ],
+        "optimum": 92,
+        "borne": 92,
+        "optimal": true
+      },
+      {
+        "nom": "trois",
+        "mode": "profils",
+        "lam": 0.7,
+        "methode": "poids fixés (points maximaux du Nutri-Score), profils appris",
+        "bienRanges": 92,
+        "total": 125,
+        "exactitude": 0.736,
+        "aUneClassePres": 0.952,
+        "matrice": [
+          [
+            12,
+            8,
+            3,
+            0,
+            2
+          ],
+          [
+            0,
+            17,
+            7,
+            1,
+            0
+          ],
+          [
+            0,
+            6,
+            19,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            22,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            3,
+            22
+          ]
+        ],
+        "criteres": [
+          "en",
+          "so",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.2857142857142857,
+          "so": 0.5714285714285714,
+          "fr": 0.14285714285714285
+        },
+        "profils": [
+          {
+            "en": 1289.95,
+            "so": 4.15921052631579,
+            "fr": 20.310000000000002
+          },
+          {
+            "en": 830.5,
+            "so": 1.295,
+            "fr": 29.80221354166665
+          },
+          {
+            "en": 355.6,
+            "so": 1.03,
+            "fr": 29.80221354166665
+          },
+          {
+            "en": 145.5,
+            "so": 0.815,
+            "fr": 75.4017857142857
+          }
+        ],
+        "optimum": 92,
+        "borne": 92,
+        "optimal": true
+      }
+    ]
+  },
+  "modeleComplet": {
+    "modeles": [
+      {
+        "nom": "sept",
+        "mode": "complet",
+        "lam": 0.6,
+        "methode": "poids et profils appris (alternance)",
+        "bienRanges": 122,
+        "total": 125,
+        "exactitude": 0.976,
+        "aUneClassePres": 1.0,
+        "matrice": [
+          [
+            24,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            24,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            24,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            25,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            25
+          ]
+        ],
+        "criteres": [
+          "en",
+          "sa",
+          "su",
+          "so",
+          "pr",
+          "fi",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.12,
+          "sa": 0.239,
+          "su": 0.16,
+          "so": 0.2,
+          "pr": 0.12,
+          "fi": 0.041,
+          "fr": 0.12
+        },
+        "profils": [
+          {
+            "en": 1089.5,
+            "sa": 6.07017543859649,
+            "su": 7.1,
+            "so": 2.4000000000000004,
+            "pr": -0.59999999403954,
+            "fi": 2.55,
+            "fr": 20.310000000000002
+          },
+          {
+            "en": 830.5,
+            "sa": 4.199999999999999,
+            "su": 6.8,
+            "so": 1.24249998807905,
+            "pr": 2.35,
+            "fi": 3.25,
+            "fr": 39.79
+          },
+          {
+            "en": 170.4,
+            "sa": 1.65,
+            "su": 6.8,
+            "so": 1.03,
+            "pr": 5.95,
+            "fi": 3.25,
+            "fr": 39.79
+          },
+          {
+            "en": 146.8,
+            "sa": 1.15,
+            "su": 6.8,
+            "so": 0.795,
+            "pr": 7.15,
+            "fi": 3.55,
+            "fr": 75.4017857142857
+          }
+        ],
+        "historique": [
+          114,
+          119,
+          122,
+          122
+        ]
+      },
+      {
+        "nom": "sept",
+        "mode": "complet",
+        "lam": 0.7,
+        "methode": "poids et profils appris (alternance)",
+        "bienRanges": 120,
+        "total": 125,
+        "exactitude": 0.96,
+        "aUneClassePres": 0.992,
+        "matrice": [
+          [
+            25,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            21,
+            2,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            24,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            25,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            25
+          ]
+        ],
+        "criteres": [
+          "en",
+          "sa",
+          "su",
+          "so",
+          "pr",
+          "fi",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.1388888888888889,
+          "sa": 0.1388888888888889,
+          "su": 0.20833333333333334,
+          "so": 0.2777777777777778,
+          "pr": 0.09722222222222222,
+          "fi": 0.06944444444444445,
+          "fr": 0.06944444444444445
+        },
+        "profils": [
+          {
+            "en": 1089.5,
+            "sa": 5.95,
+            "su": 7.1,
+            "so": 3.4699999999999998,
+            "pr": -0.59999999403954,
+            "fi": -1,
+            "fr": 20.310000000000002
+          },
+          {
+            "en": 805.0,
+            "sa": 4.199999999999999,
+            "su": 6.8,
+            "so": 1.24249998807905,
+            "pr": 1.75,
+            "fi": -1,
+            "fr": 31.925
+          },
+          {
+            "en": 170.4,
+            "sa": 1.65,
+            "su": 6.8,
+            "so": 1.03,
+            "pr": 5.75,
+            "fi": -1,
+            "fr": 33.47256203527035
+          },
+          {
+            "en": 146.8,
+            "sa": 1.15,
+            "su": 6.8,
+            "so": 0.815,
+            "pr": 6.85,
+            "fi": 1.15,
+            "fr": 35.237562035270344
+          }
+        ],
+        "historique": [
+          120,
+          120
+        ]
+      },
+      {
+        "nom": "trois",
+        "mode": "complet",
+        "lam": 0.6,
+        "methode": "poids et profils appris (alternance)",
+        "bienRanges": 92,
+        "total": 125,
+        "exactitude": 0.736,
+        "aUneClassePres": 0.952,
+        "matrice": [
+          [
+            12,
+            8,
+            3,
+            0,
+            2
+          ],
+          [
+            0,
+            17,
+            7,
+            1,
+            0
+          ],
+          [
+            0,
+            6,
+            19,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            22,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            3,
+            22
+          ]
+        ],
+        "criteres": [
+          "en",
+          "so",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.2857142857142857,
+          "so": 0.5714285714285714,
+          "fr": 0.14285714285714285
+        },
+        "profils": [
+          {
+            "en": 1289.95,
+            "so": 4.15921052631579,
+            "fr": 20.310000000000002
+          },
+          {
+            "en": 830.5,
+            "so": 1.295,
+            "fr": 29.80221354166665
+          },
+          {
+            "en": 355.6,
+            "so": 1.03,
+            "fr": 29.80221354166665
+          },
+          {
+            "en": 145.5,
+            "so": 0.815,
+            "fr": 75.4017857142857
+          }
+        ],
+        "historique": [
+          92,
+          92
+        ]
+      },
+      {
+        "nom": "trois",
+        "mode": "complet",
+        "lam": 0.7,
+        "methode": "poids et profils appris (alternance)",
+        "bienRanges": 92,
+        "total": 125,
+        "exactitude": 0.736,
+        "aUneClassePres": 0.952,
+        "matrice": [
+          [
+            12,
+            8,
+            3,
+            0,
+            2
+          ],
+          [
+            0,
+            17,
+            7,
+            1,
+            0
+          ],
+          [
+            0,
+            6,
+            19,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            22,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            3,
+            22
+          ]
+        ],
+        "criteres": [
+          "en",
+          "so",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.2857142857142857,
+          "so": 0.5714285714285714,
+          "fr": 0.14285714285714285
+        },
+        "profils": [
+          {
+            "en": 1289.95,
+            "so": 4.15921052631579,
+            "fr": 20.310000000000002
+          },
+          {
+            "en": 830.5,
+            "so": 1.295,
+            "fr": 29.80221354166665
+          },
+          {
+            "en": 355.6,
+            "so": 1.03,
+            "fr": 29.80221354166665
+          },
+          {
+            "en": 145.5,
+            "so": 0.815,
+            "fr": 75.4017857142857
+          }
+        ],
+        "historique": [
+          92,
+          92
+        ]
+      }
+    ],
+    "exact": {
+      "sept": {
+        "existe": null,
+        "preuve": null,
+        "modele": null,
+        "paires": 0,
+        "limiteSecondes": 1800
+      },
+      "trois": {
+        "existe": false,
+        "preuve": "paires inversées",
+        "modele": null,
+        "paires": 143,
+        "limiteSecondes": 1800
+      }
+    }
+  },
+  "mrsortEtenduProfils": {
+    "modeles": [
+      {
+        "nom": "sept",
+        "mode": "profils",
+        "lam": 0.6,
+        "methode": "poids fixés (points maximaux du Nutri-Score), profils appris",
+        "bienRanges": 296,
+        "total": 375,
+        "exactitude": 0.7893333333333333,
+        "aUneClassePres": 0.9786666666666667,
+        "matrice": [
+          [
+            52,
+            19,
+            4,
+            0,
+            0
+          ],
+          [
+            2,
+            64,
+            8,
+            1,
+            0
+          ],
+          [
+            0,
+            17,
+            48,
+            9,
+            1
+          ],
+          [
+            0,
+            1,
+            6,
+            63,
+            5
+          ],
+          [
+            0,
+            0,
+            1,
+            5,
+            69
+          ]
+        ],
+        "criteres": [
+          "en",
+          "sa",
+          "su",
+          "so",
+          "pr",
+          "fi",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.1388888888888889,
+          "sa": 0.1388888888888889,
+          "su": 0.20833333333333334,
+          "so": 0.2777777777777778,
+          "pr": 0.09722222222222222,
+          "fi": 0.06944444444444445,
+          "fr": 0.06944444444444445
+        },
+        "profils": [
+          {
+            "en": 1683.35,
+            "sa": 6.425,
+            "su": 7.071428571428569,
+            "so": 1.295,
+            "pr": -0.6,
+            "fi": 1.35,
+            "fr": 12.56875
+          },
+          {
+            "en": 1683.35,
+            "sa": 4.05,
+            "su": 0.95,
+            "so": 1.26,
+            "pr": -0.6,
+            "fi": 1.697457627118645,
+            "fr": 33.556990919846754
+          },
+          {
+            "en": 1683.35,
+            "sa": 2.1500000000000004,
+            "su": 0.25,
+            "so": 1.008,
+            "pr": 2.95,
+            "fi": 2.1500000000000004,
+            "fr": 37.91875
+          },
+          {
+            "en": 1555.7,
+            "sa": 1.15,
+            "su": 0.15000000000000002,
+            "so": 0.785,
+            "pr": 7.15,
+            "fi": 2.6500000000000004,
+            "fr": 75.625
+          }
+        ],
+        "optimum": 296,
+        "borne": 362,
+        "optimal": false
+      },
+      {
+        "nom": "sept",
+        "mode": "profils",
+        "lam": 0.7,
+        "methode": "poids fixés (points maximaux du Nutri-Score), profils appris",
+        "bienRanges": 301,
+        "total": 375,
+        "exactitude": 0.8026666666666666,
+        "aUneClassePres": 0.9546666666666667,
+        "matrice": [
+          [
+            59,
+            9,
+            5,
+            2,
+            0
+          ],
+          [
+            13,
+            50,
+            11,
+            1,
+            0
+          ],
+          [
+            9,
+            10,
+            52,
+            4,
+            0
+          ],
+          [
+            0,
+            0,
+            2,
+            69,
+            4
+          ],
+          [
+            0,
+            0,
+            0,
+            4,
+            71
+          ]
+        ],
+        "criteres": [
+          "en",
+          "sa",
+          "su",
+          "so",
+          "pr",
+          "fi",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.1388888888888889,
+          "sa": 0.1388888888888889,
+          "su": 0.20833333333333334,
+          "so": 0.2777777777777778,
+          "pr": 0.09722222222222222,
+          "fi": 0.06944444444444445,
+          "fr": 0.06944444444444445
+        },
+        "profils": [
+          {
+            "en": 1089.5,
+            "sa": 7.55,
+            "su": 6.65,
+            "so": 2.46,
+            "pr": 1.45,
+            "fi": -1,
+            "fr": 11.285
+          },
+          {
+            "en": 821.75,
+            "sa": 3.75,
+            "su": 6.1,
+            "so": 1.23,
+            "pr": 1.85,
+            "fi": -1,
+            "fr": 36.93
+          },
+          {
+            "en": 584.0,
+            "sa": 1.05,
+            "su": 4.55,
+            "so": 1.008,
+            "pr": 5.55,
+            "fi": 0.95,
+            "fr": 40.122939453125
+          },
+          {
+            "en": 395.35000045597553,
+            "sa": 0.95,
+            "su": 4.55,
+            "so": 0.89,
+            "pr": 6.85,
+            "fi": 2.6500000000000004,
+            "fr": 81.94
+          }
+        ],
+        "optimum": 301,
+        "borne": 360,
+        "optimal": false
+      },
+      {
+        "nom": "trois",
+        "mode": "profils",
+        "lam": 0.6,
+        "methode": "poids fixés (points maximaux du Nutri-Score), profils appris",
+        "bienRanges": 248,
+        "total": 375,
+        "exactitude": 0.6613333333333333,
+        "aUneClassePres": 0.904,
+        "matrice": [
+          [
+            49,
+            10,
+            8,
+            1,
+            7
+          ],
+          [
+            22,
+            36,
+            11,
+            6,
+            0
+          ],
+          [
+            11,
+            15,
+            30,
+            17,
+            2
+          ],
+          [
+            0,
+            1,
+            3,
+            66,
+            5
+          ],
+          [
+            0,
+            0,
+            0,
+            8,
+            67
+          ]
+        ],
+        "criteres": [
+          "en",
+          "so",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.2857142857142857,
+          "so": 0.5714285714285714,
+          "fr": 0.14285714285714285
+        },
+        "profils": [
+          {
+            "en": 1299.6,
+            "so": 2.6500000000000004,
+            "fr": 38.555
+          },
+          {
+            "en": 851.25,
+            "so": 1.23,
+            "fr": 38.555
+          },
+          {
+            "en": 584.0,
+            "so": 1.008,
+            "fr": 43.59948412698415
+          },
+          {
+            "en": 465.7,
+            "so": 0.7775000000000001,
+            "fr": 76.57
+          }
+        ],
+        "optimum": 248,
+        "borne": 248,
+        "optimal": true
+      },
+      {
+        "nom": "trois",
+        "mode": "profils",
+        "lam": 0.7,
+        "methode": "poids fixés (points maximaux du Nutri-Score), profils appris",
+        "bienRanges": 248,
+        "total": 375,
+        "exactitude": 0.6613333333333333,
+        "aUneClassePres": 0.904,
+        "matrice": [
+          [
+            49,
+            10,
+            8,
+            1,
+            7
+          ],
+          [
+            22,
+            36,
+            11,
+            6,
+            0
+          ],
+          [
+            11,
+            15,
+            30,
+            17,
+            2
+          ],
+          [
+            0,
+            1,
+            3,
+            66,
+            5
+          ],
+          [
+            0,
+            0,
+            0,
+            8,
+            67
+          ]
+        ],
+        "criteres": [
+          "en",
+          "so",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.2857142857142857,
+          "so": 0.5714285714285714,
+          "fr": 0.14285714285714285
+        },
+        "profils": [
+          {
+            "en": 1299.6,
+            "so": 2.6500000000000004,
+            "fr": 38.555
+          },
+          {
+            "en": 851.25,
+            "so": 1.23,
+            "fr": 38.555
+          },
+          {
+            "en": 584.0,
+            "so": 1.008,
+            "fr": 43.59948412698415
+          },
+          {
+            "en": 465.7,
+            "so": 0.7775000000000001,
+            "fr": 76.57
+          }
+        ],
+        "optimum": 248,
+        "borne": 248,
+        "optimal": true
+      }
+    ]
+  },
+  "modeleCompletEtendu": {
+    "modeles": [
+      {
+        "nom": "sept",
+        "mode": "complet",
+        "lam": 0.6,
+        "methode": "poids et profils appris (alternance)",
+        "bienRanges": 316,
+        "total": 375,
+        "exactitude": 0.8426666666666667,
+        "aUneClassePres": 0.9866666666666667,
+        "matrice": [
+          [
+            52,
+            21,
+            2,
+            0,
+            0
+          ],
+          [
+            1,
+            69,
+            5,
+            0,
+            0
+          ],
+          [
+            2,
+            19,
+            51,
+            2,
+            1
+          ],
+          [
+            0,
+            0,
+            3,
+            72,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            3,
+            72
+          ]
+        ],
+        "criteres": [
+          "en",
+          "sa",
+          "su",
+          "so",
+          "pr",
+          "fi",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.15,
+          "sa": 0.15,
+          "su": 0.15,
+          "so": 0.251,
+          "pr": 0.149,
+          "fi": 0.049,
+          "fr": 0.101
+        },
+        "profils": [
+          {
+            "en": 1525.8000000000002,
+            "sa": 7.55,
+            "su": 6.9,
+            "so": 1.295,
+            "pr": 4.55,
+            "fi": -1,
+            "fr": 11.285
+          },
+          {
+            "en": 821.75,
+            "sa": 3.8499999999999996,
+            "su": 6.9,
+            "so": 1.23,
+            "pr": 5.85,
+            "fi": 0.53,
+            "fr": 42.732421875
+          },
+          {
+            "en": 703.35,
+            "sa": 1.05,
+            "su": 6.65,
+            "so": 1.08,
+            "pr": 7.15,
+            "fi": 2.55,
+            "fr": 42.732421875
+          },
+          {
+            "en": 120.7,
+            "sa": 1.05,
+            "su": 6.65,
+            "so": 0.79125,
+            "pr": 7.15,
+            "fi": 3.6500000000000004,
+            "fr": 74.7767857142857
+          }
+        ],
+        "historique": [
+          297,
+          301,
+          307,
+          309,
+          316,
+          316
+        ]
+      },
+      {
+        "nom": "sept",
+        "mode": "complet",
+        "lam": 0.7,
+        "methode": "poids et profils appris (alternance)",
+        "bienRanges": 322,
+        "total": 375,
+        "exactitude": 0.8586666666666667,
+        "aUneClassePres": 0.9813333333333333,
+        "matrice": [
+          [
+            62,
+            8,
+            5,
+            0,
+            0
+          ],
+          [
+            4,
+            61,
+            9,
+            1,
+            0
+          ],
+          [
+            1,
+            12,
+            58,
+            4,
+            0
+          ],
+          [
+            0,
+            0,
+            3,
+            68,
+            4
+          ],
+          [
+            0,
+            0,
+            0,
+            2,
+            73
+          ]
+        ],
+        "criteres": [
+          "en",
+          "sa",
+          "su",
+          "so",
+          "pr",
+          "fi",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.133,
+          "sa": 0.133,
+          "su": 0.133,
+          "so": 0.3,
+          "pr": 0.134,
+          "fi": 0.033,
+          "fr": 0.134
+        },
+        "profils": [
+          {
+            "en": 1175.5,
+            "sa": 7.55,
+            "su": 6.65,
+            "so": 3.325,
+            "pr": -0.6,
+            "fi": 0.1,
+            "fr": 38.555
+          },
+          {
+            "en": 802.05,
+            "sa": 4.05,
+            "su": 6.300000000000001,
+            "so": 1.23,
+            "pr": -0.6,
+            "fi": 1.51,
+            "fr": 39.857939453125
+          },
+          {
+            "en": 511.75,
+            "sa": 1.55,
+            "su": 4.05,
+            "so": 1.04,
+            "pr": 3.05,
+            "fi": 1.51,
+            "fr": 40.625
+          },
+          {
+            "en": 417.5,
+            "sa": 0.95,
+            "su": 3.5999999523163,
+            "so": 0.89,
+            "pr": 7.300000000000001,
+            "fi": 1.56,
+            "fr": 79.65916666666665
+          }
+        ],
+        "historique": [
+          301,
+          308,
+          322,
+          322
+        ]
+      },
+      {
+        "nom": "trois",
+        "mode": "complet",
+        "lam": 0.6,
+        "methode": "poids et profils appris (alternance)",
+        "bienRanges": 267,
+        "total": 375,
+        "exactitude": 0.712,
+        "aUneClassePres": 0.9333333333333333,
+        "matrice": [
+          [
+            43,
+            14,
+            10,
+            1,
+            7
+          ],
+          [
+            8,
+            47,
+            16,
+            4,
+            0
+          ],
+          [
+            1,
+            10,
+            46,
+            16,
+            2
+          ],
+          [
+            0,
+            0,
+            4,
+            66,
+            5
+          ],
+          [
+            0,
+            0,
+            0,
+            10,
+            65
+          ]
+        ],
+        "criteres": [
+          "en",
+          "so",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.2,
+          "so": 0.4,
+          "fr": 0.4
+        },
+        "profils": [
+          {
+            "en": 1299.6,
+            "so": 3.0,
+            "fr": 38.555
+          },
+          {
+            "en": 851.25,
+            "so": 1.205,
+            "fr": 41.057500000000005
+          },
+          {
+            "en": 703.35,
+            "so": 0.605,
+            "fr": 41.057500000000005
+          },
+          {
+            "en": 679.6,
+            "so": 0.455,
+            "fr": 75.625
+          }
+        ],
+        "historique": [
+          248,
+          250,
+          267,
+          267
+        ]
+      },
+      {
+        "nom": "trois",
+        "mode": "complet",
+        "lam": 0.7,
+        "methode": "poids et profils appris (alternance)",
+        "bienRanges": 248,
+        "total": 375,
+        "exactitude": 0.6613333333333333,
+        "aUneClassePres": 0.904,
+        "matrice": [
+          [
+            49,
+            10,
+            8,
+            1,
+            7
+          ],
+          [
+            22,
+            36,
+            11,
+            6,
+            0
+          ],
+          [
+            11,
+            15,
+            30,
+            17,
+            2
+          ],
+          [
+            0,
+            1,
+            3,
+            66,
+            5
+          ],
+          [
+            0,
+            0,
+            0,
+            8,
+            67
+          ]
+        ],
+        "criteres": [
+          "en",
+          "so",
+          "fr"
+        ],
+        "poids": {
+          "en": 0.2857142857142857,
+          "so": 0.5714285714285714,
+          "fr": 0.14285714285714285
+        },
+        "profils": [
+          {
+            "en": 1299.6,
+            "so": 2.6500000000000004,
+            "fr": 38.555
+          },
+          {
+            "en": 851.25,
+            "so": 1.23,
+            "fr": 38.555
+          },
+          {
+            "en": 584.0,
+            "so": 1.008,
+            "fr": 43.59948412698415
+          },
+          {
+            "en": 465.7,
+            "so": 0.7775000000000001,
+            "fr": 76.57
+          }
+        ],
+        "historique": [
+          248,
+          248
+        ]
+      }
+    ]
+  },
+  "validationCroisee": {
+    "plis": 5,
+    "graine": 2026,
+    "limiteSecondes": 300,
+    "modeles": [
+      {
+        "lam": 0.6,
+        "criteres": [
+          "en",
+          "sa",
+          "su",
+          "so",
+          "pr",
+          "fi",
+          "fr"
+        ],
+        "plis": 5,
+        "parts": [
+          {
+            "bienRanges": 49,
+            "total": 75,
+            "exactitude": 0.6533333333333333,
+            "borne": 211,
+            "optimal": true
+          },
+          {
+            "bienRanges": 53,
+            "total": 75,
+            "exactitude": 0.7066666666666667,
+            "borne": 204,
+            "optimal": true
+          },
+          {
+            "bienRanges": 47,
+            "total": 75,
+            "exactitude": 0.6266666666666667,
+            "borne": 209,
+            "optimal": true
+          },
+          {
+            "bienRanges": 49,
+            "total": 75,
+            "exactitude": 0.6533333333333333,
+            "borne": 208,
+            "optimal": true
+          },
+          {
+            "bienRanges": 44,
+            "total": 75,
+            "exactitude": 0.5866666666666667,
+            "borne": 203,
+            "optimal": true
+          }
+        ],
+        "exactitudeMoyenne": 0.6453333333333333,
+        "ecartType": 0.04381780460041328,
+        "comparaison": {
+          "total": 375,
+          "bienRanges": 242,
+          "exactitude": 0.6453333333333333,
+          "exactitudeEquilibree": 0.6453333333333333,
+          "aUneClassePres": 0.936,
+          "matrice": [
+            [
+              47,
+              17,
+              10,
+              1,
+              0
+            ],
+            [
+              16,
+              34,
+              21,
+              4,
+              0
+            ],
+            [
+              7,
+              16,
+              36,
+              15,
+              1
+            ],
+            [
+              0,
+              1,
+              4,
+              61,
+              9
+            ],
+            [
+              0,
+              0,
+              0,
+              11,
+              64
+            ]
+          ]
+        },
+        "nom": "sept",
+        "mode": "poids",
+        "secondes": 45
+      },
+      {
+        "lam": 0.7,
+        "criteres": [
+          "en",
+          "sa",
+          "su",
+          "so",
+          "pr",
+          "fi",
+          "fr"
+        ],
+        "plis": 5,
+        "parts": [
+          {
+            "bienRanges": 46,
+            "total": 75,
+            "exactitude": 0.6133333333333333,
+            "borne": 196,
+            "optimal": true
+          },
+          {
+            "bienRanges": 47,
+            "total": 75,
+            "exactitude": 0.6266666666666667,
+            "borne": 190,
+            "optimal": true
+          },
+          {
+            "bienRanges": 43,
+            "total": 75,
+            "exactitude": 0.5733333333333334,
+            "borne": 195,
+            "optimal": true
+          },
+          {
+            "bienRanges": 46,
+            "total": 75,
+            "exactitude": 0.6133333333333333,
+            "borne": 191,
+            "optimal": true
+          },
+          {
+            "bienRanges": 47,
+            "total": 75,
+            "exactitude": 0.6266666666666667,
+            "borne": 190,
+            "optimal": true
+          }
+        ],
+        "exactitudeMoyenne": 0.6106666666666667,
+        "ecartType": 0.021908902300206645,
+        "comparaison": {
+          "total": 375,
+          "bienRanges": 229,
+          "exactitude": 0.6106666666666667,
+          "exactitudeEquilibree": 0.6106666666666667,
+          "aUneClassePres": 0.928,
+          "matrice": [
+            [
+              43,
+              16,
+              10,
+              2,
+              4
+            ],
+            [
+              15,
+              36,
+              21,
+              3,
+              0
+            ],
+            [
+              6,
+              15,
+              27,
+              26,
+              1
+            ],
+            [
+              0,
+              1,
+              5,
+              54,
+              15
+            ],
+            [
+              0,
+              0,
+              0,
+              6,
+              69
+            ]
+          ]
+        },
+        "nom": "sept",
+        "mode": "poids",
+        "secondes": 70
+      },
+      {
+        "lam": 0.6,
+        "criteres": [
+          "en",
+          "sa",
+          "su",
+          "so",
+          "pr",
+          "fi",
+          "fr"
+        ],
+        "plis": 5,
+        "parts": [
+          {
+            "bienRanges": 52,
+            "total": 75,
+            "exactitude": 0.6933333333333334,
+            "borne": 293,
+            "optimal": false
+          },
+          {
+            "bienRanges": 54,
+            "total": 75,
+            "exactitude": 0.72,
+            "borne": 293,
+            "optimal": false
+          },
+          {
+            "bienRanges": 56,
+            "total": 75,
+            "exactitude": 0.7466666666666667,
+            "borne": 290,
+            "optimal": false
+          },
+          {
+            "bienRanges": 49,
+            "total": 75,
+            "exactitude": 0.6533333333333333,
+            "borne": 291,
+            "optimal": false
+          },
+          {
+            "bienRanges": 53,
+            "total": 75,
+            "exactitude": 0.7066666666666667,
+            "borne": 291,
+            "optimal": false
+          }
+        ],
+        "exactitudeMoyenne": 0.704,
+        "ecartType": 0.034512477614786104,
+        "comparaison": {
+          "total": 375,
+          "bienRanges": 264,
+          "exactitude": 0.704,
+          "exactitudeEquilibree": 0.704,
+          "aUneClassePres": 0.9733333333333334,
+          "matrice": [
+            [
+              44,
+              23,
+              8,
+              0,
+              0
+            ],
+            [
+              11,
+              45,
+              18,
+              1,
+              0
+            ],
+            [
+              1,
+              16,
+              48,
+              10,
+              0
+            ],
+            [
+              0,
+              0,
+              7,
+              60,
+              8
+            ],
+            [
+              0,
+              0,
+              0,
+              8,
+              67
+            ]
+          ]
+        },
+        "nom": "sept",
+        "mode": "profils",
+        "secondes": 1501
+      },
+      {
+        "lam": 0.7,
+        "criteres": [
+          "en",
+          "sa",
+          "su",
+          "so",
+          "pr",
+          "fi",
+          "fr"
+        ],
+        "plis": 5,
+        "parts": [
+          {
+            "bienRanges": 51,
+            "total": 75,
+            "exactitude": 0.68,
+            "borne": 290,
+            "optimal": false
+          },
+          {
+            "bienRanges": 53,
+            "total": 75,
+            "exactitude": 0.7066666666666667,
+            "borne": 289,
+            "optimal": false
+          },
+          {
+            "bienRanges": 50,
+            "total": 75,
+            "exactitude": 0.6666666666666666,
+            "borne": 289,
+            "optimal": false
+          },
+          {
+            "bienRanges": 57,
+            "total": 75,
+            "exactitude": 0.76,
+            "borne": 291,
+            "optimal": false
+          },
+          {
+            "bienRanges": 54,
+            "total": 75,
+            "exactitude": 0.72,
+            "borne": 291,
+            "optimal": false
+          }
+        ],
+        "exactitudeMoyenne": 0.7066666666666667,
+        "ecartType": 0.03651483716701107,
+        "comparaison": {
+          "total": 375,
+          "bienRanges": 265,
+          "exactitude": 0.7066666666666667,
+          "exactitudeEquilibree": 0.7066666666666667,
+          "aUneClassePres": 0.96,
+          "matrice": [
+            [
+              49,
+              20,
+              6,
+              0,
+              0
+            ],
+            [
+              16,
+              46,
+              11,
+              2,
+              0
+            ],
+            [
+              7,
+              17,
+              45,
+              6,
+              0
+            ],
+            [
+              0,
+              0,
+              9,
+              61,
+              5
+            ],
+            [
+              0,
+              0,
+              0,
+              11,
+              64
+            ]
+          ]
+        },
+        "nom": "sept",
+        "mode": "profils",
+        "secondes": 1501
+      },
+      {
+        "lam": 0.6,
+        "criteres": [
+          "en",
+          "sa",
+          "su",
+          "so",
+          "pr",
+          "fi",
+          "fr"
+        ],
+        "plis": 5,
+        "parts": [
+          {
+            "bienRanges": 50,
+            "total": 75,
+            "exactitude": 0.6666666666666666,
+            "borne": null,
+            "optimal": null
+          },
+          {
+            "bienRanges": 47,
+            "total": 75,
+            "exactitude": 0.6266666666666667,
+            "borne": null,
+            "optimal": null
+          },
+          {
+            "bienRanges": 41,
+            "total": 75,
+            "exactitude": 0.5466666666666666,
+            "borne": null,
+            "optimal": null
+          },
+          {
+            "bienRanges": 49,
+            "total": 75,
+            "exactitude": 0.6533333333333333,
+            "borne": null,
+            "optimal": null
+          },
+          {
+            "bienRanges": 53,
+            "total": 75,
+            "exactitude": 0.7066666666666667,
+            "borne": null,
+            "optimal": null
+          }
+        ],
+        "exactitudeMoyenne": 0.64,
+        "ecartType": 0.0596284793999944,
+        "comparaison": {
+          "total": 375,
+          "bienRanges": 240,
+          "exactitude": 0.64,
+          "exactitudeEquilibree": 0.64,
+          "aUneClassePres": 0.984,
+          "matrice": [
+            [
+              41,
+              29,
+              5,
+              0,
+              0
+            ],
+            [
+              10,
+              39,
+              26,
+              0,
+              0
+            ],
+            [
+              1,
+              21,
+              40,
+              13,
+              0
+            ],
+            [
+              0,
+              0,
+              10,
+              57,
+              8
+            ],
+            [
+              0,
+              0,
+              0,
+              12,
+              63
+            ]
+          ]
+        },
+        "nom": "sept",
+        "mode": "complet",
+        "secondes": 3908
+      },
+      {
+        "lam": 0.7,
+        "criteres": [
+          "en",
+          "sa",
+          "su",
+          "so",
+          "pr",
+          "fi",
+          "fr"
+        ],
+        "plis": 5,
+        "parts": [
+          {
+            "bienRanges": 51,
+            "total": 75,
+            "exactitude": 0.68,
+            "borne": null,
+            "optimal": null
+          },
+          {
+            "bienRanges": 48,
+            "total": 75,
+            "exactitude": 0.64,
+            "borne": null,
+            "optimal": null
+          },
+          {
+            "bienRanges": 54,
+            "total": 75,
+            "exactitude": 0.72,
+            "borne": null,
+            "optimal": null
+          },
+          {
+            "bienRanges": 58,
+            "total": 75,
+            "exactitude": 0.7733333333333333,
+            "borne": null,
+            "optimal": null
+          },
+          {
+            "bienRanges": 55,
+            "total": 75,
+            "exactitude": 0.7333333333333333,
+            "borne": null,
+            "optimal": null
+          }
+        ],
+        "exactitudeMoyenne": 0.7093333333333334,
+        "ecartType": 0.05112077203381548,
+        "comparaison": {
+          "total": 375,
+          "bienRanges": 266,
+          "exactitude": 0.7093333333333334,
+          "exactitudeEquilibree": 0.7093333333333334,
+          "aUneClassePres": 0.9653333333333334,
+          "matrice": [
+            [
+              48,
+              22,
+              5,
+              0,
+              0
+            ],
+            [
+              14,
+              47,
+              12,
+              2,
+              0
+            ],
+            [
+              6,
+              21,
+              41,
+              7,
+              0
+            ],
+            [
+              0,
+              0,
+              6,
+              64,
+              5
+            ],
+            [
+              0,
+              0,
+              0,
+              9,
+              66
+            ]
+          ]
+        },
+        "nom": "sept",
+        "mode": "complet",
+        "secondes": 2830
+      },
+      {
+        "lam": 0.6,
+        "criteres": [
+          "en",
+          "so",
+          "fr"
+        ],
+        "plis": 5,
+        "parts": [
+          {
+            "bienRanges": 44,
+            "total": 75,
+            "exactitude": 0.5866666666666667,
+            "borne": 187,
+            "optimal": true
+          },
+          {
+            "bienRanges": 47,
+            "total": 75,
+            "exactitude": 0.6266666666666667,
+            "borne": 183,
+            "optimal": true
+          },
+          {
+            "bienRanges": 40,
+            "total": 75,
+            "exactitude": 0.5333333333333333,
+            "borne": 187,
+            "optimal": true
+          },
+          {
+            "bienRanges": 49,
+            "total": 75,
+            "exactitude": 0.6533333333333333,
+            "borne": 180,
+            "optimal": true
+          },
+          {
+            "bienRanges": 47,
+            "total": 75,
+            "exactitude": 0.6266666666666667,
+            "borne": 179,
+            "optimal": true
+          }
+        ],
+        "exactitudeMoyenne": 0.6053333333333334,
+        "ecartType": 0.04676180777800049,
+        "comparaison": {
+          "total": 375,
+          "bienRanges": 227,
+          "exactitude": 0.6053333333333333,
+          "exactitudeEquilibree": 0.6053333333333334,
+          "aUneClassePres": 0.9253333333333333,
+          "matrice": [
+            [
+              43,
+              13,
+              9,
+              2,
+              8
+            ],
+            [
+              18,
+              28,
+              25,
+              3,
+              1
+            ],
+            [
+              3,
+              16,
+              33,
+              21,
+              2
+            ],
+            [
+              0,
+              0,
+              5,
+              59,
+              11
+            ],
+            [
+              0,
+              0,
+              0,
+              11,
+              64
+            ]
+          ]
+        },
+        "nom": "trois",
+        "mode": "poids",
+        "secondes": 3
+      },
+      {
+        "lam": 0.7,
+        "criteres": [
+          "en",
+          "so",
+          "fr"
+        ],
+        "plis": 5,
+        "parts": [
+          {
+            "bienRanges": 44,
+            "total": 75,
+            "exactitude": 0.5866666666666667,
+            "borne": 187,
+            "optimal": true
+          },
+          {
+            "bienRanges": 47,
+            "total": 75,
+            "exactitude": 0.6266666666666667,
+            "borne": 183,
+            "optimal": true
+          },
+          {
+            "bienRanges": 40,
+            "total": 75,
+            "exactitude": 0.5333333333333333,
+            "borne": 187,
+            "optimal": true
+          },
+          {
+            "bienRanges": 49,
+            "total": 75,
+            "exactitude": 0.6533333333333333,
+            "borne": 180,
+            "optimal": true
+          },
+          {
+            "bienRanges": 47,
+            "total": 75,
+            "exactitude": 0.6266666666666667,
+            "borne": 179,
+            "optimal": true
+          }
+        ],
+        "exactitudeMoyenne": 0.6053333333333334,
+        "ecartType": 0.04676180777800049,
+        "comparaison": {
+          "total": 375,
+          "bienRanges": 227,
+          "exactitude": 0.6053333333333333,
+          "exactitudeEquilibree": 0.6053333333333334,
+          "aUneClassePres": 0.9253333333333333,
+          "matrice": [
+            [
+              43,
+              13,
+              9,
+              2,
+              8
+            ],
+            [
+              18,
+              28,
+              25,
+              3,
+              1
+            ],
+            [
+              3,
+              16,
+              33,
+              21,
+              2
+            ],
+            [
+              0,
+              0,
+              5,
+              59,
+              11
+            ],
+            [
+              0,
+              0,
+              0,
+              11,
+              64
+            ]
+          ]
+        },
+        "nom": "trois",
+        "mode": "poids",
+        "secondes": 1
+      },
+      {
+        "lam": 0.6,
+        "criteres": [
+          "en",
+          "so",
+          "fr"
+        ],
+        "plis": 5,
+        "parts": [
+          {
+            "bienRanges": 47,
+            "total": 75,
+            "exactitude": 0.6266666666666667,
+            "borne": 200,
+            "optimal": true
+          },
+          {
+            "bienRanges": 40,
+            "total": 75,
+            "exactitude": 0.5333333333333333,
+            "borne": 202,
+            "optimal": true
+          },
+          {
+            "bienRanges": 41,
+            "total": 75,
+            "exactitude": 0.5466666666666666,
+            "borne": 204,
+            "optimal": true
+          },
+          {
+            "bienRanges": 43,
+            "total": 75,
+            "exactitude": 0.5733333333333334,
+            "borne": 204,
+            "optimal": false
+          },
+          {
+            "bienRanges": 38,
+            "total": 75,
+            "exactitude": 0.5066666666666667,
+            "borne": 204,
+            "optimal": true
+          }
+        ],
+        "exactitudeMoyenne": 0.5573333333333333,
+        "ecartType": 0.04560701700396553,
+        "comparaison": {
+          "total": 375,
+          "bienRanges": 209,
+          "exactitude": 0.5573333333333333,
+          "exactitudeEquilibree": 0.5573333333333333,
+          "aUneClassePres": 0.8773333333333333,
+          "matrice": [
+            [
+              33,
+              14,
+              19,
+              2,
+              7
+            ],
+            [
+              22,
+              25,
+              22,
+              6,
+              0
+            ],
+            [
+              9,
+              16,
+              29,
+              19,
+              2
+            ],
+            [
+              0,
+              1,
+              5,
+              57,
+              12
+            ],
+            [
+              0,
+              0,
+              0,
+              10,
+              65
+            ]
+          ]
+        },
+        "nom": "trois",
+        "mode": "profils",
+        "secondes": 1093
+      },
+      {
+        "lam": 0.7,
+        "criteres": [
+          "en",
+          "so",
+          "fr"
+        ],
+        "plis": 5,
+        "parts": [
+          {
+            "bienRanges": 47,
+            "total": 75,
+            "exactitude": 0.6266666666666667,
+            "borne": 200,
+            "optimal": true
+          },
+          {
+            "bienRanges": 40,
+            "total": 75,
+            "exactitude": 0.5333333333333333,
+            "borne": 202,
+            "optimal": true
+          },
+          {
+            "bienRanges": 41,
+            "total": 75,
+            "exactitude": 0.5466666666666666,
+            "borne": 204,
+            "optimal": true
+          },
+          {
+            "bienRanges": 45,
+            "total": 75,
+            "exactitude": 0.6,
+            "borne": 205,
+            "optimal": false
+          },
+          {
+            "bienRanges": 38,
+            "total": 75,
+            "exactitude": 0.5066666666666667,
+            "borne": 204,
+            "optimal": true
+          }
+        ],
+        "exactitudeMoyenne": 0.5626666666666666,
+        "ecartType": 0.049351348062191325,
+        "comparaison": {
+          "total": 375,
+          "bienRanges": 211,
+          "exactitude": 0.5626666666666666,
+          "exactitudeEquilibree": 0.5626666666666666,
+          "aUneClassePres": 0.8666666666666667,
+          "matrice": [
+            [
+              34,
+              9,
+              23,
+              2,
+              7
+            ],
+            [
+              25,
+              18,
+              26,
+              6,
+              0
+            ],
+            [
+              9,
+              9,
+              36,
+              19,
+              2
+            ],
+            [
+              0,
+              1,
+              5,
+              57,
+              12
+            ],
+            [
+              0,
+              0,
+              0,
+              9,
+              66
+            ]
+          ]
+        },
+        "nom": "trois",
+        "mode": "profils",
+        "secondes": 1112
+      },
+      {
+        "lam": 0.6,
+        "criteres": [
+          "en",
+          "so",
+          "fr"
+        ],
+        "plis": 5,
+        "parts": [
+          {
+            "bienRanges": 51,
+            "total": 75,
+            "exactitude": 0.68,
+            "borne": null,
+            "optimal": null
+          },
+          {
+            "bienRanges": 40,
+            "total": 75,
+            "exactitude": 0.5333333333333333,
+            "borne": null,
+            "optimal": null
+          },
+          {
+            "bienRanges": 41,
+            "total": 75,
+            "exactitude": 0.5466666666666666,
+            "borne": null,
+            "optimal": null
+          },
+          {
+            "bienRanges": 43,
+            "total": 75,
+            "exactitude": 0.5733333333333334,
+            "borne": null,
+            "optimal": null
+          },
+          {
+            "bienRanges": 48,
+            "total": 75,
+            "exactitude": 0.64,
+            "borne": null,
+            "optimal": null
+          }
+        ],
+        "exactitudeMoyenne": 0.5946666666666667,
+        "ecartType": 0.0629638344166272,
+        "comparaison": {
+          "total": 375,
+          "bienRanges": 223,
+          "exactitude": 0.5946666666666667,
+          "exactitudeEquilibree": 0.5946666666666667,
+          "aUneClassePres": 0.904,
+          "matrice": [
+            [
+              36,
+              16,
+              14,
+              2,
+              7
+            ],
+            [
+              19,
+              30,
+              21,
+              5,
+              0
+            ],
+            [
+              5,
+              16,
+              33,
+              19,
+              2
+            ],
+            [
+              0,
+              1,
+              3,
+              59,
+              12
+            ],
+            [
+              0,
+              0,
+              0,
+              10,
+              65
+            ]
+          ]
+        },
+        "nom": "trois",
+        "mode": "complet",
+        "secondes": 1278
+      },
+      {
+        "lam": 0.7,
+        "criteres": [
+          "en",
+          "so",
+          "fr"
+        ],
+        "plis": 5,
+        "parts": [
+          {
+            "bienRanges": 47,
+            "total": 75,
+            "exactitude": 0.6266666666666667,
+            "borne": null,
+            "optimal": null
+          },
+          {
+            "bienRanges": 40,
+            "total": 75,
+            "exactitude": 0.5333333333333333,
+            "borne": null,
+            "optimal": null
+          },
+          {
+            "bienRanges": 41,
+            "total": 75,
+            "exactitude": 0.5466666666666666,
+            "borne": null,
+            "optimal": null
+          },
+          {
+            "bienRanges": 43,
+            "total": 75,
+            "exactitude": 0.5733333333333334,
+            "borne": null,
+            "optimal": null
+          },
+          {
+            "bienRanges": 46,
+            "total": 75,
+            "exactitude": 0.6133333333333333,
+            "borne": null,
+            "optimal": null
+          }
+        ],
+        "exactitudeMoyenne": 0.5786666666666667,
+        "ecartType": 0.040661201818605094,
+        "comparaison": {
+          "total": 375,
+          "bienRanges": 217,
+          "exactitude": 0.5786666666666667,
+          "exactitudeEquilibree": 0.5786666666666667,
+          "aUneClassePres": 0.8906666666666667,
+          "matrice": [
+            [
+              38,
+              14,
+              14,
+              2,
+              7
+            ],
+            [
+              23,
+              27,
+              19,
+              6,
+              0
+            ],
+            [
+              9,
+              16,
+              29,
+              19,
+              2
+            ],
+            [
+              0,
+              1,
+              5,
+              57,
+              12
+            ],
+            [
+              0,
+              0,
+              0,
+              9,
+              66
+            ]
+          ]
+        },
+        "nom": "trois",
+        "mode": "complet",
+        "secondes": 1152
+      }
+    ]
+  }
+}
