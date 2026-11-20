@@ -30,11 +30,14 @@ Commande :
     python3 projet_supernutri.py   # range les deux bases, écrit resultats/supernutri_*.xlsx et la clé « supernutri » du JSON
 """
 
+import csv
 import math
 import random
 import re
+from pathlib import Path
 
-from projet_base import DOSSIER, FICHIER_BASE, FICHIER_BASE_ETENDUE, enregistrerResultats, lireBase
+from projet_base import (DOSSIER, DOSSIER_BRUT, FICHIER_BASE, FICHIER_BASE_ETENDUE, champsDeLaFiche,
+                         enregistrerResultats, ficheEnDirect, intersectionAvecAutreBase, lireBase)
 from projet_mrsort import (CLASSES, PROFILS, TOLERANCE, affecter, classeDuLabel, comparerAuNutriscore,
                            concordancePartielle, nomDeClasse)
 from projet_nutriscore import POINTS_MAX
@@ -618,12 +621,175 @@ def ecartsAuNutriscore(produits, modele=None):
             "plusGrandsEcarts": [ligne for ligne in plusGrands if ligne["ecart"] != 0]}
 
 
-def importerBaseAutreGroupe(fichier, correspondance):
+# --- Question 3.4 : la base d'un autre groupe ---
+
+# Nos clés, dans l'ordre : la correspondance donne, pour chacune, le nom de la colonne de leur base
+CLES_AUTRE_GROUPE = ["code", "nom", "en", "sa", "su", "so", "pr", "fi", "fr", "label", "nova", "additifs",
+                     "listeAdditifs", "bio", "leurClasse"]
+
+# Leur base, à déposer dans donnees/autre_groupe/, et la correspondance de ses colonnes, à remplir à son arrivée
+FICHIER_AUTRE_GROUPE = DOSSIER / "donnees" / "autre_groupe" / "base_autre_groupe.xlsx"
+CORRESPONDANCE_AUTRE_GROUPE = {}
+
+
+def lignesDuFichier(fichier):
     """
-    Lit la base d'un autre groupe, en renommant ses colonnes selon la correspondance donnée.
-    Le groupe NOVA et les additifs sont récupérés sur OFF par code-barres s'ils manquent.
+    Les lignes d'un Excel (sa première feuille) ou d'un CSV (séparé par des virgules ou des
+    points-virgules), chacune en dictionnaire {en-tête : valeur}. Les lignes vides sont sautées.
     """
-    raise NotImplementedError("phase 3")
+    fichier = Path(fichier)
+    if fichier.suffix.lower() == ".csv":
+        lignes = fichier.read_text(encoding="utf-8-sig").splitlines()
+        separateur = ";" if lignes[0].count(";") > lignes[0].count(",") else ","
+        return [dict(ligne) for ligne in csv.DictReader(lignes, delimiter=separateur)]
+    from openpyxl import load_workbook
+
+    feuille = load_workbook(fichier, read_only=True, data_only=True).worksheets[0]
+    lignes = list(feuille.iter_rows(values_only=True))
+    entetes = ["" if entete is None else str(entete).strip() for entete in lignes[0]]
+    return [dict(zip(entetes, ligne)) for ligne in lignes[1:] if any(valeur is not None for valeur in ligne)]
+
+
+def nombreDeLaCellule(valeur):
+    """Un nombre lu dans une cellule : 1.5, « 1,5 » ou « 1,5 g » donnent 1.5 ; une cellule vide ou sans nombre donne None."""
+    if valeur is None:
+        return None
+    if isinstance(valeur, (int, float)):
+        return valeur
+    trouve = re.search(r"-?\d+(?:[.,]\d+)?", str(valeur))
+    return float(trouve.group(0).replace(",", ".")) if trouve else None
+
+
+def codeDeLaCellule(valeur):
+    """Un code-barres en texte : un nombre perd sa partie décimale, un texte garde ses zéros de tête."""
+    if valeur is None:
+        return ""
+    if isinstance(valeur, float):
+        valeur = int(valeur)
+    return str(valeur).replace(" ", "").strip()
+
+
+def lettreDeLaCellule(valeur):
+    """La lettre d'une classe : « B », « b », « C′ » ou « A' » donnent B, C ou A ; sinon None."""
+    texte = str(valeur or "").strip().upper()
+    return texte[0] if texte and texte[0] in "ABCDE" else None
+
+
+def bioDeLaCellule(valeur):
+    """« oui » ou « non » pour un bio écrit oui/non, yes/no, vrai/faux ou 1/0 ; None si la cellule est vide."""
+    texte = str(valeur).strip().lower() if valeur is not None else ""
+    if texte in ("oui", "o", "yes", "y", "true", "vrai", "1", "bio"):
+        return "oui"
+    if texte in ("non", "n", "no", "false", "faux", "0"):
+        return "non"
+    return None
+
+
+def ficheDuCode(code, reseau=None):
+    """
+    La fiche d'OFF d'un code-barres. Le cache garde parfois une fiche sous une autre écriture du
+    même code (« 0635646 » pour « 00635646 ») : on essaie d'abord le code tel quel, puis le code
+    sans ses zéros de tête, complété de zéros jusqu'à 13 chiffres. Faute de fiche gardée, une seule
+    requête à OFF avec le code tel quel (ficheEnDirect). Renvoie (réponse, None) ou (None, message).
+    """
+    sansZeros = code.lstrip("0")
+    variantes = [code] + [sansZeros.zfill(longueur) for longueur in range(len(sansZeros), 14)]
+    for variante in variantes:
+        if variante and (DOSSIER_BRUT / "produits" / f"{variante}.json").exists():
+            return ficheEnDirect(variante, reseau)
+    return ficheEnDirect(code, reseau)
+
+
+def importerBaseAutreGroupe(fichier, correspondance, completer=True, reseau=None):
+    """
+    Lit la base d'un autre groupe (Excel ou CSV) et la met à notre format.
+    correspondance : {notre clé : le nom de leur colonne}, par exemple {"code": "EAN"}. Nos clés
+    sont celles de CLES_AUTRE_GROUPE : les sept composantes, leur Nutri-Score (label), NOVA, les
+    additifs, le bio, et leurClasse, la classe que leur SuperNutri-score donne à l'aliment. Une
+    clé sans colonne reste vide.
+    Si completer, NOVA, les additifs et le bio qui manquent viennent de la fiche d'OFF du
+    code-barres : d'abord le cache, sinon une seule requête (ficheEnDirect ; reseau=None suit
+    PROJET_HORS_LIGNE). Renvoie (plats, manques) : manques donne, pour chaque code dont la fiche
+    n'a pu être lue, la raison.
+    """
+    plats, manques = [], {}
+    for ligne in lignesDuFichier(fichier):
+        plat = {}
+        for cle in CLES_AUTRE_GROUPE:
+            colonne = correspondance.get(cle)
+            valeur = ligne.get(colonne) if colonne else None
+            if cle == "code":
+                plat[cle] = codeDeLaCellule(valeur)
+            elif cle == "nom":
+                plat[cle] = "" if valeur is None else str(valeur).strip()
+            elif cle in ("label", "leurClasse"):
+                plat[cle] = lettreDeLaCellule(valeur)
+            elif cle == "bio":
+                plat[cle] = bioDeLaCellule(valeur)
+            elif cle == "listeAdditifs":
+                plat[cle] = str(valeur).strip() if valeur else None
+            elif cle == "nova":
+                nombre = nombreDeLaCellule(valeur)
+                plat[cle] = int(nombre) if nombre in (1, 2, 3, 4) else None
+            elif cle == "additifs":
+                nombre = nombreDeLaCellule(valeur)
+                plat[cle] = None if nombre is None else int(nombre)
+            else:
+                plat[cle] = nombreDeLaCellule(valeur)
+        manque = plat["nova"] is None or plat["additifs"] is None or plat["bio"] is None
+        if completer and plat["code"] and manque:
+            reponse, message = ficheDuCode(plat["code"], reseau)
+            if reponse is None:
+                manques[plat["code"]] = message
+            else:
+                champs = champsDeLaFiche(reponse["product"], plat["code"])
+                if plat["nova"] is None:
+                    plat["nova"] = champs["nova"]
+                if plat["additifs"] is None:                    # la liste va avec le nombre qu'on reprend
+                    plat["additifs"] = champs["additifs"]
+                    plat["listeAdditifs"] = champs["listeAdditifs"] or None
+                if plat["bio"] is None:
+                    plat["bio"] = champs["bio"]
+        plats.append(plat)
+    return plats, manques
+
+
+def comparerAvecAutreGroupe(plats, modele=None, notreBase=None):
+    """
+    Range les aliments d'un autre groupe avec notre SuperNutri-score, puis compare nos classes à
+    leurs résultats (question 3.4) :
+    - à la classe de leur SuperNutri-score, si leur base la donne (leurClasse) ;
+    - à leur Nutri-Score (label).
+    notreBase (une liste de plats ou un fichier) : on mesure aussi le recoupement des deux bases,
+    par code-barres (intersectionAvecAutreBase). Renvoie la répartition de nos classes, les deux
+    comparaisons (None sans données), le recoupement, et les aliments où nos classes diffèrent des
+    leurs, des plus grands écarts aux plus petits.
+    """
+    modele = modele or MODELE_SUPER
+    lignes = []
+    repartition = {lettre: 0 for lettre in reversed(CLASSES)}
+    for plat in plats:
+        detail = classerPlat(plat, modele)
+        repartition[detail["lettre"]] += 1
+        lignes.append({"code": plat.get("code"), "nom": plat.get("nom"), "classe": detail["classe"],
+                       "notre": detail["lettre"], "leur": plat.get("leurClasse"), "label": plat.get("label")})
+    avecLeur = [ligne for ligne in lignes if ligne["leur"]]
+    avecLabel = [ligne for ligne in lignes if ligne["label"]]
+    leurSuperNutri = comparerAuNutriscore([classeDuLabel(l["leur"]) for l in avecLeur],
+                                          [l["classe"] for l in avecLeur]) if avecLeur else None
+    leurNutriscore = comparerAuNutriscore([classeDuLabel(l["label"]) for l in avecLabel],
+                                          [l["classe"] for l in avecLabel]) if avecLabel else None
+    differences = []
+    for ligne in avecLeur:
+        ecart = ligne["classe"] - classeDuLabel(ligne["leur"])
+        if ecart != 0:
+            differences.append({"code": ligne["code"], "nom": ligne["nom"], "notre": ligne["notre"],
+                                "leur": ligne["leur"], "ecart": ecart})
+    differences.sort(key=lambda difference: -abs(difference["ecart"]))
+    return {"total": len(plats), "repartition": repartition, "leurSuperNutri": leurSuperNutri,
+            "leurNutriscore": leurNutriscore,
+            "recoupement": intersectionAvecAutreBase(notreBase, plats) if notreBase is not None else None,
+            "differences": differences}
 
 
 def main():
@@ -646,6 +812,16 @@ def main():
             resume["sensibilite"][nom] = sensibilites(lireBase(fichier))
             afficherSensibilite(nom, resume["sensibilite"][nom])
     ecrireSensibilite(resume["sensibilite"], DOSSIER / "resultats" / "supernutri_sensibilite.xlsx")
+    # La base d'un autre groupe, dès qu'elle est déposée et que la correspondance de ses colonnes est remplie
+    if FICHIER_AUTRE_GROUPE.exists() and CORRESPONDANCE_AUTRE_GROUPE:
+        plats, manques = importerBaseAutreGroupe(FICHIER_AUTRE_GROUPE, CORRESPONDANCE_AUTRE_GROUPE)
+        comparaison = comparerAvecAutreGroupe(plats, notreBase=FICHIER_BASE)
+        resume["autreGroupe"] = dict(comparaison, manques=manques)
+        print(f"Base de l'autre groupe : {comparaison['total']} aliments, {len(manques)} fiches introuvables ; "
+              f"recoupement avec notre base : {comparaison['recoupement']}")
+    else:
+        print(f"Base de l'autre groupe : pas encore là ({FICHIER_AUTRE_GROUPE.relative_to(DOSSIER)}, "
+              "et CORRESPONDANCE_AUTRE_GROUPE à remplir).")
     enregistrerResultats("supernutri", resume)
 
 

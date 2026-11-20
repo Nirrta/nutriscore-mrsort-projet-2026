@@ -272,3 +272,87 @@ def test_l_excel_dit_l_ecart_au_nutriscore(tmp_path):
     entetes = [cellule.value for cellule in classeur.worksheets[0][1]]
     assert "Écart au Nutri-Score" in entetes and "Critères ratés" in entetes
     assert "comparaison" in classeur.sheetnames
+
+
+# --- La base d'un autre groupe ---
+
+CORRESPONDANCE = {"code": "EAN", "nom": "Produit", "en": "Energie (kJ)", "sa": "AGS", "su": "Sucres", "so": "Sel",
+                  "pr": "Proteines", "fi": "Fibres", "fr": "Fruits et legumes (%)", "label": "Nutri-Score",
+                  "leurClasse": "SuperNutri"}
+ENTETES = ["EAN", "Produit", "Energie (kJ)", "AGS", "Sucres", "Sel", "Proteines", "Fibres", "Fruits et legumes (%)",
+           "Nutri-Score", "SuperNutri"]
+POELEE = ["3257982125116", "Poêlée Fermière", "287", "1,6", "1,6", "0,55", "1,6", "2,6", "65", "B", "C"]
+INCONNU = ["0000000000017", "Inconnu", "500", "2", "3", "1", "5", "2", "10", "C", "D"]
+fichePoelee = pytest.mark.skipif(not (projet_base.DOSSIER_BRUT / "produits" / "3257982125116.json").exists(),
+                                 reason="la fiche de la Poêlée Fermière n'est pas dans le cache")
+
+
+@fichePoelee
+def test_importer_une_base_aux_colonnes_differentes(tmp_path, monkeypatch):
+    """
+    Leurs colonnes portent d'autres noms, leurs nombres ont des virgules, et NOVA, les additifs et le bio manquent :
+    on les lit dans la fiche d'OFF gardée dans le cache. Un code absent du cache, hors ligne, est signalé.
+    """
+    monkeypatch.setenv("PROJET_HORS_LIGNE", "1")
+    classeur = openpyxl.Workbook()
+    classeur.active.append(ENTETES)
+    classeur.active.append(POELEE)
+    classeur.active.append(INCONNU)
+    chemin = tmp_path / "autre.xlsx"
+    classeur.save(chemin)
+    plats, manques = sn.importerBaseAutreGroupe(chemin, CORRESPONDANCE)
+    poelee, inconnu = plats
+    assert (poelee["en"], poelee["sa"], poelee["so"], poelee["label"], poelee["leurClasse"]) == (287, 1.6, 0.55, "B", "C")
+    assert (poelee["nova"], poelee["additifs"], poelee["bio"]) == (4, 3, "non")
+    assert inconnu["nova"] is None
+    assert list(manques) == ["0000000000017"]
+
+
+def test_importer_un_csv_a_point_virgule(tmp_path):
+    """Un CSV séparé par des points-virgules, sans compléter par OFF."""
+    chemin = tmp_path / "autre.csv"
+    chemin.write_text("\n".join(";".join(ligne) for ligne in (ENTETES, INCONNU)), encoding="utf-8")
+    plats, manques = sn.importerBaseAutreGroupe(chemin, CORRESPONDANCE, completer=False)
+    assert (plats[0]["code"], plats[0]["so"], plats[0]["leurClasse"]) == ("0000000000017", 1.0, "D")
+    assert manques == {}
+
+
+def test_comparer_avec_l_autre_groupe():
+    """Nos classes face aux leurs et face à leur Nutri-Score, et le recoupement avec notre base, par code-barres."""
+    plats = [dict(platAuNiveauDeAPrime(), code="1", nom="Même avis", label="A", leurClasse="A"),
+             dict(platAuNiveauDeAPrime(), code="2", nom="Autre avis", label="B", leurClasse="C")]
+    resultat = sn.comparerAvecAutreGroupe(plats, notreBase=[{"code": "2"}, {"code": "9"}])
+    assert resultat["leurSuperNutri"]["bienRanges"] == 1
+    assert resultat["leurNutriscore"]["bienRanges"] == 1
+    assert resultat["recoupement"] == (1, 50.0)
+    assert [(d["code"], d["notre"], d["leur"]) for d in resultat["differences"]] == [("2", "A′", "C")]
+
+
+@pytest.mark.skipif(not projet_base.FICHIER_BASE_ETENDUE.exists(), reason="la base étendue n'est pas construite")
+def test_l_import_rend_les_classes_de_nos_250_plats_ajoutes(tmp_path, monkeypatch):
+    """
+    Nos 250 plats ajoutés, déguisés en base d'un autre groupe (autres noms de colonnes, sans NOVA, additifs ni bio) :
+    l'import complète tout depuis le cache, hors ligne, et chaque plat retrouve sa classe.
+    """
+    monkeypatch.setenv("PROJET_HORS_LIGNE", "1")
+    ajoutes = [plat for plat in projet_base.lireBase(projet_base.FICHIER_BASE_ETENDUE) if plat["lot"] != projet_base.LOT_BASE]
+    classeur = openpyxl.Workbook()
+    classeur.active.append(ENTETES)
+    for plat in ajoutes:
+        classeur.active.append([plat["code"], plat["nom"]] + [plat[c] for c in ("en", "sa", "su", "so", "pr", "fi", "fr")]
+                               + [plat["label"], None])
+    chemin = tmp_path / "autre.xlsx"
+    classeur.save(chemin)
+    plats, manques = sn.importerBaseAutreGroupe(chemin, CORRESPONDANCE)
+    assert len(plats) == 250 and manques == {}
+    for importe, plat in zip(plats, ajoutes):
+        assert sn.classerPlat(importe)["lettre"] == sn.classerPlat(plat)["lettre"], plat["nom"]
+
+
+@pytest.mark.skipif(not (projet_base.DOSSIER_BRUT / "produits" / "0635646.json").exists(), reason="fiche absente du cache")
+def test_un_code_se_retrouve_meme_ecrit_avec_d_autres_zeros(monkeypatch):
+    """Le cache garde la fiche sous « 0635646 » ; la base écrit « 00635646 », et une autre base pourrait écrire « 635646 »."""
+    monkeypatch.setenv("PROJET_HORS_LIGNE", "1")
+    for code in ("00635646", "635646"):
+        reponse, message = sn.ficheDuCode(code)
+        assert reponse is not None, message
