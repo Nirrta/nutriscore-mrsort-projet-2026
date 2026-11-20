@@ -42,7 +42,7 @@ Les modules suivent les règles du cours :
 - tout chiffre cité vient de `resultats/resultats_projet.json`.
 
 Ce que l'interface lit (vérifié le 29/10 sur une copie réduite du dossier) :
-- `projet_gui.py` et les modules qu'il importe : `projet_base`, `projet_nutriscore`, `projet_mrsort`, `projet_design`, et `projet_apprentissage` s'il faut réapprendre les modèles ;
+- `projet_gui.py` et les modules qu'il importe : `projet_base`, `projet_nutriscore`, `projet_mrsort`, `projet_supernutri`, `projet_design`, et `projet_apprentissage` s'il faut réapprendre les modèles ;
 - `donnees/base_plats_prepares.xlsx` et, si elle est construite, `donnees/base_etendue_plats_prepares.xlsx`. Sans elles, l'interface ne propose que les deux exemples du sujet, sans modèle MR-Sort ;
 - `donnees/brut/produits/`, pour chercher un produit sans réseau. Un produit absent du cache est demandé à Open Food Facts, sans rien écrire sur le disque ;
 - `resultats/resultats_projet.json`. Sans lui, elle réapprend les modèles au lancement (avec scipy, en deux secondes) ;
@@ -68,9 +68,13 @@ python3 projet_mrsort.py --complet               # en plus, le modèle complet s
 python3 projet_mrsort.py --etendue               # en plus, les profils appris et le modèle complet sur les 375 plats (1 h à 2 h)
 python3 projet_mrsort.py --croisee               # en plus, la validation croisée des trois apprentissages sur les 375 plats (plusieurs heures)
                                                  # --limite SECONDES règle la limite de chaque apprentissage des profils (600 s par défaut)
+python3 projet_supernutri.py                     # le SuperNutri-score sur les deux bases, ses deux sensibilités, et la base
+                                                 # d'un autre groupe si elle est déposée (donnees/autre_groupe/)
 streamlit run projet_gui.py                      # l'interface
 python3 slides_projet.py --soutenance 1          # les 10 slides du 30/10 et leurs figures
-python3 projet_soutenance.py                     # le texte de l'oral et le dossier, en PDF (soutenance/)
+python3 slides_projet.py --soutenance 2          # les 11 slides du 27/11 (le SuperNutri-score)
+python3 projet_soutenance.py                     # le texte de l'oral et le dossier du 30/10, en PDF (soutenance/)
+python3 projet_soutenance.py --soutenance 2      # le texte de l'oral du 27/11, en PDF
 python3 design/generer_polices.py <dossier> design/polices   # les instances d'Archivo, depuis la police variable
 cd rapport && latexmk -xelatex rapport.tex       # le rapport
 ```
@@ -129,6 +133,20 @@ Chaque choix d'interprétation du sujet est couvert par un test.
     - Par défaut, l'interface montre l'apprentissage qui a la meilleure exactitude moyenne à 7 critères et λ = 0,6.
 
     Tests : `test_les_parts_de_la_validation_croisee_sont_stratifiees`, `test_la_validation_croisee_range_chaque_plat_une_fois`, `test_la_limite_de_temps_va_jusqu_au_solveur`, `test_l_excel_de_la_validation_croisee`, `test_la_validation_croisee_du_json`, `test_l_apprentissage_par_defaut_est_le_meilleur_en_validation_croisee`.
+
+28. **Le SuperNutri-score garde la santé, et y ajoute la transformation et la production.** Le sujet (§3.4) nous laisse proposer notre propre modèle. Le nôtre range les plats selon onze critères, en trois piliers : à limiter (énergie, acides gras saturés, sucres, sel), à favoriser (protéines, fibres, fruits, légumes et légumineuses), transformation et production (groupe NOVA, nombre d'additifs, additifs à risque, bio). Facteurs écartés, et pourquoi (choix du groupe, 20/11) :
+    - le Green-Score : il changerait le sens des classes (l'environnement n'est pas la santé), c'est lui-même un agrégat opaque (analyse du cycle de vie, labels, origine, emballage), et il manque pour 43 plats sur 125 (34 %). Toute règle pour ces plats fausserait le résultat ;
+    - la liste des ingrédients, l'huile de palme et l'origine : notre cache d'Open Food Facts ne les garde pas.
+
+    Le bio est gardé avec le plus petit poids : il apporte la seule chose qu'aucun autre critère ne mesure, l'absence de pesticides de synthèse, mais il fait en partie doublon avec la transformation (7 plats bio sur 40 sont ultra-transformés (NOVA 4), contre 250 sur 335 pour les autres, dans la base étendue). « Non » veut dire « aucun label bio enregistré sur OFF », ce qui peut être une donnée manquante. Tests : `test_les_onze_criteres_dans_l_ordre`, `test_le_readme_justifie_le_bio_et_l_ecart_du_green_score`.
+29. **Les poids : trois piliers, au prorata des points du Nutri-Score.** À limiter 0,40, à favoriser 0,30, transformation et production 0,30. Dans les deux piliers nutritionnels, chaque critère pèse au prorata de ses points maximaux dans le Nutri-Score : le sel (20 points) pèse deux fois l'énergie (10). Dans le troisième : NOVA 0,10 ; les additifs 0,15 en tout, partagés entre leur nombre et les additifs à risque (0,075 chacun), pour ajouter « lesquels » à « combien » sans compter deux fois les additifs ; bio 0,05, le plus faible, car son effet sur la santé est le moins établi. Tests : `test_les_poids_suivent_les_trois_piliers`, `test_dans_un_pilier_nutritionnel_les_poids_suivent_les_points_maximaux`, `test_les_poids_de_la_transformation_et_de_la_production`.
+30. **Les profils viennent des textes officiels, et λ = 0,7.** Pour A′, les seuils des allégations du règlement CE 1924/2006 : « faible teneur » en graisses saturées (1,5 g), en sucres (5 g) et en sel (0,3 g), « riche en fibres » (6 g) ; « source de fibres » (3 g) pour B′. Pour les autres classes, les seuils de points du Nutri-Score de 2023 (par exemple 670 kJ pour B′, au plus un point d'énergie). Pas de texte pour les fibres de C′ et D′ (2 et 1 g) ni pour les fruits de C′ (20 %) : ce sont des choix du groupe. NOVA : au plus transformé (NOVA 3) pour A′ et B′. Additifs : 0, 1, 3 et 5 ; additifs à risque : 0, 0, 1 et 2 ; bio exigé pour A′ et B′. Avec λ = 0,7, un plat peut rater au plus 0,3 du poids face à un profil, par exemple tout le pilier de la transformation et de la production. Une valeur absente prend la pire valeur possible : elle ne vote jamais pour le plat. Tests : `test_les_profils_sont_ordonnes`, `test_les_seuils_de_a_prime_viennent_des_allegations`, `test_lambda_vaut_0_7`, `test_rater_toute_la_transformation_laisse_a_prime_possible`, `test_une_valeur_absente_ne_vote_pas_pour_le_plat`.
+31. **Les additifs à risque sont ceux qu'une autorité sanitaire signale** : les nitrites et nitrates, E249 à E252 (ANSES, avis de 2022) ; les phosphates, E338 à E341, E343 et E450 à E452 (EFSA, réévaluation de 2019) ; les carraghénanes, E407 (EFSA, réévaluation de 2018). Ils se comptent dans la liste des additifs de la base ; l'interface les fait saisir directement. Tests : `test_les_additifs_a_risque`, `test_un_nombre_d_additifs_a_risque_saisi_prime_sur_la_liste`.
+32. **Les classes ont le sens de celles du Nutri-Score.** La FAQ officielle du Nutri-Score ne range pas les aliments en bons ou mauvais : ses classes vont des plus favorables à la santé aux moins favorables, du point de vue nutritionnel. Nous gardons ce sens, étendu à la transformation et à la production : A′, les plats les plus favorables à la santé ; C′, les plats moyens ; E′, les moins favorables. Les classes servent à comparer des plats préparés entre eux. Nous n'en faisons pas des fréquences de consommation : ce serait un conseil, sans source. Test : `test_l_onglet_super_nutri_score`.
+33. **Les deux analyses de sensibilité.** Les poids : chacun gagne ou perd 0,05, les autres étant rajustés pour garder une somme de 1 et des poids positifs ; puis 1 000 tirages au hasard (graine 2026), où tous les poids bougent ensemble d'au plus ± 0,01, ± 0,02 et ± 0,05. Les profils : une valeur bouge à la fois, de ± 5 % pour les sept composantes et de ± 1 pour NOVA et les deux nombres d'additifs (des entiers) ; le bio ne bouge pas ; un décalage qui casserait l'ordre des profils est écarté. On compte aussi les plats au bord de leur classe, dont la concordance vaut λ pile. Tests : `test_sans_amplitude_aucun_plat_ne_change`, `test_un_plat_au_bord_change_quand_un_de_ses_criteres_pese_moins`, `test_un_tirage_se_refait_a_l_identique`, `test_un_plat_au_seuil_change_quand_le_seuil_bouge`, `test_un_decalage_qui_casserait_l_ordre_est_ecarte`, `test_les_plats_au_bord_de_leur_classe`.
+34. **La comparaison au Nutri-Score se fait plat par plat.** Un plat qui descend est expliqué par les critères qu'il rate face au profil de la classe que lui donne le Nutri-Score (pour un plat B, celui de B′) ; un plat qui monte, par ceux qu'il rate face au profil de sa classe, qu'il franchit pourtant. Tests : `test_un_plat_qui_monte_et_un_plat_qui_descend`, `test_la_poelee_fermiere_descend_d_une_classe`.
+35. **La base d'un autre groupe : « leurs résultats » sont les classes de leur SuperNutri-score.** Pour y répondre, il faut leur base (au moins les codes-barres et les sept composantes) et la classe que leur modèle donne à chaque aliment ; sans elle, on ne compare qu'à leur Nutri-Score. Leurs colonnes gardent leurs noms : une table de correspondance les relie aux nôtres. NOVA, les additifs et le bio qui manquent se lisent dans la fiche d'OFF du code-barres, d'abord dans le cache (sous l'une des écritures du code, avec ou sans zéros de tête). Le recoupement des deux bases se mesure par code-barres. Tests : `test_importer_une_base_aux_colonnes_differentes`, `test_importer_un_csv_a_point_virgule`, `test_comparer_avec_l_autre_groupe`, `test_l_import_rend_les_classes_de_nos_250_plats_ajoutes`, `test_un_code_se_retrouve_meme_ecrit_avec_d_autres_zeros`.
+36. **λ se règle au curseur, avec les poids et les profils.** Le §3.5 demande de saisir à la main les paramètres d'un modèle, et λ en est un (§2.2). Le choix 0,6 / 0,7 de l'en-tête choisit le modèle appris ; le curseur des paramètres règle ensuite λ, de 0,51 à 1 (le sujet veut λ dans ]0,5 ; 1]), en partant du λ appris, et « Revenir aux paramètres appris » le remet. Un modèle appris ne vaut que pour son λ : ailleurs, la classe est une exploration. Le SuperNutri-score a son propre curseur. Tests : `test_lambda_se_regle_au_curseur`, `test_revenir_aux_parametres_appris_remet_lambda`, `test_le_pas_a_pas_suit_lambda_du_curseur`, `test_lambda_du_super_nutri_score_se_regle_aussi`.
 
 Les autres choix des questions 3.3 et 3.4 seront ajoutés en phase 3 : sens des classes A′ à E′, interprétation de « leurs résultats ».
 
@@ -291,3 +309,27 @@ Comme sur les 125 plats, la méthode compte plus que le nombre de plats. À 7 cr
 - **Tout apprendre n'aide pas sur des plats nouveaux** : 64,0 % à λ = 0,6 et 70,9 % à λ = 0,7, contre 70,4 % et 70,7 % pour les profils appris. Sur les 375 plats, le modèle complet range pourtant le plus de plats (316 et 322) : ce qu'il gagne sur les plats appris ne se retrouve pas sur des plats nouveaux.
 - **À 3 critères, les poids appris ont la meilleure moyenne** (60,5 %, contre 55,7 % et 56,3 % pour les profils appris), mais pas dans toutes les parts : les profils appris font mieux qu'eux dans 2 parts sur 5, aux deux valeurs de λ. Sur les 375 plats, les profils appris rangeaient pourtant plus de plats que les poids appris (248 contre 233).
 - **D'une part à l'autre, l'exactitude varie** : son écart-type va de 2,2 à 6,3 points. Un écart de 1 ou 2 points entre deux apprentissages ne les départage donc pas.
+
+**Le SuperNutri-score** (`python3 projet_supernutri.py`, choix 28 à 35) :
+
+| Base | A′ | B′ | C′ | D′ | E′ | Comme le Nutri-Score | À une classe près |
+|---|---|---|---|---|---|---|---|
+| 125 plats | 4 | 14 | 60 | 37 | 10 | 52/125 | 90,4 % |
+| 375 plats | 12 | 41 | 190 | 101 | 31 | 164/375 | 89,1 % |
+
+- Il ne cherche pas à reproduire le Nutri-Score. Sur les 375 plats, 74 montent, 137 descendent. Face au profil de leur classe au Nutri-Score, les plats qui descendent ratent surtout les fibres (121), le bio (108), les protéines (102), le sel (98) et le groupe NOVA (87).
+- Au milieu, C′ n'exige plus ni NOVA 3 ni le bio : 26 plats D montent en C′.
+- La Poêlée Fermière, B au Nutri-Score, est C′ : face à B′, elle rate les protéines, les fibres, NOVA, les additifs et le bio. Avec NOVA 3 et un seul additif, elle serait B′.
+
+**Les deux sensibilités, sur 375 plats.** Tous les poids ensemble, 1 000 tirages par amplitude :
+
+| Amplitude | Plats qui changent de classe, en moyenne | Au plus |
+|---|---|---|
+| ± 0,01 | 4,9 % | 11,5 % |
+| ± 0,02 | 7,3 % | 18,4 % |
+| ± 0,05 | 14,1 % | 28,3 % |
+
+- Un poids à la fois, le plus sensible est celui des protéines (+ 0,05 : 66 plats).
+- 13 plats sont au bord de leur classe : ils ratent tout le pilier « à favoriser », et leur concordance vaut λ pile. Le moindre changement de poids les fait basculer, d'où des changements dès ± 0,01.
+- Les profils : 132 plats changent au moins une fois ; 50 par les composantes (± 5 %), 100 par NOVA et les additifs (± 1). Le décalage le plus actif : NOVA 3 exigé dès C′ (60 plats). NOVA ne vaut que 3 ou 4 dans nos plats préparés : un cran, c'est la moitié de son échelle.
+- La base d'un autre groupe n'est pas encore arrivée (choix 35).

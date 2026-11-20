@@ -40,6 +40,9 @@ Tout retard est sanctionné. Le gel interne est fixé au **dim. 03/01/2027**.
 | 08/11 | **Ergonomie de l'interface** : « Revenir aux valeurs du produit » (valeurs et type d'origine) ; la classe du plat rappelée au-dessus de chaque éditeur ; le pas à pas nomme le plat ; la barre des onglets reste en haut ; un seul vocabulaire des modèles (« Apprentissage », « 125 plats, profils appris ») ; chaque profil porte la classe qu'il ouvre, « b5 (A′) » ; aide des champs des fruits et des fibres ; choisir un plat vide la recherche ; meilleurs résultats en gras dans l'onglet Modèles | Revue faite à 1 440 × 900 et sous AppTest : rechoisir un plat ne rendait pas ses valeurs, alors que la démonstration modifie les AGS ; les éditeurs étaient à 1 000 px du verdict ; le calculateur et l'onglet Modèles nommaient autrement les mêmes modèles ; « b5 » ne disait pas qu'il ouvre A′. Écartés : ouvrir un plat depuis l'onglet Base (la liste « Partir d'un plat » filtre déjà par le nom), un bouton « Voir le pas à pas » (les onglets collés suffisent, sans relance), la fiche sous les champs (elle identifie le produit) |
 | 09/11 | **Le domaine des modèles se voit** : hors des plats préparés du cas général, la classe MR-Sort est indicative (cadre en pointillés, encadré qui dit pourquoi) ; une eau n'en a pas. **Les trois apprentissages sur les 375 plats**, comparés par validation croisée (5 parts de 75, la même limite de temps pour tous) ; l'interface a deux choix, « Appris sur » et « Apprentissage », et montre par défaut le meilleur en validation croisée | Le Yop, un yaourt à boire (une boisson depuis 2023, FAQ p. 18), recevait une classe A′ comparée au barème des boissons, sous un avertissement discret. Un modèle appris sur les 375 plats les a tous vus : seule la validation croisée le mesure sur des plats nouveaux. Étendre encore la base est écarté : plus aucun plat A en réserve dans le cache, et 750 plats de test ne départageraient pas profils appris et tout appris |
 | 09/11 | **La mise en veille ne coupe plus un apprentissage** : `resoudreCreux` recommence un calcul que la veille a coupé ; les lignes touchées de la validation croisée et les modèles sur 375 plats sont recalculés | L'horloge du solveur compte la veille du Mac dans sa limite de temps. Le premier `--etendue`, lancé la nuit, arrêtait le modèle complet à 3 critères et λ = 0,7 à 242 plats au lieu de 248, et dans la validation croisée, les apprentissages des profils à 3 critères s'arrêtaient après 8 à 16 s de calcul au lieu de 300 |
+| 20/11 | **Le SuperNutri-score** : onze critères en trois piliers, à limiter 0,40, à favoriser 0,30, transformation et production 0,30 (NOVA 0,10, nombre d'additifs 0,075, additifs à risque 0,075, bio 0,05) ; profils tirés du règlement CE 1924/2006 (A′) et des barèmes du Nutri-Score de 2023 ; λ = 0,7 ; classes au sens du Nutri-Score | Un score de santé, dont chaque seuil a une source. Le bio fait en partie doublon avec NOVA et les additifs : il garde le plus petit poids, pour les pesticides qu'aucun autre critère ne mesure |
+| 20/11 | **Pas de Green-Score**, ni en critère ni en variante | Il changerait le sens des classes, c'est un agrégat opaque, et il manque pour 43 plats sur 125 |
+| 20/11 | **λ se règle au curseur** dans l'interface, avec les poids et les profils | Le §3.5 demande de saisir les paramètres d'un modèle à la main, et λ en est un |
 
 ## Phase 0 : mise en place (mer. 28/10)
 
@@ -100,12 +103,15 @@ Déroulé du 30/10 (le texte complet est dans `soutenance/texte_soutenance_1.md`
 
 ## Phase 3 : le SuperNutri-score (lun. 09/11 → ven. 27/11)
 
-- [ ] Atelier de groupe (09-10/11) : critères, poids, profils, λ, sens des classes A′ à E′
-- [ ] Le modèle (11-15/11)
-- [ ] Sensibilité aux poids et aux profils (16-18/11)
-- [ ] Comparaison au Nutri-Score, base de l'autre groupe, variante verte (18-20/11)
-- [ ] Interface complète, onglet SuperNutri-score (20-23/11)
-- [ ] Slides finales, répétition (23-26/11)
+- [x] Les choix du SuperNutri-score : critères, poids, profils, λ, sens des classes A′ à E′ (20/11, voir les décisions)
+- [x] Le modèle, onze critères en trois piliers (20/11)
+- [x] Sensibilité aux poids et aux profils (20/11)
+- [x] Comparaison au Nutri-Score, plat par plat (20/11)
+- [ ] La base d'un autre groupe : l'import est prêt et vérifié (20/11) ; il manque leur base et les classes de leur SuperNutri-score
+- [x] ~~Variante verte~~ : écartée le 20/11 (voir les décisions)
+- [x] Interface : le SuperNutri-score au calculateur, son onglet, λ au curseur (20/11)
+- [x] Slides finales et texte de l'oral, 11 slides, 13 min 50 (20/11)
+- [ ] Répétition (23-26/11)
 - [ ] Avant le 27/11 : si la soutenance se fait depuis un autre ordinateur, y installer les polices de `design/polices/`, ou présenter le PDF
 - [ ] **Soutenance finale le 27/11**
 

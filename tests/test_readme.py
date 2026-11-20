@@ -271,3 +271,52 @@ def test_le_readme_cite_le_modele_complet(resultats):
         meilleur = max(m["bienRanges"] for m in complet["modeles"] if m["nom"] == "sept")
         assert (f"range {meilleur} plats sur 125, et le solveur, en {exact['sept']['limiteSecondes'] // 60} minutes, n'a ni "
                 f"trouvé de modèle exact ni prouvé qu'il n'en existe pas") in texte
+
+
+def test_le_readme_cite_le_super_nutri_score(resultats):
+    """La répartition des classes sur les deux bases, la comparaison au Nutri-Score et les deux sensibilités (375 plats)."""
+    if "supernutri" not in resultats:
+        pytest.skip("le SuperNutri-score n'est pas encore calculé")
+    texte = README.read_text(encoding="utf-8")
+    superNutri = resultats["supernutri"]
+    for base, nom in (("base", "125 plats"), ("etendue", "375 plats")):
+        repartition, comparaison = superNutri[base]["repartition"], superNutri[base]["comparaison"]
+        ligne = (f"| {nom} | {repartition['A′']} | {repartition['B′']} | {repartition['C′']} | {repartition['D′']} | "
+                 f"{repartition['E′']} | {comparaison['bienRanges']}/{comparaison['total']} | "
+                 f"{pourcentage(comparaison['aUneClassePres'])} |")
+        assert ligne in texte, ligne
+    etendue = superNutri["etendue"]
+    ecarts = etendue["ecarts"]
+    assert f"{ecarts['montent']} montent, {ecarts['descendent']} descendent" in texte
+    raisons = sorted(ecarts["raisonsDesDescentes"].items(), key=lambda paire: -paire[1])[:5]
+    noms = {"fi": "les fibres", "bio": "le bio", "pr": "les protéines", "so": "le sel", "nova": "le groupe NOVA"}
+    phrase = ", ".join(f"{noms[critere]} ({nombre})" for critere, nombre in raisons[:-1])
+    assert f"{phrase} et {noms[raisons[-1][0]]} ({raisons[-1][1]})" in texte
+    assert f"{etendue['comparaison']['matrice'][3][2]} plats D montent en C′" in texte
+    sensibilite = superNutri["sensibilite"]["etendue"]
+    for point in sensibilite["courbe"]:
+        ligne = f"| ± {virgule(point['amplitude'], 2)} | {pourcentage(point['partMoyenne'])} | {pourcentage(point['partMax'])} |"
+        assert ligne in texte, ligne
+    plusSensible = max(sensibilite["poids"]["unParUn"], key=lambda ligne: ligne["plats"])
+    assert plusSensible["critere"] == "pr" and f"protéines (+ 0,05 : {plusSensible['plats']} plats)" in texte
+    assert f"{len(sensibilite['auBord'])} plats sont au bord de leur classe" in texte
+    profils = sensibilite["profils"]
+    assert (f"{len(profils['plats'])} plats changent au moins une fois ; {profils['platsComposantes']} par les composantes "
+            f"(± 5 %), {profils['platsEntiers']} par NOVA et les additifs (± 1)") in texte
+    plusActif = max(profils["scenarios"], key=lambda scenario: scenario["plats"])
+    assert f"NOVA 3 exigé dès C′ ({plusActif['plats']} plats)" in texte
+
+
+def test_le_readme_justifie_le_bio_et_l_ecart_du_green_score():
+    """Le bio fait en partie doublon avec la transformation ; le Green-Score manque pour un tiers des plats de la base."""
+    if not projet_base.FICHIER_BASE_ETENDUE.exists():
+        pytest.skip("la base étendue n'est pas construite")
+    texte = README.read_text(encoding="utf-8")
+    plats = projet_base.lireBase(projet_base.FICHIER_BASE_ETENDUE)
+    bio = [plat for plat in plats if plat["bio"] == "oui"]
+    autres = [plat for plat in plats if plat["bio"] != "oui"]
+    assert (f"{sum(1 for plat in bio if plat['nova'] == 4)} plats bio sur {len(bio)} sont ultra-transformés (NOVA 4), contre "
+            f"{sum(1 for plat in autres if plat['nova'] == 4)} sur {len(autres)} pour les autres") in texte
+    base = projet_base.lireBase()
+    sansGreen = sum(1 for plat in base if plat["green"] is None)
+    assert f"il manque pour {sansGreen} plats sur {len(base)} ({round(100 * sansGreen / len(base))} %)" in texte
