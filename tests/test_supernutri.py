@@ -362,3 +362,8 @@ def test_un_nombre_d_additifs_a_risque_saisi_prime_sur_la_liste():
     """L'interface saisit directement le nombre d'additifs à risque ; vide, il ne vote pas."""
     assert sn.valeursDuPlat(dict(platAuNiveauDeAPrime(), aRisque=2))["aRisque"] == 2
     assert sn.valeursDuPlat(dict(platAuNiveauDeAPrime(), aRisque=None))["aRisque"] == float("inf")
+
+
+def test_un_libelle_en_minuscule_garde_ses_sigles():
+    """Dans une phrase, « Groupe NOVA » devient « groupe NOVA », et non « groupe nova »."""
+    assert (sn.libelleEnMinuscule("nova"), sn.libelleEnMinuscule("so")) == ("groupe NOVA", "sel")

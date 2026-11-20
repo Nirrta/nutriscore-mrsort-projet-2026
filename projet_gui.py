@@ -49,7 +49,8 @@ from projet_mrsort import (CRITERES, CRITERES_SEPT, CRITERES_TROIS, PROFILS, SEU
                            approximerNutriscore, concordancePartielle, etapesDeLAffectation, nomDeClasse, sensDuCritere)
 from projet_nutriscore import (CATEGORIES, EXEMPLES_SUJET, LIBELLES, NEGATIFS, POSITIFS, UNITES,
                                composantesDeLaCategorie, scoreNutriscore)
-from projet_supernutri import CRITERES_LIBELLES, MODELE_SUPER, SENS_DES_CLASSES, additifsARisque, valeursDuPlat
+from projet_supernutri import (CRITERES_LIBELLES, MODELE_SUPER, NOMS_DES_BASES, PILIERS, SENS_DES_CLASSES,
+                               additifsARisque, libelleEnMinuscule, valeursDuPlat)
 
 
 COMPOSANTES = NEGATIFS + POSITIFS
@@ -173,6 +174,9 @@ table.verso tr.ecarte .jauge i.point {{ background: {ENCRE_SECONDAIRE}; border-c
 .ligne-concordance .case.vide {{ background: #FFFFFF; color: {ENCRE_SECONDAIRE}; }}
 .ligne-concordance .verdict {{ font-variant-numeric: tabular-nums; font-size: .9rem; white-space: nowrap; }}
 .ligne-concordance .verdict.franchi {{ font-weight: 700; }}
+/* Les barres du SuperNutri-score (onze critères) : le verdict passe sous la barre, qui prend toute la largeur */
+.concordances.large .ligne-concordance {{ grid-template-columns: 3.8rem minmax(0, 1fr); row-gap: .1rem; }}
+.concordances.large .ligne-concordance .verdict {{ grid-column: 2; }}
 .fiche-plat {{ border: 2px solid {ENCRE}; padding: .6rem .75rem .5rem; margin: .2rem 0 .9rem; }}
 .fiche-plat .nom {{ font-family: "Archivo Condensed", Archivo, sans-serif; font-weight: 800; font-size: 1.45rem; line-height: 1.05;
   border-bottom: {FILET_GROUPE}px solid {ENCRE}; padding-bottom: .3rem; margin-bottom: .35rem; }}
@@ -202,6 +206,9 @@ table.verso tr.ecarte .jauge i.point {{ background: {ENCRE_SECONDAIRE}; border-c
   .jauge:has(> i:nth-child(11)) {{ flex-wrap: wrap; width: calc(10 * 6px + 9 * 1px); }}
   /* les trois choix d'« Apprentissage » ne tiennent pas sur une ligne : un par ligne, sur toute la largeur */
   .st-key-apprentissage div:has(> button) > button {{ flex-basis: 100%; }}
+  /* cinq onglets ne tiennent pas sur un téléphone : la barre défile de côté, et un nom d'onglet ne se coupe pas */
+  .stTabs [role="tablist"] {{ overflow-x: auto; }}
+  .stTabs [role="tab"] {{ flex: 0 0 auto; white-space: nowrap; }}
 }}
 /* un nom à ne pas couper en fin de ligne, comme « b2 (D′) » */
 .insecable {{ white-space: nowrap; }}
@@ -362,14 +369,23 @@ def fichePlatHtml(plat, modifie, notes=()):
             f"<div class='code'>{codeBarresImage(str(plat['code']))}{note}</div>{lignes}</div>")
 
 
-def barresDeConcordanceHtml(detail, modele, plat):
+def libelleAvecUnite(critere):
+    """« Énergie (kJ/100 g) » ; un critère sans unité (un nombre d'additifs) garde son seul libellé."""
+    libelle, unite, sens = CRITERES_LIBELLES[critere]
+    return f"{libelle} ({unite})" if unite else libelle
+
+
+def barresDeConcordanceHtml(detail, modele, plat, large=False):
     """
     Les barres de concordance d'un plat : pour chaque profil, de b5 (A′) à b2 (D′), une case
     par critère, de largeur égale à son poids. La case est noire quand le plat vaut au moins le
     profil sur ce critère, et la somme des cases noires est la concordance, comparée à λ.
     Chaque ligne porte aussi sa description en toutes lettres, pour les lecteurs d'écran.
+    large : pour les onze critères du SuperNutri-score, le verdict passe sous la barre, qui prend
+    toute la largeur, et une case porte son sigle dès 5 % du poids.
     """
     lam = modele["lam"]
+    sigleMinimal = 5 if large else 6
     lignes = ""
     for numero in range(len(modele["profils"]) - 1, -1, -1):
         profil = modele["profils"][numero]
@@ -377,9 +393,9 @@ def barresDeConcordanceHtml(detail, modele, plat):
         for critere in modele["criteres"]:
             passe = concordancePartielle(plat[critere], profil[critere], sensDuCritere(critere, modele)) == 1
             if passe:
-                passent.append(CRITERES_LIBELLES[critere][0].lower())
+                passent.append(libelleEnMinuscule(critere))
             largeur = 100 * modele["poids"][critere]
-            sigle = SIGLES.get(critere, critere) if largeur >= 6 else ""
+            sigle = SIGLES.get(critere, critere) if largeur >= sigleMinimal - 1e-9 else ""
             cases += (f"<span class='case {'pleine' if passe else 'vide'}' style='width:{largeur:.2f}%' "
                       f"title='{texteHtml(CRITERES_LIBELLES[critere][0])}, poids {nombre(modele['poids'][critere], 3)}'>{sigle}</span>")
         franchi = detail["franchis"][numero]
@@ -390,7 +406,7 @@ def barresDeConcordanceHtml(detail, modele, plat):
         lignes += (f"<div class='ligne-concordance' role='img' aria-label='{texteHtml(description)}'>"
                    f"<span class='profil'>{nomDuProfil(numero)}</span><div class='barre'>{cases}</div>"
                    f"<span class='verdict{' franchi' if franchi else ''}'>{texteHtml(verdict)}</span></div>")
-    return f"<div class='concordances'>{lignes}</div>"
+    return f"<div class='concordances{' large' if large else ''}'>{lignes}</div>"
 
 
 # --- Données ---
@@ -860,7 +876,7 @@ def tableauDesParametres(modele, intervalles=None):
     """
     lignes = []
     for critere in modele["criteres"]:
-        ligne = {"Critère": f"{CRITERES_LIBELLES[critere][0]} ({CRITERES_LIBELLES[critere][1]})",
+        ligne = {"Critère": libelleAvecUnite(critere),
                  "Sens": "moins, c'est mieux" if sensDuCritere(critere, modele) == "min" else "plus, c'est mieux",
                  "Poids": modele["poids"][critere]}
         if intervalles:
@@ -1113,7 +1129,7 @@ def resultatSuperNutri(plat, edition, labelNutriscore, categorie="general", hors
     html(f"<div class='verdict-modele'>{classeModeleHtml(detail['classe'], horsDomaine)}"
          f"<div class='texte'><strong>Classe {lettre}</strong> : plats {SENS_DES_CLASSES[lettre]} ; {accord}.<br>"
          f"{texteHtml(phraseDeFranchissement(detail, modele['lam']))}</div></div>")
-    html(barresDeConcordanceHtml(detail, modele, valeurs))
+    html(barresDeConcordanceHtml(detail, modele, valeurs, large=True))
     return detail["classe"]
 
 
@@ -1548,6 +1564,137 @@ def ongletModeles():
         st.image(str(figure))
 
 
+# --- SuperNutri-score ---
+
+def nombreCourt(valeur):
+    """Un nombre sans zéro inutile : 1 340, 6,8, 0,3."""
+    if float(valeur).is_integer():
+        return nombre(valeur, 0)
+    return nombre(valeur, 2).rstrip("0").rstrip(",")
+
+
+def lignesDuModeleSuper(modele, sources):
+    """
+    Les lignes du tableau du SuperNutri-score, une par critère, groupées par pilier : le sens, le
+    poids, les quatre seuils (« ≤ 335 » pour un critère à minimiser, « ≥ 12 » pour un critère à
+    maximiser ; le bio est « exigé » ou non) et leur source.
+    """
+    lignes = []
+    for pilier, (poidsDuPilier, criteres) in PILIERS.items():
+        for rang, critere in enumerate(criteres):
+            libelle, unite, sens = CRITERES_LIBELLES[critere]
+            ligne = {"pilier": f"{pilier} ({nombreCourt(poidsDuPilier)})" if rang == 0 else "",
+                     "critere": libelle if critere == "bio" else libelleAvecUnite(critere),
+                     "sens": "moins, c'est mieux" if sens == "min" else "plus, c'est mieux",
+                     "poids": nombre(modele["poids"][critere], 3), "source": texteHtml(sources[critere])}
+            for cle, profil in zip(("d", "c", "b", "a"), modele["profils"]):
+                valeur = profil[critere]
+                if critere == "bio":
+                    ligne[cle] = "exigé" if valeur else "—"
+                else:
+                    ligne[cle] = f"{'≤' if sens == 'min' else '≥'} {nombreCourt(valeur)}"
+            if rang == 0:
+                ligne["_classe"] = "groupe"
+            lignes.append(ligne)
+    return lignes
+
+
+def lignesDesPoidsUnParUn(unParUn):
+    """Une ligne par critère : les plats qui changent de classe quand son poids gagne 0,05, puis quand il en perd 0,05."""
+    lignes = {}
+    for variation in unParUn:
+        ligne = lignes.setdefault(variation["critere"], {"critere": CRITERES_LIBELLES[variation["critere"]][0]})
+        texte = f"{variation['plats']} ({nombre(100 * variation['part'], 1)} %)"
+        ligne["plus" if variation["delta"] > 0 else "moins"] = texte
+    return list(lignes.values())
+
+
+def ongletSuperNutri():
+    """
+    L'onglet du SuperNutri-score (question 3.4) : le modèle et la source de chaque seuil, le sens
+    des classes, puis, sur la base choisie, la comparaison au Nutri-Score, les deux analyses de
+    sensibilité, et la base d'un autre groupe. Les chiffres viennent du JSON (projet_supernutri.py).
+    """
+    resultats = resultatsDuProjet().get("supernutri")
+    if not resultats:
+        st.info("Le SuperNutri-score n'est pas encore calculé : lancez python3 projet_supernutri.py.")
+        return
+    modele = resultats["modele"]
+    html(panneau("Le modèle", f"Onze critères en trois piliers. λ = {nombreLambda(modele['lam'])} : face à un profil, un "
+                              f"plat peut rater au plus {nombreLambda(1 - modele['lam'])} du poids."))
+    html(tableHtml([("Pilier", "pilier", "texte"), ("Critère", "critere", "texte"), ("Sens", "sens", "texte"),
+                    ("Poids", "poids", "nombre"), ("D′ (b2)", "d", "nombre"), ("C′ (b3)", "c", "nombre"),
+                    ("B′ (b4)", "b", "nombre"), ("A′ (b5)", "a", "nombre"), ("Source des seuils", "source", "texte")],
+                   lignesDuModeleSuper(modele, resultats["sources"])))
+
+    bases = [base for base in ("etendue", "base") if base in resultats]
+    base = st.segmented_control("Sur", bases, format_func=NOMS_DES_BASES.get, default=bases[0], required=True,
+                                key="superBase")
+    donnees, sensibilite = resultats[base], resultats["sensibilite"][base]
+    total = sum(donnees["repartition"].values())
+
+    html(panneau("Le sens des classes", "Comme pour le Nutri-Score, il ne s'agit pas de « bons » ou de « mauvais » plats : "
+                                        "les classes servent à comparer des plats préparés entre eux."))
+    lignes = []
+    for numero, lettre in enumerate(["E′", "D′", "C′", "B′", "A′"]):
+        lignes.insert(0, {"classe": classeModelePetiteHtml(numero), "sens": f"les plats {texteHtml(SENS_DES_CLASSES[lettre])}",
+                          "plats": f"{donnees['repartition'][lettre]} ({nombre(100 * donnees['repartition'][lettre] / total, 1)} %)"})
+    html(tableHtml([("Classe", "classe", "texte"), ("Ce qu'elle dit", "sens", "texte"),
+                    (f"Plats, sur {total}", "plats", "nombre")], lignes))
+
+    ecarts = donnees["ecarts"]
+    html(panneau("Face au Nutri-Score", f"{ecarts['montent']} plats montent, {ecarts['descendent']} descendent, "
+                                        f"{ecarts['egaux']} gardent la classe du Nutri-Score. En ligne, le Nutri-Score ; "
+                                        "en colonne, le SuperNutri-score."))
+    matrice = donnees["comparaison"]["matrice"]
+    lignes = []
+    for rang, lettre in enumerate("ABCDE"):
+        ligne = {"nutri": lettre}
+        for colonne, cle in enumerate(("a", "b", "c", "d", "e")):
+            ligne[cle] = enGras(str(matrice[rang][colonne]), rang == colonne)
+        lignes.append(ligne)
+    html(tableHtml([("Nutri-Score", "nutri", "texte"), ("A′", "a", "nombre"), ("B′", "b", "nombre"), ("C′", "c", "nombre"),
+                    ("D′", "d", "nombre"), ("E′", "e", "nombre")], lignes))
+    raisons = sorted(ecarts["raisonsDesDescentes"].items(), key=lambda paire: -paire[1])[:5]
+    html("<p class='note'>Face au profil de la classe que leur donne le Nutri-Score, les plats qui descendent ratent "
+         "surtout : " + ", ".join(f"{texteHtml(libelleEnMinuscule(critere))} ({compte})" for critere, compte in raisons)
+         + ".</p>")
+
+    poids = sensibilite["poids"]
+    html(panneau("Sensibilité aux poids", "Un poids gagne ou perd 0,05, les autres sont rajustés (somme 1) : combien de "
+                                          f"plats changent de classe, sur {total} ?"))
+    html(tableHtml([("Critère", "critere", "texte"), ("Poids + 0,05", "plus", "nombre"), ("Poids − 0,05", "moins", "nombre")],
+                   lignesDesPoidsUnParUn(poids["unParUn"])))
+    tirages = " ; ".join(f"± {nombreCourt(point['amplitude'])} : {nombre(100 * point['partMoyenne'], 1)} % en moyenne, "
+                         f"{nombre(100 * point['partMax'], 1)} % au plus" for point in sensibilite["courbe"])
+    html(f"<p class='note'>Tous les poids ensemble, {nombre(poids['tirages'])} tirages au hasard : {tirages}. "
+         f"{len(sensibilite['auBord'])} plats sont au bord de leur classe : leur concordance vaut λ pile.</p>")
+
+    profils = sensibilite["profils"]
+    html(panneau("Sensibilité aux profils", f"Une valeur de profil bouge à la fois, sans casser leur ordre : "
+                                            f"{len(profils['plats'])} plats sur {total} changent au moins une fois, dont "
+                                            f"{profils['platsComposantes']} par les composantes (± 5 %) et "
+                                            f"{profils['platsEntiers']} par NOVA ou les additifs (± 1)."))
+    lignes = []
+    for scenario in sorted(profils["scenarios"], key=lambda s: -s["plats"])[:8]:
+        lignes.append({"profil": nomDuProfil(PROFILS.index(scenario["profil"])),
+                       "critere": texteHtml(CRITERES_LIBELLES[scenario["critere"]][0]),
+                       "valeur": f"{nombreCourt(scenario['ancienne'])} → {nombreCourt(scenario['nouvelle'])}",
+                       "plats": str(scenario["plats"])})
+    html(tableHtml([("Profil", "profil", "texte"), ("Critère", "critere", "texte"), ("Seuil", "valeur", "nombre"),
+                    ("Plats qui changent", "plats", "nombre")], lignes))
+
+    autre = resultats.get("autreGroupe")
+    if autre:
+        leur = autre["leurSuperNutri"]
+        texteLeur = (f"même classe que leur SuperNutri-score pour {leur['bienRanges']} aliments sur {leur['total']}"
+                     if leur else "leur base ne donne pas les classes de leur SuperNutri-score")
+        html(panneau("La base d'un autre groupe", f"{autre['total']} aliments ; {texteLeur}."))
+    else:
+        html(panneau("La base d'un autre groupe", "Pas encore là : déposez-la dans donnees/autre_groupe/, remplissez la "
+                                                   "correspondance de ses colonnes, puis relancez projet_supernutri.py."))
+
+
 # --- Page ---
 
 def main():
@@ -1573,11 +1720,14 @@ def main():
     html("<div class='titre-page'>Nutri-Score et MR-Sort</div>"
          "<p class='chapo'>Calculez le Nutri-Score d'un produit, cherché sur Open Food Facts ou saisi à la main, "
          "et voyez comment un modèle de tri multicritère transparent, MR-Sort, range un plat préparé.</p>")
-    calculateur, pasAPas, modeles, base = st.tabs(["Calculateur", "Pas à pas", "Modèles", "Base"])
+    calculateur, pasAPas, superNutri, modeles, base = st.tabs(["Calculateur", "Pas à pas", "SuperNutri-score", "Modèles",
+                                                               "Base"])
     with calculateur:
         ongletCalculateur()
     with pasAPas:
         ongletPasAPas()
+    with superNutri:
+        ongletSuperNutri()
     with modeles:
         ongletModeles()
     with base:

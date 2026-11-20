@@ -55,8 +55,8 @@ CRITERES_LIBELLES = {
     "fi": ("Fibres", "g/100 g", "max"),
     "fr": ("Fruits, légumes et légumineuses", "%", "max"),
     "nova": ("Groupe NOVA", "de 1 à 4", "min"),
-    "additifs": ("Nombre d'additifs", "additifs", "min"),
-    "aRisque": ("Additifs à risque", "additifs", "min"),
+    "additifs": ("Nombre d'additifs", "", "min"),
+    "aRisque": ("Additifs à risque", "", "min"),
     "bio": ("Bio", "1 si bio, 0 sinon", "max"),
 }
 
@@ -122,6 +122,12 @@ ADDITIFS_A_RISQUE = {
     "phosphates": ({338, 339, 340, 341, 343, 450, 451, 452}, "EFSA, réévaluation des phosphates de 2019"),
     "carraghénanes": ({407}, "EFSA, réévaluation des carraghénanes de 2018"),
 }
+
+
+def libelleEnMinuscule(critere):
+    """Le libellé d'un critère dans une phrase : sa première lettre en minuscule, ses sigles gardés (« groupe NOVA »)."""
+    libelle = CRITERES_LIBELLES[critere][0]
+    return libelle[:1].lower() + libelle[1:]
 
 
 def poidsDesPiliers():
@@ -444,7 +450,7 @@ def sensibiliteProfils(produits, modele=None, decalage=0.05, pasEntier=1):
                     if classe != reference[numeroDuPlat]:
                         changes.append(numeroDuPlat)
                         parFamille["entiers" if critere in ("nova", "additifs", "aRisque") else "composantes"].add(numeroDuPlat)
-                        texte = (f"{nomDuProfil} {CRITERES_LIBELLES[critere][0].lower()} {ancienne} → {nouvelle} : "
+                        texte = (f"{nomDuProfil} {libelleEnMinuscule(critere)} {ancienne} → {nouvelle} : "
                                  f"{nomDeClasse(reference[numeroDuPlat])} → {nomDeClasse(classe)}")
                         touches.setdefault(numeroDuPlat, []).append(texte)
                 scenarios.append({"profil": nomDuProfil, "critere": critere, "ancienne": ancienne, "nouvelle": nouvelle,

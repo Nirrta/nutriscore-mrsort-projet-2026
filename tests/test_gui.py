@@ -848,3 +848,59 @@ def test_une_eau_n_a_pas_de_super_nutri_score():
     at.session_state["categorie"] = "eau"
     at.run()
     assert blocsHtml(at, "Pas de classe SuperNutri-score pour une eau")
+
+
+# --- L'onglet SuperNutri-score (20/11) ---
+
+def test_le_tableau_du_modele_super():
+    """Une ligne par critère, groupées par pilier ; chaque seuil dit son sens (≤ ou ≥) ; le bio est « exigé » ou non."""
+    import projet_supernutri as sn
+    lignes = gui.lignesDuModeleSuper(sn.MODELE_SUPER, sn.SOURCES_DES_SEUILS)
+    assert len(lignes) == 11
+    energie, bio = lignes[0], lignes[-1]
+    assert (energie["critere"], energie["a"], energie["d"]) == ("Énergie (kJ/100 g)", "≤ 335", "≤ 1 340")
+    assert (bio["a"], bio["d"]) == ("exigé", "—")
+    assert [ligne.get("_classe") for ligne in lignes].count("groupe") == 3
+
+
+def test_les_poids_un_par_un_en_lignes():
+    """Une ligne par critère : les plats qui changent quand son poids gagne 0,05, puis quand il en perd 0,05."""
+    unParUn = [{"critere": "en", "delta": 0.05, "plats": 3, "part": 0.024}, {"critere": "en", "delta": -0.05, "plats": 1, "part": 0.008}]
+    lignes = gui.lignesDesPoidsUnParUn(unParUn)
+    assert lignes == [{"critere": "Énergie", "plus": "3 (2,4 %)", "moins": "1 (0,8 %)"}]
+
+
+@baseConstruite
+def test_l_onglet_super_nutri_score():
+    """L'onglet montre le modèle, le sens des classes, la comparaison au Nutri-Score et les deux sensibilités."""
+    if "supernutri" not in gui.resultatsDuProjet():
+        pytest.skip("le SuperNutri-score n'est pas encore calculé")
+    at = lancer()
+    assert not at.exception
+    for titre in ("Le modèle", "Le sens des classes", "Face au Nutri-Score", "Sensibilité aux poids", "Sensibilité aux profils",
+                  "La base d'un autre groupe"):
+        assert blocsHtml(at, f"<div class='titre'>{titre}</div>"), titre
+
+
+def test_les_barres_du_super_nutri_score_prennent_toute_la_largeur():
+    """Onze critères : le verdict passe sous la barre, et même la case du bio (0,05) porte son sigle."""
+    import projet_supernutri as sn
+    plat = {"en": 300, "sa": 1.0, "su": 2.0, "so": 0.2, "pr": 15.0, "fi": 7.0, "fr": 80.0, "nova": 3, "additifs": 0,
+            "aRisque": 0, "bio": True}
+    valeurs = sn.valeursDuPlat(plat)
+    rendu = gui.barresDeConcordanceHtml(gui.affecter(valeurs, sn.MODELE_SUPER), sn.MODELE_SUPER, valeurs, large=True)
+    assert "class='concordances large'" in rendu
+    assert ">bi</span>" in rendu
+    assert ".concordances.large .ligne-concordance" in gui.STYLE
+
+
+def test_un_compte_d_additifs_n_a_pas_d_unite_redondante():
+    """« Additifs à risque », et non « Additifs à risque (additifs) » ; l'énergie garde son unité."""
+    assert (gui.libelleAvecUnite("aRisque"), gui.libelleAvecUnite("en")) == ("Additifs à risque", "Énergie (kJ/100 g)")
+
+
+def test_sur_un_telephone_les_cinq_onglets_ne_se_coupent_pas():
+    """Cinq onglets ne tiennent pas dans 375 px : la barre défile de côté, et aucun nom d'onglet ne se coupe."""
+    telephone = gui.STYLE.split("@media (max-width: 639px)")[1].split("\n}")[0]
+    assert '.stTabs [role="tablist"] { overflow-x: auto; }' in telephone
+    assert '.stTabs [role="tab"] { flex: 0 0 auto; white-space: nowrap; }' in telephone

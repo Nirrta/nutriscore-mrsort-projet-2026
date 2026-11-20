@@ -6406,7 +6406,7 @@
               "nom": "Carottes râpées",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -6414,7 +6414,7 @@
               "nom": "Colin d'alaska grille a la provencale 2 portions",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 groupe NOVA 4 → 3 : C′ → D′",
                 "b3 additifs à risque 1 → 0 : C′ → D′"
               ]
             },
@@ -6423,7 +6423,7 @@
               "nom": "Colin d'Alaska à la provençale 450g",
               "lettre": "C′",
               "decalages": [
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -6432,7 +6432,7 @@
               "lettre": "A′",
               "decalages": [
                 "b5 protéines 12 → 12.6 : A′ → B′",
-                "b5 groupe nova 3 → 2 : A′ → B′"
+                "b5 groupe NOVA 3 → 2 : A′ → B′"
               ]
             },
             {
@@ -6440,7 +6440,7 @@
               "nom": "Couscous Complet",
               "lettre": "A′",
               "decalages": [
-                "b5 groupe nova 3 → 2 : A′ → B′"
+                "b5 groupe NOVA 3 → 2 : A′ → B′"
               ]
             },
             {
@@ -6449,7 +6449,7 @@
               "lettre": "C′",
               "decalages": [
                 "b4 fruits, légumes et légumineuses 40 → 38.0 : C′ → B′",
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -6457,7 +6457,7 @@
               "nom": "légumes pour MINESTRONE",
               "lettre": "A′",
               "decalages": [
-                "b5 groupe nova 3 → 2 : A′ → B′"
+                "b5 groupe NOVA 3 → 2 : A′ → B′"
               ]
             },
             {
@@ -6475,7 +6475,7 @@
               "nom": "Merlu Blanc",
               "lettre": "A′",
               "decalages": [
-                "b5 groupe nova 3 → 2 : A′ → B′"
+                "b5 groupe NOVA 3 → 2 : A′ → B′"
               ]
             },
             {
@@ -6491,7 +6491,7 @@
               "nom": "Ratatouille",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -6499,7 +6499,7 @@
               "nom": "ratatouille aux légumes d'été",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -6515,7 +6515,7 @@
               "nom": "Poke bol poulet avocat",
               "lettre": "C′",
               "decalages": [
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -6524,7 +6524,7 @@
               "lettre": "C′",
               "decalages": [
                 "b3 sel 1.0 → 0.95 : C′ → D′",
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -6548,7 +6548,7 @@
               "nom": "Soupe de tomates et vermicelles",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -6564,7 +6564,7 @@
               "nom": "Veloute de potiron",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -6572,8 +6572,8 @@
               "nom": "Velouté De Potiron",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′",
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′",
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -6589,7 +6589,7 @@
               "nom": "Céleri rémoulade",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -6597,7 +6597,7 @@
               "nom": "Franprix velouté de légumes du potager 1L",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -6614,7 +6614,7 @@
               "nom": "Légumes à la basquaise 1kg",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -6622,7 +6622,7 @@
               "nom": "P'tit velouté potiron au fromage blanc",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -6630,7 +6630,7 @@
               "nom": "Préparation pour aligot d'Aveyron, 3/4 parts, sachet de 185g",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -6647,7 +6647,7 @@
               "lettre": "C′",
               "decalages": [
                 "b3 sel 1.0 → 0.95 : C′ → D′",
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -6655,7 +6655,7 @@
               "nom": "Saumon, sauce Beurre Citron, Surgelé",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -6663,7 +6663,7 @@
               "nom": "Soupe de courgettes, parmesan, noisettes",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -6703,7 +6703,7 @@
               "nom": "Lustucru ravioli tomate emmental 300g",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -6727,7 +6727,7 @@
               "nom": "Pizza Fromage 180G. Bf,",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -6735,7 +6735,7 @@
               "nom": "Pizza Mozzarella",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -6743,7 +6743,7 @@
               "nom": "Pizza Saumon Fumé",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -6752,7 +6752,7 @@
               "lettre": "C′",
               "decalages": [
                 "b3 énergie 1005 → 954.75 : C′ → D′",
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -6769,7 +6769,7 @@
               "lettre": "C′",
               "decalages": [
                 "b3 énergie 1005 → 954.75 : C′ → D′",
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -7838,7 +7838,7 @@
               "nom": "Carottes râpées",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -7846,7 +7846,7 @@
               "nom": "Colin d'alaska grille a la provencale 2 portions",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 groupe NOVA 4 → 3 : C′ → D′",
                 "b3 additifs à risque 1 → 0 : C′ → D′"
               ]
             },
@@ -7855,7 +7855,7 @@
               "nom": "Colin d'Alaska à la provençale 450g",
               "lettre": "C′",
               "decalages": [
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -7864,7 +7864,7 @@
               "lettre": "A′",
               "decalages": [
                 "b5 protéines 12 → 12.6 : A′ → B′",
-                "b5 groupe nova 3 → 2 : A′ → B′"
+                "b5 groupe NOVA 3 → 2 : A′ → B′"
               ]
             },
             {
@@ -7872,7 +7872,7 @@
               "nom": "Couscous Complet",
               "lettre": "A′",
               "decalages": [
-                "b5 groupe nova 3 → 2 : A′ → B′"
+                "b5 groupe NOVA 3 → 2 : A′ → B′"
               ]
             },
             {
@@ -7881,7 +7881,7 @@
               "lettre": "C′",
               "decalages": [
                 "b4 fruits, légumes et légumineuses 40 → 38.0 : C′ → B′",
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -7889,7 +7889,7 @@
               "nom": "légumes pour MINESTRONE",
               "lettre": "A′",
               "decalages": [
-                "b5 groupe nova 3 → 2 : A′ → B′"
+                "b5 groupe NOVA 3 → 2 : A′ → B′"
               ]
             },
             {
@@ -7907,7 +7907,7 @@
               "nom": "Merlu Blanc",
               "lettre": "A′",
               "decalages": [
-                "b5 groupe nova 3 → 2 : A′ → B′"
+                "b5 groupe NOVA 3 → 2 : A′ → B′"
               ]
             },
             {
@@ -7923,7 +7923,7 @@
               "nom": "Ratatouille",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -7931,7 +7931,7 @@
               "nom": "ratatouille aux légumes d'été",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -7947,7 +7947,7 @@
               "nom": "Poke bol poulet avocat",
               "lettre": "C′",
               "decalages": [
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -7956,7 +7956,7 @@
               "lettre": "C′",
               "decalages": [
                 "b3 sel 1.0 → 0.95 : C′ → D′",
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -7980,7 +7980,7 @@
               "nom": "Soupe de tomates et vermicelles",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -7996,7 +7996,7 @@
               "nom": "Veloute de potiron",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8004,8 +8004,8 @@
               "nom": "Velouté De Potiron",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′",
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′",
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -8021,7 +8021,7 @@
               "nom": "Céleri rémoulade",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8029,7 +8029,7 @@
               "nom": "Franprix velouté de légumes du potager 1L",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8046,7 +8046,7 @@
               "nom": "Légumes à la basquaise 1kg",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8054,7 +8054,7 @@
               "nom": "P'tit velouté potiron au fromage blanc",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8062,7 +8062,7 @@
               "nom": "Préparation pour aligot d'Aveyron, 3/4 parts, sachet de 185g",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8079,7 +8079,7 @@
               "lettre": "C′",
               "decalages": [
                 "b3 sel 1.0 → 0.95 : C′ → D′",
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8087,7 +8087,7 @@
               "nom": "Saumon, sauce Beurre Citron, Surgelé",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8095,7 +8095,7 @@
               "nom": "Soupe de courgettes, parmesan, noisettes",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8135,7 +8135,7 @@
               "nom": "Lustucru ravioli tomate emmental 300g",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8159,7 +8159,7 @@
               "nom": "Pizza Fromage 180G. Bf,",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8167,7 +8167,7 @@
               "nom": "Pizza Mozzarella",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8175,7 +8175,7 @@
               "nom": "Pizza Saumon Fumé",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8184,7 +8184,7 @@
               "lettre": "C′",
               "decalages": [
                 "b3 énergie 1005 → 954.75 : C′ → D′",
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8201,7 +8201,7 @@
               "lettre": "C′",
               "decalages": [
                 "b3 énergie 1005 → 954.75 : C′ → D′",
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8241,7 +8241,7 @@
               "nom": "Aiguillettes de Merlu Blanc du Cap Panées Sans Gluten",
               "lettre": "C′",
               "decalages": [
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -8249,7 +8249,7 @@
               "nom": "Cabillaud sauce provencale",
               "lettre": "C′",
               "decalages": [
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -8257,7 +8257,7 @@
               "nom": "Carottes rapées 800g",
               "lettre": "C′",
               "decalages": [
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -8282,7 +8282,7 @@
               "lettre": "A′",
               "decalages": [
                 "b5 protéines 12 → 12.6 : A′ → B′",
-                "b5 groupe nova 3 → 2 : A′ → B′"
+                "b5 groupe NOVA 3 → 2 : A′ → B′"
               ]
             },
             {
@@ -8291,7 +8291,7 @@
               "lettre": "A′",
               "decalages": [
                 "b5 protéines 12 → 12.6 : A′ → B′",
-                "b5 groupe nova 3 → 2 : A′ → B′"
+                "b5 groupe NOVA 3 → 2 : A′ → B′"
               ]
             },
             {
@@ -8299,7 +8299,7 @@
               "nom": "Effiloché de porc au romarain & purée cremeuse de chou-fleur",
               "lettre": "C′",
               "decalages": [
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -8307,7 +8307,7 @@
               "nom": "Galettes vegetales provencale",
               "lettre": "C′",
               "decalages": [
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -8315,7 +8315,7 @@
               "nom": "Mélange de Légumes - Bol Vapeur",
               "lettre": "A′",
               "decalages": [
-                "b5 groupe nova 3 → 2 : A′ → B′"
+                "b5 groupe NOVA 3 → 2 : A′ → B′"
               ]
             },
             {
@@ -8331,7 +8331,7 @@
               "nom": "Petit sale au lentilles",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8339,7 +8339,7 @@
               "nom": "Poivrons de Piquillo en lanières",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8347,8 +8347,8 @@
               "nom": "Poêlée Festive Asperges vertes cèpes et morilles",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′",
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′",
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -8356,7 +8356,7 @@
               "nom": "Printanière de Légumes",
               "lettre": "A′",
               "decalages": [
-                "b5 groupe nova 3 → 2 : A′ → B′"
+                "b5 groupe NOVA 3 → 2 : A′ → B′"
               ]
             },
             {
@@ -8372,7 +8372,7 @@
               "nom": "Purée Brocolis nature",
               "lettre": "A′",
               "decalages": [
-                "b5 groupe nova 3 → 2 : A′ → B′"
+                "b5 groupe NOVA 3 → 2 : A′ → B′"
               ]
             },
             {
@@ -8380,7 +8380,7 @@
               "nom": "Purée haricot vert, carotte jaune, petit pois",
               "lettre": "A′",
               "decalages": [
-                "b5 groupe nova 3 → 2 : A′ → B′"
+                "b5 groupe NOVA 3 → 2 : A′ → B′"
               ]
             },
             {
@@ -8396,7 +8396,7 @@
               "nom": "Salad'bowl à l'Italienne",
               "lettre": "C′",
               "decalages": [
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -8404,7 +8404,7 @@
               "nom": "Tajine de légumes surgelé",
               "lettre": "C′",
               "decalages": [
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -8420,7 +8420,7 @@
               "nom": "Bisque de Homard",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 groupe NOVA 4 → 3 : C′ → D′",
                 "b3 additifs à risque 1 → 0 : C′ → D′"
               ]
             },
@@ -8429,7 +8429,7 @@
               "nom": "Boeuf Teriyaki",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 groupe NOVA 4 → 3 : C′ → D′",
                 "b3 additifs à risque 1 → 0 : C′ → D′"
               ]
             },
@@ -8438,8 +8438,8 @@
               "nom": "Effiloché Végétal Belive It !",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′",
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′",
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -8447,7 +8447,7 @@
               "nom": "Légumes au chèvre",
               "lettre": "C′",
               "decalages": [
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -8456,7 +8456,7 @@
               "lettre": "C′",
               "decalages": [
                 "b4 fibres 3 → 2.85 : C′ → B′",
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -8464,7 +8464,7 @@
               "nom": "Parmentier de poisson et de légumes",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8472,7 +8472,7 @@
               "nom": "Penne Poulet Pesto, Surgelé",
               "lettre": "C′",
               "decalages": [
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -8488,7 +8488,7 @@
               "nom": "Purée de courge butternut à la crème",
               "lettre": "A′",
               "decalages": [
-                "b5 groupe nova 3 → 2 : A′ → B′"
+                "b5 groupe NOVA 3 → 2 : A′ → B′"
               ]
             },
             {
@@ -8496,7 +8496,7 @@
               "nom": "Riz aux champignons de Paris",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8512,7 +8512,7 @@
               "nom": "Salade Fusilli poulet curry",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 groupe NOVA 4 → 3 : C′ → D′",
                 "b3 additifs à risque 1 → 0 : C′ → D′"
               ]
             },
@@ -8521,7 +8521,7 @@
               "nom": "Salade pates œuf fromage",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8529,7 +8529,7 @@
               "nom": "Saumon Fondue de Poireaux, Surgelé",
               "lettre": "C′",
               "decalages": [
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -8537,7 +8537,7 @@
               "nom": "Saumon, fondue de poireaux et d'épinards, sauce au fromage blanc, Surgelés",
               "lettre": "C′",
               "decalages": [
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -8553,7 +8553,7 @@
               "nom": "Tagliatel F.mer",
               "lettre": "C′",
               "decalages": [
-                "b4 groupe nova 3 → 4 : C′ → B′"
+                "b4 groupe NOVA 3 → 4 : C′ → B′"
               ]
             },
             {
@@ -8562,7 +8562,7 @@
               "lettre": "C′",
               "decalages": [
                 "b3 protéines 4.8 → 5.04 : C′ → D′",
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8570,7 +8570,7 @@
               "nom": "Brandade de Morue Parmentière, Recette du Sud-Ouest",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 groupe NOVA 4 → 3 : C′ → D′",
                 "b3 additifs à risque 1 → 0 : C′ → D′"
               ]
             },
@@ -8579,7 +8579,7 @@
               "nom": "Délice de potiron châtaigne",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8587,7 +8587,7 @@
               "nom": "Leader Snack - Salade surimi crudités",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8595,7 +8595,7 @@
               "nom": "Lustucru mini quenelles a poeler nature 250g",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8604,7 +8604,7 @@
               "lettre": "C′",
               "decalages": [
                 "b3 sel 1.0 → 0.95 : C′ → D′",
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8621,7 +8621,7 @@
               "lettre": "C′",
               "decalages": [
                 "b3 sel 1.0 → 0.95 : C′ → D′",
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8629,7 +8629,7 @@
               "nom": "Pad thaï poulet",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8637,7 +8637,7 @@
               "nom": "Potage deshydrate veloute bolets 74 g",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8645,7 +8645,7 @@
               "nom": "Poule au pot",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8653,7 +8653,7 @@
               "nom": "Quenelles de saumon sauce crevette 400g",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8678,7 +8678,7 @@
               "nom": "Ready Pac Santa Fe Style Ceasar Bistro Salad",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8686,7 +8686,7 @@
               "nom": "Risotto forestier",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8703,7 +8703,7 @@
               "nom": "Tartiflette",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 groupe NOVA 4 → 3 : C′ → D′",
                 "b3 nombre d'additifs 3 → 2 : C′ → D′",
                 "b3 additifs à risque 1 → 0 : C′ → D′"
               ]
@@ -8721,7 +8721,7 @@
               "nom": "Tortellini pesto",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 groupe NOVA 4 → 3 : C′ → D′",
                 "b3 additifs à risque 1 → 0 : C′ → D′"
               ]
             },
@@ -8730,7 +8730,7 @@
               "nom": "Veloute  chanterelles et bolets",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8738,7 +8738,7 @@
               "nom": "Velouté aux Courgettes saveur chèvre",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8746,7 +8746,7 @@
               "nom": "Velouté de bolets et chanterelles",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8762,7 +8762,7 @@
               "nom": "Délice au Saumon & Épinard",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8770,7 +8770,7 @@
               "nom": "Girasoli legumes du soleil 250g lustucru",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8778,7 +8778,7 @@
               "nom": "Les Quenelles de l'Atelier Brochet Sauvage",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8787,7 +8787,7 @@
               "lettre": "C′",
               "decalages": [
                 "b3 énergie 1005 → 954.75 : C′ → D′",
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8796,7 +8796,7 @@
               "lettre": "C′",
               "decalages": [
                 "b3 sel 1.0 → 0.95 : C′ → D′",
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8813,7 +8813,7 @@
               "lettre": "C′",
               "decalages": [
                 "b3 énergie 1005 → 954.75 : C′ → D′",
-                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 groupe NOVA 4 → 3 : C′ → D′",
                 "b3 nombre d'additifs 3 → 2 : C′ → D′",
                 "b3 additifs à risque 1 → 0 : C′ → D′"
               ]
@@ -8840,7 +8840,7 @@
               "nom": "Tartinable fromager thon",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8880,7 +8880,7 @@
               "nom": "Kit pour crunchy fajitas",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 groupe NOVA 4 → 3 : C′ → D′",
                 "b3 additifs à risque 1 → 0 : C′ → D′"
               ]
             },
@@ -8889,7 +8889,7 @@
               "nom": "Marinade poulet",
               "lettre": "C′",
               "decalages": [
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
@@ -8898,7 +8898,7 @@
               "lettre": "C′",
               "decalages": [
                 "b3 fibres 2 → 2.1 : C′ → D′",
-                "b3 groupe nova 4 → 3 : C′ → D′"
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
