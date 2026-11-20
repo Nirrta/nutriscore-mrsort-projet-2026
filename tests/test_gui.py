@@ -746,3 +746,57 @@ def test_les_nombres_des_editeurs_suivent_la_langue_du_navigateur():
     configuration = gui.configurationDeLEditeur()
     for colonne in ["Poids"] + [gui.nomDuProfil(numero) for numero in range(len(gui.PROFILS))]:
         assert configuration[colonne]["type_config"]["format"] == "localized", colonne
+
+
+# --- λ au curseur (20/11) ---
+
+def curseurLambda(at, rang=0):
+    """Le curseur de λ du rang-ième éditeur des paramètres (0 : MR-Sort à 7 critères, 1 : à 3 critères)."""
+    return [curseur for curseur in at.select_slider if curseur.label == "Seuil majoritaire λ"][rang]
+
+
+def lancerAvecLesProfilsAppris():
+    """L'interface avec les profils appris sur 375 plats, λ = 0,6 : la Poêlée Fermière y est B′ à 7 critères."""
+    at = AppTest.from_file("../projet_gui.py", default_timeout=20)
+    at.session_state["apprisSur"] = "375"
+    at.session_state["apprentissage"] = "profils"
+    return at.run()
+
+
+def test_lambda_s_ecrit_sans_zero_inutile():
+    assert (gui.nombreLambda(0.6), gui.nombreLambda(0.65), gui.nombreLambda(1.0)) == ("0,6", "0,65", "1")
+
+
+@baseConstruite
+def test_l_en_tete_choisit_le_modele_appris():
+    """Le choix 0,6 / 0,7 de l'en-tête choisit le modèle appris ; λ lui-même se règle au curseur, dans les paramètres."""
+    at = lancer()
+    assert at.segmented_control(key="lam_sept").label == "Appris pour λ"
+    assert curseurLambda(at).value == 0.6
+
+
+@pytest.mark.skipif(not projet_base.FICHIER_BASE_ETENDUE.exists(), reason="la base étendue n'est pas construite")
+def test_lambda_se_regle_au_curseur():
+    """Mêmes poids et mêmes profils, λ = 0,70 : la concordance face à B′ (0,694) ne suffit plus, la Poêlée passe en C′."""
+    at = lancerAvecLesProfilsAppris()
+    assert gui.nomDeClasse(at.session_state["mrsort_sept"]["classe"]) == "B′"
+    curseurLambda(at).set_value(0.7).run()
+    assert at.session_state["mrsort_sept"]["lam"] == 0.7
+    assert gui.nomDeClasse(at.session_state["mrsort_sept"]["classe"]) == "C′"
+
+
+@pytest.mark.skipif(not projet_base.FICHIER_BASE_ETENDUE.exists(), reason="la base étendue n'est pas construite")
+def test_revenir_aux_parametres_appris_remet_lambda():
+    at = lancerAvecLesProfilsAppris()
+    curseurLambda(at).set_value(0.7).run()
+    at.button(key="revenir_sept").click().run()
+    assert curseurLambda(at).value == 0.6
+    assert at.session_state["mrsort_sept"]["lam"] == 0.6
+
+
+@pytest.mark.skipif(not projet_base.FICHIER_BASE_ETENDUE.exists(), reason="la base étendue n'est pas construite")
+def test_le_pas_a_pas_suit_lambda_du_curseur():
+    """Le pas à pas reprend le λ du curseur, et dit que les paramètres sont modifiés à la main."""
+    at = lancerAvecLesProfilsAppris()
+    curseurLambda(at).set_value(0.7).run()
+    assert blocsHtml(at, "λ = 0,7, paramètres modifiés à la main")

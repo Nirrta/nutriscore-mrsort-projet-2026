@@ -237,6 +237,12 @@ def nombre(valeur, decimales=0):
     return texte.replace(",", " ").replace(".", ",")
 
 
+def nombreLambda(lam):
+    """λ à la française, sans zéro inutile : 0,6, 0,65 ou 1 (le curseur le règle au centième)."""
+    texte = nombre(lam, 2)
+    return texte.rstrip("0").rstrip(",") if "," in texte else texte
+
+
 def tableHtml(colonnes, lignes):
     """
     Tableau au style Verso. colonnes = [(titre, clé, genre)], avec genre « texte » ou
@@ -374,7 +380,7 @@ def barresDeConcordanceHtml(detail, modele, plat):
                       f"title='{texteHtml(CRITERES[critere][0])}, poids {nombre(modele['poids'][critere], 3)}'>{sigle}</span>")
         franchi = detail["franchis"][numero]
         valeur = nombre(detail["concordances"][numero], 3)
-        verdict = f"{valeur} ≥ {nombre(lam, 1)}, franchi" if franchi else f"{valeur} < {nombre(lam, 1)}"
+        verdict = f"{valeur} ≥ {nombreLambda(lam)}, franchi" if franchi else f"{valeur} < {nombreLambda(lam)}"
         description = (f"{PROFILS[numero]}, le seuil de {nomDeClasse(numero + 1)} : le plat vaut au moins le profil sur "
                        f"{', '.join(passent) or 'aucun critère'}, concordance {valeur}, {'franchi' if franchi else 'non franchi'}")
         lignes += (f"<div class='ligne-concordance' role='img' aria-label='{texteHtml(description)}'>"
@@ -871,7 +877,7 @@ def ligneDeLEditeur(titre, lam, libelle, classe, indicatif=False, sansClasse=Non
     (profils non ordonnés, ou une eau : sansClasse dit alors pourquoi) ; indicatif : un produit
     hors du domaine.
     """
-    debut = f"<span><strong>{texteHtml(titre)}</strong>, λ = {nombre(lam, 1)}, {texteHtml(libelle)} :</span>"
+    debut = f"<span><strong>{texteHtml(titre)}</strong>, λ = {nombreLambda(lam)}, {texteHtml(libelle)} :</span>"
     if classe is None:
         raison = sansClasse or "pas de classe tant que les profils ne sont pas ordonnés."
         return f"<div class='sous-titre-editeur'>{debut}<span>{texteHtml(raison)}</span></div>"
@@ -899,9 +905,9 @@ def phraseDeFranchissement(detail, lam):
     morceaux = []
     if classe >= 1:
         morceaux.append(f"franchit le seuil de {nomDeClasse(classe)} ({PROFILS[classe - 1]}, concordance "
-                        f"{nombre(detail['concordances'][classe - 1], 3)} ≥ λ = {nombre(lam, 1)})")
+                        f"{nombre(detail['concordances'][classe - 1], 3)} ≥ λ = {nombreLambda(lam)})")
     if classe < len(PROFILS):
-        suivant = f"({PROFILS[classe]}, {nombre(detail['concordances'][classe], 3)} < {nombre(lam, 1)})"
+        suivant = f"({PROFILS[classe]}, {nombre(detail['concordances'][classe], 3)} < {nombreLambda(lam)})"
         if classe >= 1:
             morceaux.append(f"pas celui de {nomDeClasse(classe + 1)} {suivant}")
         else:
@@ -919,7 +925,11 @@ MODELES = [("sept", "MR-Sort à 7 critères"), ("trois", "MR-Sort à 3 critères
 
 
 def enteteMRSort(nom, titre, base="125", apprentissage="poids"):
-    """L'en-tête du panneau d'un modèle : son titre, sa base et son apprentissage, et le choix du seuil λ. Renvoie λ."""
+    """
+    L'en-tête du panneau d'un modèle : son titre, sa base et son apprentissage, et le choix du modèle
+    appris pour λ = 0,6 ou 0,7 (le sujet en demande deux). Renvoie ce λ ; le curseur de l'éditeur
+    règle ensuite le λ du calcul.
+    """
     plats = "375 plats" if base == "375" else "les 125 plats"
     if apprentissage == "profils":
         sousTitre = f"Appris sur {plats} : poids des points maximaux du Nutri-Score, profils appris."
@@ -930,7 +940,7 @@ def enteteMRSort(nom, titre, base="125", apprentissage="poids"):
     else:
         sousTitre = "Appris sur les 125 plats du 30/10 : profils par les médianes, poids par programme linéaire."
     html(panneau(titre, sousTitre))
-    return st.segmented_control("Seuil majoritaire λ", SEUILS_MAJORITAIRES, default=SEUILS_MAJORITAIRES[0],
+    return st.segmented_control("Appris pour λ", SEUILS_MAJORITAIRES, default=SEUILS_MAJORITAIRES[0],
                                 required=True, format_func=lambda valeur: nombre(valeur, 1), key=f"lam_{nom}")
 
 
@@ -956,12 +966,26 @@ def editeurMRSort(nom, lam, base="125", apprentissage="poids"):
     if appris is None:
         return None
     version = st.session_state.get(f"version_{nom}", 0)
+    lamEdite = curseurLambda(lam, f"lamEdite_{nom}_{lam}_{base}_{apprentissage}_{version}")
     tableau = st.data_editor(tableauDesParametres(appris, intervalles),
                              key=f"editeur_{nom}_{lam}_{base}_{apprentissage}_{version}",
                              hide_index=True, disabled=["Critère", "Sens"] + (["Poids possibles"] if intervalles else []),
                              column_config=configurationDeLEditeur())
     st.button("Revenir aux paramètres appris", key=f"revenir_{nom}", on_click=revenirAuxParametresAppris, args=(nom,))
-    return modeleDuTableau(tableau, dict(appris, lam=lam))
+    return modeleDuTableau(tableau, dict(appris, lam=lamEdite))
+
+
+# Les valeurs du curseur de λ : de 0,51 à 1, au centième (le sujet veut λ dans ]0,5 ; 1])
+VALEURS_DE_LAMBDA = [round(0.51 + centieme / 100, 2) for centieme in range(50)]
+
+
+def curseurLambda(lam, cle):
+    """
+    Le curseur de λ d'un éditeur, parti de lam (le λ du modèle appris). Sa clé change avec le
+    modèle et avec « Revenir aux paramètres appris » : il repart alors de lam. Renvoie λ.
+    """
+    return st.select_slider("Seuil majoritaire λ", VALEURS_DE_LAMBDA, value=round(lam, 2), format_func=nombreLambda,
+                            key=cle, help="Un profil est franchi quand les critères satisfaits pèsent au moins λ.")
 
 
 def resultatMRSort(nom, plat, labelNutriscore, edition, lam, base="125", avecNote=True, categorie="general",
@@ -985,7 +1009,7 @@ def resultatMRSort(nom, plat, labelNutriscore, edition, lam, base="125", avecNot
     if not valide:
         return None
     detail = affecter(plat, modele)
-    st.session_state[f"mrsort_{nom}"] = {"classe": detail["classe"], "lam": lam, "base": base,       # lu par les tests
+    st.session_state[f"mrsort_{nom}"] = {"classe": detail["classe"], "lam": modele["lam"], "base": base,  # lu par les tests
                                          "apprentissage": apprentissage}
     appris = modeleAppris(nom, lam, base, apprentissage)[0]
     st.session_state["modelesAffiches"][nom] = {                                                  # lu par le pas à pas
@@ -994,7 +1018,7 @@ def resultatMRSort(nom, plat, labelNutriscore, edition, lam, base="125", avecNot
     accord = accordAvecLeNutriscore(classe, labelNutriscore, categorie, horsDomaine)
     html(f"<div class='verdict-modele'>{classeModeleHtml(detail['classe'], horsDomaine)}"
          f"<div class='texte'><strong>Classe {classe}</strong>, {accord}.<br>"
-         f"{texteHtml(phraseDeFranchissement(detail, lam))}</div></div>")
+         f"{texteHtml(phraseDeFranchissement(detail, modele['lam']))}</div></div>")
     html(barresDeConcordanceHtml(detail, modele, plat))
     if avecNote:
         html("<p class='note'>Une case par critère, de largeur égale à son poids ; noire si le plat vaut au moins "
@@ -1088,7 +1112,7 @@ def ongletCalculateur():
     # Seuls les poids appris ont des poids possibles (leurs intervalles) : la phrase n'accompagne que leur colonne
     avecIntervalles = any(modeleAppris(nom, seuils[nom], base, apprentissage)[1] for nom, _ in MODELES)
     html(panneau("Paramètres des modèles MR-Sort",
-                 "Modifiez un poids ou un profil : les classes ci-dessus suivent. Les poids sont ramenés à une somme de 1."
+                 "Modifiez λ, un poids ou un profil : les classes ci-dessus suivent. Les poids sont ramenés à une somme de 1."
                  + (" Les poids possibles rangent aussi bien les plats de la base." if avecIntervalles else "")))
     editions, titres = {}, {}
     for nom, titre in MODELES:
@@ -1105,7 +1129,8 @@ def ongletCalculateur():
         if editions[nom] is not None:
             with titres[nom]:
                 sansClasse = "pas de classe pour une eau." if categorie == "eau" else None
-                html(ligneDeLEditeur(titre, seuils[nom], libelleDuModele(base, apprentissage), classe, horsDomaine, sansClasse))
+                lamEdite = editions[nom][0]["lam"]                     # le λ du curseur
+                html(ligneDeLEditeur(titre, lamEdite, libelleDuModele(base, apprentissage), classe, horsDomaine, sansClasse))
 
 
 # --- Base ---
@@ -1198,7 +1223,9 @@ def diagrammeDesProfils(modeleJson, platJson):
 
 
 def memesParametres(modele, appris):
-    """Vrai si le modèle édité garde les poids et les profils du modèle appris (à 1e-9 près)."""
+    """Vrai si le modèle édité garde le λ, les poids et les profils du modèle appris (à 1e-9 près)."""
+    if abs(modele["lam"] - appris["lam"]) > 1e-9:
+        return False
     for critere in appris["criteres"]:
         if abs(modele["poids"][critere] - appris["poids"][critere]) > 1e-9:
             return False
@@ -1214,7 +1241,7 @@ def sousTitreDuPasAPas(nomDuPlat, libelle, lam, parametresModifies, horsDomaine=
     lieu), le modèle (libelle, par libelleDuModele) et λ, puis « paramètres modifiés à la main »
     seulement si c'est le cas, et « classe indicative » pour un produit hors du domaine des modèles.
     """
-    texte = f"{nomDuPlat}. Modèle « {libelle} », λ = {nombre(lam, 1)}"
+    texte = f"{nomDuPlat}. Modèle « {libelle} », λ = {nombreLambda(lam)}"
     if parametresModifies:
         texte += ", paramètres modifiés à la main"
     texte += "."
@@ -1279,7 +1306,7 @@ def ongletPasAPas():
 
     html("<div class='etape'>3. La concordance</div>"
          f"<p class='note'>Face à chaque profil, on additionne les poids des critères qui votent pour le plat. Le plat "
-         f"franchit le profil quand cette somme atteint λ = {nombre(modele['lam'], 1)}.</p>")
+         f"franchit le profil quand cette somme atteint λ = {nombreLambda(modele['lam'])}.</p>")
     st.latex(r"C(a, b_k) = \sum_j w_j \, c_j(a, b_k) \qquad a \, S \, b_k \iff C(a, b_k) \geq \lambda")
     lignes = []
     for numero, etape in enumerate(etapes):                  # les étapes vont de b2 à b5, comme PROFILS
@@ -1288,7 +1315,7 @@ def ongletPasAPas():
         lignes.append({"profil": nomDuProfil(numero),
                        "pour": texteHtml(", ".join(CRITERES[c][0].lower() for c in etape["pour"]) or "aucun critère"),
                        "somme": f"{termes} = {nombre(etape['concordance'], 3)}",
-                       "verdict": f"{signe} {nombre(modele['lam'], 1)}, {'franchi' if etape['franchi'] else 'non franchi'}",
+                       "verdict": f"{signe} {nombreLambda(modele['lam'])}, {'franchi' if etape['franchi'] else 'non franchi'}",
                        "_classe": "total" if etape["franchi"] else ""})
     html(tableHtml([("Profil", "profil", "texte"), ("Critères qui votent pour le plat", "pour", "texte"),
                     ("Concordance", "somme", "nombre"), ("Verdict", "verdict", "nombre")], lignes))
