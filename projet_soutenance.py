@@ -23,6 +23,8 @@ from pathlib import Path
 DOSSIER = Path(__file__).resolve().parent
 DOSSIER_SOUTENANCE = DOSSIER / "soutenance"
 TEXTE_ORAL = DOSSIER_SOUTENANCE / "texte_soutenance_1.md"
+# Le texte de l'oral de chaque soutenance : la soutenance intermédiaire (30/10), puis la soutenance finale (27/11)
+TEXTES_ORAUX = {1: TEXTE_ORAL, 2: DOSSIER_SOUTENANCE / "texte_soutenance_2.md"}
 DOSSIER_DEMARCHE = DOSSIER_SOUTENANCE / "dossier_soutenance_1.md"
 
 # L'en-tête d'une slide dans le texte de l'oral : « ## Slide 3 : la base (Daniel, 1 min 15) »
@@ -122,12 +124,21 @@ def compiler(source, destination):
 
 
 def main():
-    """Compile le texte de l'oral et le dossier de la démarche, puis affiche la durée de l'oral."""
-    for source in (TEXTE_ORAL, DOSSIER_DEMARCHE):
+    """
+    Compile le texte de l'oral de la soutenance demandée (et, pour la soutenance intermédiaire,
+    le dossier de la démarche), puis affiche la durée de l'oral.
+    """
+    import argparse
+
+    parseur = argparse.ArgumentParser(description="Les textes des soutenances, en PDF.")
+    parseur.add_argument("--soutenance", type=int, choices=[1, 2], default=1)
+    numero = parseur.parse_args().soutenance
+    sources = (TEXTE_ORAL, DOSSIER_DEMARCHE) if numero == 1 else (TEXTES_ORAUX[2],)
+    for source in sources:
         destination = source.with_suffix(".pdf")
         compiler(source, destination)
         print(f"{destination.relative_to(DOSSIER)} écrit")
-    slides = slidesDuTexte()
+    slides = slidesDuTexte(TEXTES_ORAUX[numero])
     duree = sum(slide["duree"] for slide in slides)
     print(f"Oral : {len(slides)} slides, {duree // 60} min {duree % 60:02d} s")
 

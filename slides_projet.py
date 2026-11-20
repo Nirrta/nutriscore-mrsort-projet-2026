@@ -2,11 +2,12 @@
 slides_projet.py : les slides des soutenances (python-pptx), au style « Verso de l'emballage ».
 
     python3 slides_projet.py --soutenance 1   # ven. 30/10/2026 : base, Nutri-Score, modèles MR-Sort
-    python3 slides_projet.py --soutenance 2   # ven. 27/11/2026 : SuperNutri-score (phase 3)
+    python3 slides_projet.py --soutenance 2   # ven. 27/11/2026 : le SuperNutri-score (phase 3)
 
 Le sujet demande, pour la soutenance intermédiaire (15 minutes au plus) : la base de données
 construite, l'interface du Nutri-Score, un modèle d'approximation à 7 ou 3 critères appliqué
-à la base, et la comparaison avec le Nutri-Score.
+à la base, et la comparaison avec le Nutri-Score. Pour la soutenance finale (15 minutes au
+plus) : le SuperNutri-score, les réponses aux questions de la section 3.4 et l'interface.
 
 Tout le contenu chiffré vient du code : resultats/resultats_projet.json, la base et les
 figures de projet_figures.py. Aucun résultat n'est écrit en dur ici. Chaque slide a un titre
@@ -31,12 +32,13 @@ from pptx.oxml.ns import qn
 from pptx.util import Inches, Pt
 
 import projet_figures as figures
-from projet_base import DOSSIER, FICHIER_BASE, FICHIER_RESULTATS, lireBase
+from projet_base import DOSSIER, FICHIER_BASE, FICHIER_BASE_ETENDUE, FICHIER_RESULTATS, LOT_AJOUT, lireBase
 from projet_design import (COULEUR_NEGATIFS, COULEUR_POSITIFS, COULEURS_CLASSES, DOSSIER_POLICES, ENCRE,
                            ENCRE_SECONDAIRE, FICHIERS_POLICES, LETTRE_SUR_CLASSE, PAPIER, TRAME, couleurClasse,
                            lettreDeClasse)
 from projet_mrsort import CRITERES, CRITERES_SEPT, PROFILS, affecter, concordancePartielle, nomDeClasse, sensDuCritere
 from projet_nutriscore import EXEMPLES_SUJET, NEGATIFS, POINTS_MAX, POSITIFS, scoreNutriscore
+from projet_supernutri import PILIERS, SENS_DES_CLASSES, ecartsAuNutriscore, valeursDuPlat
 
 
 # --- Format, polices et textes fixes ---
@@ -262,12 +264,12 @@ def nouvelleDiapo(presentation, titre, sousTitre=""):
     return diapo
 
 
-def numeroterPages(presentation):
-    """Écrit le groupe et « page / total » en bas de chaque slide, sauf la première."""
+def numeroterPages(presentation, soutenance="soutenance intermédiaire"):
+    """Écrit le nom de la soutenance et « page / total » en bas de chaque slide, sauf la première."""
     total = len(presentation.slides)
     for page, diapo in enumerate(presentation.slides, start=1):
         if page > 1:
-            boite(diapo, MARGE, HAUTEUR - 0.42, 8, 0.25, [[m("Projet MR-Sort, soutenance intermédiaire", TEXTE, 10,
+            boite(diapo, MARGE, HAUTEUR - 0.42, 8, 0.25, [[m(f"Projet MR-Sort, {soutenance}", TEXTE, 10,
                                                              ENCRE_SECONDAIRE)]], "Pied")
             boite(diapo, LARGEUR - MARGE - 1.2, HAUTEUR - 0.42, 1.2, 0.25, [[m(f"{page} / {total}", TEXTE, 10,
                                                                                ENCRE_SECONDAIRE)]],
@@ -306,8 +308,12 @@ PLAT_EXEMPLE = "3257982125116"     # la Poêlée Fermière (Cora) : B pour le Nu
 SA_DEMONSTRATION = 1.4            # les acides gras saturés saisis pendant la démonstration (g pour 100 g)
 # chaque critère en toutes lettres, et son article : avec « les », le verbe se met au pluriel
 NOMS_COURTS = {"en": "énergie", "sa": "acides gras saturés", "su": "sucres", "so": "sel", "pr": "protéines",
-               "fi": "fibres", "fr": "fruits et légumes"}
-ARTICLES = {"en": "l'", "sa": "les ", "su": "les ", "so": "le ", "pr": "les ", "fi": "les ", "fr": "les "}
+               "fi": "fibres", "fr": "fruits et légumes", "nova": "groupe NOVA", "additifs": "nombre d'additifs",
+               "aRisque": "additifs à risque", "bio": "label bio"}
+ARTICLES = {"en": "l'", "sa": "les ", "su": "les ", "so": "le ", "pr": "les ", "fi": "les ", "fr": "les ",
+            "nova": "le ", "additifs": "le ", "aRisque": "les ", "bio": "le "}
+# les sigles des critères du SuperNutri-score dans les barres de concordance : deux lettres, comme en, sa, su…
+SIGLES = {"nova": "nv", "additifs": "ad", "aRisque": "ar", "bio": "bi"}
 
 
 def quantite(plat):
@@ -418,12 +424,12 @@ def preparerFigures(resultats, plats):
     return chemins
 
 
-def notesDuTexte():
-    """Les notes de chaque slide, tirées du texte de l'oral (soutenance/texte_soutenance_1.md) : numéro → texte."""
-    from projet_soutenance import slidesDuTexte
+def notesDuTexte(soutenance=1):
+    """Les notes de chaque slide, tirées du texte de l'oral (soutenance/texte_soutenance_N.md) : numéro → texte."""
+    from projet_soutenance import TEXTES_ORAUX, slidesDuTexte
 
     notesParSlide = {}
-    for slide in slidesDuTexte():
+    for slide in slidesDuTexte(TEXTES_ORAUX[soutenance]):
         texte = f"{slide['orateur']}, {slide['duree'] // 60} min {slide['duree'] % 60:02d}.\n\n" + "\n\n".join(slide["texte"])
         if slide["transition"]:
             texte += f"\n\nTransition : {slide['transition']}"
@@ -566,7 +572,8 @@ def barreDeConcordance(diapo, x, y, largeur, hauteur, regle, plat, numero, nom):
                   trait=PAPIER if passe else ENCRE, epaisseur=1)
         if largeurCase >= 0.22:
             boite(diapo, gauche, y, largeurCase, hauteur,
-                  [[m(critere, DEMI_GRAS, 12, PAPIER if passe else ENCRE_SECONDAIRE)]], f"{nom} sigle {critere}",
+                  [[m(SIGLES.get(critere, critere), DEMI_GRAS, 12, PAPIER if passe else ENCRE_SECONDAIRE)]],
+                  f"{nom} sigle {critere}",
                   ancrage=MSO_ANCHOR.MIDDLE, alignement=PP_ALIGN.CENTER)
         gauche += largeurCase
     rectangle(diapo, x, y, largeur, hauteur, f"{nom} cadre", trait=ENCRE, epaisseur=2)
@@ -923,9 +930,340 @@ def slidesSoutenance1(chemin=SORTIES[1]):
     return len(presentation.slides)
 
 
+# --- Soutenance 2 : le SuperNutri-score ---
+
+BASE_FINALE = "etendue"            # les chiffres de la soutenance finale portent sur nos 375 plats
+LIBELLES_COURTS = {"en": "Énergie (kJ)", "sa": "AGS (g)", "su": "Sucres (g)", "so": "Sel (g)", "pr": "Protéines (g)",
+                   "fi": "Fibres (g)", "fr": "Fruits et légumes (%)", "nova": "Groupe NOVA",
+                   "additifs": "Nombre d'additifs", "aRisque": "Additifs à risque", "bio": "Bio"}
+# d'où vient chaque seuil, en peu de mots (la version longue est dans projet_supernutri.SOURCES_DES_SEUILS)
+SOURCES_COURTES = {"en": "barème du Nutri-Score 2023", "sa": "A′ : « faible teneur » (CE 1924/2006)",
+                   "su": "A′ : « faible teneur » (CE 1924/2006)", "so": "A′ : « faible teneur » (CE 1924/2006)",
+                   "pr": "barème du Nutri-Score 2023", "fi": "A′ « riche », B′ « source » (CE 1924/2006)",
+                   "fr": "barème du Nutri-Score 2023 (40 et 60 %)", "nova": "pas d'ultra-transformé en A′ et B′",
+                   "additifs": "aucun en A′, un au plus en B′", "aRisque": "nitrites, phosphates, carraghénanes",
+                   "bio": "label bio exigé en A′ et B′"}
+
+
+def nombreCourt(valeur):
+    """Un nombre sans zéro inutile : 1 340, 6,8, 0,3."""
+    if float(valeur).is_integer():
+        return nombre(valeur, 0)
+    return nombre(valeur, 2).rstrip("0").rstrip(",")
+
+
+def seuilEcrit(critere, valeur, sens):
+    """Un seuil de profil : « ≤ 335 » pour un critère à minimiser, « ≥ 12 » pour un critère à maximiser ; le bio est « exigé » ou non."""
+    if critere == "bio":
+        return "exigé" if valeur else "—"
+    return f"{'≤' if sens == 'min' else '≥'} {nombreCourt(valeur)}"
+
+
+def slideTitreFinale(presentation):
+    """La page de titre de la soutenance finale : notre modèle, et ses cinq classes."""
+    diapo = presentation.slides.add_slide(presentation.slide_layouts[6])
+    largeur = LARGEUR - 2 * MARGE
+    boite(diapo, MARGE, 0.7, largeur, 0.4, [[m(COURS, TEXTE, 14, ENCRE_SECONDAIRE)]], "Cours")
+    filet(diapo, MARGE, 2.05, largeur, 12, "Filet de titre")
+    boite(diapo, MARGE, 2.35, largeur, 1.9, [[m("Le SuperNutri-score", TITRE, 60)], [m("notre modèle MR-Sort", TITRE, 60)]],
+          "Titre")
+    sousTitre = "Comparer les plats préparés : composition, transformation et production"
+    verifierUneLigne("Le sous-titre de la page de titre", sousTitre, DEMI_GRAS, 22, largeur)
+    boite(diapo, MARGE, 4.6, largeur, 0.5, [[m(sousTitre, DEMI_GRAS, 22)]], "Sous-titre")
+    for numero, lettre in enumerate(COULEURS_CLASSES):
+        pastille(diapo, MARGE + numero * 0.62, 5.45, 0.55, lettre, f"Modèle {lettre}", modele=True)
+    boite(diapo, MARGE, 6.35, largeur, 0.4, [[m(f"Soutenance finale, 27 novembre 2026. {GROUPE}.", TEXTE, 14)]], "Groupe")
+
+
+def slidePiliers(presentation, supernutri):
+    """Les onze critères en trois piliers : le poids de chaque critère, et ce qui le fonde."""
+    modele = supernutri["modele"]
+    diapo = nouvelleDiapo(presentation, f"Onze critères en trois piliers, et λ = {nombre(modele['lam'], 1)}",
+                          "Un score de santé : la composition du plat, puis sa transformation et sa production.")
+    largeur = (LARGEUR - 2 * MARGE - 2 * 0.4) / 3
+    titres = {"à limiter": "À limiter", "à favoriser": "À favoriser", "transformation et production": "Transformation"}
+    explications = {
+        "à limiter": f"Au prorata des points maximaux du Nutri-Score : le sel ({POINTS_MAX['so']} points) pèse deux fois "
+                     f"l'énergie ({POINTS_MAX['en']}).",
+        "à favoriser": f"Même règle : les protéines ({POINTS_MAX['pr']} points) pèsent plus que les fibres et les fruits "
+                       f"({POINTS_MAX['fi']}).",
+        "transformation et production": "NOVA d'abord ; les additifs, entre leur nombre et leur risque ; le bio pèse le "
+                                        "moins, car son effet sur la santé est le moins établi.",
+    }
+    for rang, (pilier, (poidsDuPilier, criteres)) in enumerate(PILIERS.items()):
+        x = MARGE + rang * (largeur + 0.4)
+        colonne(diapo, x, 2.0, largeur, f"{titres[pilier]} : {nombre(poidsDuPilier, 2)}", pilier)
+        lignes = [[LIBELLES_COURTS[critere].split(" (")[0], nombre(modele["poids"][critere], 3)] for critere in criteres]
+        bas = tableauVerso(diapo, x, 2.75, [("Critère", largeur - 1.2, PP_ALIGN.LEFT), ("Poids", 1.2, PP_ALIGN.RIGHT)],
+                           lignes, f"Poids {pilier}", taille=15, hauteurLigne=0.4)
+        paragraphesMesures(diapo, x, bas + 0.2, largeur, [[m(explications[pilier], TEXTE, 14, ENCRE_SECONDAIRE)]],
+                           f"Explication {pilier}")
+    lam = modele["lam"]
+    boite(diapo, MARGE, 6.2, LARGEUR - 2 * MARGE, 0.45,
+          [[m(f"λ = {nombre(lam, 1)} : face à un profil, un plat peut rater au plus {nombre(1 - lam, 1)} du poids, "
+              "par exemple tout un pilier.", DEMI_GRAS, 16)]], "Lambda", ancrage=MSO_ANCHOR.MIDDLE)
+
+
+def slideSeuils(presentation, supernutri):
+    """Les quatre seuils de chaque critère, de D′ à A′, et d'où ils viennent."""
+    modele = supernutri["modele"]
+    diapo = nouvelleDiapo(presentation, "Des seuils tirés du règlement européen et du Nutri-Score",
+                          "A′ : les allégations « faible teneur » et « riche en fibres » du règlement CE 1924/2006. "
+                          "Puis les barèmes de 2023.")
+    lignes = []
+    for critere in modele["criteres"]:
+        sens = modele["sens"][critere]
+        lignes.append([LIBELLES_COURTS[critere]] + [seuilEcrit(critere, profil[critere], sens) for profil in modele["profils"]]
+                      + [SOURCES_COURTES[critere]])
+    colonnes = [("Critère", 3.1, PP_ALIGN.LEFT), ("D′", 1.15, PP_ALIGN.RIGHT), ("C′", 1.15, PP_ALIGN.RIGHT),
+                ("B′", 1.15, PP_ALIGN.RIGHT), ("A′", 1.15, PP_ALIGN.RIGHT), ("D'où vient le seuil", 4.2, PP_ALIGN.LEFT)]
+    tableauVerso(diapo, MARGE, 1.95, colonnes, lignes, "Seuils", taille=13, hauteurLigne=0.34)
+
+
+def slideSensDesClasses(presentation, supernutri, donnees):
+    """Le sens des classes, comme au Nutri-Score, et leur répartition sur nos plats."""
+    diapo = nouvelleDiapo(presentation, "Comme au Nutri-Score, des classes pour comparer, pas pour juger",
+                          "Pas de « bons » ni de « mauvais » plats : des plats plus ou moins favorables à la santé.")
+    repartition = donnees["repartition"]
+    total = sum(repartition.values())
+    colonne(diapo, MARGE, 2.0, 6.2, "Ce que dit chaque classe", "sens")
+    colonne(diapo, 7.4, 2.0, LARGEUR - MARGE - 7.4, f"Sur nos {total} plats", "répartition")
+    plusGrand = max(repartition.values())
+    y = 2.8
+    for lettre in ("A′", "B′", "C′", "D′", "E′"):
+        pastille(diapo, MARGE, y, 0.46, lettre[0], f"Classe {lettre}", modele=True)
+        boite(diapo, MARGE + 0.65, y, 5.5, 0.46, [[m(f"les plats {SENS_DES_CLASSES[lettre]}", TEXTE, 17)]],
+              f"Sens {lettre}", ancrage=MSO_ANCHOR.MIDDLE)
+        longueur = 2.6 * repartition[lettre] / plusGrand
+        rectangle(diapo, 7.4, y + 0.08, max(longueur, 0.04), 0.3, f"Barre {lettre}", fond=couleurClasse(lettre[0]))
+        boite(diapo, 7.4 + longueur + 0.12, y, 2.6, 0.46,
+              [[m(f"{repartition[lettre]} ({pourcentage(repartition[lettre] / total, 1)})", DEMI_GRAS, 16)]],
+              f"Nombre {lettre}", ancrage=MSO_ANCHOR.MIDDLE)
+        y += 0.62
+    paragraphesMesures(diapo, MARGE, y + 0.15, LARGEUR - 2 * MARGE, [[m(
+        "La FAQ officielle du Nutri-Score ne range pas les aliments en bons ou mauvais : elle va des meilleurs pour la "
+        "santé aux moins satisfaisants. Nous gardons ce sens, étendu à la transformation et à la production.",
+        TEXTE, 15, ENCRE_SECONDAIRE)]], "Note du sens")
+
+
+def slidePoeleeFinale(presentation, supernutri, plats):
+    """Le plat suivi depuis le 30/10, face aux quatre profils du SuperNutri-score, et ce qui le ferait monter."""
+    plat = platDExemple(plats)
+    regle = supernutri["modele"]
+    valeurs = valeursDuPlat(plat)
+    detail = affecter(valeurs, regle)
+    lettre = nomDeClasse(detail["classe"])
+    bio = "bio" if plat.get("bio") == "oui" else "sans label bio"
+    diapo = nouvelleDiapo(presentation, f"La {plat['nom']} : {plat['label']} au Nutri-Score, {lettre} au SuperNutri-score",
+                          f"{plat['marque']}, {quantite(plat)}, NOVA {plat['nova']}, {plat['additifs']} additifs, {bio}.")
+    largeur = 8.0
+    bas = lignesDeConcordance(diapo, MARGE, 2.05, largeur, regle, valeurs, detail, "Concordance")
+    sigles = ", ".join(f"{SIGLES[critere]} {NOMS_COURTS[critere]}" for critere in ("nova", "additifs", "aRisque", "bio"))
+    paragraphesMesures(diapo, MARGE, bas + 0.25, largeur, [[m(
+        f"Une case par critère, large comme son poids, noire quand il vote pour le plat. {sigles}.",
+        TEXTE, 13, ENCRE_SECONDAIRE)]], "Lecture des barres")
+    x = MARGE + largeur + 0.5
+    colonne(diapo, x, 2.0, LARGEUR - MARGE - x, "Et si…", "et si")
+    rates = ecartsAuNutriscore([plat], regle)["plats"][0]["rates"]
+    moinsTransforme = nomDeClasse(affecter(valeursDuPlat(dict(plat, nova=3, additifs=1)), regle)["classe"])
+    lignes = []
+    if rates:
+        lignes.append([m(f"Face à {plat['label']}′, elle rate {enToutesLettres(rates)}.", TEXTE, 16)])
+    lignes.append([m(f"Moins transformée (NOVA 3) et avec un seul additif, elle serait en {moinsTransforme}.",
+                     DEMI_GRAS, 16)])
+    paragraphesMesures(diapo, x, 2.75, LARGEUR - MARGE - x, lignes, "Et si", apres=10)
+
+
+def slideFaceAuNutriscore(presentation, donnees):
+    """La matrice SuperNutri-score × Nutri-Score, et les critères qui font descendre les plats."""
+    ecarts = donnees["ecarts"]
+    total = sum(donnees["repartition"].values())
+    diapo = nouvelleDiapo(presentation, f"{ecarts['descendent']} plats descendent, {ecarts['montent']} montent face au "
+                                        "Nutri-Score",
+                          f"Sur nos {total} plats, {ecarts['egaux']} gardent la classe du Nutri-Score. En ligne le "
+                          "Nutri-Score, en colonne le SuperNutri-score.")
+    matrice = donnees["comparaison"]["matrice"]
+    colonnes = [("", 1.0, PP_ALIGN.LEFT)] + [(lettre, 0.95, PP_ALIGN.RIGHT) for lettre in ("A′", "B′", "C′", "D′", "E′")]
+    lignes = [[lettre] + [str(valeur) for valeur in matrice[rang]] for rang, lettre in enumerate("ABCDE")]
+    tableauVerso(diapo, MARGE, 2.05, colonnes, lignes, "Matrice", taille=17, hauteurLigne=0.5)
+    x = 7.2
+    largeur = LARGEUR - MARGE - x
+    colonne(diapo, x, 2.0, largeur, "Pourquoi ils descendent", "raisons")
+    raisons = sorted(ecarts["raisonsDesDescentes"].items(), key=lambda paire: -paire[1])[:5]
+    bas = tableauVerso(diapo, x, 2.75, [("Critère raté", largeur - 1.3, PP_ALIGN.LEFT), ("Plats", 1.3, PP_ALIGN.RIGHT)],
+                       [[majuscule(NOMS_COURTS[critere]), str(compte)] for critere, compte in raisons], "Raisons",
+                       taille=15, hauteurLigne=0.38)
+    paragraphesMesures(diapo, x, bas + 0.2, largeur, [[m(
+        f"Au milieu, C′ n'exige plus ni NOVA 3 ni le bio : {matrice[3][2]} plats D montent en C′.",
+        TEXTE, 14, ENCRE_SECONDAIRE)]], "Lecture des raisons")
+
+
+def slideSensibilitePoids(presentation, sensibilite, total):
+    """La sensibilité aux poids : les tirages au hasard, un poids à la fois, et les plats au bord de leur classe."""
+    poids = sensibilite["poids"]
+    principal = [point for point in sensibilite["courbe"] if point["amplitude"] == poids["amplitude"]][0]
+    diapo = nouvelleDiapo(presentation, f"Poids : à ± {nombreCourt(poids['amplitude'])}, {pourcentage(principal['partMoyenne'], 1)} "
+                                        "des plats changent de classe",
+                          f"{nombre(poids['tirages'])} tirages au hasard par amplitude ; les poids restent positifs, "
+                          "de somme 1. En moyenne sur les tirages.")
+    colonne(diapo, MARGE, 2.0, 5.6, "Tous les poids ensemble", "tirages")
+    y = 2.75
+    for point in sensibilite["courbe"]:
+        boite(diapo, MARGE, y, 1.9, 0.6, [[m(f"± {nombreCourt(point['amplitude'])}", TITRE, 30)]],
+              f"Amplitude {point['amplitude']}", ancrage=MSO_ANCHOR.MIDDLE)
+        boite(diapo, MARGE + 2.0, y, 3.6, 0.6,
+              [[m(f"{pourcentage(point['partMoyenne'], 1)} en moyenne, {pourcentage(point['partMax'], 1)} au plus", TEXTE, 16)]],
+              f"Part {point['amplitude']}", ancrage=MSO_ANCHOR.MIDDLE)
+        y += 0.72
+    x = 6.9
+    largeur = LARGEUR - MARGE - x
+    colonne(diapo, x, 2.0, largeur, "Un poids à la fois", "un par un")
+    lignes = []
+    for variation in sorted(poids["unParUn"], key=lambda ligne: -ligne["plats"])[:5]:
+        signeDuDelta = "+" if variation["delta"] > 0 else "−"
+        lignes.append([f"{majuscule(NOMS_COURTS[variation['critere']])} {signeDuDelta} {nombreCourt(abs(variation['delta']))}",
+                       f"{variation['plats']} plats"])
+    tableauVerso(diapo, x, 2.75, [("Variation", largeur - 1.7, PP_ALIGN.LEFT), ("Changent", 1.7, PP_ALIGN.RIGHT)], lignes,
+                 "Un par un", taille=15, hauteurLigne=0.38)
+    auBord = sensibilite["auBord"]
+    favoriser = set(PILIERS["à favoriser"][1])
+    pourquoi = (" : ils ratent tout le pilier « à favoriser »" if auBord and all(set(p["rates"]) == favoriser for p in auBord)
+                else "")
+    paragraphesMesures(diapo, MARGE, 5.55, LARGEUR - 2 * MARGE, [[m(
+        f"{len(auBord)} plats sont au bord de leur classe, sur {total} : leur concordance vaut λ pile{pourquoi}. Le moindre "
+        "changement de poids les fait basculer.", DEMI_GRAS, 15)]], "Au bord")
+
+
+def slideSensibiliteProfils(presentation, sensibilite, total):
+    """La sensibilité aux profils : les décalages qui changent le plus de plats."""
+    profils = sensibilite["profils"]
+    diapo = nouvelleDiapo(presentation, f"Profils : {len(profils['plats'])} plats changent au moins une fois",
+                          f"± 5 % sur les composantes : {profils['platsComposantes']} plats ; ± 1 sur NOVA et les additifs : "
+                          f"{profils['platsEntiers']} plats.")
+    lignes = []
+    for scenario in sorted(profils["scenarios"], key=lambda s: -s["plats"])[:7]:
+        numero = PROFILS.index(scenario["profil"])
+        lignes.append([f"{scenario['profil']} ({nomDeClasse(numero + 1)})", LIBELLES_COURTS[scenario["critere"]],
+                       f"{nombreCourt(scenario['ancienne'])} → {nombreCourt(scenario['nouvelle'])}", str(scenario["plats"])])
+    colonnes = [("Profil", 1.8, PP_ALIGN.LEFT), ("Critère", 4.4, PP_ALIGN.LEFT), ("Seuil", 2.6, PP_ALIGN.RIGHT),
+                ("Plats qui changent", 3.1, PP_ALIGN.RIGHT)]
+    bas = tableauVerso(diapo, MARGE, 2.05, colonnes, lignes, "Décalages", taille=15, hauteurLigne=0.4)
+    paragraphesMesures(diapo, MARGE, bas + 0.25, LARGEUR - 2 * MARGE, [[m(
+        f"Sur {total} plats, une valeur de profil bouge à la fois, sans casser leur ordre. NOVA ne vaut que 3 ou 4 dans nos "
+        "plats préparés : déplacer son seuil d'un cran change beaucoup plus de plats que 5 % sur un seuil nutritionnel.",
+        TEXTE, 15, ENCRE_SECONDAIRE)]], "Lecture des décalages")
+
+
+def slideAutreGroupe(presentation, supernutri, ajoutes):
+    """La base d'un autre groupe : ses résultats si elle est là, sinon l'import prêt et vérifié."""
+    autre = supernutri.get("autreGroupe")
+    if autre and autre.get("leurSuperNutri"):
+        leur = autre["leurSuperNutri"]
+        diapo = nouvelleDiapo(presentation, f"Sur leur base, {leur['bienRanges']} aliments sur {leur['total']} ont la "
+                                            "même classe",
+                              f"{autre['total']} aliments, rangés par notre SuperNutri-score puis comparés au leur.")
+        etapes = [f"À une classe près : {pourcentage(leur['aUneClassePres'], 1)}.",
+                  f"Recoupement avec notre base : {autre['recoupement'][0]} plats." if autre.get("recoupement") else "",
+                  f"Face à leur Nutri-Score : {autre['leurNutriscore']['bienRanges']} aliments sur "
+                  f"{autre['leurNutriscore']['total']}." if autre.get("leurNutriscore") else ""]
+    else:
+        diapo = nouvelleDiapo(presentation, "La base d'un autre groupe : l'import est prêt",
+                              "Il nous manque leur base, et les classes que leur SuperNutri-score donne à leurs aliments.")
+        etapes = ["Leurs colonnes gardent leurs noms : une table de correspondance les relie aux nôtres.",
+                  "NOVA, les additifs et le bio se retrouvent par le code-barres, dans notre cache d'Open Food Facts.",
+                  f"Vérifié sur nos {ajoutes} plats ajoutés, déguisés en base étrangère : chaque plat retrouve sa classe."]
+    y = 2.1
+    for rang, etape in enumerate([etape for etape in etapes if etape]):
+        repere(diapo, MARGE, y, rang + 1, f"Repère {rang + 1}")
+        bas = paragraphesMesures(diapo, MARGE + 0.6, y, LARGEUR - 2 * MARGE - 0.6, [[m(etape, TEXTE, 18)]], f"Étape {rang + 1}")
+        y = max(bas, y + 0.42) + 0.35
+
+
+def slideDemonstrationFinale(presentation, resultats, plats):
+    """La démonstration de l'interface : quatre gestes numérotés, dont les classes sont calculées ici."""
+    supernutri = resultats["supernutri"]
+    plat = platDExemple(plats)
+    regle = supernutri["modele"]
+    avant = nomDeClasse(affecter(valeursDuPlat(plat), regle)["classe"])
+    apres = nomDeClasse(affecter(valeursDuPlat(dict(plat, nova=3, additifs=1)), regle)["classe"])
+    diapo = nouvelleDiapo(presentation, "L'interface : le SuperNutri-score à côté du Nutri-Score",
+                          "Démonstration en direct : streamlit run projet_gui.py")
+    gestes = [f"La {plat['nom']} : {plat['label']} au Nutri-Score, {avant} au SuperNutri-score, avec ses barres.",
+              f"NOVA 3 et un seul additif dans la saisie : elle passe en {apres}."]
+    for modele in resultats.get("mrsortEtenduProfils", {}).get("modeles", []):
+        if modele["nom"] == "sept" and modele["lam"] == 0.6:
+            appris = regleDuModele(modele)
+            classes = [nomDeClasse(affecter(plat, dict(appris, lam=lam))["classe"]) for lam in (0.6, 0.7)]
+            if classes[0] != classes[1]:
+                gestes.append(f"λ au curseur : MR-Sort à 7 critères (profils appris sur 375 plats) passe de {classes[0]} "
+                              f"à {classes[1]} à λ = 0,7.")
+    gestes.append("L'onglet SuperNutri-score : le modèle, ses sources, et les deux analyses de sensibilité.")
+    y = 2.1
+    for rang, geste in enumerate(gestes):
+        repere(diapo, MARGE, y, rang + 1, f"Repère {rang + 1}")
+        bas = paragraphesMesures(diapo, MARGE + 0.6, y, LARGEUR - 2 * MARGE - 0.6, [[m(geste, TEXTE, 18)]], f"Geste {rang + 1}")
+        y = max(bas, y + 0.42) + 0.35
+
+
+def slideConclusionFinale(presentation, donnees, sensibilite):
+    """Ce que nous retenons, en trois colonnes, puis le merci."""
+    diapo = nouvelleDiapo(presentation, "Ce que nous retenons", "Un modèle à nous, transparent, et ses limites.")
+    total = sum(donnees["repartition"].values())
+    raisons = sorted(donnees["ecarts"]["raisonsDesDescentes"].items(), key=lambda paire: -paire[1])[:2]
+    principal = [point for point in sensibilite["courbe"] if point["amplitude"] == sensibilite["poids"]["amplitude"]][0]
+    colonnes = [
+        ("Un score de santé", "Onze critères en trois piliers, des seuils tirés de textes officiels, des classes au sens "
+                              "du Nutri-Score."),
+        ("Plus exigeant en haut", f"{donnees['repartition']['A′']} plats en A′ sur {total}. Les descentes viennent surtout "
+                                  f"{' et '.join('des ' + NOMS_COURTS[c] if ARTICLES[c] == 'les ' else 'du ' + NOMS_COURTS[c] for c, _ in raisons)}."),
+        ("Fragile aux frontières", f"{len(sensibilite['auBord'])} plats au bord ; à ± {nombreCourt(principal['amplitude'])}, "
+                                   f"{pourcentage(principal['partMoyenne'], 1)} des plats changent : nos poids sont un "
+                                   "choix, et nous le disons."),
+    ]
+    largeur = (LARGEUR - 2 * MARGE - 2 * 0.4) / 3
+    for rang, (titre, texte) in enumerate(colonnes):
+        x = MARGE + rang * (largeur + 0.4)
+        colonne(diapo, x, 2.0, largeur, titre, titre)
+        paragraphesMesures(diapo, x, 2.75, largeur, [[m(texte, TEXTE, 17)]], f"Texte {titre}")
+    boite(diapo, MARGE, 6.05, LARGEUR - 2 * MARGE, 0.6, [[m("Merci.", TITRE, 28)]], "Merci")
+
+
 def slidesSoutenance2(chemin=SORTIES[2]):
-    """Écrit les slides de la soutenance finale."""
-    raise NotImplementedError("phase 3")
+    """
+    Écrit les slides de la soutenance finale et renvoie leur nombre. L'ordre suit les trois
+    parties de l'oral : le modèle (1 à 4), le plat suivi, la comparaison et les deux sensibilités
+    (5 à 8), puis l'autre groupe, la démonstration et la conclusion (9 à 11). Les chiffres
+    portent sur nos 375 plats ; les notes de chaque slide reprennent le texte de l'oral.
+    """
+    resultats = lireResultats()
+    if "supernutri" not in resultats:
+        raise ValueError("La clé « supernutri » manque : lancer d'abord python3 projet_supernutri.py.")
+    supernutri = resultats["supernutri"]
+    donnees, sensibilite = supernutri[BASE_FINALE], supernutri["sensibilite"][BASE_FINALE]
+    total = sum(donnees["repartition"].values())
+    plats = lireBase(FICHIER_BASE)
+    ajoutes = sum(1 for plat in lireBase(FICHIER_BASE_ETENDUE) if plat.get("lot") == LOT_AJOUT)
+    presentation = Presentation()
+    presentation.slide_width = Inches(LARGEUR)
+    presentation.slide_height = Inches(HAUTEUR)
+    slideTitreFinale(presentation)
+    slidePiliers(presentation, supernutri)
+    slideSeuils(presentation, supernutri)
+    slideSensDesClasses(presentation, supernutri, donnees)
+    slidePoeleeFinale(presentation, supernutri, plats)
+    slideFaceAuNutriscore(presentation, donnees)
+    slideSensibilitePoids(presentation, sensibilite, total)
+    slideSensibiliteProfils(presentation, sensibilite, total)
+    slideAutreGroupe(presentation, supernutri, ajoutes)
+    slideDemonstrationFinale(presentation, resultats, plats)
+    slideConclusionFinale(presentation, donnees, sensibilite)
+    numeroterPages(presentation, "soutenance finale")
+    notesParSlide = notesDuTexte(2)
+    for numero, diapo in enumerate(presentation.slides, start=1):
+        notes(diapo, notesParSlide.get(numero, ""))
+    chemin.parent.mkdir(parents=True, exist_ok=True)
+    presentation.save(chemin)
+    return len(presentation.slides)
 
 
 def main():
