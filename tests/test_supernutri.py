@@ -140,3 +140,97 @@ def test_le_super_nutri_score_range_toute_la_base_et_ecrit_l_excel(tmp_path):
     entetes = [cellule.value for cellule in feuille[1]]
     assert "SuperNutri-score" in entetes and "Nutri-Score" in entetes
     assert feuille.max_row == 126
+
+
+# --- Les analyses de sensibilité ---
+
+def platAuBordDeAPrime(**changements):
+    """Le plat qui rate toute la transformation : sa concordance face à A′ vaut 0,70, juste λ. Le moindre souffle le fait tomber."""
+    return dict(platAuNiveauDeAPrime(), nova=4, additifs=8, listeAdditifs="E250, E451", bio="non", **changements)
+
+
+def test_le_calcul_rapide_donne_la_classe_d_affecter():
+    """Les critères satisfaits ne dépendent pas des poids : la classe qu'on en tire est celle d'affecter."""
+    for plat in (platAuNiveauDeAPrime(), platAuBordDeAPrime(), platAuBordDeAPrime(fi=2.5, so=0.9)):
+        valeurs = sn.valeursDuPlat(plat)
+        satisfaits = sn.criteresSatisfaits(valeurs, sn.MODELE_SUPER)
+        assert sn.classeDepuisSatisfaits(satisfaits, sn.MODELE_SUPER["poids"], 0.7) == affecter(valeurs, sn.MODELE_SUPER)["classe"]
+
+
+def test_un_poids_modifie_garde_une_somme_de_1():
+    """Le sel perd 0,05 ; les autres poids sont ramenés pour que la somme fasse 1, et aucun ne devient négatif."""
+    poids = sn.poidsModifies(sn.MODELE_SUPER["poids"], "so", -0.05)
+    assert poids["so"] == pytest.approx(sn.MODELE_SUPER["poids"]["so"] - 0.05)
+    assert sum(poids.values()) == pytest.approx(1)
+    assert sn.poidsModifies(sn.MODELE_SUPER["poids"], "bio", -0.08)["bio"] == 0
+
+
+def test_des_poids_tires_au_hasard_restent_valides():
+    import random
+    poids = sn.poidsTires(sn.MODELE_SUPER["poids"], 0.05, random.Random(1))
+    assert sum(poids.values()) == pytest.approx(1)
+    assert min(poids.values()) >= 0
+
+
+def test_sans_amplitude_aucun_plat_ne_change():
+    resultat = sn.sensibilitePoids([platAuBordDeAPrime(), platAuNiveauDeAPrime()], amplitude=0, tirages=5)
+    assert all(ligne["plats"] == 0 for ligne in resultat["unParUn"])
+    assert resultat["partMoyenne"] == 0
+
+
+def test_un_plat_au_bord_change_quand_un_de_ses_criteres_pese_moins():
+    """Le sel, que le plat satisfait, perd 0,05 : la concordance face à A′ passe sous λ, et le plat change de classe."""
+    resultat = sn.sensibilitePoids([platAuBordDeAPrime()], tirages=0)
+    ligne = [l for l in resultat["unParUn"] if l["critere"] == "so" and l["delta"] < 0][0]
+    assert ligne["plats"] == 1
+
+
+def test_un_tirage_se_refait_a_l_identique():
+    plats = [platAuBordDeAPrime(), platAuBordDeAPrime(fi=2.5), platAuNiveauDeAPrime()]
+    assert sn.sensibilitePoids(plats, tirages=50, graine=7) == sn.sensibilitePoids(plats, tirages=50, graine=7)
+
+
+def test_sans_decalage_aucun_profil_ne_bouge():
+    resultat = sn.sensibiliteProfils([platAuBordDeAPrime()], decalage=0, pasEntier=0)
+    assert resultat["scenarios"] == [] and resultat["plats"] == []
+
+
+def test_un_plat_au_seuil_change_quand_le_seuil_bouge():
+    """Le plat a pile 0,3 g de sel, le seuil de A′ : à 0,285 g (− 5 %), il ne le satisfait plus et quitte A′."""
+    resultat = sn.sensibiliteProfils([platAuBordDeAPrime(so=0.3)])
+    assert len(resultat["plats"]) == 1
+    scenarios = [s for s in resultat["scenarios"] if s["profil"] == "b5" and s["critere"] == "so" and s["plats"] == 1]
+    assert [s["nouvelle"] for s in scenarios] == [0.285]
+
+
+def test_un_decalage_qui_casserait_l_ordre_est_ecarte():
+    """NOVA vaut 3 pour B′ et pour A′ : passer celui de B′ à 2 le rendrait plus exigeant que celui de A′."""
+    resultat = sn.sensibiliteProfils([platAuNiveauDeAPrime()])
+    assert not [s for s in resultat["scenarios"] if s["profil"] == "b4" and s["critere"] == "nova" and s["nouvelle"] == 2]
+    assert not [s for s in resultat["scenarios"] if s["critere"] == "bio"]
+
+
+def test_les_plats_qui_changent_se_comptent_par_famille_de_decalages():
+    """Les composantes (± 5 %) et les entiers (± 1 : NOVA, additifs) se comptent à part : leurs pas ne sont pas comparables."""
+    resultat = sn.sensibiliteProfils([platAuBordDeAPrime(so=0.3)])
+    assert (resultat["platsComposantes"], resultat["platsEntiers"]) == (1, 0)
+
+
+def test_l_excel_de_la_sensibilite(tmp_path):
+    """Quatre feuilles : les poids un par un (22 variations), les tirages par amplitude, les profils, les plats qui changent."""
+    plats = [platAuBordDeAPrime(so=0.3, code="1", nom="Au bord"), dict(platAuNiveauDeAPrime(), code="2", nom="Loin du bord")]
+    sensibilites = {"base": sn.sensibilites(plats, tirages=20), "etendue": sn.sensibilites(plats, tirages=20)}
+    chemin = tmp_path / "sensibilite.xlsx"
+    sn.ecrireSensibilite(sensibilites, chemin)
+    classeur = openpyxl.load_workbook(chemin)
+    assert classeur.sheetnames == ["poids un par un", "tirages", "profils", "plats qui changent"]
+    assert classeur["poids un par un"].max_row == 1 + 2 * len(sn.CRITERES_SUPER)
+    assert classeur["tirages"].max_row == 1 + len(sn.AMPLITUDES)
+    assert [c.value for c in classeur["plats qui changent"][2]][:3] == ["125 plats", "1", "Au bord"]
+
+
+def test_les_plats_au_bord_de_leur_classe():
+    """Un plat dont la classe tient à une concordance de λ pile est au bord : on dit lesquels, et ce qu'ils ratent."""
+    resultat = sn.platsAuBord([platAuBordDeAPrime(code="1"), dict(platAuNiveauDeAPrime(), code="2")])
+    assert [plat["code"] for plat in resultat] == ["1"]
+    assert resultat[0]["rates"] == ["nova", "additifs", "aRisque", "bio"]

@@ -5516,6 +5516,3554 @@
       "D′": "peu favorables à la santé",
       "E′": "les moins favorables à la santé"
     },
+    "amplitudes": [
+      0.01,
+      0.02,
+      0.05
+    ],
+    "sensibilite": {
+      "base": {
+        "poids": {
+          "amplitude": 0.05,
+          "unParUn": [
+            {
+              "critere": "en",
+              "delta": 0.05,
+              "poids": 0.1227,
+              "plats": 13,
+              "part": 0.104
+            },
+            {
+              "critere": "en",
+              "delta": -0.05,
+              "poids": 0.0227,
+              "plats": 9,
+              "part": 0.072
+            },
+            {
+              "critere": "sa",
+              "delta": 0.05,
+              "poids": 0.1227,
+              "plats": 10,
+              "part": 0.08
+            },
+            {
+              "critere": "sa",
+              "delta": -0.05,
+              "poids": 0.0227,
+              "plats": 13,
+              "part": 0.104
+            },
+            {
+              "critere": "su",
+              "delta": 0.05,
+              "poids": 0.1591,
+              "plats": 10,
+              "part": 0.08
+            },
+            {
+              "critere": "su",
+              "delta": -0.05,
+              "poids": 0.0591,
+              "plats": 11,
+              "part": 0.088
+            },
+            {
+              "critere": "so",
+              "delta": 0.05,
+              "poids": 0.1955,
+              "plats": 10,
+              "part": 0.08
+            },
+            {
+              "critere": "so",
+              "delta": -0.05,
+              "poids": 0.0955,
+              "plats": 14,
+              "part": 0.112
+            },
+            {
+              "critere": "pr",
+              "delta": 0.05,
+              "poids": 0.1735,
+              "plats": 23,
+              "part": 0.184
+            },
+            {
+              "critere": "pr",
+              "delta": -0.05,
+              "poids": 0.0735,
+              "plats": 9,
+              "part": 0.072
+            },
+            {
+              "critere": "fi",
+              "delta": 0.05,
+              "poids": 0.1382,
+              "plats": 15,
+              "part": 0.12
+            },
+            {
+              "critere": "fi",
+              "delta": -0.05,
+              "poids": 0.0382,
+              "plats": 16,
+              "part": 0.128
+            },
+            {
+              "critere": "fr",
+              "delta": 0.05,
+              "poids": 0.1382,
+              "plats": 8,
+              "part": 0.064
+            },
+            {
+              "critere": "fr",
+              "delta": -0.05,
+              "poids": 0.0382,
+              "plats": 19,
+              "part": 0.152
+            },
+            {
+              "critere": "nova",
+              "delta": 0.05,
+              "poids": 0.15,
+              "plats": 13,
+              "part": 0.104
+            },
+            {
+              "critere": "nova",
+              "delta": -0.05,
+              "poids": 0.05,
+              "plats": 12,
+              "part": 0.096
+            },
+            {
+              "critere": "additifs",
+              "delta": 0.05,
+              "poids": 0.125,
+              "plats": 11,
+              "part": 0.088
+            },
+            {
+              "critere": "additifs",
+              "delta": -0.05,
+              "poids": 0.025,
+              "plats": 12,
+              "part": 0.096
+            },
+            {
+              "critere": "aRisque",
+              "delta": 0.05,
+              "poids": 0.125,
+              "plats": 10,
+              "part": 0.08
+            },
+            {
+              "critere": "aRisque",
+              "delta": -0.05,
+              "poids": 0.025,
+              "plats": 11,
+              "part": 0.088
+            },
+            {
+              "critere": "bio",
+              "delta": 0.05,
+              "poids": 0.1,
+              "plats": 20,
+              "part": 0.16
+            },
+            {
+              "critere": "bio",
+              "delta": -0.05,
+              "poids": 0.0,
+              "plats": 10,
+              "part": 0.08
+            }
+          ],
+          "tirages": 1000,
+          "partMoyenne": 0.137576,
+          "partMax": 0.312,
+          "platsSensibles": [
+            {
+              "code": "5411788042543",
+              "nom": "Soupe de légumes au quinoa et miso",
+              "lettre": "B′",
+              "frequence": 0.523
+            },
+            {
+              "code": "3263850566219",
+              "nom": "Franprix velouté de légumes du potager 1L",
+              "lettre": "C′",
+              "frequence": 0.523
+            },
+            {
+              "code": "8011033010104",
+              "nom": "Couscous",
+              "lettre": "A′",
+              "frequence": 0.467
+            },
+            {
+              "code": "3599741004028",
+              "nom": "Merlu Blanc",
+              "lettre": "A′",
+              "frequence": 0.467
+            },
+            {
+              "code": "3564700282076",
+              "nom": "Salade à la Mexicaine au Thon",
+              "lettre": "B′",
+              "frequence": 0.455
+            },
+            {
+              "code": "8006669008113",
+              "nom": "Medaglioni Speck e Brie",
+              "lettre": "D′",
+              "frequence": 0.447
+            },
+            {
+              "code": "4104420053861",
+              "nom": "Mini bretzels à l'épeautre",
+              "lettre": "D′",
+              "frequence": 0.447
+            },
+            {
+              "code": "8006013989020",
+              "nom": "Luigi & fratelli ravioli ricotta epinard 250gx6",
+              "lettre": "E′",
+              "frequence": 0.445
+            },
+            {
+              "code": "3258561471310",
+              "nom": "Pizza Fromage 180G. Bf,",
+              "lettre": "C′",
+              "frequence": 0.439
+            },
+            {
+              "code": "0021000010875",
+              "nom": "mac & cheese",
+              "lettre": "D′",
+              "frequence": 0.439
+            }
+          ]
+        },
+        "courbe": [
+          {
+            "amplitude": 0.01,
+            "partMoyenne": 0.042376,
+            "partMax": 0.104
+          },
+          {
+            "amplitude": 0.02,
+            "partMoyenne": 0.066776,
+            "partMax": 0.168
+          },
+          {
+            "amplitude": 0.05,
+            "partMoyenne": 0.137576,
+            "partMax": 0.312
+          }
+        ],
+        "profils": {
+          "decalage": 0.05,
+          "pasEntier": 1,
+          "scenarios": [
+            {
+              "profil": "b2",
+              "critere": "en",
+              "ancienne": 1340,
+              "nouvelle": 1407.0,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "en",
+              "ancienne": 1340,
+              "nouvelle": 1273.0,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "sa",
+              "ancienne": 7,
+              "nouvelle": 7.35,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "sa",
+              "ancienne": 7,
+              "nouvelle": 6.65,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "su",
+              "ancienne": 14,
+              "nouvelle": 14.7,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "su",
+              "ancienne": 14,
+              "nouvelle": 13.3,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "so",
+              "ancienne": 1.4,
+              "nouvelle": 1.47,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "so",
+              "ancienne": 1.4,
+              "nouvelle": 1.33,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "pr",
+              "ancienne": 2.4,
+              "nouvelle": 2.52,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "pr",
+              "ancienne": 2.4,
+              "nouvelle": 2.28,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "fi",
+              "ancienne": 1,
+              "nouvelle": 1.05,
+              "plats": 3,
+              "codes": [
+                "8001420005820",
+                "7231326087878",
+                "3245390021212"
+              ]
+            },
+            {
+              "profil": "b2",
+              "critere": "fi",
+              "ancienne": 1,
+              "nouvelle": 0.95,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "additifs",
+              "ancienne": 5,
+              "nouvelle": 6,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "additifs",
+              "ancienne": 5,
+              "nouvelle": 4,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "aRisque",
+              "ancienne": 2,
+              "nouvelle": 3,
+              "plats": 1,
+              "codes": [
+                "3325420020153"
+              ]
+            },
+            {
+              "profil": "b2",
+              "critere": "aRisque",
+              "ancienne": 2,
+              "nouvelle": 1,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b3",
+              "critere": "en",
+              "ancienne": 1005,
+              "nouvelle": 1055.25,
+              "plats": 3,
+              "codes": [
+                "3596710457236",
+                "3701192502064",
+                "3270190202790"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "en",
+              "ancienne": 1005,
+              "nouvelle": 954.75,
+              "plats": 2,
+              "codes": [
+                "3596710259953",
+                "3560070852833"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "sa",
+              "ancienne": 5,
+              "nouvelle": 5.25,
+              "plats": 1,
+              "codes": [
+                "3560070478965"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "sa",
+              "ancienne": 5,
+              "nouvelle": 4.75,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b3",
+              "critere": "su",
+              "ancienne": 10,
+              "nouvelle": 10.5,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b3",
+              "critere": "su",
+              "ancienne": 10,
+              "nouvelle": 9.5,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b3",
+              "critere": "so",
+              "ancienne": 1.0,
+              "nouvelle": 1.05,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b3",
+              "critere": "so",
+              "ancienne": 1.0,
+              "nouvelle": 0.95,
+              "plats": 4,
+              "codes": [
+                "4005496224066",
+                "3700260001836",
+                "3256225718191",
+                "3240931546469"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "pr",
+              "ancienne": 4.8,
+              "nouvelle": 5.04,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b3",
+              "critere": "pr",
+              "ancienne": 4.8,
+              "nouvelle": 4.56,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b3",
+              "critere": "fi",
+              "ancienne": 2,
+              "nouvelle": 2.1,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b3",
+              "critere": "fi",
+              "ancienne": 2,
+              "nouvelle": 1.9,
+              "plats": 2,
+              "codes": [
+                "7613033139642",
+                "3256220666435"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "fr",
+              "ancienne": 20,
+              "nouvelle": 21.0,
+              "plats": 1,
+              "codes": [
+                "3287390083326"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "fr",
+              "ancienne": 20,
+              "nouvelle": 19.0,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b3",
+              "critere": "nova",
+              "ancienne": 4,
+              "nouvelle": 3,
+              "plats": 22,
+              "codes": [
+                "3760054095618",
+                "3596710025305",
+                "3560070486274",
+                "3021690021899",
+                "3700260001836",
+                "3564700808382",
+                "8712100758195",
+                "3274935011654",
+                "3254566706075",
+                "3263850566219",
+                "3256225739783",
+                "3256225054350",
+                "3368951768996",
+                "3256225718191",
+                "3245414207875",
+                "3760132082561",
+                "3240931546247",
+                "3258561471310",
+                "3560070258635",
+                "3250391777808",
+                "3596710259953",
+                "3560070852833"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "additifs",
+              "ancienne": 3,
+              "nouvelle": 4,
+              "plats": 3,
+              "codes": [
+                "3560070847266",
+                "3560070478965",
+                "3560070847297"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "additifs",
+              "ancienne": 3,
+              "nouvelle": 2,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b3",
+              "critere": "aRisque",
+              "ancienne": 1,
+              "nouvelle": 2,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b3",
+              "critere": "aRisque",
+              "ancienne": 1,
+              "nouvelle": 0,
+              "plats": 1,
+              "codes": [
+                "3596710025305"
+              ]
+            },
+            {
+              "profil": "b4",
+              "critere": "en",
+              "ancienne": 670,
+              "nouvelle": 703.5,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b4",
+              "critere": "en",
+              "ancienne": 670,
+              "nouvelle": 636.5,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b4",
+              "critere": "sa",
+              "ancienne": 3,
+              "nouvelle": 3.15,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b4",
+              "critere": "sa",
+              "ancienne": 3,
+              "nouvelle": 2.85,
+              "plats": 1,
+              "codes": [
+                "2000000148029"
+              ]
+            },
+            {
+              "profil": "b4",
+              "critere": "su",
+              "ancienne": 6.8,
+              "nouvelle": 7.14,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b4",
+              "critere": "su",
+              "ancienne": 6.8,
+              "nouvelle": 6.46,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b4",
+              "critere": "so",
+              "ancienne": 0.6,
+              "nouvelle": 0.63,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b4",
+              "critere": "so",
+              "ancienne": 0.6,
+              "nouvelle": 0.57,
+              "plats": 4,
+              "codes": [
+                "2000000148029",
+                "3263850000775",
+                "5411788042543",
+                "3256221371116"
+              ]
+            },
+            {
+              "profil": "b4",
+              "critere": "pr",
+              "ancienne": 7.2,
+              "nouvelle": 7.56,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b4",
+              "critere": "pr",
+              "ancienne": 7.2,
+              "nouvelle": 6.84,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b4",
+              "critere": "fi",
+              "ancienne": 3,
+              "nouvelle": 3.15,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b4",
+              "critere": "fi",
+              "ancienne": 3,
+              "nouvelle": 2.85,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b4",
+              "critere": "fr",
+              "ancienne": 40,
+              "nouvelle": 42.0,
+              "plats": 1,
+              "codes": [
+                "2000000148029"
+              ]
+            },
+            {
+              "profil": "b4",
+              "critere": "fr",
+              "ancienne": 40,
+              "nouvelle": 38.0,
+              "plats": 1,
+              "codes": [
+                "3701456313146"
+              ]
+            },
+            {
+              "profil": "b4",
+              "critere": "nova",
+              "ancienne": 3,
+              "nouvelle": 4,
+              "plats": 4,
+              "codes": [
+                "3256224160649",
+                "3701456313146",
+                "3700009269169",
+                "3274935011654"
+              ]
+            },
+            {
+              "profil": "b4",
+              "critere": "additifs",
+              "ancienne": 1,
+              "nouvelle": 2,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b4",
+              "critere": "additifs",
+              "ancienne": 1,
+              "nouvelle": 0,
+              "plats": 1,
+              "codes": [
+                "3564700282076"
+              ]
+            },
+            {
+              "profil": "b4",
+              "critere": "aRisque",
+              "ancienne": 0,
+              "nouvelle": 1,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "en",
+              "ancienne": 335,
+              "nouvelle": 351.75,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "en",
+              "ancienne": 335,
+              "nouvelle": 318.25,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "sa",
+              "ancienne": 1.5,
+              "nouvelle": 1.575,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "sa",
+              "ancienne": 1.5,
+              "nouvelle": 1.425,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "su",
+              "ancienne": 5,
+              "nouvelle": 5.25,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "su",
+              "ancienne": 5,
+              "nouvelle": 4.75,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "so",
+              "ancienne": 0.3,
+              "nouvelle": 0.315,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "so",
+              "ancienne": 0.3,
+              "nouvelle": 0.285,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "pr",
+              "ancienne": 12,
+              "nouvelle": 12.6,
+              "plats": 1,
+              "codes": [
+                "8011033010104"
+              ]
+            },
+            {
+              "profil": "b5",
+              "critere": "pr",
+              "ancienne": 12,
+              "nouvelle": 11.4,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "fi",
+              "ancienne": 6,
+              "nouvelle": 6.3,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "fi",
+              "ancienne": 6,
+              "nouvelle": 5.7,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "fr",
+              "ancienne": 60,
+              "nouvelle": 63.0,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "fr",
+              "ancienne": 60,
+              "nouvelle": 57.0,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "nova",
+              "ancienne": 3,
+              "nouvelle": 2,
+              "plats": 4,
+              "codes": [
+                "8011033010104",
+                "3760278864052",
+                "3560071080624",
+                "3599741004028"
+              ]
+            },
+            {
+              "profil": "b5",
+              "critere": "additifs",
+              "ancienne": 0,
+              "nouvelle": 1,
+              "plats": 0,
+              "codes": []
+            }
+          ],
+          "plats": [
+            {
+              "code": "3760054095618",
+              "nom": "Carottes râpées",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3596710025305",
+              "nom": "Colin d'alaska grille a la provencale 2 portions",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 additifs à risque 1 → 0 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3256224160649",
+              "nom": "Colin d'Alaska à la provençale 450g",
+              "lettre": "C′",
+              "decalages": [
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "8011033010104",
+              "nom": "Couscous",
+              "lettre": "A′",
+              "decalages": [
+                "b5 protéines 12 → 12.6 : A′ → B′",
+                "b5 groupe nova 3 → 2 : A′ → B′"
+              ]
+            },
+            {
+              "code": "3760278864052",
+              "nom": "Couscous Complet",
+              "lettre": "A′",
+              "decalages": [
+                "b5 groupe nova 3 → 2 : A′ → B′"
+              ]
+            },
+            {
+              "code": "3701456313146",
+              "nom": "Lieu & bouillon de tomates et fenouil, riz et haricots rouges.",
+              "lettre": "C′",
+              "decalages": [
+                "b4 fruits, légumes et légumineuses 40 → 38.0 : C′ → B′",
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3560071080624",
+              "nom": "légumes pour MINESTRONE",
+              "lettre": "A′",
+              "decalages": [
+                "b5 groupe nova 3 → 2 : A′ → B′"
+              ]
+            },
+            {
+              "code": "2000000148029",
+              "nom": "Massaman Chicken",
+              "lettre": "B′",
+              "decalages": [
+                "b4 acides gras saturés 3 → 2.85 : B′ → C′",
+                "b4 sel 0.6 → 0.57 : B′ → C′",
+                "b4 fruits, légumes et légumineuses 40 → 42.0 : B′ → C′"
+              ]
+            },
+            {
+              "code": "3599741004028",
+              "nom": "Merlu Blanc",
+              "lettre": "A′",
+              "decalages": [
+                "b5 groupe nova 3 → 2 : A′ → B′"
+              ]
+            },
+            {
+              "code": "3263850000775",
+              "nom": "Mes Légumes Vapeur Assaisonnés",
+              "lettre": "B′",
+              "decalages": [
+                "b4 sel 0.6 → 0.57 : B′ → C′"
+              ]
+            },
+            {
+              "code": "3560070486274",
+              "nom": "Ratatouille",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3021690021899",
+              "nom": "ratatouille aux légumes d'été",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "4005496224066",
+              "nom": "Cappelletti Gemüse Vollkorn",
+              "lettre": "C′",
+              "decalages": [
+                "b3 sel 1.0 → 0.95 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3700009269169",
+              "nom": "Poke bol poulet avocat",
+              "lettre": "C′",
+              "decalages": [
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3700260001836",
+              "nom": "Salade Campagnarde au Poulet",
+              "lettre": "C′",
+              "decalages": [
+                "b3 sel 1.0 → 0.95 : C′ → D′",
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3564700282076",
+              "nom": "Salade à la Mexicaine au Thon",
+              "lettre": "B′",
+              "decalages": [
+                "b4 nombre d'additifs 1 → 0 : B′ → C′"
+              ]
+            },
+            {
+              "code": "5411788042543",
+              "nom": "Soupe de légumes au quinoa et miso",
+              "lettre": "B′",
+              "decalages": [
+                "b4 sel 0.6 → 0.57 : B′ → C′"
+              ]
+            },
+            {
+              "code": "3564700808382",
+              "nom": "Soupe de tomates et vermicelles",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3256221371116",
+              "nom": "Soupe Velouté tomates et basilic 100cl",
+              "lettre": "B′",
+              "decalages": [
+                "b4 sel 0.6 → 0.57 : B′ → C′"
+              ]
+            },
+            {
+              "code": "8712100758195",
+              "nom": "Veloute de potiron",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3274935011654",
+              "nom": "Velouté De Potiron",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3560070847266",
+              "nom": "Bon app' - Risotto poulet champignons",
+              "lettre": "D′",
+              "decalages": [
+                "b3 nombre d'additifs 3 → 4 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3254566706075",
+              "nom": "Céleri rémoulade",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3263850566219",
+              "nom": "Franprix velouté de légumes du potager 1L",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3560070478965",
+              "nom": "Les Bons Petits Plats - Gratin de Macaroni au jambon cuit à l'emmental râpé",
+              "lettre": "D′",
+              "decalages": [
+                "b3 acides gras saturés 5 → 5.25 : D′ → C′",
+                "b3 nombre d'additifs 3 → 4 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3256225739783",
+              "nom": "Légumes à la basquaise 1kg",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3256225054350",
+              "nom": "P'tit velouté potiron au fromage blanc",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3368951768996",
+              "nom": "Préparation pour aligot d'Aveyron, 3/4 parts, sachet de 185g",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "7613033139642",
+              "nom": "Regina",
+              "lettre": "D′",
+              "decalages": [
+                "b3 fibres 2 → 1.9 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3256225718191",
+              "nom": "Salade piémontaise au jambon - 500g",
+              "lettre": "C′",
+              "decalages": [
+                "b3 sel 1.0 → 0.95 : C′ → D′",
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3245414207875",
+              "nom": "Saumon, sauce Beurre Citron, Surgelé",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3760132082561",
+              "nom": "Soupe de courgettes, parmesan, noisettes",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3560070847297",
+              "nom": "Tortellini ricotta épinards",
+              "lettre": "D′",
+              "decalages": [
+                "b3 nombre d'additifs 3 → 4 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3596710457236",
+              "nom": "Girasole tomate mozzarella",
+              "lettre": "D′",
+              "decalages": [
+                "b3 énergie 1005 → 1055.25 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3240931546469",
+              "nom": "Girasoli carbonara",
+              "lettre": "C′",
+              "decalages": [
+                "b3 sel 1.0 → 0.95 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3701192502064",
+              "nom": "L'originale Napoletana",
+              "lettre": "D′",
+              "decalages": [
+                "b3 énergie 1005 → 1055.25 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3240931546247",
+              "nom": "Lustucru ravioli tomate emmental 300g",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3270190202790",
+              "nom": "Paniers feuilletés Noix de Saint-Jacques*",
+              "lettre": "D′",
+              "decalages": [
+                "b3 énergie 1005 → 1055.25 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3287390083326",
+              "nom": "Pizza 4 fromages apéritif",
+              "lettre": "C′",
+              "decalages": [
+                "b3 fruits, légumes et légumineuses 20 → 21.0 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3258561471310",
+              "nom": "Pizza Fromage 180G. Bf,",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3560070258635",
+              "nom": "Pizza Mozzarella",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3250391777808",
+              "nom": "Pizza Saumon Fumé",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3596710259953",
+              "nom": "Quenelles à la lyonnaise nature, au beurre",
+              "lettre": "C′",
+              "decalages": [
+                "b3 énergie 1005 → 954.75 : C′ → D′",
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "8001420005820",
+              "nom": "Risotto Ai Quattro Formaggi Gallo 175 G.",
+              "lettre": "D′",
+              "decalages": [
+                "b2 fibres 1 → 1.05 : D′ → E′"
+              ]
+            },
+            {
+              "code": "3560070852833",
+              "nom": "Tarte fine Champignons & Fromages",
+              "lettre": "C′",
+              "decalages": [
+                "b3 énergie 1005 → 954.75 : C′ → D′",
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3256220666435",
+              "nom": "Fajita Kit 505g",
+              "lettre": "D′",
+              "decalages": [
+                "b3 fibres 2 → 1.9 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3325420020153",
+              "nom": "Friand Strasbourg",
+              "lettre": "E′",
+              "decalages": [
+                "b2 additifs à risque 2 → 3 : E′ → D′"
+              ]
+            },
+            {
+              "code": "7231326087878",
+              "nom": "Magret de Canard du Sud-Ouest Fumé",
+              "lettre": "D′",
+              "decalages": [
+                "b2 fibres 1 → 1.05 : D′ → E′"
+              ]
+            },
+            {
+              "code": "3245390021212",
+              "nom": "Magret de Canard du Sud-Ouest FUMÉ AU BOIS DE HÊTRE",
+              "lettre": "D′",
+              "decalages": [
+                "b2 fibres 1 → 1.05 : D′ → E′"
+              ]
+            }
+          ],
+          "part": 0.392,
+          "platsComposantes": 22,
+          "platsEntiers": 34
+        },
+        "auBord": [
+          {
+            "code": "5411788042543",
+            "nom": "Soupe de légumes au quinoa et miso",
+            "lettre": "B′",
+            "rates": [
+              "pr",
+              "fi",
+              "fr"
+            ]
+          },
+          {
+            "code": "3263850566219",
+            "nom": "Franprix velouté de légumes du potager 1L",
+            "lettre": "C′",
+            "rates": [
+              "pr",
+              "fi",
+              "fr"
+            ]
+          }
+        ]
+      },
+      "etendue": {
+        "poids": {
+          "amplitude": 0.05,
+          "unParUn": [
+            {
+              "critere": "en",
+              "delta": 0.05,
+              "poids": 0.1227,
+              "plats": 34,
+              "part": 0.09066666666666667
+            },
+            {
+              "critere": "en",
+              "delta": -0.05,
+              "poids": 0.0227,
+              "plats": 39,
+              "part": 0.104
+            },
+            {
+              "critere": "sa",
+              "delta": 0.05,
+              "poids": 0.1227,
+              "plats": 30,
+              "part": 0.08
+            },
+            {
+              "critere": "sa",
+              "delta": -0.05,
+              "poids": 0.0227,
+              "plats": 45,
+              "part": 0.12
+            },
+            {
+              "critere": "su",
+              "delta": 0.05,
+              "poids": 0.1591,
+              "plats": 29,
+              "part": 0.07733333333333334
+            },
+            {
+              "critere": "su",
+              "delta": -0.05,
+              "poids": 0.0591,
+              "plats": 37,
+              "part": 0.09866666666666667
+            },
+            {
+              "critere": "so",
+              "delta": 0.05,
+              "poids": 0.1955,
+              "plats": 26,
+              "part": 0.06933333333333333
+            },
+            {
+              "critere": "so",
+              "delta": -0.05,
+              "poids": 0.0955,
+              "plats": 49,
+              "part": 0.13066666666666665
+            },
+            {
+              "critere": "pr",
+              "delta": 0.05,
+              "poids": 0.1735,
+              "plats": 66,
+              "part": 0.176
+            },
+            {
+              "critere": "pr",
+              "delta": -0.05,
+              "poids": 0.0735,
+              "plats": 25,
+              "part": 0.06666666666666667
+            },
+            {
+              "critere": "fi",
+              "delta": 0.05,
+              "poids": 0.1382,
+              "plats": 51,
+              "part": 0.136
+            },
+            {
+              "critere": "fi",
+              "delta": -0.05,
+              "poids": 0.0382,
+              "plats": 51,
+              "part": 0.136
+            },
+            {
+              "critere": "fr",
+              "delta": 0.05,
+              "poids": 0.1382,
+              "plats": 32,
+              "part": 0.08533333333333333
+            },
+            {
+              "critere": "fr",
+              "delta": -0.05,
+              "poids": 0.0382,
+              "plats": 53,
+              "part": 0.14133333333333334
+            },
+            {
+              "critere": "nova",
+              "delta": 0.05,
+              "poids": 0.15,
+              "plats": 31,
+              "part": 0.08266666666666667
+            },
+            {
+              "critere": "nova",
+              "delta": -0.05,
+              "poids": 0.05,
+              "plats": 42,
+              "part": 0.112
+            },
+            {
+              "critere": "additifs",
+              "delta": 0.05,
+              "poids": 0.125,
+              "plats": 32,
+              "part": 0.08533333333333333
+            },
+            {
+              "critere": "additifs",
+              "delta": -0.05,
+              "poids": 0.025,
+              "plats": 37,
+              "part": 0.09866666666666667
+            },
+            {
+              "critere": "aRisque",
+              "delta": 0.05,
+              "poids": 0.125,
+              "plats": 28,
+              "part": 0.07466666666666667
+            },
+            {
+              "critere": "aRisque",
+              "delta": -0.05,
+              "poids": 0.025,
+              "plats": 37,
+              "part": 0.09866666666666667
+            },
+            {
+              "critere": "bio",
+              "delta": 0.05,
+              "poids": 0.1,
+              "plats": 54,
+              "part": 0.144
+            },
+            {
+              "critere": "bio",
+              "delta": -0.05,
+              "poids": 0.0,
+              "plats": 37,
+              "part": 0.09866666666666667
+            }
+          ],
+          "tirages": 1000,
+          "partMoyenne": 0.140928,
+          "partMax": 0.2826666666666667,
+          "platsSensibles": [
+            {
+              "code": "3760247832143",
+              "nom": "Gaspacho",
+              "lettre": "C′",
+              "frequence": 0.669
+            },
+            {
+              "code": "3276557391985",
+              "nom": "Tikka Masala aux Légumes",
+              "lettre": "B′",
+              "frequence": 0.575
+            },
+            {
+              "code": "3487400003768",
+              "nom": "Riz aux champignons de Paris",
+              "lettre": "C′",
+              "frequence": 0.524
+            },
+            {
+              "code": "5010034515000",
+              "nom": "Pilau rice (uncle bens)",
+              "lettre": "C′",
+              "frequence": 0.524
+            },
+            {
+              "code": "5411788042543",
+              "nom": "Soupe de légumes au quinoa et miso",
+              "lettre": "B′",
+              "frequence": 0.523
+            },
+            {
+              "code": "3263850566219",
+              "nom": "Franprix velouté de légumes du potager 1L",
+              "lettre": "C′",
+              "frequence": 0.523
+            },
+            {
+              "code": "01425587",
+              "nom": "Bisque de Homard",
+              "lettre": "C′",
+              "frequence": 0.523
+            },
+            {
+              "code": "3250391110346",
+              "nom": "Potage deshydrate veloute bolets 74 g",
+              "lettre": "C′",
+              "frequence": 0.523
+            },
+            {
+              "code": "5036599001383",
+              "nom": "Poule au pot",
+              "lettre": "C′",
+              "frequence": 0.523
+            },
+            {
+              "code": "3250392151041",
+              "nom": "Quenelles de saumon sauce crevette 400g",
+              "lettre": "C′",
+              "frequence": 0.523
+            }
+          ]
+        },
+        "courbe": [
+          {
+            "amplitude": 0.01,
+            "partMoyenne": 0.04926133333333333,
+            "partMax": 0.11466666666666667
+          },
+          {
+            "amplitude": 0.02,
+            "partMoyenne": 0.073224,
+            "partMax": 0.184
+          },
+          {
+            "amplitude": 0.05,
+            "partMoyenne": 0.140928,
+            "partMax": 0.2826666666666667
+          }
+        ],
+        "profils": {
+          "decalage": 0.05,
+          "pasEntier": 1,
+          "scenarios": [
+            {
+              "profil": "b2",
+              "critere": "en",
+              "ancienne": 1340,
+              "nouvelle": 1407.0,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "en",
+              "ancienne": 1340,
+              "nouvelle": 1273.0,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "sa",
+              "ancienne": 7,
+              "nouvelle": 7.35,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "sa",
+              "ancienne": 7,
+              "nouvelle": 6.65,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "su",
+              "ancienne": 14,
+              "nouvelle": 14.7,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "su",
+              "ancienne": 14,
+              "nouvelle": 13.3,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "so",
+              "ancienne": 1.4,
+              "nouvelle": 1.47,
+              "plats": 1,
+              "codes": [
+                "3596710747542"
+              ]
+            },
+            {
+              "profil": "b2",
+              "critere": "so",
+              "ancienne": 1.4,
+              "nouvelle": 1.33,
+              "plats": 1,
+              "codes": [
+                "3256227741234"
+              ]
+            },
+            {
+              "profil": "b2",
+              "critere": "pr",
+              "ancienne": 2.4,
+              "nouvelle": 2.52,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "pr",
+              "ancienne": 2.4,
+              "nouvelle": 2.28,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "fi",
+              "ancienne": 1,
+              "nouvelle": 1.05,
+              "plats": 5,
+              "codes": [
+                "8001420005820",
+                "7231326087878",
+                "3245390021212",
+                "3560070504527",
+                "8934563283148"
+              ]
+            },
+            {
+              "profil": "b2",
+              "critere": "fi",
+              "ancienne": 1,
+              "nouvelle": 0.95,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "additifs",
+              "ancienne": 5,
+              "nouvelle": 6,
+              "plats": 1,
+              "codes": [
+                "0851683004454"
+              ]
+            },
+            {
+              "profil": "b2",
+              "critere": "additifs",
+              "ancienne": 5,
+              "nouvelle": 4,
+              "plats": 1,
+              "codes": [
+                "3178538007000"
+              ]
+            },
+            {
+              "profil": "b2",
+              "critere": "aRisque",
+              "ancienne": 2,
+              "nouvelle": 3,
+              "plats": 2,
+              "codes": [
+                "3325420020153",
+                "3596710747542"
+              ]
+            },
+            {
+              "profil": "b2",
+              "critere": "aRisque",
+              "ancienne": 2,
+              "nouvelle": 1,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b3",
+              "critere": "en",
+              "ancienne": 1005,
+              "nouvelle": 1055.25,
+              "plats": 5,
+              "codes": [
+                "3596710457236",
+                "3701192502064",
+                "3270190202790",
+                "2000000118457",
+                "3222477592681"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "en",
+              "ancienne": 1005,
+              "nouvelle": 954.75,
+              "plats": 5,
+              "codes": [
+                "3596710259953",
+                "3560070852833",
+                "00449458",
+                "3596710462070",
+                "3248830000617"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "sa",
+              "ancienne": 5,
+              "nouvelle": 5.25,
+              "plats": 2,
+              "codes": [
+                "3560070478965",
+                "20057602"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "sa",
+              "ancienne": 5,
+              "nouvelle": 4.75,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b3",
+              "critere": "su",
+              "ancienne": 10,
+              "nouvelle": 10.5,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b3",
+              "critere": "su",
+              "ancienne": 10,
+              "nouvelle": 9.5,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b3",
+              "critere": "so",
+              "ancienne": 1.0,
+              "nouvelle": 1.05,
+              "plats": 1,
+              "codes": [
+                "2000000118457"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "so",
+              "ancienne": 1.0,
+              "nouvelle": 0.95,
+              "plats": 9,
+              "codes": [
+                "4005496224066",
+                "3700260001836",
+                "3256225718191",
+                "3240931546469",
+                "3240931542119",
+                "3240931539546",
+                "3240931539539",
+                "4000915107715",
+                "3289475001232"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "pr",
+              "ancienne": 4.8,
+              "nouvelle": 5.04,
+              "plats": 1,
+              "codes": [
+                "3560071003449"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "pr",
+              "ancienne": 4.8,
+              "nouvelle": 4.56,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b3",
+              "critere": "fi",
+              "ancienne": 2,
+              "nouvelle": 2.1,
+              "plats": 2,
+              "codes": [
+                "3270160892846",
+                "3368954060318"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "fi",
+              "ancienne": 2,
+              "nouvelle": 1.9,
+              "plats": 2,
+              "codes": [
+                "7613033139642",
+                "3256220666435"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "fr",
+              "ancienne": 20,
+              "nouvelle": 21.0,
+              "plats": 1,
+              "codes": [
+                "3287390083326"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "fr",
+              "ancienne": 20,
+              "nouvelle": 19.0,
+              "plats": 1,
+              "codes": [
+                "3222477592681"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "nova",
+              "ancienne": 4,
+              "nouvelle": 3,
+              "plats": 60,
+              "codes": [
+                "3760054095618",
+                "3596710025305",
+                "3560070486274",
+                "3021690021899",
+                "3700260001836",
+                "3564700808382",
+                "8712100758195",
+                "3274935011654",
+                "3254566706075",
+                "3263850566219",
+                "3256225739783",
+                "3256225054350",
+                "3368951768996",
+                "3256225718191",
+                "3245414207875",
+                "3760132082561",
+                "3240931546247",
+                "3258561471310",
+                "3560070258635",
+                "3250391777808",
+                "3596710259953",
+                "3560070852833",
+                "3254560171831",
+                "8431876012347",
+                "3270160752331",
+                "01425587",
+                "2000000053986",
+                "8420878613928",
+                "3263859856410",
+                "3487400003768",
+                "00010900",
+                "4056489195221",
+                "3560071003449",
+                "3564709166681",
+                "0000112302650",
+                "3263858024810",
+                "3240937301109",
+                "3240931542119",
+                "3240931539539",
+                "3350033943216",
+                "3250391110346",
+                "5036599001383",
+                "3250392151041",
+                "0077745291888",
+                "3017800244586",
+                "3245390181954",
+                "3180071003067",
+                "3250391504220",
+                "3560070823796",
+                "3596710383184",
+                "3301091900062",
+                "3240931545370",
+                "3153571017223",
+                "00449458",
+                "3289475001232",
+                "3596710462070",
+                "3700966554933",
+                "3564700845271",
+                "6133012000318",
+                "3368954060318"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "additifs",
+              "ancienne": 3,
+              "nouvelle": 4,
+              "plats": 5,
+              "codes": [
+                "3560070847266",
+                "3560070478965",
+                "3560070847297",
+                "3282740200101",
+                "3256227549670"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "additifs",
+              "ancienne": 3,
+              "nouvelle": 2,
+              "plats": 3,
+              "codes": [
+                "20902995",
+                "3245390181954",
+                "3596710462070"
+              ]
+            },
+            {
+              "profil": "b3",
+              "critere": "aRisque",
+              "ancienne": 1,
+              "nouvelle": 2,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b3",
+              "critere": "aRisque",
+              "ancienne": 1,
+              "nouvelle": 0,
+              "plats": 9,
+              "codes": [
+                "3596710025305",
+                "01425587",
+                "2000000053986",
+                "00010900",
+                "3564709166681",
+                "3245390181954",
+                "3180071003067",
+                "3596710462070",
+                "3564700845271"
+              ]
+            },
+            {
+              "profil": "b4",
+              "critere": "en",
+              "ancienne": 670,
+              "nouvelle": 703.5,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b4",
+              "critere": "en",
+              "ancienne": 670,
+              "nouvelle": 636.5,
+              "plats": 1,
+              "codes": [
+                "3259011124855"
+              ]
+            },
+            {
+              "profil": "b4",
+              "critere": "sa",
+              "ancienne": 3,
+              "nouvelle": 3.15,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b4",
+              "critere": "sa",
+              "ancienne": 3,
+              "nouvelle": 2.85,
+              "plats": 1,
+              "codes": [
+                "2000000148029"
+              ]
+            },
+            {
+              "profil": "b4",
+              "critere": "su",
+              "ancienne": 6.8,
+              "nouvelle": 7.14,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b4",
+              "critere": "su",
+              "ancienne": 6.8,
+              "nouvelle": 6.46,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b4",
+              "critere": "so",
+              "ancienne": 0.6,
+              "nouvelle": 0.63,
+              "plats": 1,
+              "codes": [
+                "3256224761341"
+              ]
+            },
+            {
+              "profil": "b4",
+              "critere": "so",
+              "ancienne": 0.6,
+              "nouvelle": 0.57,
+              "plats": 6,
+              "codes": [
+                "2000000148029",
+                "3263850000775",
+                "5411788042543",
+                "3256221371116",
+                "3229820794082",
+                "2000000019523"
+              ]
+            },
+            {
+              "profil": "b4",
+              "critere": "pr",
+              "ancienne": 7.2,
+              "nouvelle": 7.56,
+              "plats": 1,
+              "codes": [
+                "8018370010590"
+              ]
+            },
+            {
+              "profil": "b4",
+              "critere": "pr",
+              "ancienne": 7.2,
+              "nouvelle": 6.84,
+              "plats": 1,
+              "codes": [
+                "3700977711035"
+              ]
+            },
+            {
+              "profil": "b4",
+              "critere": "fi",
+              "ancienne": 3,
+              "nouvelle": 3.15,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b4",
+              "critere": "fi",
+              "ancienne": 3,
+              "nouvelle": 2.85,
+              "plats": 1,
+              "codes": [
+                "3270160500291"
+              ]
+            },
+            {
+              "profil": "b4",
+              "critere": "fr",
+              "ancienne": 40,
+              "nouvelle": 42.0,
+              "plats": 2,
+              "codes": [
+                "2000000148029",
+                "3250391369447"
+              ]
+            },
+            {
+              "profil": "b4",
+              "critere": "fr",
+              "ancienne": 40,
+              "nouvelle": 38.0,
+              "plats": 1,
+              "codes": [
+                "3701456313146"
+              ]
+            },
+            {
+              "profil": "b4",
+              "critere": "nova",
+              "ancienne": 3,
+              "nouvelle": 4,
+              "plats": 19,
+              "codes": [
+                "3256224160649",
+                "3701456313146",
+                "3700009269169",
+                "3274935011654",
+                "3270160742509",
+                "3292590875114",
+                "3256227111259",
+                "3701456317359",
+                "3270160875948",
+                "3270160752331",
+                "3560070897216",
+                "3270160592753",
+                "8420878613928",
+                "3701456317915",
+                "3270160500291",
+                "3263859843519",
+                "20442378",
+                "3270160698851",
+                "3250391618620"
+              ]
+            },
+            {
+              "profil": "b4",
+              "critere": "additifs",
+              "ancienne": 1,
+              "nouvelle": 2,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b4",
+              "critere": "additifs",
+              "ancienne": 1,
+              "nouvelle": 0,
+              "plats": 3,
+              "codes": [
+                "3564700282076",
+                "3270160487738",
+                "3250392331832"
+              ]
+            },
+            {
+              "profil": "b4",
+              "critere": "aRisque",
+              "ancienne": 0,
+              "nouvelle": 1,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "en",
+              "ancienne": 335,
+              "nouvelle": 351.75,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "en",
+              "ancienne": 335,
+              "nouvelle": 318.25,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "sa",
+              "ancienne": 1.5,
+              "nouvelle": 1.575,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "sa",
+              "ancienne": 1.5,
+              "nouvelle": 1.425,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "su",
+              "ancienne": 5,
+              "nouvelle": 5.25,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "su",
+              "ancienne": 5,
+              "nouvelle": 4.75,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "so",
+              "ancienne": 0.3,
+              "nouvelle": 0.315,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "so",
+              "ancienne": 0.3,
+              "nouvelle": 0.285,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "pr",
+              "ancienne": 12,
+              "nouvelle": 12.6,
+              "plats": 3,
+              "codes": [
+                "8011033010104",
+                "8011033001881",
+                "8011033000884"
+              ]
+            },
+            {
+              "profil": "b5",
+              "critere": "pr",
+              "ancienne": 12,
+              "nouvelle": 11.4,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "fi",
+              "ancienne": 6,
+              "nouvelle": 6.3,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "fi",
+              "ancienne": 6,
+              "nouvelle": 5.7,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "fr",
+              "ancienne": 60,
+              "nouvelle": 63.0,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "fr",
+              "ancienne": 60,
+              "nouvelle": 57.0,
+              "plats": 0,
+              "codes": []
+            },
+            {
+              "profil": "b5",
+              "critere": "nova",
+              "ancienne": 3,
+              "nouvelle": 2,
+              "plats": 11,
+              "codes": [
+                "8011033010104",
+                "3760278864052",
+                "3560071080624",
+                "3599741004028",
+                "8011033001881",
+                "8011033000884",
+                "3270160754816",
+                "3263859880712",
+                "3564700566756",
+                "3270160680481",
+                "3270160680238"
+              ]
+            },
+            {
+              "profil": "b5",
+              "critere": "additifs",
+              "ancienne": 0,
+              "nouvelle": 1,
+              "plats": 0,
+              "codes": []
+            }
+          ],
+          "plats": [
+            {
+              "code": "3760054095618",
+              "nom": "Carottes râpées",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3596710025305",
+              "nom": "Colin d'alaska grille a la provencale 2 portions",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 additifs à risque 1 → 0 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3256224160649",
+              "nom": "Colin d'Alaska à la provençale 450g",
+              "lettre": "C′",
+              "decalages": [
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "8011033010104",
+              "nom": "Couscous",
+              "lettre": "A′",
+              "decalages": [
+                "b5 protéines 12 → 12.6 : A′ → B′",
+                "b5 groupe nova 3 → 2 : A′ → B′"
+              ]
+            },
+            {
+              "code": "3760278864052",
+              "nom": "Couscous Complet",
+              "lettre": "A′",
+              "decalages": [
+                "b5 groupe nova 3 → 2 : A′ → B′"
+              ]
+            },
+            {
+              "code": "3701456313146",
+              "nom": "Lieu & bouillon de tomates et fenouil, riz et haricots rouges.",
+              "lettre": "C′",
+              "decalages": [
+                "b4 fruits, légumes et légumineuses 40 → 38.0 : C′ → B′",
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3560071080624",
+              "nom": "légumes pour MINESTRONE",
+              "lettre": "A′",
+              "decalages": [
+                "b5 groupe nova 3 → 2 : A′ → B′"
+              ]
+            },
+            {
+              "code": "2000000148029",
+              "nom": "Massaman Chicken",
+              "lettre": "B′",
+              "decalages": [
+                "b4 acides gras saturés 3 → 2.85 : B′ → C′",
+                "b4 sel 0.6 → 0.57 : B′ → C′",
+                "b4 fruits, légumes et légumineuses 40 → 42.0 : B′ → C′"
+              ]
+            },
+            {
+              "code": "3599741004028",
+              "nom": "Merlu Blanc",
+              "lettre": "A′",
+              "decalages": [
+                "b5 groupe nova 3 → 2 : A′ → B′"
+              ]
+            },
+            {
+              "code": "3263850000775",
+              "nom": "Mes Légumes Vapeur Assaisonnés",
+              "lettre": "B′",
+              "decalages": [
+                "b4 sel 0.6 → 0.57 : B′ → C′"
+              ]
+            },
+            {
+              "code": "3560070486274",
+              "nom": "Ratatouille",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3021690021899",
+              "nom": "ratatouille aux légumes d'été",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "4005496224066",
+              "nom": "Cappelletti Gemüse Vollkorn",
+              "lettre": "C′",
+              "decalages": [
+                "b3 sel 1.0 → 0.95 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3700009269169",
+              "nom": "Poke bol poulet avocat",
+              "lettre": "C′",
+              "decalages": [
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3700260001836",
+              "nom": "Salade Campagnarde au Poulet",
+              "lettre": "C′",
+              "decalages": [
+                "b3 sel 1.0 → 0.95 : C′ → D′",
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3564700282076",
+              "nom": "Salade à la Mexicaine au Thon",
+              "lettre": "B′",
+              "decalages": [
+                "b4 nombre d'additifs 1 → 0 : B′ → C′"
+              ]
+            },
+            {
+              "code": "5411788042543",
+              "nom": "Soupe de légumes au quinoa et miso",
+              "lettre": "B′",
+              "decalages": [
+                "b4 sel 0.6 → 0.57 : B′ → C′"
+              ]
+            },
+            {
+              "code": "3564700808382",
+              "nom": "Soupe de tomates et vermicelles",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3256221371116",
+              "nom": "Soupe Velouté tomates et basilic 100cl",
+              "lettre": "B′",
+              "decalages": [
+                "b4 sel 0.6 → 0.57 : B′ → C′"
+              ]
+            },
+            {
+              "code": "8712100758195",
+              "nom": "Veloute de potiron",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3274935011654",
+              "nom": "Velouté De Potiron",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3560070847266",
+              "nom": "Bon app' - Risotto poulet champignons",
+              "lettre": "D′",
+              "decalages": [
+                "b3 nombre d'additifs 3 → 4 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3254566706075",
+              "nom": "Céleri rémoulade",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3263850566219",
+              "nom": "Franprix velouté de légumes du potager 1L",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3560070478965",
+              "nom": "Les Bons Petits Plats - Gratin de Macaroni au jambon cuit à l'emmental râpé",
+              "lettre": "D′",
+              "decalages": [
+                "b3 acides gras saturés 5 → 5.25 : D′ → C′",
+                "b3 nombre d'additifs 3 → 4 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3256225739783",
+              "nom": "Légumes à la basquaise 1kg",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3256225054350",
+              "nom": "P'tit velouté potiron au fromage blanc",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3368951768996",
+              "nom": "Préparation pour aligot d'Aveyron, 3/4 parts, sachet de 185g",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "7613033139642",
+              "nom": "Regina",
+              "lettre": "D′",
+              "decalages": [
+                "b3 fibres 2 → 1.9 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3256225718191",
+              "nom": "Salade piémontaise au jambon - 500g",
+              "lettre": "C′",
+              "decalages": [
+                "b3 sel 1.0 → 0.95 : C′ → D′",
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3245414207875",
+              "nom": "Saumon, sauce Beurre Citron, Surgelé",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3760132082561",
+              "nom": "Soupe de courgettes, parmesan, noisettes",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3560070847297",
+              "nom": "Tortellini ricotta épinards",
+              "lettre": "D′",
+              "decalages": [
+                "b3 nombre d'additifs 3 → 4 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3596710457236",
+              "nom": "Girasole tomate mozzarella",
+              "lettre": "D′",
+              "decalages": [
+                "b3 énergie 1005 → 1055.25 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3240931546469",
+              "nom": "Girasoli carbonara",
+              "lettre": "C′",
+              "decalages": [
+                "b3 sel 1.0 → 0.95 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3701192502064",
+              "nom": "L'originale Napoletana",
+              "lettre": "D′",
+              "decalages": [
+                "b3 énergie 1005 → 1055.25 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3240931546247",
+              "nom": "Lustucru ravioli tomate emmental 300g",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3270190202790",
+              "nom": "Paniers feuilletés Noix de Saint-Jacques*",
+              "lettre": "D′",
+              "decalages": [
+                "b3 énergie 1005 → 1055.25 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3287390083326",
+              "nom": "Pizza 4 fromages apéritif",
+              "lettre": "C′",
+              "decalages": [
+                "b3 fruits, légumes et légumineuses 20 → 21.0 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3258561471310",
+              "nom": "Pizza Fromage 180G. Bf,",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3560070258635",
+              "nom": "Pizza Mozzarella",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3250391777808",
+              "nom": "Pizza Saumon Fumé",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3596710259953",
+              "nom": "Quenelles à la lyonnaise nature, au beurre",
+              "lettre": "C′",
+              "decalages": [
+                "b3 énergie 1005 → 954.75 : C′ → D′",
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "8001420005820",
+              "nom": "Risotto Ai Quattro Formaggi Gallo 175 G.",
+              "lettre": "D′",
+              "decalages": [
+                "b2 fibres 1 → 1.05 : D′ → E′"
+              ]
+            },
+            {
+              "code": "3560070852833",
+              "nom": "Tarte fine Champignons & Fromages",
+              "lettre": "C′",
+              "decalages": [
+                "b3 énergie 1005 → 954.75 : C′ → D′",
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3256220666435",
+              "nom": "Fajita Kit 505g",
+              "lettre": "D′",
+              "decalages": [
+                "b3 fibres 2 → 1.9 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3325420020153",
+              "nom": "Friand Strasbourg",
+              "lettre": "E′",
+              "decalages": [
+                "b2 additifs à risque 2 → 3 : E′ → D′"
+              ]
+            },
+            {
+              "code": "7231326087878",
+              "nom": "Magret de Canard du Sud-Ouest Fumé",
+              "lettre": "D′",
+              "decalages": [
+                "b2 fibres 1 → 1.05 : D′ → E′"
+              ]
+            },
+            {
+              "code": "3245390021212",
+              "nom": "Magret de Canard du Sud-Ouest FUMÉ AU BOIS DE HÊTRE",
+              "lettre": "D′",
+              "decalages": [
+                "b2 fibres 1 → 1.05 : D′ → E′"
+              ]
+            },
+            {
+              "code": "3270160742509",
+              "nom": "Aiguillettes de Merlu Blanc du Cap Panées Sans Gluten",
+              "lettre": "C′",
+              "decalages": [
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3292590875114",
+              "nom": "Cabillaud sauce provencale",
+              "lettre": "C′",
+              "decalages": [
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3256227111259",
+              "nom": "Carottes rapées 800g",
+              "lettre": "C′",
+              "decalages": [
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3270160487738",
+              "nom": "Cocktail de la Mer Cuisiné",
+              "lettre": "B′",
+              "decalages": [
+                "b4 nombre d'additifs 1 → 0 : B′ → C′"
+              ]
+            },
+            {
+              "code": "3250391369447",
+              "nom": "Colin d'Alaska à la provençale MSC 450g =&gt; 400g",
+              "lettre": "B′",
+              "decalages": [
+                "b4 fruits, légumes et légumineuses 40 → 42.0 : B′ → C′"
+              ]
+            },
+            {
+              "code": "8011033001881",
+              "nom": "Couscous fin",
+              "lettre": "A′",
+              "decalages": [
+                "b5 protéines 12 → 12.6 : A′ → B′",
+                "b5 groupe nova 3 → 2 : A′ → B′"
+              ]
+            },
+            {
+              "code": "8011033000884",
+              "nom": "Couscous Moyen",
+              "lettre": "A′",
+              "decalages": [
+                "b5 protéines 12 → 12.6 : A′ → B′",
+                "b5 groupe nova 3 → 2 : A′ → B′"
+              ]
+            },
+            {
+              "code": "3701456317359",
+              "nom": "Effiloché de porc au romarain & purée cremeuse de chou-fleur",
+              "lettre": "C′",
+              "decalages": [
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3270160875948",
+              "nom": "Galettes vegetales provencale",
+              "lettre": "C′",
+              "decalages": [
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3270160754816",
+              "nom": "Mélange de Légumes - Bol Vapeur",
+              "lettre": "A′",
+              "decalages": [
+                "b5 groupe nova 3 → 2 : A′ → B′"
+              ]
+            },
+            {
+              "code": "3229820794082",
+              "nom": "Méli-Mélo de Légumes Secs, Douceur de Soja",
+              "lettre": "B′",
+              "decalages": [
+                "b4 sel 0.6 → 0.57 : B′ → C′"
+              ]
+            },
+            {
+              "code": "3254560171831",
+              "nom": "Petit sale au lentilles",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "8431876012347",
+              "nom": "Poivrons de Piquillo en lanières",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3270160752331",
+              "nom": "Poêlée Festive Asperges vertes cèpes et morilles",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3263859880712",
+              "nom": "Printanière de Légumes",
+              "lettre": "A′",
+              "decalages": [
+                "b5 groupe nova 3 → 2 : A′ → B′"
+              ]
+            },
+            {
+              "code": "3256224761341",
+              "nom": "Purée 4 légumes verts cuisinée au beurre sachet 750g",
+              "lettre": "C′",
+              "decalages": [
+                "b4 sel 0.6 → 0.63 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3564700566756",
+              "nom": "Purée Brocolis nature",
+              "lettre": "A′",
+              "decalages": [
+                "b5 groupe nova 3 → 2 : A′ → B′"
+              ]
+            },
+            {
+              "code": "3270160680481",
+              "nom": "Purée haricot vert, carotte jaune, petit pois",
+              "lettre": "A′",
+              "decalages": [
+                "b5 groupe nova 3 → 2 : A′ → B′"
+              ]
+            },
+            {
+              "code": "8018370010590",
+              "nom": "Risotto à la courge",
+              "lettre": "B′",
+              "decalages": [
+                "b4 protéines 7.2 → 7.56 : B′ → C′"
+              ]
+            },
+            {
+              "code": "3560070897216",
+              "nom": "Salad'bowl à l'Italienne",
+              "lettre": "C′",
+              "decalages": [
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3270160592753",
+              "nom": "Tajine de légumes surgelé",
+              "lettre": "C′",
+              "decalages": [
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3259011124855",
+              "nom": "Tofinelle roquefort & figues",
+              "lettre": "B′",
+              "decalages": [
+                "b4 énergie 670 → 636.5 : B′ → C′"
+              ]
+            },
+            {
+              "code": "01425587",
+              "nom": "Bisque de Homard",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 additifs à risque 1 → 0 : C′ → D′"
+              ]
+            },
+            {
+              "code": "2000000053986",
+              "nom": "Boeuf Teriyaki",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 additifs à risque 1 → 0 : C′ → D′"
+              ]
+            },
+            {
+              "code": "8420878613928",
+              "nom": "Effiloché Végétal Belive It !",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3701456317915",
+              "nom": "Légumes au chèvre",
+              "lettre": "C′",
+              "decalages": [
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3270160500291",
+              "nom": "Oursons de Purée de Pomme de Terre, Carotte Cuisinée",
+              "lettre": "C′",
+              "decalages": [
+                "b4 fibres 3 → 2.85 : C′ → B′",
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3263859856410",
+              "nom": "Parmentier de poisson et de légumes",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3263859843519",
+              "nom": "Penne Poulet Pesto, Surgelé",
+              "lettre": "C′",
+              "decalages": [
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3700977711035",
+              "nom": "Poulet sauce moutarde, citron et son blé",
+              "lettre": "C′",
+              "decalages": [
+                "b4 protéines 7.2 → 6.84 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3270160680238",
+              "nom": "Purée de courge butternut à la crème",
+              "lettre": "A′",
+              "decalages": [
+                "b5 groupe nova 3 → 2 : A′ → B′"
+              ]
+            },
+            {
+              "code": "3487400003768",
+              "nom": "Riz aux champignons de Paris",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3250392331832",
+              "nom": "Salade au thon mexicaine",
+              "lettre": "B′",
+              "decalages": [
+                "b4 nombre d'additifs 1 → 0 : B′ → C′"
+              ]
+            },
+            {
+              "code": "00010900",
+              "nom": "Salade Fusilli poulet curry",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 additifs à risque 1 → 0 : C′ → D′"
+              ]
+            },
+            {
+              "code": "4056489195221",
+              "nom": "Salade pates œuf fromage",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "20442378",
+              "nom": "Saumon Fondue de Poireaux, Surgelé",
+              "lettre": "C′",
+              "decalages": [
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3270160698851",
+              "nom": "Saumon, fondue de poireaux et d'épinards, sauce au fromage blanc, Surgelés",
+              "lettre": "C′",
+              "decalages": [
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "2000000019523",
+              "nom": "Taboulé",
+              "lettre": "B′",
+              "decalages": [
+                "b4 sel 0.6 → 0.57 : B′ → C′"
+              ]
+            },
+            {
+              "code": "3250391618620",
+              "nom": "Tagliatel F.mer",
+              "lettre": "C′",
+              "decalages": [
+                "b4 groupe nova 3 → 4 : C′ → B′"
+              ]
+            },
+            {
+              "code": "3560071003449",
+              "nom": "Assortiment de gyoza",
+              "lettre": "C′",
+              "decalages": [
+                "b3 protéines 4.8 → 5.04 : C′ → D′",
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3564709166681",
+              "nom": "Brandade de Morue Parmentière, Recette du Sud-Ouest",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 additifs à risque 1 → 0 : C′ → D′"
+              ]
+            },
+            {
+              "code": "0000112302650",
+              "nom": "Délice de potiron châtaigne",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3263858024810",
+              "nom": "Leader Snack - Salade surimi crudités",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3240937301109",
+              "nom": "Lustucru mini quenelles a poeler nature 250g",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3240931542119",
+              "nom": "Lustucru petites quenelles nature 16x20g",
+              "lettre": "C′",
+              "decalages": [
+                "b3 sel 1.0 → 0.95 : C′ → D′",
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3240931539546",
+              "nom": "Lustucru quenelle brochet 4x100g",
+              "lettre": "C′",
+              "decalages": [
+                "b3 sel 1.0 → 0.95 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3240931539539",
+              "nom": "Lustucru quenelles traiteur nature 400g",
+              "lettre": "C′",
+              "decalages": [
+                "b3 sel 1.0 → 0.95 : C′ → D′",
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3350033943216",
+              "nom": "Pad thaï poulet",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3250391110346",
+              "nom": "Potage deshydrate veloute bolets 74 g",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "5036599001383",
+              "nom": "Poule au pot",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3250392151041",
+              "nom": "Quenelles de saumon sauce crevette 400g",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "20902995",
+              "nom": "Quinoa Courgettes Oignon",
+              "lettre": "C′",
+              "decalages": [
+                "b3 nombre d'additifs 3 → 2 : C′ → D′"
+              ]
+            },
+            {
+              "code": "2000000118457",
+              "nom": "RAV PEST",
+              "lettre": "D′",
+              "decalages": [
+                "b3 énergie 1005 → 1055.25 : D′ → C′",
+                "b3 sel 1.0 → 1.05 : D′ → C′"
+              ]
+            },
+            {
+              "code": "0077745291888",
+              "nom": "Ready Pac Santa Fe Style Ceasar Bistro Salad",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3017800244586",
+              "nom": "Risotto forestier",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3596710747542",
+              "nom": "Riz cantonais",
+              "lettre": "E′",
+              "decalages": [
+                "b2 sel 1.4 → 1.47 : E′ → D′",
+                "b2 additifs à risque 2 → 3 : E′ → D′"
+              ]
+            },
+            {
+              "code": "3245390181954",
+              "nom": "Tartiflette",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 nombre d'additifs 3 → 2 : C′ → D′",
+                "b3 additifs à risque 1 → 0 : C′ → D′"
+              ]
+            },
+            {
+              "code": "4000915107715",
+              "nom": "Tortellini frais au fromage et à la tomate",
+              "lettre": "C′",
+              "decalages": [
+                "b3 sel 1.0 → 0.95 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3180071003067",
+              "nom": "Tortellini pesto",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 additifs à risque 1 → 0 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3250391504220",
+              "nom": "Veloute  chanterelles et bolets",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3560070823796",
+              "nom": "Velouté aux Courgettes saveur chèvre",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3596710383184",
+              "nom": "Velouté de bolets et chanterelles",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3282740200101",
+              "nom": "2 Feuilletés Saint-Jacques",
+              "lettre": "D′",
+              "decalages": [
+                "b3 nombre d'additifs 3 → 4 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3301091900062",
+              "nom": "Délice au Saumon & Épinard",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3240931545370",
+              "nom": "Girasoli legumes du soleil 250g lustucru",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3153571017223",
+              "nom": "Les Quenelles de l'Atelier Brochet Sauvage",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "00449458",
+              "nom": "Mozzarella roasted tomato and basil girasoli",
+              "lettre": "C′",
+              "decalages": [
+                "b3 énergie 1005 → 954.75 : C′ → D′",
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3289475001232",
+              "nom": "Panier feuilleté fromage La Vache Qui Rit et petits légumes, 4",
+              "lettre": "C′",
+              "decalages": [
+                "b3 sel 1.0 → 0.95 : C′ → D′",
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3270160892846",
+              "nom": "Pithiviers - Pintade, farce aux champignons, dinde, bloc de foie gras de canard et épinards",
+              "lettre": "C′",
+              "decalages": [
+                "b3 fibres 2 → 2.1 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3596710462070",
+              "nom": "Pizza chèvre lardons",
+              "lettre": "C′",
+              "decalages": [
+                "b3 énergie 1005 → 954.75 : C′ → D′",
+                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 nombre d'additifs 3 → 2 : C′ → D′",
+                "b3 additifs à risque 1 → 0 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3222477592681",
+              "nom": "Pizza chèvre lardons tomates mi-séchées",
+              "lettre": "D′",
+              "decalages": [
+                "b3 énergie 1005 → 1055.25 : D′ → C′",
+                "b3 fruits, légumes et légumineuses 20 → 19.0 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3248830000617",
+              "nom": "Tarte Chèvre Epinards Pur Beurre",
+              "lettre": "C′",
+              "decalages": [
+                "b3 énergie 1005 → 954.75 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3700966554933",
+              "nom": "Tartinable fromager thon",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3178538007000",
+              "nom": "8 Crêpes au Chocolat",
+              "lettre": "D′",
+              "decalages": [
+                "b2 nombre d'additifs 5 → 4 : D′ → E′"
+              ]
+            },
+            {
+              "code": "3560070504527",
+              "nom": "Bouchées Apéritives au Lard Fumé Emmental",
+              "lettre": "D′",
+              "decalages": [
+                "b2 fibres 1 → 1.05 : D′ → E′"
+              ]
+            },
+            {
+              "code": "20057602",
+              "nom": "Crêpes chocolat",
+              "lettre": "D′",
+              "decalages": [
+                "b3 acides gras saturés 5 → 5.25 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3256227741234",
+              "nom": "Effiloché de viande de canard cuite assisonnée sous vide",
+              "lettre": "D′",
+              "decalages": [
+                "b2 sel 1.4 → 1.33 : D′ → E′"
+              ]
+            },
+            {
+              "code": "3564700845271",
+              "nom": "Kit pour crunchy fajitas",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′",
+                "b3 additifs à risque 1 → 0 : C′ → D′"
+              ]
+            },
+            {
+              "code": "6133012000318",
+              "nom": "Marinade poulet",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3368954060318",
+              "nom": "Mini préfou pain apéritif tranché beurre et ail Saveurs",
+              "lettre": "C′",
+              "decalages": [
+                "b3 fibres 2 → 2.1 : C′ → D′",
+                "b3 groupe nova 4 → 3 : C′ → D′"
+              ]
+            },
+            {
+              "code": "8934563283148",
+              "nom": "Saigon Phỏ saveur Bœuf",
+              "lettre": "D′",
+              "decalages": [
+                "b2 fibres 1 → 1.05 : D′ → E′"
+              ]
+            },
+            {
+              "code": "3256227549670",
+              "nom": "Salade addict saumon fumé mini blini tzatziki sauce au vinaigre balsamique",
+              "lettre": "D′",
+              "decalages": [
+                "b3 nombre d'additifs 3 → 4 : D′ → C′"
+              ]
+            },
+            {
+              "code": "0851683004454",
+              "nom": "Vermicelle d'haricot à l'arôme de champignons shiitake",
+              "lettre": "E′",
+              "decalages": [
+                "b2 nombre d'additifs 5 → 6 : E′ → D′"
+              ]
+            }
+          ],
+          "part": 0.352,
+          "platsComposantes": 50,
+          "platsEntiers": 100
+        },
+        "auBord": [
+          {
+            "code": "5411788042543",
+            "nom": "Soupe de légumes au quinoa et miso",
+            "lettre": "B′",
+            "rates": [
+              "pr",
+              "fi",
+              "fr"
+            ]
+          },
+          {
+            "code": "3263850566219",
+            "nom": "Franprix velouté de légumes du potager 1L",
+            "lettre": "C′",
+            "rates": [
+              "pr",
+              "fi",
+              "fr"
+            ]
+          },
+          {
+            "code": "3276557391985",
+            "nom": "Tikka Masala aux Légumes",
+            "lettre": "B′",
+            "rates": [
+              "pr",
+              "fi",
+              "fr"
+            ]
+          },
+          {
+            "code": "01425587",
+            "nom": "Bisque de Homard",
+            "lettre": "C′",
+            "rates": [
+              "pr",
+              "fi",
+              "fr"
+            ]
+          },
+          {
+            "code": "3760247832143",
+            "nom": "Gaspacho",
+            "lettre": "C′",
+            "rates": [
+              "pr",
+              "fi",
+              "fr"
+            ]
+          },
+          {
+            "code": "3487400003768",
+            "nom": "Riz aux champignons de Paris",
+            "lettre": "C′",
+            "rates": [
+              "pr",
+              "fi",
+              "fr"
+            ]
+          },
+          {
+            "code": "5010034515000",
+            "nom": "Pilau rice (uncle bens)",
+            "lettre": "C′",
+            "rates": [
+              "pr",
+              "fi",
+              "fr"
+            ]
+          },
+          {
+            "code": "3250391110346",
+            "nom": "Potage deshydrate veloute bolets 74 g",
+            "lettre": "C′",
+            "rates": [
+              "pr",
+              "fi",
+              "fr"
+            ]
+          },
+          {
+            "code": "5036599001383",
+            "nom": "Poule au pot",
+            "lettre": "C′",
+            "rates": [
+              "pr",
+              "fi",
+              "fr"
+            ]
+          },
+          {
+            "code": "3250392151041",
+            "nom": "Quenelles de saumon sauce crevette 400g",
+            "lettre": "C′",
+            "rates": [
+              "pr",
+              "fi",
+              "fr"
+            ]
+          },
+          {
+            "code": "3017800244586",
+            "nom": "Risotto forestier",
+            "lettre": "C′",
+            "rates": [
+              "pr",
+              "fi",
+              "fr"
+            ]
+          },
+          {
+            "code": "3250391504220",
+            "nom": "Veloute  chanterelles et bolets",
+            "lettre": "C′",
+            "rates": [
+              "pr",
+              "fi",
+              "fr"
+            ]
+          },
+          {
+            "code": "3596710383184",
+            "nom": "Velouté de bolets et chanterelles",
+            "lettre": "C′",
+            "rates": [
+              "pr",
+              "fi",
+              "fr"
+            ]
+          }
+        ]
+      }
+    },
     "base": {
       "repartition": {
         "A′": 4,
