@@ -63,12 +63,12 @@ Le périmètre est figé : tout le reste attend la phase 2.
 - [x] (e) Les 10 slides générées sur les résultats (`resultats/slides_soutenance_intermediaire.pptx`), relues sur un rendu approché, avec la capture de l'interface
 - [x] (e) Ouverture dans PowerPoint avec les polices installées, et PDF de secours (`resultats/slides_soutenance_intermediaire.pdf`, polices incorporées)
 - [x] Polices installées sur le Mac de soutenance (`~/Library/Fonts`, le 28/10)
-- [ ] Si la soutenance se fait depuis un autre ordinateur : y installer les polices de `design/polices/`, ou présenter le PDF
+- [x] ~~Si la soutenance se fait depuis un autre ordinateur : y installer les polices de `design/polices/`, ou présenter le PDF~~ (sans objet après le 30/10 ; repris pour le 27/11 en phase 3)
 - [x] (e) Le texte de l'oral (trois orateurs, 14 min 15 s) et le dossier de la démarche, en Markdown et en PDF (`soutenance/`, `projet_soutenance.py`), chiffres vérifiés par `tests/test_soutenance.py` (29/10)
 - [x] (d) L'interface enrichie (29/10) : la fiche du plat avec son code-barres, les jauges de points, les barres de concordance. Sous 1 400 px de large environ, la colonne MR-Sort passe sous les deux autres (vérifié de 1 024 à 1 920 px, détecteur d'Impeccable sans remarque)
 - [x] (e) Les slides enrichies (29/10) : un plat suivi tout l'exposé (la Poêlée Fermière), points, barres de concordance, entonnoir et versos dessinés en formes PowerPoint, tableau des contrôles du Nutri-Score, frise des dates ; les notes reprennent le texte de l'oral ; export PDF par PowerPoint
 - [x] `PRODUCT.md` et `DESIGN.md` : le contexte et le système « Verso » décrits pour Impeccable (29/10)
-- [ ] Répétition le jeu. 29/10 au soir
+- [x] ~~Répétition le jeu. 29/10 au soir~~ (sans objet après le 30/10)
 
 Déroulé du 30/10 (le texte complet est dans `soutenance/texte_soutenance_1.md`) :
 
@@ -106,6 +106,7 @@ Déroulé du 30/10 (le texte complet est dans `soutenance/texte_soutenance_1.md`
 - [ ] Comparaison au Nutri-Score, base de l'autre groupe, variante verte (18-20/11)
 - [ ] Interface complète, onglet SuperNutri-score (20-23/11)
 - [ ] Slides finales, répétition (23-26/11)
+- [ ] Avant le 27/11 : si la soutenance se fait depuis un autre ordinateur, y installer les polices de `design/polices/`, ou présenter le PDF
 - [ ] **Soutenance finale le 27/11**
 
 ## Phase 4 : le rapport et le rendu (sam. 28/11 → dim. 10/01)

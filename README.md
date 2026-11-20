@@ -52,7 +52,7 @@ Elle ne lit pas `design/`, qui sert aux figures, aux slides et au rapport. Le ca
 
 ## Commandes
 
-Depuis `PROJET/`, avec le Python d'Anaconda :
+Depuis `nutriscore-mrsort-projet-2026/`, avec le Python d'Anaconda :
 
 ```bash
 /opt/anaconda3/bin/python3 -m pytest -q          # les tests
