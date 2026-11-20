@@ -5398,5 +5398,6733 @@
         "secondes": 1152
       }
     ]
+  },
+  "supernutri": {
+    "modele": {
+      "criteres": [
+        "en",
+        "sa",
+        "su",
+        "so",
+        "pr",
+        "fi",
+        "fr",
+        "nova",
+        "additifs",
+        "aRisque",
+        "bio"
+      ],
+      "poids": {
+        "en": 0.07272727272727272,
+        "sa": 0.07272727272727272,
+        "su": 0.10909090909090909,
+        "so": 0.14545454545454545,
+        "pr": 0.12352941176470589,
+        "fi": 0.08823529411764706,
+        "fr": 0.08823529411764706,
+        "nova": 0.1,
+        "additifs": 0.075,
+        "aRisque": 0.075,
+        "bio": 0.05
+      },
+      "profils": [
+        {
+          "en": 1340,
+          "sa": 7,
+          "su": 14,
+          "so": 1.4,
+          "pr": 2.4,
+          "fi": 1,
+          "fr": 0,
+          "nova": 4,
+          "additifs": 5,
+          "aRisque": 2,
+          "bio": 0
+        },
+        {
+          "en": 1005,
+          "sa": 5,
+          "su": 10,
+          "so": 1.0,
+          "pr": 4.8,
+          "fi": 2,
+          "fr": 20,
+          "nova": 4,
+          "additifs": 3,
+          "aRisque": 1,
+          "bio": 0
+        },
+        {
+          "en": 670,
+          "sa": 3,
+          "su": 6.8,
+          "so": 0.6,
+          "pr": 7.2,
+          "fi": 3,
+          "fr": 40,
+          "nova": 3,
+          "additifs": 1,
+          "aRisque": 0,
+          "bio": 1
+        },
+        {
+          "en": 335,
+          "sa": 1.5,
+          "su": 5,
+          "so": 0.3,
+          "pr": 12,
+          "fi": 6,
+          "fr": 60,
+          "nova": 3,
+          "additifs": 0,
+          "aRisque": 0,
+          "bio": 1
+        }
+      ],
+      "lam": 0.7,
+      "sens": {
+        "en": "min",
+        "sa": "min",
+        "su": "min",
+        "so": "min",
+        "pr": "max",
+        "fi": "max",
+        "fr": "max",
+        "nova": "min",
+        "additifs": "min",
+        "aRisque": "min",
+        "bio": "max"
+      }
+    },
+    "sources": {
+      "en": "seuils de points d'énergie du Nutri-Score de 2023",
+      "sa": "A′ : allégation « faible teneur en graisses saturées » (règlement CE 1924/2006) ; puis points du Nutri-Score",
+      "su": "A′ : allégation « faible teneur en sucres » (règlement CE 1924/2006) ; puis points du Nutri-Score",
+      "so": "A′ : allégation « faible teneur en sel » (règlement CE 1924/2006) ; puis points du Nutri-Score",
+      "pr": "seuils de points de protéines du Nutri-Score de 2023",
+      "fi": "A′ : « riche en fibres », B′ : « source de fibres » (règlement CE 1924/2006) ; puis 2 et 1 g",
+      "fr": "seuils de points du Nutri-Score de 2023 (40 et 60 %) ; puis 20 et 0 %",
+      "nova": "classification NOVA : A′ et B′ au plus transformés (NOVA 3), pas ultra-transformés",
+      "additifs": "aucun additif pour A′, un au plus pour B′, puis 3 et 5",
+      "aRisque": "aucun additif à risque pour A′ et B′, puis 1 et 2",
+      "bio": "label bio (règlement UE 2018/848) exigé pour A′ et B′"
+    },
+    "sensDesClasses": {
+      "A′": "les plus favorables à la santé",
+      "B′": "favorables à la santé",
+      "C′": "moyens",
+      "D′": "peu favorables à la santé",
+      "E′": "les moins favorables à la santé"
+    },
+    "base": {
+      "repartition": {
+        "A′": 4,
+        "B′": 14,
+        "C′": 60,
+        "D′": 37,
+        "E′": 10
+      },
+      "comparaison": {
+        "total": 125,
+        "bienRanges": 52,
+        "exactitude": 0.416,
+        "exactitudeEquilibree": 0.416,
+        "aUneClassePres": 0.904,
+        "matrice": [
+          [
+            4,
+            9,
+            12,
+            0,
+            0
+          ],
+          [
+            0,
+            5,
+            20,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            19,
+            6,
+            0
+          ],
+          [
+            0,
+            0,
+            9,
+            15,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            16,
+            9
+          ]
+        ]
+      },
+      "plats": [
+        {
+          "code": "3248830770756",
+          "nom": "Cabillaud Pesto Rosso",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.6281,
+            0.4318
+          ]
+        },
+        {
+          "code": "3760054095618",
+          "nom": "Carottes râpées",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.5632,
+            0.236
+          ]
+        },
+        {
+          "code": "3700036908376",
+          "nom": "Chili sin carne",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.731,
+            0.6428
+          ]
+        },
+        {
+          "code": "3254560437647",
+          "nom": "Colin d'Alaska",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8235,
+            0.4553,
+            0.4553
+          ]
+        },
+        {
+          "code": "3596710025305",
+          "nom": "Colin d'alaska grille a la provencale 2 portions",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.7485,
+            0.3781,
+            0.3053
+          ]
+        },
+        {
+          "code": "3258561412573",
+          "nom": "Colin d'Alaska à l'oseille",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.4531,
+            0.3295
+          ]
+        },
+        {
+          "code": "3256224160649",
+          "nom": "Colin d'Alaska à la provençale 450g",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.9118,
+            0.6735,
+            0.3295
+          ]
+        },
+        {
+          "code": "3760020500962",
+          "nom": "Courgettes Cuisinées",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.6428,
+            0.6428
+          ]
+        },
+        {
+          "code": "8011033010104",
+          "nom": "Couscous",
+          "label": "A",
+          "classe": 4,
+          "lettre": "A′",
+          "concordances": [
+            0.9273,
+            0.839,
+            0.789,
+            0.7008
+          ]
+        },
+        {
+          "code": "3760278864052",
+          "nom": "Couscous Complet",
+          "label": "A",
+          "classe": 4,
+          "lettre": "A′",
+          "concordances": [
+            0.9273,
+            0.839,
+            0.839,
+            0.7508
+          ]
+        },
+        {
+          "code": "3770013044045",
+          "nom": "Lasagnes de polenta végétariennes",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            0.7882,
+            0.7382,
+            0.5201
+          ]
+        },
+        {
+          "code": "3701456313146",
+          "nom": "Lieu & bouillon de tomates et fenouil, riz et haricots rouges.",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.6735,
+            0.4773
+          ]
+        },
+        {
+          "code": "3560071080624",
+          "nom": "légumes pour MINESTRONE",
+          "label": "A",
+          "classe": 4,
+          "lettre": "A′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.8265,
+            0.7382
+          ]
+        },
+        {
+          "code": "2000000148029",
+          "nom": "Massaman Chicken",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.7265,
+            0.3473
+          ]
+        },
+        {
+          "code": "3599741004028",
+          "nom": "Merlu Blanc",
+          "label": "A",
+          "classe": 4,
+          "lettre": "A′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.7735,
+            0.7008
+          ]
+        },
+        {
+          "code": "3263850000775",
+          "nom": "Mes Légumes Vapeur Assaisonnés",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.7265,
+            0.4928
+          ]
+        },
+        {
+          "code": "3245412379987",
+          "nom": "Poêlée de légumes grillés",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.8765,
+            0.581,
+            0.4928
+          ]
+        },
+        {
+          "code": "4056489456483",
+          "nom": "Pumpkin & quinoa",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.7265,
+            0.4201
+          ]
+        },
+        {
+          "code": "3248451073878",
+          "nom": "Puree De Courgettes Carottes Jaunes Boursin D'aucy",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.8765,
+            0.8765,
+            0.7382,
+            0.5928
+          ]
+        },
+        {
+          "code": "3560070486274",
+          "nom": "Ratatouille",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.4178,
+            0.4178
+          ]
+        },
+        {
+          "code": "3021690021899",
+          "nom": "ratatouille aux légumes d'été",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.4928,
+            0.4178
+          ]
+        },
+        {
+          "code": "3270160680467",
+          "nom": "Soupe d'épeautre et haricots borlotti",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.7382,
+            0.5045
+          ]
+        },
+        {
+          "code": "0042272005420",
+          "nom": "Soupe de Lentilles",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.6428,
+            0.6428
+          ]
+        },
+        {
+          "code": "3760346870602",
+          "nom": "Soupe pdt/courgette",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.7882,
+            0.7882,
+            0.7882,
+            0.6428
+          ]
+        },
+        {
+          "code": "3760346870657",
+          "nom": "Soupe potimarron/patate douce",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.7882,
+            0.6428
+          ]
+        },
+        {
+          "code": "3256226070137",
+          "nom": "Assortiment vapeurs",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.925,
+            0.3295,
+            0.2568
+          ]
+        },
+        {
+          "code": "3661405006942",
+          "nom": "Bâtonnets de Colin - blé complet",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.5553,
+            0.5553
+          ]
+        },
+        {
+          "code": "4005496224066",
+          "nom": "Cappelletti Gemüse Vollkorn",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.839,
+            0.5936,
+            0.3951
+          ]
+        },
+        {
+          "code": "3760020505950",
+          "nom": "Choucroute au naturel",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.8765,
+            0.6428,
+            0.5678
+          ]
+        },
+        {
+          "code": "3599741005933",
+          "nom": "Colin d'alaska a la moutarde Bio",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.6281,
+            0.5045
+          ]
+        },
+        {
+          "code": "3250391639168",
+          "nom": "Coq au vin 400g",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8235,
+            0.3295,
+            0.3295
+          ]
+        },
+        {
+          "code": "3270160729975",
+          "nom": "Jirou Chao Jiang",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8235,
+            0.3295,
+            0.2568
+          ]
+        },
+        {
+          "code": "3240931543642",
+          "nom": "La Grande Box Veggie - torti bolo végétale",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8368,
+            0.3295,
+            0.2568
+          ]
+        },
+        {
+          "code": "3256229528727",
+          "nom": "Macaronnis sauce tomates et boulettes",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.55,
+            0.3318
+          ]
+        },
+        {
+          "code": "3263859474416",
+          "nom": "Panés au merlan",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.3053,
+            0.1818
+          ]
+        },
+        {
+          "code": "3700009269169",
+          "nom": "Poke bol poulet avocat",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.6382,
+            0.3318
+          ]
+        },
+        {
+          "code": "3257982125116",
+          "nom": "Poêlée Fermière",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.8765,
+            0.5632,
+            0.3451
+          ]
+        },
+        {
+          "code": "3256223360569",
+          "nom": "Poêlée parisienne 1kg",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.4882,
+            0.2701
+          ]
+        },
+        {
+          "code": "3242275003455",
+          "nom": "Salad'bowl Sparte",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.4928,
+            0.2568
+          ]
+        },
+        {
+          "code": "3700260001836",
+          "nom": "Salade Campagnarde au Poulet",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7265,
+            0.3428,
+            0.2545
+          ]
+        },
+        {
+          "code": "3564700842331",
+          "nom": "Salade catalane au thon",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.5413,
+            0.2568
+          ]
+        },
+        {
+          "code": "6191557000019",
+          "nom": "Salade Mechouia",
+          "label": "B",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.7882,
+            0.7882,
+            0.7382,
+            0.5201
+          ]
+        },
+        {
+          "code": "3564700282076",
+          "nom": "Salade à la Mexicaine au Thon",
+          "label": "B",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            0.8545,
+            0.7045,
+            0.2568
+          ]
+        },
+        {
+          "code": "5411788042543",
+          "nom": "Soupe de légumes au quinoa et miso",
+          "label": "B",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.7,
+            0.5545
+          ]
+        },
+        {
+          "code": "3564700808382",
+          "nom": "Soupe de tomates et vermicelles",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.4928,
+            0.4178
+          ]
+        },
+        {
+          "code": "3256221371116",
+          "nom": "Soupe Velouté tomates et basilic 100cl",
+          "label": "B",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.7882,
+            0.6428
+          ]
+        },
+        {
+          "code": "3596710463992",
+          "nom": "Tagliatelles aux 2 saumons",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8235,
+            0.55,
+            0.2568
+          ]
+        },
+        {
+          "code": "8712100758195",
+          "nom": "Veloute de potiron",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.7882,
+            0.7882,
+            0.4928,
+            0.4045
+          ]
+        },
+        {
+          "code": "3274935011654",
+          "nom": "Velouté De Potiron",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.7882,
+            0.7882,
+            0.6382,
+            0.3295
+          ]
+        },
+        {
+          "code": "3422440003699",
+          "nom": "Velouté de tomates et basilic",
+          "label": "B",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.7882,
+            0.5545
+          ]
+        },
+        {
+          "code": "5410238935053",
+          "nom": "Aller Simple pour Marrakech (Soupe Harira, Poulet aux lentilles et pois chiches)",
+          "label": "C",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.5678,
+            0.2545,
+            0.2545
+          ]
+        },
+        {
+          "code": "0071279301099",
+          "nom": "Bacon ceasar salad kit",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.925,
+            0.8015,
+            0.3428,
+            0.1973
+          ]
+        },
+        {
+          "code": "3560070847266",
+          "nom": "Bon app' - Risotto poulet champignons",
+          "label": "C",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.9118,
+            0.625,
+            0.2568,
+            0.1841
+          ]
+        },
+        {
+          "code": "3113010136182",
+          "nom": "Cassoulet au porc",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.5281,
+            0.2591
+          ]
+        },
+        {
+          "code": "3254566706075",
+          "nom": "Céleri rémoulade",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.731,
+            0.4928,
+            0.3451
+          ]
+        },
+        {
+          "code": "3263850566219",
+          "nom": "Franprix velouté de légumes du potager 1L",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.7,
+            0.4045,
+            0.3295
+          ]
+        },
+        {
+          "code": "3560070602735",
+          "nom": "Grands Ravioli Cèpes",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8545,
+            0.3959,
+            0.1841
+          ]
+        },
+        {
+          "code": "3596710034307",
+          "nom": "Lasagnes bolognaises surgelées",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.4178,
+            0.1841
+          ]
+        },
+        {
+          "code": "3560070478965",
+          "nom": "Les Bons Petits Plats - Gratin de Macaroni au jambon cuit à l'emmental râpé",
+          "label": "C",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6758,
+            0.2326,
+            0.1091
+          ]
+        },
+        {
+          "code": "3270160861781",
+          "nom": "Linguine au Saumon et aux Épinards, sauce Citron Basilic",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8235,
+            0.4045,
+            0.1841
+          ]
+        },
+        {
+          "code": "3256225739783",
+          "nom": "Légumes à la basquaise 1kg",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.4928,
+            0.2568
+          ]
+        },
+        {
+          "code": "3256225054350",
+          "nom": "P'tit velouté potiron au fromage blanc",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.7882,
+            0.7882,
+            0.55,
+            0.3295
+          ]
+        },
+        {
+          "code": "3250392201043",
+          "nom": "Parmentier de Poisson",
+          "label": "C",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6781,
+            0.4045,
+            0.1841
+          ]
+        },
+        {
+          "code": "3560070822508",
+          "nom": "Pizza 4 Fromages",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8545,
+            0.4709,
+            0.3826
+          ]
+        },
+        {
+          "code": "7610849534029",
+          "nom": "Poulet Caesar Salad",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.4531,
+            0.1841
+          ]
+        },
+        {
+          "code": "3222477820067",
+          "nom": "Poêlée a l’espagnole",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.4023,
+            0.1841
+          ]
+        },
+        {
+          "code": "3368951768996",
+          "nom": "Préparation pour aligot d'Aveyron, 3/4 parts, sachet de 185g",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.839,
+            0.7508,
+            0.4773,
+            0.2591
+          ]
+        },
+        {
+          "code": "3760052230240",
+          "nom": "Ravioli brebis myrtille",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7882,
+            0.5545,
+            0.4818
+          ]
+        },
+        {
+          "code": "7613033139642",
+          "nom": "Regina",
+          "label": "C",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6163,
+            0.3209,
+            0.1973
+          ]
+        },
+        {
+          "code": "3350033720657",
+          "nom": "Salade Gnocchetti Artichaut",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.5045,
+            0.4318
+          ]
+        },
+        {
+          "code": "3700009264720",
+          "nom": "Salade pasta",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.925,
+            0.3295,
+            0.1841
+          ]
+        },
+        {
+          "code": "3256225718191",
+          "nom": "Salade piémontaise au jambon - 500g",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7882,
+            0.3295,
+            0.2568
+          ]
+        },
+        {
+          "code": "3245414207875",
+          "nom": "Saumon, sauce Beurre Citron, Surgelé",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.7485,
+            0.3803,
+            0.1841
+          ]
+        },
+        {
+          "code": "3760132082561",
+          "nom": "Soupe de courgettes, parmesan, noisettes",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.7882,
+            0.7882,
+            0.4045,
+            0.3318
+          ]
+        },
+        {
+          "code": "3560070847297",
+          "nom": "Tortellini ricotta épinards",
+          "label": "C",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6758,
+            0.2341,
+            0.2341
+          ]
+        },
+        {
+          "code": "3011250018599",
+          "nom": "Crousty croc fromage",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8545,
+            0.6163,
+            0.2326,
+            0.2326
+          ]
+        },
+        {
+          "code": "8801024190225",
+          "nom": "Daesang Mat Kimchi",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.731,
+            0.6428,
+            0.3295,
+            0.3295
+          ]
+        },
+        {
+          "code": "3287241990414",
+          "nom": "Flammenkuchen Elsass, Tarte Flambée D'alsace",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6053,
+            0.1841,
+            0.1841
+          ]
+        },
+        {
+          "code": "3596710457236",
+          "nom": "Girasole tomate mozzarella",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8545,
+            0.6936,
+            0.3826,
+            0.1841
+          ]
+        },
+        {
+          "code": "3240931546469",
+          "nom": "Girasoli carbonara",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.839,
+            0.3076,
+            0.075
+          ]
+        },
+        {
+          "code": "3701192502064",
+          "nom": "L'originale Napoletana",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8545,
+            0.6936,
+            0.4076,
+            0.2841
+          ]
+        },
+        {
+          "code": "3240931546247",
+          "nom": "Lustucru ravioli tomate emmental 300g",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7508,
+            0.2735,
+            0.15
+          ]
+        },
+        {
+          "code": "8006669008113",
+          "nom": "Medaglioni Speck e Brie",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7818,
+            0.6936,
+            0.4709,
+            0.2735
+          ]
+        },
+        {
+          "code": "3270190202790",
+          "nom": "Paniers feuilletés Noix de Saint-Jacques*",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.839,
+            0.6781,
+            0.3826,
+            0.1841
+          ]
+        },
+        {
+          "code": "3222475393822",
+          "nom": "Pizza 3 Fromages",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8545,
+            0.5326,
+            0.4091
+          ]
+        },
+        {
+          "code": "3287390083326",
+          "nom": "Pizza 4 fromages apéritif",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7818,
+            0.4826,
+            0.2841
+          ]
+        },
+        {
+          "code": "8059070744682",
+          "nom": "Pizza aux fromages",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8545,
+            0.5326,
+            0.4076,
+            0.4076
+          ]
+        },
+        {
+          "code": "3258561471310",
+          "nom": "Pizza Fromage 180G. Bf,",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7068,
+            0.3959,
+            0.3076
+          ]
+        },
+        {
+          "code": "0219236036084",
+          "nom": "Pizza jambon fromage",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7663,
+            0.5303,
+            0.2326,
+            0.2326
+          ]
+        },
+        {
+          "code": "3560070258635",
+          "nom": "Pizza Mozzarella",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7818,
+            0.4709,
+            0.2591
+          ]
+        },
+        {
+          "code": "3250391777808",
+          "nom": "Pizza Saumon Fumé",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7818,
+            0.3076,
+            0.0
+          ]
+        },
+        {
+          "code": "3270160875528",
+          "nom": "Purée de pomme de terre, beurre et crème d'Isigny",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8037,
+            0.6273,
+            0.5045,
+            0.3591
+          ]
+        },
+        {
+          "code": "3560071153960",
+          "nom": "Pâte à pizza Fine rectangulaire",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8545,
+            0.6186,
+            0.1818,
+            0.1818
+          ]
+        },
+        {
+          "code": "3560070401277",
+          "nom": "Quenelles de saumon sauce saveur crevette",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6583,
+            0.2568,
+            0.1841
+          ]
+        },
+        {
+          "code": "3596710259953",
+          "nom": "Quenelles à la lyonnaise nature, au beurre",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.839,
+            0.7508,
+            0.2591,
+            0.2591
+          ]
+        },
+        {
+          "code": "3560071170370",
+          "nom": "Ravioli gorgonzola & noix",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6936,
+            0.3826,
+            0.2591
+          ]
+        },
+        {
+          "code": "8001420005820",
+          "nom": "Risotto Ai Quattro Formaggi Gallo 175 G.",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7818,
+            0.6053,
+            0.4553,
+            0.2591
+          ]
+        },
+        {
+          "code": "3560070852833",
+          "nom": "Tarte fine Champignons & Fromages",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7508,
+            0.3076,
+            0.1841
+          ]
+        },
+        {
+          "code": "3245413922830",
+          "nom": "Tarte Fine, Noix de Saint-jacques et Courgettes grillées",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6936,
+            0.2591,
+            0.1841
+          ]
+        },
+        {
+          "code": "5425012915633",
+          "nom": "The finest salad",
+          "label": "D",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6913,
+            0.5303,
+            0.3053,
+            0.1091
+          ]
+        },
+        {
+          "code": "3261089225532",
+          "nom": "24 escargots de Bourgogne à la bourguignonne",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7091,
+            0.5326,
+            0.4826,
+            0.3591
+          ]
+        },
+        {
+          "code": "3178530410082",
+          "nom": "6 Crêpes Bretonnes",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7455,
+            0.569,
+            0.075,
+            0.075
+          ]
+        },
+        {
+          "code": "3760174580759",
+          "nom": "8 crepes au chocolat kids",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8182,
+            0.6572,
+            0.15,
+            0.075
+          ]
+        },
+        {
+          "code": "3256224765431",
+          "nom": "Biscuits apéritifs Gaufrette gouda paquet de 75g",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6,
+            0.3485,
+            0.1985,
+            0.075
+          ]
+        },
+        {
+          "code": "3033124713300",
+          "nom": "Brioche fourrée au saucisson aux pistaches",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6209,
+            0.5326,
+            0.3076,
+            0.2326
+          ]
+        },
+        {
+          "code": "3222475366857",
+          "nom": "Crêpes fourrées coeur choco",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7299,
+            0.4235,
+            0.15,
+            0.075
+          ]
+        },
+        {
+          "code": "3256220666435",
+          "nom": "Fajita Kit 505g",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7795,
+            0.6913,
+            0.236,
+            0.236
+          ]
+        },
+        {
+          "code": "3266191037936",
+          "nom": "Feuilletés Jambon & Emmental",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7663,
+            0.5326,
+            0.2826,
+            0.1591
+          ]
+        },
+        {
+          "code": "3325420020153",
+          "nom": "Friand Strasbourg",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6341,
+            0.3826,
+            0.2326,
+            0.1091
+          ]
+        },
+        {
+          "code": "3240931543536",
+          "nom": "Garofalo girasoli champignons cepes & truffe 250g",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7818,
+            0.5326,
+            0.3076,
+            0.1841
+          ]
+        },
+        {
+          "code": "3266191060392",
+          "nom": "Girasoli chèvre miel noix",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8545,
+            0.6209,
+            0.5326,
+            0.5326
+          ]
+        },
+        {
+          "code": "8006013989020",
+          "nom": "Luigi & fratelli ravioli ricotta epinard 250gx6",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6936,
+            0.5326,
+            0.3076,
+            0.075
+          ]
+        },
+        {
+          "code": "0021000010875",
+          "nom": "mac & cheese",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7068,
+            0.5303,
+            0.1235,
+            0.1235
+          ]
+        },
+        {
+          "code": "3033610061441",
+          "nom": "Magret de canard du sud-ouest en émincés",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6209,
+            0.5326,
+            0.3326,
+            0.3326
+          ]
+        },
+        {
+          "code": "7231326087878",
+          "nom": "Magret de Canard du Sud-Ouest Fumé",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7091,
+            0.5326,
+            0.3326,
+            0.3326
+          ]
+        },
+        {
+          "code": "3245390021212",
+          "nom": "Magret de Canard du Sud-Ouest FUMÉ AU BOIS DE HÊTRE",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7091,
+            0.5326,
+            0.3326,
+            0.3326
+          ]
+        },
+        {
+          "code": "08847911",
+          "nom": "Magret de canard du sud-ouest fumé au bois de hêtre",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6209,
+            0.5326,
+            0.4826,
+            0.4076
+          ]
+        },
+        {
+          "code": "3564709019857",
+          "nom": "Magret de Canard du Sud-Ouest Séché et au Poivre",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6209,
+            0.5326,
+            0.3326,
+            0.3326
+          ]
+        },
+        {
+          "code": "20094584",
+          "nom": "Magret de canard fumé au bois de hêtre",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6209,
+            0.5326,
+            0.3326,
+            0.3326
+          ]
+        },
+        {
+          "code": "4104420053861",
+          "nom": "Mini bretzels à l'épeautre",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7818,
+            0.6936,
+            0.6209,
+            0.5326
+          ]
+        },
+        {
+          "code": "83455315",
+          "nom": "Pizza 4 fromage",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7818,
+            0.4576,
+            0.3076,
+            0.3076
+          ]
+        },
+        {
+          "code": "3660140913157",
+          "nom": "Savane Crêpes Cacao Noisette (x 8)",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8182,
+            0.5337,
+            0.15,
+            0.075
+          ]
+        },
+        {
+          "code": "0031146254903",
+          "nom": "SHINCUP : Noodle soup",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7068,
+            0.4576,
+            0.3076,
+            0.1841
+          ]
+        },
+        {
+          "code": "3256221786033",
+          "nom": "Torti Carbonara",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6186,
+            0.4576,
+            0.2326,
+            0.1091
+          ]
+        },
+        {
+          "code": "3287390074935",
+          "nom": "Tresse poulet à la forestière",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.9273,
+            0.5326,
+            0.1841,
+            0.1841
+          ]
+        }
+      ]
+    },
+    "etendue": {
+      "repartition": {
+        "A′": 12,
+        "B′": 41,
+        "C′": 190,
+        "D′": 101,
+        "E′": 31
+      },
+      "comparaison": {
+        "total": 375,
+        "bienRanges": 164,
+        "exactitude": 0.43733333333333335,
+        "exactitudeEquilibree": 0.43733333333333335,
+        "aUneClassePres": 0.8906666666666667,
+        "matrice": [
+          [
+            11,
+            27,
+            37,
+            0,
+            0
+          ],
+          [
+            1,
+            14,
+            60,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            64,
+            10,
+            1
+          ],
+          [
+            0,
+            0,
+            26,
+            47,
+            2
+          ],
+          [
+            0,
+            0,
+            3,
+            44,
+            28
+          ]
+        ]
+      },
+      "plats": [
+        {
+          "code": "3248830770756",
+          "nom": "Cabillaud Pesto Rosso",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.6281,
+            0.4318
+          ]
+        },
+        {
+          "code": "3760054095618",
+          "nom": "Carottes râpées",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.5632,
+            0.236
+          ]
+        },
+        {
+          "code": "3700036908376",
+          "nom": "Chili sin carne",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.731,
+            0.6428
+          ]
+        },
+        {
+          "code": "3254560437647",
+          "nom": "Colin d'Alaska",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8235,
+            0.4553,
+            0.4553
+          ]
+        },
+        {
+          "code": "3596710025305",
+          "nom": "Colin d'alaska grille a la provencale 2 portions",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.7485,
+            0.3781,
+            0.3053
+          ]
+        },
+        {
+          "code": "3258561412573",
+          "nom": "Colin d'Alaska à l'oseille",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.4531,
+            0.3295
+          ]
+        },
+        {
+          "code": "3256224160649",
+          "nom": "Colin d'Alaska à la provençale 450g",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.9118,
+            0.6735,
+            0.3295
+          ]
+        },
+        {
+          "code": "3760020500962",
+          "nom": "Courgettes Cuisinées",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.6428,
+            0.6428
+          ]
+        },
+        {
+          "code": "8011033010104",
+          "nom": "Couscous",
+          "label": "A",
+          "classe": 4,
+          "lettre": "A′",
+          "concordances": [
+            0.9273,
+            0.839,
+            0.789,
+            0.7008
+          ]
+        },
+        {
+          "code": "3760278864052",
+          "nom": "Couscous Complet",
+          "label": "A",
+          "classe": 4,
+          "lettre": "A′",
+          "concordances": [
+            0.9273,
+            0.839,
+            0.839,
+            0.7508
+          ]
+        },
+        {
+          "code": "3770013044045",
+          "nom": "Lasagnes de polenta végétariennes",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            0.7882,
+            0.7382,
+            0.5201
+          ]
+        },
+        {
+          "code": "3701456313146",
+          "nom": "Lieu & bouillon de tomates et fenouil, riz et haricots rouges.",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.6735,
+            0.4773
+          ]
+        },
+        {
+          "code": "3560071080624",
+          "nom": "légumes pour MINESTRONE",
+          "label": "A",
+          "classe": 4,
+          "lettre": "A′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.8265,
+            0.7382
+          ]
+        },
+        {
+          "code": "2000000148029",
+          "nom": "Massaman Chicken",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.7265,
+            0.3473
+          ]
+        },
+        {
+          "code": "3599741004028",
+          "nom": "Merlu Blanc",
+          "label": "A",
+          "classe": 4,
+          "lettre": "A′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.7735,
+            0.7008
+          ]
+        },
+        {
+          "code": "3263850000775",
+          "nom": "Mes Légumes Vapeur Assaisonnés",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.7265,
+            0.4928
+          ]
+        },
+        {
+          "code": "3245412379987",
+          "nom": "Poêlée de légumes grillés",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.8765,
+            0.581,
+            0.4928
+          ]
+        },
+        {
+          "code": "4056489456483",
+          "nom": "Pumpkin & quinoa",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.7265,
+            0.4201
+          ]
+        },
+        {
+          "code": "3248451073878",
+          "nom": "Puree De Courgettes Carottes Jaunes Boursin D'aucy",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.8765,
+            0.8765,
+            0.7382,
+            0.5928
+          ]
+        },
+        {
+          "code": "3560070486274",
+          "nom": "Ratatouille",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.4178,
+            0.4178
+          ]
+        },
+        {
+          "code": "3021690021899",
+          "nom": "ratatouille aux légumes d'été",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.4928,
+            0.4178
+          ]
+        },
+        {
+          "code": "3270160680467",
+          "nom": "Soupe d'épeautre et haricots borlotti",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.7382,
+            0.5045
+          ]
+        },
+        {
+          "code": "0042272005420",
+          "nom": "Soupe de Lentilles",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.6428,
+            0.6428
+          ]
+        },
+        {
+          "code": "3760346870602",
+          "nom": "Soupe pdt/courgette",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.7882,
+            0.7882,
+            0.7882,
+            0.6428
+          ]
+        },
+        {
+          "code": "3760346870657",
+          "nom": "Soupe potimarron/patate douce",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.7882,
+            0.6428
+          ]
+        },
+        {
+          "code": "3256226070137",
+          "nom": "Assortiment vapeurs",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.925,
+            0.3295,
+            0.2568
+          ]
+        },
+        {
+          "code": "3661405006942",
+          "nom": "Bâtonnets de Colin - blé complet",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.5553,
+            0.5553
+          ]
+        },
+        {
+          "code": "4005496224066",
+          "nom": "Cappelletti Gemüse Vollkorn",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.839,
+            0.5936,
+            0.3951
+          ]
+        },
+        {
+          "code": "3760020505950",
+          "nom": "Choucroute au naturel",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.8765,
+            0.6428,
+            0.5678
+          ]
+        },
+        {
+          "code": "3599741005933",
+          "nom": "Colin d'alaska a la moutarde Bio",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.6281,
+            0.5045
+          ]
+        },
+        {
+          "code": "3250391639168",
+          "nom": "Coq au vin 400g",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8235,
+            0.3295,
+            0.3295
+          ]
+        },
+        {
+          "code": "3270160729975",
+          "nom": "Jirou Chao Jiang",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8235,
+            0.3295,
+            0.2568
+          ]
+        },
+        {
+          "code": "3240931543642",
+          "nom": "La Grande Box Veggie - torti bolo végétale",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8368,
+            0.3295,
+            0.2568
+          ]
+        },
+        {
+          "code": "3256229528727",
+          "nom": "Macaronnis sauce tomates et boulettes",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.55,
+            0.3318
+          ]
+        },
+        {
+          "code": "3263859474416",
+          "nom": "Panés au merlan",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.3053,
+            0.1818
+          ]
+        },
+        {
+          "code": "3700009269169",
+          "nom": "Poke bol poulet avocat",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.6382,
+            0.3318
+          ]
+        },
+        {
+          "code": "3257982125116",
+          "nom": "Poêlée Fermière",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.8765,
+            0.5632,
+            0.3451
+          ]
+        },
+        {
+          "code": "3256223360569",
+          "nom": "Poêlée parisienne 1kg",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.4882,
+            0.2701
+          ]
+        },
+        {
+          "code": "3242275003455",
+          "nom": "Salad'bowl Sparte",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.4928,
+            0.2568
+          ]
+        },
+        {
+          "code": "3700260001836",
+          "nom": "Salade Campagnarde au Poulet",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7265,
+            0.3428,
+            0.2545
+          ]
+        },
+        {
+          "code": "3564700842331",
+          "nom": "Salade catalane au thon",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.5413,
+            0.2568
+          ]
+        },
+        {
+          "code": "6191557000019",
+          "nom": "Salade Mechouia",
+          "label": "B",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.7882,
+            0.7882,
+            0.7382,
+            0.5201
+          ]
+        },
+        {
+          "code": "3564700282076",
+          "nom": "Salade à la Mexicaine au Thon",
+          "label": "B",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            0.8545,
+            0.7045,
+            0.2568
+          ]
+        },
+        {
+          "code": "5411788042543",
+          "nom": "Soupe de légumes au quinoa et miso",
+          "label": "B",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.7,
+            0.5545
+          ]
+        },
+        {
+          "code": "3564700808382",
+          "nom": "Soupe de tomates et vermicelles",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.4928,
+            0.4178
+          ]
+        },
+        {
+          "code": "3256221371116",
+          "nom": "Soupe Velouté tomates et basilic 100cl",
+          "label": "B",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.7882,
+            0.6428
+          ]
+        },
+        {
+          "code": "3596710463992",
+          "nom": "Tagliatelles aux 2 saumons",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8235,
+            0.55,
+            0.2568
+          ]
+        },
+        {
+          "code": "8712100758195",
+          "nom": "Veloute de potiron",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.7882,
+            0.7882,
+            0.4928,
+            0.4045
+          ]
+        },
+        {
+          "code": "3274935011654",
+          "nom": "Velouté De Potiron",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.7882,
+            0.7882,
+            0.6382,
+            0.3295
+          ]
+        },
+        {
+          "code": "3422440003699",
+          "nom": "Velouté de tomates et basilic",
+          "label": "B",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.7882,
+            0.5545
+          ]
+        },
+        {
+          "code": "5410238935053",
+          "nom": "Aller Simple pour Marrakech (Soupe Harira, Poulet aux lentilles et pois chiches)",
+          "label": "C",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.5678,
+            0.2545,
+            0.2545
+          ]
+        },
+        {
+          "code": "0071279301099",
+          "nom": "Bacon ceasar salad kit",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.925,
+            0.8015,
+            0.3428,
+            0.1973
+          ]
+        },
+        {
+          "code": "3560070847266",
+          "nom": "Bon app' - Risotto poulet champignons",
+          "label": "C",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.9118,
+            0.625,
+            0.2568,
+            0.1841
+          ]
+        },
+        {
+          "code": "3113010136182",
+          "nom": "Cassoulet au porc",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.5281,
+            0.2591
+          ]
+        },
+        {
+          "code": "3254566706075",
+          "nom": "Céleri rémoulade",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.731,
+            0.4928,
+            0.3451
+          ]
+        },
+        {
+          "code": "3263850566219",
+          "nom": "Franprix velouté de légumes du potager 1L",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.7,
+            0.4045,
+            0.3295
+          ]
+        },
+        {
+          "code": "3560070602735",
+          "nom": "Grands Ravioli Cèpes",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8545,
+            0.3959,
+            0.1841
+          ]
+        },
+        {
+          "code": "3596710034307",
+          "nom": "Lasagnes bolognaises surgelées",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.4178,
+            0.1841
+          ]
+        },
+        {
+          "code": "3560070478965",
+          "nom": "Les Bons Petits Plats - Gratin de Macaroni au jambon cuit à l'emmental râpé",
+          "label": "C",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6758,
+            0.2326,
+            0.1091
+          ]
+        },
+        {
+          "code": "3270160861781",
+          "nom": "Linguine au Saumon et aux Épinards, sauce Citron Basilic",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8235,
+            0.4045,
+            0.1841
+          ]
+        },
+        {
+          "code": "3256225739783",
+          "nom": "Légumes à la basquaise 1kg",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.4928,
+            0.2568
+          ]
+        },
+        {
+          "code": "3256225054350",
+          "nom": "P'tit velouté potiron au fromage blanc",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.7882,
+            0.7882,
+            0.55,
+            0.3295
+          ]
+        },
+        {
+          "code": "3250392201043",
+          "nom": "Parmentier de Poisson",
+          "label": "C",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6781,
+            0.4045,
+            0.1841
+          ]
+        },
+        {
+          "code": "3560070822508",
+          "nom": "Pizza 4 Fromages",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8545,
+            0.4709,
+            0.3826
+          ]
+        },
+        {
+          "code": "7610849534029",
+          "nom": "Poulet Caesar Salad",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.4531,
+            0.1841
+          ]
+        },
+        {
+          "code": "3222477820067",
+          "nom": "Poêlée a l’espagnole",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.4023,
+            0.1841
+          ]
+        },
+        {
+          "code": "3368951768996",
+          "nom": "Préparation pour aligot d'Aveyron, 3/4 parts, sachet de 185g",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.839,
+            0.7508,
+            0.4773,
+            0.2591
+          ]
+        },
+        {
+          "code": "3760052230240",
+          "nom": "Ravioli brebis myrtille",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7882,
+            0.5545,
+            0.4818
+          ]
+        },
+        {
+          "code": "7613033139642",
+          "nom": "Regina",
+          "label": "C",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6163,
+            0.3209,
+            0.1973
+          ]
+        },
+        {
+          "code": "3350033720657",
+          "nom": "Salade Gnocchetti Artichaut",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.5045,
+            0.4318
+          ]
+        },
+        {
+          "code": "3700009264720",
+          "nom": "Salade pasta",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.925,
+            0.3295,
+            0.1841
+          ]
+        },
+        {
+          "code": "3256225718191",
+          "nom": "Salade piémontaise au jambon - 500g",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7882,
+            0.3295,
+            0.2568
+          ]
+        },
+        {
+          "code": "3245414207875",
+          "nom": "Saumon, sauce Beurre Citron, Surgelé",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.7485,
+            0.3803,
+            0.1841
+          ]
+        },
+        {
+          "code": "3760132082561",
+          "nom": "Soupe de courgettes, parmesan, noisettes",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.7882,
+            0.7882,
+            0.4045,
+            0.3318
+          ]
+        },
+        {
+          "code": "3560070847297",
+          "nom": "Tortellini ricotta épinards",
+          "label": "C",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6758,
+            0.2341,
+            0.2341
+          ]
+        },
+        {
+          "code": "3011250018599",
+          "nom": "Crousty croc fromage",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8545,
+            0.6163,
+            0.2326,
+            0.2326
+          ]
+        },
+        {
+          "code": "8801024190225",
+          "nom": "Daesang Mat Kimchi",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.731,
+            0.6428,
+            0.3295,
+            0.3295
+          ]
+        },
+        {
+          "code": "3287241990414",
+          "nom": "Flammenkuchen Elsass, Tarte Flambée D'alsace",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6053,
+            0.1841,
+            0.1841
+          ]
+        },
+        {
+          "code": "3596710457236",
+          "nom": "Girasole tomate mozzarella",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8545,
+            0.6936,
+            0.3826,
+            0.1841
+          ]
+        },
+        {
+          "code": "3240931546469",
+          "nom": "Girasoli carbonara",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.839,
+            0.3076,
+            0.075
+          ]
+        },
+        {
+          "code": "3701192502064",
+          "nom": "L'originale Napoletana",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8545,
+            0.6936,
+            0.4076,
+            0.2841
+          ]
+        },
+        {
+          "code": "3240931546247",
+          "nom": "Lustucru ravioli tomate emmental 300g",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7508,
+            0.2735,
+            0.15
+          ]
+        },
+        {
+          "code": "8006669008113",
+          "nom": "Medaglioni Speck e Brie",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7818,
+            0.6936,
+            0.4709,
+            0.2735
+          ]
+        },
+        {
+          "code": "3270190202790",
+          "nom": "Paniers feuilletés Noix de Saint-Jacques*",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.839,
+            0.6781,
+            0.3826,
+            0.1841
+          ]
+        },
+        {
+          "code": "3222475393822",
+          "nom": "Pizza 3 Fromages",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8545,
+            0.5326,
+            0.4091
+          ]
+        },
+        {
+          "code": "3287390083326",
+          "nom": "Pizza 4 fromages apéritif",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7818,
+            0.4826,
+            0.2841
+          ]
+        },
+        {
+          "code": "8059070744682",
+          "nom": "Pizza aux fromages",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8545,
+            0.5326,
+            0.4076,
+            0.4076
+          ]
+        },
+        {
+          "code": "3258561471310",
+          "nom": "Pizza Fromage 180G. Bf,",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7068,
+            0.3959,
+            0.3076
+          ]
+        },
+        {
+          "code": "0219236036084",
+          "nom": "Pizza jambon fromage",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7663,
+            0.5303,
+            0.2326,
+            0.2326
+          ]
+        },
+        {
+          "code": "3560070258635",
+          "nom": "Pizza Mozzarella",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7818,
+            0.4709,
+            0.2591
+          ]
+        },
+        {
+          "code": "3250391777808",
+          "nom": "Pizza Saumon Fumé",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7818,
+            0.3076,
+            0.0
+          ]
+        },
+        {
+          "code": "3270160875528",
+          "nom": "Purée de pomme de terre, beurre et crème d'Isigny",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8037,
+            0.6273,
+            0.5045,
+            0.3591
+          ]
+        },
+        {
+          "code": "3560071153960",
+          "nom": "Pâte à pizza Fine rectangulaire",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8545,
+            0.6186,
+            0.1818,
+            0.1818
+          ]
+        },
+        {
+          "code": "3560070401277",
+          "nom": "Quenelles de saumon sauce saveur crevette",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6583,
+            0.2568,
+            0.1841
+          ]
+        },
+        {
+          "code": "3596710259953",
+          "nom": "Quenelles à la lyonnaise nature, au beurre",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.839,
+            0.7508,
+            0.2591,
+            0.2591
+          ]
+        },
+        {
+          "code": "3560071170370",
+          "nom": "Ravioli gorgonzola & noix",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6936,
+            0.3826,
+            0.2591
+          ]
+        },
+        {
+          "code": "8001420005820",
+          "nom": "Risotto Ai Quattro Formaggi Gallo 175 G.",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7818,
+            0.6053,
+            0.4553,
+            0.2591
+          ]
+        },
+        {
+          "code": "3560070852833",
+          "nom": "Tarte fine Champignons & Fromages",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7508,
+            0.3076,
+            0.1841
+          ]
+        },
+        {
+          "code": "3245413922830",
+          "nom": "Tarte Fine, Noix de Saint-jacques et Courgettes grillées",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6936,
+            0.2591,
+            0.1841
+          ]
+        },
+        {
+          "code": "5425012915633",
+          "nom": "The finest salad",
+          "label": "D",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6913,
+            0.5303,
+            0.3053,
+            0.1091
+          ]
+        },
+        {
+          "code": "3261089225532",
+          "nom": "24 escargots de Bourgogne à la bourguignonne",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7091,
+            0.5326,
+            0.4826,
+            0.3591
+          ]
+        },
+        {
+          "code": "3178530410082",
+          "nom": "6 Crêpes Bretonnes",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7455,
+            0.569,
+            0.075,
+            0.075
+          ]
+        },
+        {
+          "code": "3760174580759",
+          "nom": "8 crepes au chocolat kids",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8182,
+            0.6572,
+            0.15,
+            0.075
+          ]
+        },
+        {
+          "code": "3256224765431",
+          "nom": "Biscuits apéritifs Gaufrette gouda paquet de 75g",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6,
+            0.3485,
+            0.1985,
+            0.075
+          ]
+        },
+        {
+          "code": "3033124713300",
+          "nom": "Brioche fourrée au saucisson aux pistaches",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6209,
+            0.5326,
+            0.3076,
+            0.2326
+          ]
+        },
+        {
+          "code": "3222475366857",
+          "nom": "Crêpes fourrées coeur choco",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7299,
+            0.4235,
+            0.15,
+            0.075
+          ]
+        },
+        {
+          "code": "3256220666435",
+          "nom": "Fajita Kit 505g",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7795,
+            0.6913,
+            0.236,
+            0.236
+          ]
+        },
+        {
+          "code": "3266191037936",
+          "nom": "Feuilletés Jambon & Emmental",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7663,
+            0.5326,
+            0.2826,
+            0.1591
+          ]
+        },
+        {
+          "code": "3325420020153",
+          "nom": "Friand Strasbourg",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6341,
+            0.3826,
+            0.2326,
+            0.1091
+          ]
+        },
+        {
+          "code": "3240931543536",
+          "nom": "Garofalo girasoli champignons cepes & truffe 250g",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7818,
+            0.5326,
+            0.3076,
+            0.1841
+          ]
+        },
+        {
+          "code": "3266191060392",
+          "nom": "Girasoli chèvre miel noix",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8545,
+            0.6209,
+            0.5326,
+            0.5326
+          ]
+        },
+        {
+          "code": "8006013989020",
+          "nom": "Luigi & fratelli ravioli ricotta epinard 250gx6",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6936,
+            0.5326,
+            0.3076,
+            0.075
+          ]
+        },
+        {
+          "code": "0021000010875",
+          "nom": "mac & cheese",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7068,
+            0.5303,
+            0.1235,
+            0.1235
+          ]
+        },
+        {
+          "code": "3033610061441",
+          "nom": "Magret de canard du sud-ouest en émincés",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6209,
+            0.5326,
+            0.3326,
+            0.3326
+          ]
+        },
+        {
+          "code": "7231326087878",
+          "nom": "Magret de Canard du Sud-Ouest Fumé",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7091,
+            0.5326,
+            0.3326,
+            0.3326
+          ]
+        },
+        {
+          "code": "3245390021212",
+          "nom": "Magret de Canard du Sud-Ouest FUMÉ AU BOIS DE HÊTRE",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7091,
+            0.5326,
+            0.3326,
+            0.3326
+          ]
+        },
+        {
+          "code": "08847911",
+          "nom": "Magret de canard du sud-ouest fumé au bois de hêtre",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6209,
+            0.5326,
+            0.4826,
+            0.4076
+          ]
+        },
+        {
+          "code": "3564709019857",
+          "nom": "Magret de Canard du Sud-Ouest Séché et au Poivre",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6209,
+            0.5326,
+            0.3326,
+            0.3326
+          ]
+        },
+        {
+          "code": "20094584",
+          "nom": "Magret de canard fumé au bois de hêtre",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6209,
+            0.5326,
+            0.3326,
+            0.3326
+          ]
+        },
+        {
+          "code": "4104420053861",
+          "nom": "Mini bretzels à l'épeautre",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7818,
+            0.6936,
+            0.6209,
+            0.5326
+          ]
+        },
+        {
+          "code": "83455315",
+          "nom": "Pizza 4 fromage",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7818,
+            0.4576,
+            0.3076,
+            0.3076
+          ]
+        },
+        {
+          "code": "3660140913157",
+          "nom": "Savane Crêpes Cacao Noisette (x 8)",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8182,
+            0.5337,
+            0.15,
+            0.075
+          ]
+        },
+        {
+          "code": "0031146254903",
+          "nom": "SHINCUP : Noodle soup",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7068,
+            0.4576,
+            0.3076,
+            0.1841
+          ]
+        },
+        {
+          "code": "3256221786033",
+          "nom": "Torti Carbonara",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6186,
+            0.4576,
+            0.2326,
+            0.1091
+          ]
+        },
+        {
+          "code": "3287390074935",
+          "nom": "Tresse poulet à la forestière",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.9273,
+            0.5326,
+            0.1841,
+            0.1841
+          ]
+        },
+        {
+          "code": "3270160726240",
+          "nom": "1 Papillote Merlu Blanc Saint-Jacques et Légumes du Soleil, Sauce Citronnée",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.5632,
+            0.2568
+          ]
+        },
+        {
+          "code": "3270160390212",
+          "nom": "2 soupes thaï au poulet et aux vermicelles",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.475,
+            0.3295
+          ]
+        },
+        {
+          "code": "3270160742509",
+          "nom": "Aiguillettes de Merlu Blanc du Cap Panées Sans Gluten",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8235,
+            0.6008,
+            0.3803
+          ]
+        },
+        {
+          "code": "3292590875114",
+          "nom": "Cabillaud sauce provencale",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.6735,
+            0.4553
+          ]
+        },
+        {
+          "code": "3248830225744",
+          "nom": "Cabillaud à l'oseille",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.7735,
+            0.3591
+          ]
+        },
+        {
+          "code": "3256227111259",
+          "nom": "Carottes rapées 800g",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.8765,
+            0.6515,
+            0.3087
+          ]
+        },
+        {
+          "code": "3456300007961",
+          "nom": "Chili Végétal",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.8545,
+            0.4818
+          ]
+        },
+        {
+          "code": "3270160487738",
+          "nom": "Cocktail de la Mer Cuisiné",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.9118,
+            0.9118,
+            0.7735,
+            0.4295
+          ]
+        },
+        {
+          "code": "3270160725915",
+          "nom": "Colin d'Alaska au citron et au basilic, risotto verde",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.55,
+            0.4773
+          ]
+        },
+        {
+          "code": "3250391369447",
+          "nom": "Colin d'Alaska à la provençale MSC 450g =&gt; 400g",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.7163,
+            0.5045
+          ]
+        },
+        {
+          "code": "3292590875046",
+          "nom": "Colin d’Alaska Sauce provencale",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.5413,
+            0.3295
+          ]
+        },
+        {
+          "code": "3271514170306",
+          "nom": "Courgettes à la provençale cuisinées au basilic",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.7382,
+            0.5928
+          ]
+        },
+        {
+          "code": "8011033172505",
+          "nom": "Couscous Blanc Bio 500g",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.9273,
+            0.839,
+            0.839,
+            0.6273
+          ]
+        },
+        {
+          "code": "8011033001881",
+          "nom": "Couscous fin",
+          "label": "A",
+          "classe": 4,
+          "lettre": "A′",
+          "concordances": [
+            0.9273,
+            0.839,
+            0.789,
+            0.7008
+          ]
+        },
+        {
+          "code": "8011033000884",
+          "nom": "Couscous Moyen",
+          "label": "A",
+          "classe": 4,
+          "lettre": "A′",
+          "concordances": [
+            0.9273,
+            0.839,
+            0.789,
+            0.7008
+          ]
+        },
+        {
+          "code": "3701456317359",
+          "nom": "Effiloché de porc au romarain & purée cremeuse de chou-fleur",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.6118,
+            0.3428
+          ]
+        },
+        {
+          "code": "3175681210981",
+          "nom": "Façon Chili",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.7663,
+            0.5701
+          ]
+        },
+        {
+          "code": "3700766400843",
+          "nom": "Fricassée de Volaille sauce aux Figues et au Sauterne",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.3781,
+            0.3053
+          ]
+        },
+        {
+          "code": "1000000000014",
+          "nom": "Fusilli Riz & Quinoa Bio",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.9273,
+            0.7508,
+            0.7508,
+            0.6273
+          ]
+        },
+        {
+          "code": "3250390570127",
+          "nom": "Galettes aux petits légumes (courgettes, carottes, petits pois, oignons)",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.4178,
+            0.3451
+          ]
+        },
+        {
+          "code": "3270160875948",
+          "nom": "Galettes vegetales provencale",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.6163,
+            0.3826
+          ]
+        },
+        {
+          "code": "00356350",
+          "nom": "Mac & cheese style pasta",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.6281,
+            0.4826
+          ]
+        },
+        {
+          "code": "3760363433835",
+          "nom": "Maki saumon",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.7008,
+            0.5773
+          ]
+        },
+        {
+          "code": "3564706633834",
+          "nom": "Menu fraîcheur betteraves rouges à la moutarde à l'ancienne",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.8765,
+            0.4178,
+            0.3087
+          ]
+        },
+        {
+          "code": "00816403",
+          "nom": "Minestrone Soup",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.7382,
+            0.5928
+          ]
+        },
+        {
+          "code": "3270160754816",
+          "nom": "Mélange de Légumes - Bol Vapeur",
+          "label": "A",
+          "classe": 4,
+          "lettre": "A′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.8265,
+            0.7382
+          ]
+        },
+        {
+          "code": "3229820794082",
+          "nom": "Méli-Mélo de Légumes Secs, Douceur de Soja",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.7765,
+            0.3951
+          ]
+        },
+        {
+          "code": "3270160482603",
+          "nom": "Noix de Saint-Jacques* aux tomates séchées et au romarin, Surgelé",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.5281,
+            0.3803
+          ]
+        },
+        {
+          "code": "3254560171831",
+          "nom": "Petit sale au lentilles",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.85,
+            0.7045,
+            0.5545,
+            0.2701
+          ]
+        },
+        {
+          "code": "8431876012347",
+          "nom": "Poivrons de Piquillo en lanières",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.5632,
+            0.4178
+          ]
+        },
+        {
+          "code": "3270190024989",
+          "nom": "Poêlée champêtre Haricots verts, carottes orange et jaunes, garden peas, champignons de Paris",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.8265,
+            0.5928
+          ]
+        },
+        {
+          "code": "3270160752331",
+          "nom": "Poêlée Festive Asperges vertes cèpes et morilles",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7882,
+            0.6382,
+            0.4178
+          ]
+        },
+        {
+          "code": "3263859880712",
+          "nom": "Printanière de Légumes",
+          "label": "A",
+          "classe": 4,
+          "lettre": "A′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.8265,
+            0.7382
+          ]
+        },
+        {
+          "code": "3256224761341",
+          "nom": "Purée 4 légumes verts cuisinée au beurre sachet 750g",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.681,
+            0.5201
+          ]
+        },
+        {
+          "code": "3564700566756",
+          "nom": "Purée Brocolis nature",
+          "label": "A",
+          "classe": 4,
+          "lettre": "A′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.7382,
+            0.7382
+          ]
+        },
+        {
+          "code": "3263850000836",
+          "nom": "Purée de Céleris - Surgelé",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.8765,
+            0.8765,
+            0.7265,
+            0.4201
+          ]
+        },
+        {
+          "code": "3250391910908",
+          "nom": "Purée de légumes verts",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.8765,
+            0.8765,
+            0.8265,
+            0.5201
+          ]
+        },
+        {
+          "code": "3270160680481",
+          "nom": "Purée haricot vert, carotte jaune, petit pois",
+          "label": "A",
+          "classe": 4,
+          "lettre": "A′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.8265,
+            0.7382
+          ]
+        },
+        {
+          "code": "3270160696611",
+          "nom": "Pâtes crevettes",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.9118,
+            0.65,
+            0.4318
+          ]
+        },
+        {
+          "code": "8018370010590",
+          "nom": "Risotto à la courge",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.9273,
+            0.839,
+            0.789,
+            0.5773
+          ]
+        },
+        {
+          "code": "3560070897216",
+          "nom": "Salad'bowl à l'Italienne",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.6735,
+            0.2568
+          ]
+        },
+        {
+          "code": "3256226384531",
+          "nom": "Salade Champignons à la grecque 300g",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.8015,
+            0.4178,
+            0.4178
+          ]
+        },
+        {
+          "code": "2000000145572",
+          "nom": "Salade de lentille, feta, potiron, carotte",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.7515,
+            0.5905
+          ]
+        },
+        {
+          "code": "3270160480166",
+          "nom": "Sashimi Thon Germon",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.5235,
+            0.4508
+          ]
+        },
+        {
+          "code": "3270160592753",
+          "nom": "Tajine de légumes surgelé",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.8765,
+            0.6382,
+            0.4928
+          ]
+        },
+        {
+          "code": "3270160480159",
+          "nom": "Tartare thon albacore",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.5235,
+            0.4508
+          ]
+        },
+        {
+          "code": "4061458042093",
+          "nom": "Thai curry",
+          "label": "A",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.5655,
+            0.3473
+          ]
+        },
+        {
+          "code": "3276557391985",
+          "nom": "Tikka Masala aux Légumes",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.7,
+            0.6273
+          ]
+        },
+        {
+          "code": "3259011124855",
+          "nom": "Tofinelle roquefort & figues",
+          "label": "A",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.7663,
+            0.5326
+          ]
+        },
+        {
+          "code": "3580281350300",
+          "nom": "Velouté de pois cassés",
+          "label": "A",
+          "classe": 4,
+          "lettre": "A′",
+          "concordances": [
+            0.9273,
+            0.9273,
+            0.9273,
+            0.9273
+          ]
+        },
+        {
+          "code": "3263851444110",
+          "nom": "Aubergines cuisinées à la Provençale",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.8765,
+            0.5928,
+            0.5201
+          ]
+        },
+        {
+          "code": "01425587",
+          "nom": "Bisque de Homard",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.7,
+            0.4,
+            0.2545
+          ]
+        },
+        {
+          "code": "2000000053986",
+          "nom": "Boeuf Teriyaki",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8368,
+            0.7485,
+            0.2545,
+            0.1818
+          ]
+        },
+        {
+          "code": "3599741007005",
+          "nom": "Bouchées de Colin Alaskz",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8235,
+            0.4553,
+            0.3318
+          ]
+        },
+        {
+          "code": "3564706605480",
+          "nom": "Boulette de pois chiche sauce piquante et blé",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.3428,
+            0.1818
+          ]
+        },
+        {
+          "code": "3263858407613",
+          "nom": "Boulettes au boeuf boulgour sauces aux legumes",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.55,
+            0.2568
+          ]
+        },
+        {
+          "code": "2000000146097",
+          "nom": "Chili sin carne",
+          "label": "B",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.7382,
+            0.4318
+          ]
+        },
+        {
+          "code": "3256224160625",
+          "nom": "Colin d'Alaska à la Parisienne 450g",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.5281,
+            0.2568
+          ]
+        },
+        {
+          "code": "3270160398737",
+          "nom": "Crevettes sauce piquante et riz thaï surgelés",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.55,
+            0.2568
+          ]
+        },
+        {
+          "code": "8420878613928",
+          "nom": "Effiloché Végétal Belive It !",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8545,
+            0.7663,
+            0.6163,
+            0.4553
+          ]
+        },
+        {
+          "code": "3270160860692",
+          "nom": "Falafels et semoule au petits légumes",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.5632,
+            0.2568
+          ]
+        },
+        {
+          "code": "3760247832143",
+          "nom": "Gaspacho",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.7882,
+            0.7,
+            0.65,
+            0.5045
+          ]
+        },
+        {
+          "code": "3259011230136",
+          "nom": "Grinioc Roquefort & Figues",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.5701,
+            0.4973
+          ]
+        },
+        {
+          "code": "3274935001808",
+          "nom": "La Potagère légumes nature !",
+          "label": "B",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.7382,
+            0.5045
+          ]
+        },
+        {
+          "code": "3263851612618",
+          "nom": "Lapin Chasseur et ses pommes de terre",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.925,
+            0.925,
+            0.3428,
+            0.2545
+          ]
+        },
+        {
+          "code": "3760052239922",
+          "nom": "Le bento",
+          "label": "B",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.731,
+            0.5701
+          ]
+        },
+        {
+          "code": "3282740210506",
+          "nom": "Legumes du soleil au céréales et quinoa",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.4928,
+            0.4201
+          ]
+        },
+        {
+          "code": "3248830770732",
+          "nom": "Les Croustillants Cabillaud Caviar d'Aubergines",
+          "label": "B",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.7735,
+            0.4318
+          ]
+        },
+        {
+          "code": "3263859848217",
+          "nom": "Les Papillotes Saumon Épinards Tomates",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.5655,
+            0.3473
+          ]
+        },
+        {
+          "code": "3701456317915",
+          "nom": "Légumes au chèvre",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.6882,
+            0.2341
+          ]
+        },
+        {
+          "code": "3273220088609",
+          "nom": "Mes recettes végétales Le Chili au haché végétal",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.581,
+            0.3318
+          ]
+        },
+        {
+          "code": "3248830690399",
+          "nom": "Nouilles chinoises aux légumes",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.4928,
+            0.3318
+          ]
+        },
+        {
+          "code": "3270160500291",
+          "nom": "Oursons de Purée de Pomme de Terre, Carotte Cuisinée",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.6382,
+            0.3295
+          ]
+        },
+        {
+          "code": "3256222984575",
+          "nom": "Palets légumes poireau, pomme de terre, carotte 300g",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.3428,
+            0.2701
+          ]
+        },
+        {
+          "code": "3256226765934",
+          "nom": "Pané de colin d'Alaska x5 - 450g",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.3053,
+            0.2326
+          ]
+        },
+        {
+          "code": "3263859856410",
+          "nom": "Parmentier de poisson et de légumes",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.925,
+            0.7485,
+            0.4531,
+            0.2568
+          ]
+        },
+        {
+          "code": "3263859843519",
+          "nom": "Penne Poulet Pesto, Surgelé",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.6735,
+            0.2591
+          ]
+        },
+        {
+          "code": "5000157071613",
+          "nom": "Peppa Pig Pasta Shapes in Tomato Sauce",
+          "label": "B",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.7882,
+            0.7882,
+            0.7382,
+            0.5045
+          ]
+        },
+        {
+          "code": "3700977701050",
+          "nom": "Poulet rôti et son écrasé de pomme de terre",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8235,
+            0.4045,
+            0.3318
+          ]
+        },
+        {
+          "code": "3700977711035",
+          "nom": "Poulet sauce moutarde, citron et son blé",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.65,
+            0.4318
+          ]
+        },
+        {
+          "code": "2000000049660",
+          "nom": "Poêlée de pâtes, saumon et colin, sauce aux légumes",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.475,
+            0.2568
+          ]
+        },
+        {
+          "code": "3250391789801",
+          "nom": "Poêlée de Saint-Jacques et petits légumes",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.4928,
+            0.3295
+          ]
+        },
+        {
+          "code": "3270160680238",
+          "nom": "Purée de courge butternut à la crème",
+          "label": "B",
+          "classe": 4,
+          "lettre": "A′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.7382,
+            0.7382
+          ]
+        },
+        {
+          "code": "3487400003768",
+          "nom": "Riz aux champignons de Paris",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7,
+            0.55,
+            0.2568
+          ]
+        },
+        {
+          "code": "01538205",
+          "nom": "Sainsbury's Sausage Casserole",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.65,
+            0.4295
+          ]
+        },
+        {
+          "code": "3250392331832",
+          "nom": "Salade au thon mexicaine",
+          "label": "B",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            0.8545,
+            0.7045,
+            0.2568
+          ]
+        },
+        {
+          "code": "3266191067148",
+          "nom": "Salade de Lentilles Vertes au Tofu",
+          "label": "B",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            0.8545,
+            0.7818,
+            0.5701
+          ]
+        },
+        {
+          "code": "3700977700077",
+          "nom": "Salade du soleil au poulet et petites tomates",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.5928,
+            0.4318
+          ]
+        },
+        {
+          "code": "00010900",
+          "nom": "Salade Fusilli poulet curry",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.925,
+            0.7485,
+            0.4,
+            0.1818
+          ]
+        },
+        {
+          "code": "4056489195221",
+          "nom": "Salade pates œuf fromage",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7485,
+            0.5985,
+            0.1841
+          ]
+        },
+        {
+          "code": "3256220652735",
+          "nom": "Salade Toulousaine U,",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.431,
+            0.1091
+          ]
+        },
+        {
+          "code": "20442378",
+          "nom": "Saumon Fondue de Poireaux, Surgelé",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.6008,
+            0.1841
+          ]
+        },
+        {
+          "code": "3270160698851",
+          "nom": "Saumon, fondue de poireaux et d'épinards, sauce au fromage blanc, Surgelés",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8368,
+            0.6868,
+            0.1841
+          ]
+        },
+        {
+          "code": "3350033753921",
+          "nom": "Soupe aux carottes épicée",
+          "label": "B",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            0.8765,
+            0.8765,
+            0.7882,
+            0.5545
+          ]
+        },
+        {
+          "code": "4056489371403",
+          "nom": "Super Food Relax Poulet",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.5083,
+            0.2591
+          ]
+        },
+        {
+          "code": "2000000019523",
+          "nom": "Taboulé",
+          "label": "B",
+          "classe": 3,
+          "lettre": "B′",
+          "concordances": [
+            1.0,
+            0.7882,
+            0.7382,
+            0.5201
+          ]
+        },
+        {
+          "code": "3250391618620",
+          "nom": "Tagliatel F.mer",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.6382,
+            0.2591
+          ]
+        },
+        {
+          "code": "3700977705034",
+          "nom": "Tajine de légumes aux céréales",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.581,
+            0.3318
+          ]
+        },
+        {
+          "code": "3292590803223",
+          "nom": "Vegetal, Salade de blé Khorasan, Riz rouge et Fèves de Soja",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.5632,
+            0.2568
+          ]
+        },
+        {
+          "code": "3254566773589",
+          "nom": "Émincés de poulet et Galette de pomme de terre",
+          "label": "B",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8235,
+            0.3053,
+            0.2326
+          ]
+        },
+        {
+          "code": "3560071003449",
+          "nom": "Assortiment de gyoza",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7663,
+            0.4201,
+            0.3451
+          ]
+        },
+        {
+          "code": "3564709166681",
+          "nom": "Brandade de Morue Parmentière, Recette du Sud-Ouest",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.925,
+            0.7485,
+            0.2545,
+            0.1818
+          ]
+        },
+        {
+          "code": "3270190218241",
+          "nom": "Brandade Parmentier de morue à l'huile d'olive vierge extra 4%",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8235,
+            0.1818,
+            0.1091
+          ]
+        },
+        {
+          "code": "00481502",
+          "nom": "Butter chicken",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.7508,
+            0.6281,
+            0.4826
+          ]
+        },
+        {
+          "code": "4075600158655",
+          "nom": "Bürger Frischkäse Maultaschen",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.4803,
+            0.2841
+          ]
+        },
+        {
+          "code": "00635646",
+          "nom": "Chargrilled Vegetable & Basil Pesto",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.5553,
+            0.3591
+          ]
+        },
+        {
+          "code": "3760022333360",
+          "nom": "Chirashi mangue crevette",
+          "label": "C",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.5545,
+            0.2205,
+            0.1477
+          ]
+        },
+        {
+          "code": "3248830117797",
+          "nom": "Crousti Moelleuse Originale Bolognaise",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.5553,
+            0.3591
+          ]
+        },
+        {
+          "code": "0000112302650",
+          "nom": "Délice de potiron châtaigne",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8765,
+            0.7882,
+            0.4045,
+            0.3295
+          ]
+        },
+        {
+          "code": "3760244760203",
+          "nom": "Issimo ravioli girolles et truffes de toscane",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.3826,
+            0.2591
+          ]
+        },
+        {
+          "code": "0765667725986",
+          "nom": "Japanese-style udon soup bowl",
+          "label": "C",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.5678,
+            0.3295,
+            0.2568
+          ]
+        },
+        {
+          "code": "8711200355464",
+          "nom": "KNR VEL LEG SOL 2X1L",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.7882,
+            0.7882,
+            0.5045,
+            0.5045
+          ]
+        },
+        {
+          "code": "3292590837358",
+          "nom": "Lasagnes Végétales Tomates et Blé",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.4045,
+            0.2568
+          ]
+        },
+        {
+          "code": "3263858024810",
+          "nom": "Leader Snack - Salade surimi crudités",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.925,
+            0.7132,
+            0.5632,
+            0.2568
+          ]
+        },
+        {
+          "code": "3240937301109",
+          "nom": "Lustucru mini quenelles a poeler nature 250g",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.7508,
+            0.3318,
+            0.2591
+          ]
+        },
+        {
+          "code": "3240931542119",
+          "nom": "Lustucru petites quenelles nature 16x20g",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.7508,
+            0.3318,
+            0.2591
+          ]
+        },
+        {
+          "code": "3240931539546",
+          "nom": "Lustucru quenelle brochet 4x100g",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.3803,
+            0.1841
+          ]
+        },
+        {
+          "code": "3240931539539",
+          "nom": "Lustucru quenelles traiteur nature 400g",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.7508,
+            0.3318,
+            0.2591
+          ]
+        },
+        {
+          "code": "5410355320558",
+          "nom": "Mac&Greenz",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9118,
+            0.5201,
+            0.3591
+          ]
+        },
+        {
+          "code": "3535000010768",
+          "nom": "Mini nems au poulet",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8545,
+            0.3318,
+            0.2568
+          ]
+        },
+        {
+          "code": "8904063231253",
+          "nom": "minute khana( Haldiram's)",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.5201,
+            0.3591
+          ]
+        },
+        {
+          "code": "3248830000792",
+          "nom": "NAPLES - Gnocchetti poulet crème parmesan",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.8235,
+            0.4826,
+            0.3591
+          ]
+        },
+        {
+          "code": "3263859856113",
+          "nom": "Nouilles aux Légumes et au Poulet",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            1.0,
+            0.4178,
+            0.2568
+          ]
+        },
+        {
+          "code": "3350033943216",
+          "nom": "Pad thaï poulet",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.7485,
+            0.3295,
+            0.2568
+          ]
+        },
+        {
+          "code": "5010034515000",
+          "nom": "Pilau rice (uncle bens)",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.7,
+            0.5773,
+            0.4318
+          ]
+        },
+        {
+          "code": "3560071458621",
+          "nom": "Pizza  mozzarella basilic",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8545,
+            0.4826,
+            0.2841
+          ]
+        },
+        {
+          "code": "3560071013844",
+          "nom": "Pizza au kebab",
+          "label": "C",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6031,
+            0.3053,
+            0.1091
+          ]
+        },
+        {
+          "code": "3560071169145",
+          "nom": "Pizza mozza basilic",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7663,
+            0.4826,
+            0.2841
+          ]
+        },
+        {
+          "code": "4104420112322",
+          "nom": "Pizza vegetale mit Champignons, Paprika, spinat und Mais",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8545,
+            0.6936,
+            0.4091
+          ]
+        },
+        {
+          "code": "3250391110346",
+          "nom": "Potage deshydrate veloute bolets 74 g",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.7882,
+            0.7,
+            0.4045,
+            0.4045
+          ]
+        },
+        {
+          "code": "5036599001383",
+          "nom": "Poule au pot",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.7882,
+            0.7,
+            0.4045,
+            0.3295
+          ]
+        },
+        {
+          "code": "3560071172206",
+          "nom": "Poulet curry vert et duo de riz",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9118,
+            0.9118,
+            0.1091,
+            0.1091
+          ]
+        },
+        {
+          "code": "3250392151041",
+          "nom": "Quenelles de saumon sauce crevette 400g",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7,
+            0.3318,
+            0.2591
+          ]
+        },
+        {
+          "code": "20902995",
+          "nom": "Quinoa Courgettes Oignon",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.731,
+            0.5178,
+            0.3568
+          ]
+        },
+        {
+          "code": "2000000118457",
+          "nom": "RAV PEST",
+          "label": "C",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6936,
+            0.5553,
+            0.3591
+          ]
+        },
+        {
+          "code": "0077745291888",
+          "nom": "Ready Pac Santa Fe Style Ceasar Bistro Salad",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.85,
+            0.7618,
+            0.3428,
+            0.1091
+          ]
+        },
+        {
+          "code": "3017800244586",
+          "nom": "Risotto forestier",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7,
+            0.4045,
+            0.2591
+          ]
+        },
+        {
+          "code": "3770004096060",
+          "nom": "Riz au Curcuma et Gingembre façon Goa",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9273,
+            0.839,
+            0.6053,
+            0.4818
+          ]
+        },
+        {
+          "code": "3596710747542",
+          "nom": "Riz cantonais",
+          "label": "C",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6913,
+            0.6163,
+            0.1818,
+            0.1818
+          ]
+        },
+        {
+          "code": "2000000034780",
+          "nom": "Smoky Maple Bacon and Mushroom - Stone Baked Pizza",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.9273,
+            0.3053,
+            0.1091
+          ]
+        },
+        {
+          "code": "3245412413711",
+          "nom": "Tarte Chèvre épinard",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8235,
+            0.2326,
+            0.1091
+          ]
+        },
+        {
+          "code": "3245390181954",
+          "nom": "Tartiflette",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7508,
+            0.1091,
+            0.1091
+          ]
+        },
+        {
+          "code": "3256225734009",
+          "nom": "Tortellini aux légumes grillés Bio",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7818,
+            0.6936,
+            0.4068
+          ]
+        },
+        {
+          "code": "4000915107715",
+          "nom": "Tortellini frais au fromage et à la tomate",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.839,
+            0.5326,
+            0.5326
+          ]
+        },
+        {
+          "code": "3180071003067",
+          "nom": "Tortellini pesto",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.764,
+            0.3053,
+            0.0
+          ]
+        },
+        {
+          "code": "4335896763811",
+          "nom": "Vegetarian lasagna",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8765,
+            0.5045,
+            0.4318
+          ]
+        },
+        {
+          "code": "3250391504220",
+          "nom": "Veloute  chanterelles et bolets",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.7882,
+            0.7,
+            0.3295,
+            0.3295
+          ]
+        },
+        {
+          "code": "3560070823796",
+          "nom": "Velouté aux Courgettes saveur chèvre",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.7882,
+            0.7882,
+            0.4,
+            0.2545
+          ]
+        },
+        {
+          "code": "3596710383184",
+          "nom": "Velouté de bolets et chanterelles",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.7882,
+            0.7,
+            0.3295,
+            0.3295
+          ]
+        },
+        {
+          "code": "0000112302676",
+          "nom": "Velouté de légumes du soleil",
+          "label": "C",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.7882,
+            0.7882,
+            0.5545,
+            0.5545
+          ]
+        },
+        {
+          "code": "3270160839360",
+          "nom": "16 Petits Fours Traiteur",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.925,
+            0.3826,
+            0.2326,
+            0.0
+          ]
+        },
+        {
+          "code": "3270160644421",
+          "nom": "2 Bouchées Au Ris De Veau",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.9273,
+            0.6936,
+            0.1091,
+            0.1091
+          ]
+        },
+        {
+          "code": "3270160478811",
+          "nom": "2 Clafoutis aux tomates et aux fromages de chèvre et de brebis",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9273,
+            0.9273,
+            0.4473,
+            0.3591
+          ]
+        },
+        {
+          "code": "3282740200101",
+          "nom": "2 Feuilletés Saint-Jacques",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.9273,
+            0.6758,
+            0.1841,
+            0.1841
+          ]
+        },
+        {
+          "code": "3270160830855",
+          "nom": "2 Millefeuilles De Saumon Fumé",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.9118,
+            0.5303,
+            0.2326,
+            0.1091
+          ]
+        },
+        {
+          "code": "3270160895427",
+          "nom": "2 Tartelettes Saumon-Asperges",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6936,
+            0.2326,
+            0.1091
+          ]
+        },
+        {
+          "code": "3270160890200",
+          "nom": "2 Tourtes Courgette, Fromage de Brebis, Tomate",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9273,
+            0.8545,
+            0.3473,
+            0.2591
+          ]
+        },
+        {
+          "code": "3270160715183",
+          "nom": "4 paniers chèvre épinard",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.9273,
+            0.6781,
+            0.3591,
+            0.3591
+          ]
+        },
+        {
+          "code": "3700311821208",
+          "nom": "4 roulés au fromage",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.9273,
+            0.6781,
+            0.1841,
+            0.1841
+          ]
+        },
+        {
+          "code": "3560070124817",
+          "nom": "5 fromaggi",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8545,
+            0.4709,
+            0.3826
+          ]
+        },
+        {
+          "code": "3599740008379",
+          "nom": "Appizzi",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8545,
+            0.6341,
+            0.2326,
+            0.1091
+          ]
+        },
+        {
+          "code": "3245414223417",
+          "nom": "Cake au Thon",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.5436,
+            0.3209,
+            0.2326
+          ]
+        },
+        {
+          "code": "3276770009889",
+          "nom": "Cake à l'Andouille",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8545,
+            0.4709,
+            0.2326,
+            0.2326
+          ]
+        },
+        {
+          "code": "3560070543731",
+          "nom": "Croq&Moi, Jambon de dinde (x 2)",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7795,
+            0.5436,
+            0.2326,
+            0.2326
+          ]
+        },
+        {
+          "code": "3301091900062",
+          "nom": "Délice au Saumon & Épinard",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8545,
+            0.7663,
+            0.4709,
+            0.2723
+          ]
+        },
+        {
+          "code": "3560071016142",
+          "nom": "Feuilleté de Saumon Wellington",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6031,
+            0.3076,
+            0.1841
+          ]
+        },
+        {
+          "code": "3325420060395",
+          "nom": "Feuilleté Jambon Champignons",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.9273,
+            0.5326,
+            0.1091,
+            0.1091
+          ]
+        },
+        {
+          "code": "3292590818722",
+          "nom": "Feuilletés chèvre épinard",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.9273,
+            0.6781,
+            0.1841,
+            0.1841
+          ]
+        },
+        {
+          "code": "3292590837501",
+          "nom": "Girasoli aux champignons de paris et cèpes",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8545,
+            0.3209,
+            0.1091
+          ]
+        },
+        {
+          "code": "3240931545370",
+          "nom": "Girasoli legumes du soleil 250g lustucru",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7068,
+            0.3959,
+            0.1841
+          ]
+        },
+        {
+          "code": "3257981937376",
+          "nom": "Gésiers de volaille",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7663,
+            0.6781,
+            0.2326,
+            0.2326
+          ]
+        },
+        {
+          "code": "3760051585174",
+          "nom": "Le kebab lamelles",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7663,
+            0.6781,
+            0.3053,
+            0.2326
+          ]
+        },
+        {
+          "code": "3250392490645",
+          "nom": "Les Mélanges Bon & Bon - Poelée orientale",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7818,
+            0.6936,
+            0.5436,
+            0.5436
+          ]
+        },
+        {
+          "code": "3153571017223",
+          "nom": "Les Quenelles de l'Atelier Brochet Sauvage",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9273,
+            0.7508,
+            0.3826,
+            0.2591
+          ]
+        },
+        {
+          "code": "3240931546131",
+          "nom": "Lustucru grande raviole tomates sechees pignons de pin",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6936,
+            0.1985,
+            0.075
+          ]
+        },
+        {
+          "code": "5018374007186",
+          "nom": "Mini Melton Mowbray Pork Pies",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7663,
+            0.6781,
+            0.3826,
+            0.1841
+          ]
+        },
+        {
+          "code": "00449458",
+          "nom": "Mozzarella roasted tomato and basil girasoli",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7508,
+            0.3826,
+            0.075
+          ]
+        },
+        {
+          "code": "3700009201596",
+          "nom": "Museau de bœuf assaisonné",
+          "label": "D",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6913,
+            0.6031,
+            0.3781,
+            0.1818
+          ]
+        },
+        {
+          "code": "3292590818531",
+          "nom": "Opéra aux légumes du soleil",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9273,
+            0.8523,
+            0.1973,
+            0.0882
+          ]
+        },
+        {
+          "code": "3289475001232",
+          "nom": "Panier feuilleté fromage La Vache Qui Rit et petits légumes, 4",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9273,
+            0.7663,
+            0.1841,
+            0.1841
+          ]
+        },
+        {
+          "code": "3270160892846",
+          "nom": "Pithiviers - Pintade, farce aux champignons, dinde, bloc de foie gras de canard et épinards",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9273,
+            0.7818,
+            0.3326,
+            0.2091
+          ]
+        },
+        {
+          "code": "3660140002837",
+          "nom": "Pizza Chèvre emmental tomate",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6053,
+            0.3826,
+            0.2591
+          ]
+        },
+        {
+          "code": "3596710462070",
+          "nom": "Pizza chèvre lardons",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7663,
+            0.2326,
+            0.1091
+          ]
+        },
+        {
+          "code": "3222477592681",
+          "nom": "Pizza chèvre lardons tomates mi-séchées",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6936,
+            0.3826,
+            0.3826
+          ]
+        },
+        {
+          "code": "0205927031032",
+          "nom": "Pizza del gusto Montagnarde",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6209,
+            0.3076,
+            0.1841
+          ]
+        },
+        {
+          "code": "3270160890149",
+          "nom": "Pizza Diavola",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8545,
+            0.8545,
+            0.2326,
+            0.1091
+          ]
+        },
+        {
+          "code": "3596710462667",
+          "nom": "Pizza Raclette Lardons fumés",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6781,
+            0.2326,
+            0.1091
+          ]
+        },
+        {
+          "code": "3560071220761",
+          "nom": "PIZZA Sauce brocolis, mozzarella et légumes",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8545,
+            0.8545,
+            0.5553,
+            0.3591
+          ]
+        },
+        {
+          "code": "20899226",
+          "nom": "Pizza végétale bio",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.8545,
+            0.4963,
+            0.3
+          ]
+        },
+        {
+          "code": "3700009258941",
+          "nom": "Quiche Jambon Tomate cerise",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.9273,
+            0.4576,
+            0.2326,
+            0.1091
+          ]
+        },
+        {
+          "code": "3596710399208",
+          "nom": "RAVIOLES AU BASILICaux œufs frais",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8545,
+            0.6053,
+            0.3076,
+            0.1841
+          ]
+        },
+        {
+          "code": "3596710433681",
+          "nom": "Ravioles au fromage de chèvre frais et fines herbes",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8545,
+            0.5326,
+            0.3076,
+            0.1841
+          ]
+        },
+        {
+          "code": "3760098451449",
+          "nom": "Ravioles à poêler emmental, ail & fines herbes",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6781,
+            0.5326,
+            0.4091
+          ]
+        },
+        {
+          "code": "3256228955173",
+          "nom": "Ravioli fraiches gorgonzola et noix 250g",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6936,
+            0.3826,
+            0.2591
+          ]
+        },
+        {
+          "code": "3560070391738",
+          "nom": "Risotto aux champignons",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.5678,
+            0.1818,
+            0.1091
+          ]
+        },
+        {
+          "code": "3242274505059",
+          "nom": "Salade garden parisienne jambon emmental",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.925,
+            0.6758,
+            0.2326,
+            0.1091
+          ]
+        },
+        {
+          "code": "3248830000617",
+          "nom": "Tarte Chèvre Epinards Pur Beurre",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.9273,
+            0.7508,
+            0.3591,
+            0.3591
+          ]
+        },
+        {
+          "code": "3700966554933",
+          "nom": "Tartinable fromager thon",
+          "label": "D",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            1.0,
+            0.7663,
+            0.3826,
+            0.1841
+          ]
+        },
+        {
+          "code": "5400101259416",
+          "nom": "Tortellini",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6936,
+            0.2326,
+            0.2326
+          ]
+        },
+        {
+          "code": "3240931543949",
+          "nom": "Tortellini Ricotta Épinards Bio",
+          "label": "D",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            1.0,
+            0.6053,
+            0.4303,
+            0.3576
+          ]
+        },
+        {
+          "code": "3560071506827",
+          "nom": "2 CROUSTILLANTS Chèvre, confit de Figue",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.9273,
+            0.5326,
+            0.3735,
+            0.3735
+          ]
+        },
+        {
+          "code": "3701002403932",
+          "nom": "4 carrés feuilletés",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8545,
+            0.6781,
+            0.3591,
+            0.2841
+          ]
+        },
+        {
+          "code": "3178538007000",
+          "nom": "8 Crêpes au Chocolat",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7299,
+            0.2977,
+            0.075,
+            0.075
+          ]
+        },
+        {
+          "code": "3596710348237",
+          "nom": "8 crêpes chocolat et céréales craquantes",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8182,
+            0.6572,
+            0.075,
+            0.075
+          ]
+        },
+        {
+          "code": "3560071190705",
+          "nom": "8 Mini Religieuses salées apéritives",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8545,
+            0.4576,
+            0.1091,
+            0.0
+          ]
+        },
+        {
+          "code": "3560070504527",
+          "nom": "Bouchées Apéritives au Lard Fumé Emmental",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7091,
+            0.5326,
+            0.3326,
+            0.3326
+          ]
+        },
+        {
+          "code": "5400101242906",
+          "nom": "Carrefour Kroepoek aux Crevettes",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6583,
+            0.4818,
+            0.175,
+            0.175
+          ]
+        },
+        {
+          "code": "0852160006039",
+          "nom": "Chocolate filled crepes",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8182,
+            0.6572,
+            0.2382,
+            0.075
+          ]
+        },
+        {
+          "code": "3322680000062",
+          "nom": "Cracky Crêpes",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6572,
+            0.569,
+            0.075,
+            0.075
+          ]
+        },
+        {
+          "code": "3564700871775",
+          "nom": "Crepe gout chocolat noisette",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8182,
+            0.494,
+            0.075,
+            0.075
+          ]
+        },
+        {
+          "code": "3487499662112",
+          "nom": "Crème de légumes",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7068,
+            0.6186,
+            0.4686,
+            0.3803
+          ]
+        },
+        {
+          "code": "3560071130466",
+          "nom": "Crêpes au chocolat",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8182,
+            0.6572,
+            0.15,
+            0.075
+          ]
+        },
+        {
+          "code": "20057602",
+          "nom": "Crêpes chocolat",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8182,
+            0.6572,
+            0.15,
+            0.075
+          ]
+        },
+        {
+          "code": "3322680009508",
+          "nom": "Crêpes tout chocolat Whaou!",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6572,
+            0.569,
+            0.15,
+            0.075
+          ]
+        },
+        {
+          "code": "3256227741234",
+          "nom": "Effiloché de viande de canard cuite assisonnée sous vide",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7663,
+            0.5326,
+            0.3826,
+            0.3826
+          ]
+        },
+        {
+          "code": "3596710468416",
+          "nom": "FEUILLETES ESCARGOTS ST JACQUES** AU BEURRE PERSILLE**Zygochlamys patagonica, origine Argentine (A) et/ ou Chlamys opercularis origine Royaume-Uni (B) et/ou îles Féroé (C) et ou Argopecten circularis",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.8545,
+            0.5326,
+            0.4826,
+            0.2841
+          ]
+        },
+        {
+          "code": "3760184160187",
+          "nom": "Feuilletés au crottin de chavignol",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7091,
+            0.5326,
+            0.3826,
+            0.2591
+          ]
+        },
+        {
+          "code": "3245412730108",
+          "nom": "Feuilletés tressés CHAMPIGNONS POULET",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.9273,
+            0.5326,
+            0.1091,
+            0.1091
+          ]
+        },
+        {
+          "code": "3245390225245",
+          "nom": "Flamiche de l'Avesnois au Maroilles AOP",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7818,
+            0.6209,
+            0.3826,
+            0.3076
+          ]
+        },
+        {
+          "code": "4005967000991",
+          "nom": "Gaufres Épeautre, Pomme de Terre, Poireaux",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7091,
+            0.6209,
+            0.4459,
+            0.4459
+          ]
+        },
+        {
+          "code": "7622300571351",
+          "nom": "Goût Fromage",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6341,
+            0.5459,
+            0.3076,
+            0.075
+          ]
+        },
+        {
+          "code": "8801073211223",
+          "nom": "Hot chicken flavor ramen",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.5591,
+            0.3826,
+            0.1235,
+            0.0
+          ]
+        },
+        {
+          "code": "3564700845271",
+          "nom": "Kit pour crunchy fajitas",
+          "label": "E",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.7068,
+            0.7068,
+            0.4818,
+            0.1818
+          ]
+        },
+        {
+          "code": "3560071091163",
+          "nom": "Les Crêpes au Caramel au Beurre Salé",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7455,
+            0.4235,
+            0.075,
+            0.075
+          ]
+        },
+        {
+          "code": "4024398191139",
+          "nom": "Macaroni & Cheese Dinner",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7818,
+            0.6936,
+            0.3463,
+            0.2713
+          ]
+        },
+        {
+          "code": "3033610060192",
+          "nom": "Magret de canard du sud-ouest fumé et tranché",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6209,
+            0.5326,
+            0.4826,
+            0.4826
+          ]
+        },
+        {
+          "code": "3067163623900",
+          "nom": "Magret De Canard du Sud-Ouest Séché",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6209,
+            0.5326,
+            0.3326,
+            0.3326
+          ]
+        },
+        {
+          "code": "3443704335196",
+          "nom": "Magret de canard du Sud-Ouest séché",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6209,
+            0.5326,
+            0.3326,
+            0.3326
+          ]
+        },
+        {
+          "code": "3564709019864",
+          "nom": "Magret de canard fumé",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6209,
+            0.5326,
+            0.4826,
+            0.4076
+          ]
+        },
+        {
+          "code": "3564709164526",
+          "nom": "Magret de Canard Fumé au Piment d'espelette",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6209,
+            0.5326,
+            0.3326,
+            0.3326
+          ]
+        },
+        {
+          "code": "3250391953066",
+          "nom": "MAGRET DE CANARD IGP SECHE FUME TRANCHE - 90g",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6209,
+            0.5326,
+            0.3326,
+            0.3326
+          ]
+        },
+        {
+          "code": "3250391953097",
+          "nom": "MAGRET DE CANARD IGP SECHE TRANCHE - 90g",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6209,
+            0.5326,
+            0.3326,
+            0.3326
+          ]
+        },
+        {
+          "code": "3368954600040",
+          "nom": "Magret de Canard séché au poivre",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6209,
+            0.5326,
+            0.4826,
+            0.4826
+          ]
+        },
+        {
+          "code": "3266980146146",
+          "nom": "magret de canard séché s/skin",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7663,
+            0.5326,
+            0.2326,
+            0.2326
+          ]
+        },
+        {
+          "code": "6133012000318",
+          "nom": "Marinade poulet",
+          "label": "E",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8545,
+            0.7818,
+            0.311,
+            0.236
+          ]
+        },
+        {
+          "code": "3263851127327",
+          "nom": "Minestrone",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7818,
+            0.5845,
+            0.4345,
+            0.3595
+          ]
+        },
+        {
+          "code": "3368954060318",
+          "nom": "Mini préfou pain apéritif tranché beurre et ail Saveurs",
+          "label": "E",
+          "classe": 2,
+          "lettre": "C′",
+          "concordances": [
+            0.8545,
+            0.7663,
+            0.2591,
+            0.2591
+          ]
+        },
+        {
+          "code": "0077544002463",
+          "nom": "Mushroom Soup and Seasoning Mix",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6936,
+            0.6053,
+            0.1985,
+            0.075
+          ]
+        },
+        {
+          "code": "8934572372871",
+          "nom": "Nems apéritifs aux crevettes",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7091,
+            0.6209,
+            0.2735,
+            0.1985
+          ]
+        },
+        {
+          "code": "8934572396877",
+          "nom": "Nems apéritifs aux crevettes piquantes",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7091,
+            0.6209,
+            0.2735,
+            0.1985
+          ]
+        },
+        {
+          "code": "20081324",
+          "nom": "Nems au porc",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7818,
+            0.5326,
+            0.4826,
+            0.4826
+          ]
+        },
+        {
+          "code": "3421330145006",
+          "nom": "Préparation Pour Aligot D'aveyron",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6209,
+            0.5326,
+            0.2326,
+            0.2326
+          ]
+        },
+        {
+          "code": "0084909900562",
+          "nom": "Pâte pour « Padthai »",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7455,
+            0.5095,
+            0.236,
+            0.1477
+          ]
+        },
+        {
+          "code": "0041789003530",
+          "nom": "Ramen",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6341,
+            0.4368,
+            0.2868,
+            0.075
+          ]
+        },
+        {
+          "code": "8934563283148",
+          "nom": "Saigon Phỏ saveur Bœuf",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7068,
+            0.5303,
+            0.075,
+            0.075
+          ]
+        },
+        {
+          "code": "3256227549670",
+          "nom": "Salade addict saumon fumé mini blini tzatziki sauce au vinaigre balsamique",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7818,
+            0.6341,
+            0.3209,
+            0.1235
+          ]
+        },
+        {
+          "code": "8008698002070",
+          "nom": "Salinis",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.4973,
+            0.3341,
+            0.1091,
+            0.1091
+          ]
+        },
+        {
+          "code": "3033124694609",
+          "nom": "Tartelette aux fromages",
+          "label": "E",
+          "classe": 1,
+          "lettre": "D′",
+          "concordances": [
+            0.7818,
+            0.5326,
+            0.3826,
+            0.1841
+          ]
+        },
+        {
+          "code": "0851683004454",
+          "nom": "Vermicelle d'haricot à l'arôme de champignons shiitake",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6913,
+            0.4795,
+            0.2568,
+            0.1841
+          ]
+        },
+        {
+          "code": "3282930006254",
+          "nom": "Welsh",
+          "label": "E",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6936,
+            0.4576,
+            0.2326,
+            0.2326
+          ]
+        }
+      ]
+    }
   }
 }
