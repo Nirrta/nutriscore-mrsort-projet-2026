@@ -234,3 +234,41 @@ def test_les_plats_au_bord_de_leur_classe():
     resultat = sn.platsAuBord([platAuBordDeAPrime(code="1"), dict(platAuNiveauDeAPrime(), code="2")])
     assert [plat["code"] for plat in resultat] == ["1"]
     assert resultat[0]["rates"] == ["nova", "additifs", "aRisque", "bio"]
+
+
+# --- La comparaison au Nutri-Score ---
+
+def test_un_plat_qui_monte_et_un_plat_qui_descend():
+    """
+    Au niveau de A′ partout, mais C au Nutri-Score : il monte de deux classes. Ultra-transformé, à 3 g de fibres, mais A au
+    Nutri-Score : il descend en B′ ; face au profil de A′, il rate les fibres et tout le pilier de la transformation.
+    """
+    monte = dict(platAuNiveauDeAPrime(), code="1", nom="Monte", label="C")
+    descend = platAuBordDeAPrime(fi=3.0, code="2", nom="Descend", label="A")
+    resultat = sn.ecartsAuNutriscore([monte, descend])
+    assert (resultat["montent"], resultat["descendent"], resultat["egaux"]) == (1, 1, 0)
+    lignes = {ligne["code"]: ligne for ligne in resultat["plats"]}
+    assert (lignes["1"]["ecart"], lignes["1"]["rates"]) == (2, [])
+    assert (lignes["2"]["ecart"], lignes["2"]["lettre"]) == (-1, "B′")
+    assert lignes["2"]["rates"] == ["fi", "nova", "additifs", "aRisque", "bio"]
+    assert resultat["raisonsDesDescentes"]["nova"] == 1 and resultat["raisonsDesDescentes"]["en"] == 0
+
+
+@baseConstruite
+def test_la_poelee_fermiere_descend_d_une_classe():
+    """B au Nutri-Score, C′ au SuperNutri-score : face à B′, elle rate les protéines, les fibres, NOVA, les additifs et le bio."""
+    plat = [p for p in projet_base.lireBase() if p["code"] == "3257982125116"][0]
+    ligne = sn.ecartsAuNutriscore([plat])["plats"][0]
+    assert ligne["ecart"] == -1
+    assert ligne["rates"] == ["pr", "fi", "nova", "additifs", "bio"]
+
+
+@baseConstruite
+def test_l_excel_dit_l_ecart_au_nutriscore(tmp_path):
+    """Chaque plat a son écart au Nutri-Score et ce qui l'explique ; une feuille croise les deux classements."""
+    sortie = tmp_path / "supernutri.xlsx"
+    sn.superNutriScore(projet_base.FICHIER_BASE, sortie=sortie, afficher=False)
+    classeur = openpyxl.load_workbook(sortie)
+    entetes = [cellule.value for cellule in classeur.worksheets[0][1]]
+    assert "Écart au Nutri-Score" in entetes and "Critères ratés" in entetes
+    assert "comparaison" in classeur.sheetnames

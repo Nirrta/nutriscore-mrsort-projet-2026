@@ -224,7 +224,8 @@ def superNutriScore(fichier=FICHIER_BASE, modele=None, sortie=None, afficher=Tru
         repartition[ligne["lettre"]] += 1
     comparaison = comparerAuNutriscore([classeDuLabel(ligne["label"]) for ligne in lignes],
                                        [ligne["classe"] for ligne in lignes])
-    resultat = {"modele": modele, "plats": lignes, "repartition": repartition, "comparaison": comparaison}
+    resultat = {"modele": modele, "plats": lignes, "repartition": repartition, "comparaison": comparaison,
+                "ecarts": ecartsAuNutriscore(plats, modele)}
     if sortie:
         ecrireSuperNutri(plats, resultat, sortie)
     if afficher:
@@ -234,8 +235,11 @@ def superNutriScore(fichier=FICHIER_BASE, modele=None, sortie=None, afficher=Tru
 
 def ecrireSuperNutri(plats, resultat, chemin):
     """
-    Écrit un Excel au style Verso : une ligne par plat, avec ses onze valeurs, son Nutri-Score
-    et sa classe au SuperNutri-score. Une valeur absente reste une case vide.
+    Écrit un Excel au style Verso. La première feuille a une ligne par plat : ses onze valeurs, son
+    Nutri-Score, sa classe au SuperNutri-score, l'écart entre les deux (en classes, positif si le
+    plat monte) et les critères qui l'expliquent (ecartsAuNutriscore). Une valeur absente reste une
+    case vide. La feuille « comparaison » croise les deux classements, puis compte les critères
+    ratés par les plats qui descendent.
     """
     from openpyxl import Workbook
     from projet_design import mettreEnFormeFeuille
@@ -244,14 +248,26 @@ def ecrireSuperNutri(plats, resultat, chemin):
     feuille = classeur.active
     feuille.title = "supernutri-score"
     feuille.append(["Code-barres", "Nom"] + [CRITERES_LIBELLES[critere][0] for critere in CRITERES_SUPER]
-                   + ["Nutri-Score", "SuperNutri-score"])
-    for plat, ligne in zip(plats, resultat["plats"]):
+                   + ["Nutri-Score", "SuperNutri-score", "Écart au Nutri-Score", "Critères ratés"])
+    for plat, ligne, ecart in zip(plats, resultat["plats"], resultat["ecarts"]["plats"]):
         valeurs = valeursDuPlat(plat)
         cellules = [None if math.isinf(valeurs[critere]) else valeurs[critere] for critere in CRITERES_SUPER]
-        feuille.append([plat["code"], plat["nom"]] + cellules + [plat["label"], ligne["lettre"]])
+        rates = ", ".join(CRITERES_LIBELLES[critere][0] for critere in ecart["rates"])
+        feuille.append([plat["code"], plat["nom"]] + cellules + [plat["label"], ligne["lettre"], ecart["ecart"], rates])
     colonneNutriscore = 3 + len(CRITERES_SUPER)
-    mettreEnFormeFeuille(feuille, [16, 40] + [12] * len(CRITERES_SUPER) + [12, 16],
+    mettreEnFormeFeuille(feuille, [16, 40] + [12] * len(CRITERES_SUPER) + [12, 16, 12, 60],
                          colonnesClasses=(colonneNutriscore, colonneNutriscore + 1))
+
+    feuille = classeur.create_sheet("comparaison")
+    feuille.append(["Nutri-Score \\ SuperNutri-score"] + list(reversed(CLASSES)))
+    for rang, ligne in enumerate(resultat["comparaison"]["matrice"]):
+        feuille.append(["ABCDE"[rang]] + ligne)
+    feuille.append([])
+    feuille.append(["Critère raté face au profil de la classe du Nutri-Score", "Plats qui descendent"])
+    for critere, nombre in resultat["ecarts"]["raisonsDesDescentes"].items():
+        feuille.append([CRITERES_LIBELLES[critere][0], nombre])
+    mettreEnFormeFeuille(feuille, [44, 10, 10, 10, 10, 10], colonnesClasses=(1,))
+
     chemin.parent.mkdir(parents=True, exist_ok=True)
     classeur.save(chemin)
 
@@ -264,6 +280,10 @@ def afficherSuperNutri(resultat):
     print("  répartition : " + ", ".join(f"{lettre} {nombre}" for lettre, nombre in resultat["repartition"].items()))
     print(f"  même classe que le Nutri-Score : {comparaison['bienRanges']}/{total} ; "
           f"à une classe près : {100 * comparaison['aUneClassePres']:.1f} %")
+    ecarts = resultat["ecarts"]
+    raisons = sorted(ecarts["raisonsDesDescentes"].items(), key=lambda paire: -paire[1])[:4]
+    print(f"  {ecarts['montent']} plats montent, {ecarts['descendent']} descendent ; les plats qui descendent ratent surtout : "
+          + ", ".join(f"{CRITERES_LIBELLES[critere][0]} ({nombre})" for critere, nombre in raisons))
 
 
 # --- Question 3.4 : analyses de sensibilité ---
@@ -560,9 +580,42 @@ def afficherSensibilite(base, sensibilite):
 
 # --- Question 3.4 : comparaisons ---
 
-def ecartsAuNutriscore(produits, modele):
-    """Compare le SuperNutri-score au Nutri-Score : plats qui montent ou descendent, et pourquoi."""
-    raise NotImplementedError("phase 3")
+def ecartsAuNutriscore(produits, modele=None):
+    """
+    Compare, plat par plat, le SuperNutri-score au Nutri-Score : les plats qui montent, ceux qui
+    descendent, et pourquoi.
+    - Un plat qui descend : les critères qu'il rate face au profil de la classe que lui donne le
+      Nutri-Score (pour un plat B, le profil de B′).
+    - Un plat qui monte : les critères qu'il rate face au profil de sa classe SuperNutri, qu'il
+      franchit pourtant.
+    Renvoie les comptes, le nombre de plats qui descendent en ratant chaque critère, une ligne
+    par plat (écart en classes, positif s'il monte) et les plus grands écarts.
+    """
+    modele = modele or MODELE_SUPER
+    lignes = []
+    raisonsDesDescentes = {critere: 0 for critere in modele["criteres"]}
+    for plat in produits:
+        valeurs = valeursDuPlat(plat)
+        classe = affecter(valeurs, modele)["classe"]
+        classeNutri = classeDuLabel(plat["label"])
+        ecart = classe - classeNutri
+        satisfaits = criteresSatisfaits(valeurs, modele)
+        rates = []
+        if ecart != 0:
+            # La classe k est celle du profil k − 1 : pour une descente, celui du Nutri-Score ; pour une montée, le sien
+            numero = classeNutri - 1 if ecart < 0 else classe - 1
+            rates = [critere for critere in modele["criteres"] if critere not in satisfaits[numero]]
+        if ecart < 0:
+            for critere in rates:
+                raisonsDesDescentes[critere] += 1
+        lignes.append({"code": plat.get("code"), "nom": plat.get("nom"), "label": plat["label"],
+                       "lettre": nomDeClasse(classe), "ecart": ecart, "rates": rates})
+    plusGrands = sorted(lignes, key=lambda ligne: (-abs(ligne["ecart"]), ligne["ecart"], str(ligne["nom"])))[:10]
+    return {"montent": sum(1 for ligne in lignes if ligne["ecart"] > 0),
+            "descendent": sum(1 for ligne in lignes if ligne["ecart"] < 0),
+            "egaux": sum(1 for ligne in lignes if ligne["ecart"] == 0),
+            "raisonsDesDescentes": raisonsDesDescentes, "plats": lignes,
+            "plusGrandsEcarts": [ligne for ligne in plusGrands if ligne["ecart"] != 0]}
 
 
 def importerBaseAutreGroupe(fichier, correspondance):
@@ -583,8 +636,13 @@ def main():
     for nom, fichier in (("base", FICHIER_BASE), ("etendue", FICHIER_BASE_ETENDUE)):
         if fichier.exists():
             resultat = superNutriScore(fichier, sortie=DOSSIER / "resultats" / f"supernutri_{nom}.xlsx")
+            ecarts = resultat["ecarts"]
+            for ligne, ecart in zip(resultat["plats"], ecarts["plats"]):
+                ligne.update(ecart=ecart["ecart"], rates=ecart["rates"])
             resume[nom] = {"repartition": resultat["repartition"], "comparaison": resultat["comparaison"],
-                           "plats": resultat["plats"]}
+                           "plats": resultat["plats"],
+                           "ecarts": {cle: ecarts[cle] for cle in ("montent", "descendent", "egaux",
+                                                                   "raisonsDesDescentes", "plusGrandsEcarts")}}
             resume["sensibilite"][nom] = sensibilites(lireBase(fichier))
             afficherSensibilite(nom, resume["sensibilite"][nom])
     ecrireSensibilite(resume["sensibilite"], DOSSIER / "resultats" / "supernutri_sensibilite.xlsx")
