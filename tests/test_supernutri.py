@@ -356,3 +356,9 @@ def test_un_code_se_retrouve_meme_ecrit_avec_d_autres_zeros(monkeypatch):
     for code in ("00635646", "635646"):
         reponse, message = sn.ficheDuCode(code)
         assert reponse is not None, message
+
+
+def test_un_nombre_d_additifs_a_risque_saisi_prime_sur_la_liste():
+    """L'interface saisit directement le nombre d'additifs à risque ; vide, il ne vote pas."""
+    assert sn.valeursDuPlat(dict(platAuNiveauDeAPrime(), aRisque=2))["aRisque"] == 2
+    assert sn.valeursDuPlat(dict(platAuNiveauDeAPrime(), aRisque=None))["aRisque"] == float("inf")

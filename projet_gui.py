@@ -49,10 +49,14 @@ from projet_mrsort import (CRITERES, CRITERES_SEPT, CRITERES_TROIS, PROFILS, SEU
                            approximerNutriscore, concordancePartielle, etapesDeLAffectation, nomDeClasse, sensDuCritere)
 from projet_nutriscore import (CATEGORIES, EXEMPLES_SUJET, LIBELLES, NEGATIFS, POSITIFS, UNITES,
                                composantesDeLaCategorie, scoreNutriscore)
+from projet_supernutri import CRITERES_LIBELLES, MODELE_SUPER, SENS_DES_CLASSES, additifsARisque, valeursDuPlat
 
 
 COMPOSANTES = NEGATIFS + POSITIFS
 PLAT_DE_DEPART = "3257982125116"       # la Poêlée Fermière (Cora), le plat suivi par la soutenance du 30/10
+
+# Les sigles des critères du SuperNutri-score dans les barres de concordance : deux lettres, comme en, sa, su…
+SIGLES = {"nova": "nv", "additifs": "ad", "aRisque": "ar", "bio": "bi"}
 
 # Les champs de saisie : (pas, maximum, nombre de décimales affichées). Le sel va jusqu'à 100 g :
 # un produit cherché sur OFF peut être un bouillon ou du sel.
@@ -373,11 +377,11 @@ def barresDeConcordanceHtml(detail, modele, plat):
         for critere in modele["criteres"]:
             passe = concordancePartielle(plat[critere], profil[critere], sensDuCritere(critere, modele)) == 1
             if passe:
-                passent.append(CRITERES[critere][0].lower())
+                passent.append(CRITERES_LIBELLES[critere][0].lower())
             largeur = 100 * modele["poids"][critere]
-            sigle = critere if largeur >= 6 else ""
+            sigle = SIGLES.get(critere, critere) if largeur >= 6 else ""
             cases += (f"<span class='case {'pleine' if passe else 'vide'}' style='width:{largeur:.2f}%' "
-                      f"title='{texteHtml(CRITERES[critere][0])}, poids {nombre(modele['poids'][critere], 3)}'>{sigle}</span>")
+                      f"title='{texteHtml(CRITERES_LIBELLES[critere][0])}, poids {nombre(modele['poids'][critere], 3)}'>{sigle}</span>")
         franchi = detail["franchis"][numero]
         valeur = nombre(detail["concordances"][numero], 3)
         verdict = f"{valeur} ≥ {nombreLambda(lam)}, franchi" if franchi else f"{valeur} < {nombreLambda(lam)}"
@@ -476,12 +480,31 @@ def recopierExemple():
     valeurs = exemplesDisponibles()[st.session_state["exemple"]]
     for composante in COMPOSANTES:
         st.session_state[f"saisie_{composante}"] = float(valeurs[composante])
+    recopierValeursSuper(valeurs)
     st.session_state["categorie"] = "general"
     st.session_state["produitCherche"] = None
     st.session_state["messageRecherche"] = None
     st.session_state["recherche"] = ""                       # la recherche précédente ne parle plus de ce plat
     st.session_state["resultatsRecherche"] = {}
     st.session_state.pop("choixRecherche", None)
+
+
+def valeursSuperDe(source):
+    """
+    Les quatre valeurs du SuperNutri-score d'un plat ou d'un produit d'OFF, telles que les champs
+    les reçoivent : le groupe NOVA et les deux nombres d'additifs (None s'ils sont inconnus), et le
+    bio (vrai ou faux). Les additifs à risque se comptent dans la liste des additifs.
+    """
+    additifs = source.get("additifs")
+    return {"nova": source.get("nova"), "additifs": additifs,
+            "aRisque": None if additifs is None else additifsARisque(source.get("listeAdditifs")),
+            "bio": source.get("bio") == "oui"}
+
+
+def recopierValeursSuper(source):
+    """Recopie les quatre valeurs du SuperNutri-score d'un plat ou d'un produit dans leurs champs."""
+    for cle, valeur in valeursSuperDe(source).items():
+        st.session_state[f"saisie_{cle}"] = valeur
 
 
 def valeursDuProduit(produit):
@@ -509,6 +532,7 @@ def ouvrirProduit(code):
     st.session_state["messageRecherche"] = None
     for cle, valeur in valeursDuProduit(produit).items():
         st.session_state[f"saisie_{cle}"] = valeur
+    recopierValeursSuper(produit)
     st.session_state["categorie"] = produit["categorie"]
     st.session_state["exemple"] = None
 
@@ -627,6 +651,25 @@ def saisieModifiee(plat, origine, categorie):
     return modifie
 
 
+def saisieSuper():
+    """
+    Les quatre champs du SuperNutri-score, sous les composantes : le groupe NOVA, le nombre
+    d'additifs, les additifs à risque et le bio. Un champ vide (NOVA ou additifs inconnus) ne vote
+    pas pour le produit. Renvoie leurs valeurs.
+    """
+    html("<p class='note'>Pour le SuperNutri-score : la transformation et la production.</p>")
+    nova = st.segmented_control("Groupe NOVA", [1, 2, 3, 4], key="saisie_nova",
+                                help="1 : brut ou peu transformé ; 2 : ingrédient culinaire ; 3 : transformé ; "
+                                     "4 : ultra-transformé. Sans choix : inconnu.")
+    with st.container(horizontal=True):
+        additifs = st.number_input("Nombre d'additifs", min_value=0, max_value=50, step=1, key="saisie_additifs")
+        aRisque = st.number_input("Additifs à risque", min_value=0, max_value=50, step=1, key="saisie_aRisque",
+                                  help="Nitrites et nitrates (E249 à E252), phosphates (E338 à E341, E343, E450 à E452) "
+                                       "et carraghénanes (E407).")
+    bio = st.toggle("Bio", key="saisie_bio")
+    return {"nova": nova, "additifs": additifs, "aRisque": aRisque, "bio": bio}
+
+
 def sectionSaisie():
     """
     La composition du produit : la recherche, le choix d'un exemple, le type de produit, puis
@@ -663,6 +706,8 @@ def sectionSaisie():
         html(f"<p class='erreur'>{texteHtml(message)}</p>")
     st.caption("Le sel compte pour le Nutri-Score de 2023 ; le sodium vaut sel\u00a0/\u00a02,5.")   # « sel / 2,5 » ne se coupe pas
 
+    plat.update(saisieSuper())
+
     # Le produit dont on part : un produit cherché sur OFF (son type d'origine est celui proposé par OFF),
     # ou un exemple choisi dans la liste (au cas général). Sa fiche dit si la saisie s'en écarte.
     produit = st.session_state.get("produitCherche")
@@ -671,6 +716,9 @@ def sectionSaisie():
     st.session_state["accordOff"] = None
     origine, typeDOrigine = (valeursDuProduit(produit), produit["categorie"]) if produit else (choisi, "general")
     modifie = bool(origine) and saisieModifiee(plat, origine, categorie)
+    source = produit or choisi
+    if source:                                       # les quatre valeurs du SuperNutri-score comptent aussi
+        modifie = modifie or any(plat[cle] != valeur for cle, valeur in valeursSuperDe(source).items())
     st.session_state["valeursModifiees"] = modifie                                     # lu par les tests
     # Le nom du plat, repris par le pas à pas : le libellé d'un exemple s'écrit « Base, classe B : nom (marque) »
     if produit:
@@ -812,7 +860,7 @@ def tableauDesParametres(modele, intervalles=None):
     """
     lignes = []
     for critere in modele["criteres"]:
-        ligne = {"Critère": f"{CRITERES[critere][0]} ({CRITERES[critere][1]})",
+        ligne = {"Critère": f"{CRITERES_LIBELLES[critere][0]} ({CRITERES_LIBELLES[critere][1]})",
                  "Sens": "moins, c'est mieux" if sensDuCritere(critere, modele) == "min" else "plus, c'est mieux",
                  "Poids": modele["poids"][critere]}
         if intervalles:
@@ -844,7 +892,7 @@ def modeleDuTableau(tableau, modele):
         for numero in range(len(PROFILS) - 1):                 # chaque profil doit valoir au moins le précédent
             ecart = profils[numero + 1][critere] - profils[numero][critere]
             if (sensDuCritere(critere, modele) == "max" and ecart < 0) or (sensDuCritere(critere, modele) == "min" and ecart > 0):
-                messages.append(f"{CRITERES[critere][0]} : {nomDuProfil(numero + 1)} doit être au moins aussi bon que "
+                messages.append(f"{CRITERES_LIBELLES[critere][0]} : {nomDuProfil(numero + 1)} doit être au moins aussi bon que "
                                 f"{nomDuProfil(numero)}. Corrigez l'une des deux valeurs pour voir la classe.")
                 valide = False
     return dict(modele, poids=poids, profils=profils), messages, valide
@@ -1026,6 +1074,49 @@ def resultatMRSort(nom, plat, labelNutriscore, edition, lam, base="125", avecNot
     return detail["classe"]
 
 
+def editeurSuperNutri():
+    """
+    L'éditeur des paramètres du SuperNutri-score : le curseur de λ, puis les poids et les profils,
+    partis de notre modèle (MODELE_SUPER). Renvoie (modèle, messages, valide).
+    """
+    version = st.session_state.get("version_super", 0)
+    lamEdite = curseurLambda(MODELE_SUPER["lam"], f"lamEdite_super_{version}")
+    tableau = st.data_editor(tableauDesParametres(MODELE_SUPER), key=f"editeur_super_{version}", hide_index=True,
+                             disabled=["Critère", "Sens"], column_config=configurationDeLEditeur())
+    st.button("Revenir à nos paramètres", key="revenir_super", on_click=revenirAuxParametresAppris, args=("super",))
+    return modeleDuTableau(tableau, dict(MODELE_SUPER, lam=lamEdite))
+
+
+def resultatSuperNutri(plat, edition, labelNutriscore, categorie="general", horsDomaine=False):
+    """
+    La classe du plat au SuperNutri-score (onze critères), ce qu'elle veut dire, sa raison et ses
+    barres de concordance. Hors du domaine des modèles, la classe est indicative ; une eau n'en a
+    pas. Range la classe dans st.session_state["superNutri"] (lu par les tests). Renvoie le numéro
+    de la classe, ou None.
+    """
+    html(panneau("SuperNutri-score", "Notre modèle MR-Sort, en trois piliers : à limiter, à favoriser, transformation "
+                                     "et production. Il ne cherche pas à reproduire le Nutri-Score."))
+    st.session_state["superNutri"] = None
+    if categorie == "eau":
+        html("<p class='note'>Pas de classe SuperNutri-score pour une eau.</p>")
+        return None
+    modele, messages, valide = edition
+    for message in messages:
+        html(f"<p class='erreur'>{texteHtml(message)}</p>")
+    if not valide:
+        return None
+    valeurs = valeursDuPlat(plat)
+    detail = affecter(valeurs, modele)
+    lettre = nomDeClasse(detail["classe"])
+    st.session_state["superNutri"] = {"classe": detail["classe"], "lettre": lettre, "lam": modele["lam"]}
+    accord = accordAvecLeNutriscore(lettre, labelNutriscore, categorie, horsDomaine)
+    html(f"<div class='verdict-modele'>{classeModeleHtml(detail['classe'], horsDomaine)}"
+         f"<div class='texte'><strong>Classe {lettre}</strong> : plats {SENS_DES_CLASSES[lettre]} ; {accord}.<br>"
+         f"{texteHtml(phraseDeFranchissement(detail, modele['lam']))}</div></div>")
+    html(barresDeConcordanceHtml(detail, modele, valeurs))
+    return detail["classe"]
+
+
 def choixDuModele():
     """
     Les deux choix du modèle MR-Sort : la base d'apprentissage (« Appris sur »), puis
@@ -1089,6 +1180,7 @@ def ongletCalculateur():
     st.session_state["platAffiche"] = plat
     with nutriscore:
         panneauNutriscore(plat, categorie)
+        zoneSuper = st.container()                   # le SuperNutri-score : rempli une fois ses paramètres lus
 
     # Nos modèles sont appris sur des plats préparés du cas général : au-delà, leur classe est indicative
     produit = st.session_state.get("produitCherche")
@@ -1118,6 +1210,11 @@ def ongletCalculateur():
     for nom, titre in MODELES:
         titres[nom] = st.container()                 # la ligne de titre de l'éditeur, avec la classe : remplie à la fin
         editions[nom] = editeurMRSort(nom, seuils[nom], base, apprentissage)
+    html(panneau("Paramètres du SuperNutri-score",
+                 "Nos poids et nos profils, dont l'onglet SuperNutri-score donne les sources. Modifiez-les : la classe "
+                 "du SuperNutri-score suit."))
+    titreSuper = st.container()
+    editionSuper = editeurSuperNutri()
 
     label = st.session_state["nutriscore"]["label"]
     noteEcrite = False                               # la note des barres, sous le premier modèle qui en affiche
@@ -1131,6 +1228,12 @@ def ongletCalculateur():
                 sansClasse = "pas de classe pour une eau." if categorie == "eau" else None
                 lamEdite = editions[nom][0]["lam"]                     # le λ du curseur
                 html(ligneDeLEditeur(titre, lamEdite, libelleDuModele(base, apprentissage), classe, horsDomaine, sansClasse))
+    with zoneSuper:
+        classeSuper = resultatSuperNutri(plat, editionSuper, label, categorie, horsDomaine)
+    with titreSuper:
+        sansClasse = "pas de classe pour une eau." if categorie == "eau" else None
+        html(ligneDeLEditeur("SuperNutri-score", editionSuper[0]["lam"], "nos paramètres", classeSuper, horsDomaine,
+                             sansClasse))
 
 
 # --- Base ---
@@ -1287,7 +1390,7 @@ def ongletPasAPas():
     lignes = []
     for critere in criteres:
         decimales = DECIMALES.get(critere, 1)
-        ligne = {"critere": texteHtml(CRITERES[critere][0]), "poids": nombre(modele["poids"][critere], 3),
+        ligne = {"critere": texteHtml(CRITERES_LIBELLES[critere][0]), "poids": nombre(modele["poids"][critere], 3),
                  "plat": nombre(plat[critere], decimales)}
         for profil, valeurs in zip(PROFILS, modele["profils"]):
             ligne[profil] = nombre(valeurs[critere], decimales)
@@ -1300,7 +1403,7 @@ def ongletPasAPas():
          "c'est mieux pour l'énergie, les acides gras saturés, les sucres et le sel ; plus c'est mieux pour les autres.</p>")
     st.latex(r"c_j(a, b_k) = \begin{cases} 1 & \text{si } g_j(a) \geq g_j(b_k) \text{ (critère à maximiser)} \\ "
              r"1 & \text{si } g_j(a) \leq g_j(b_k) \text{ (critère à minimiser)} \\ 0 & \text{sinon} \end{cases}")
-    lignes = [{"critere": texteHtml(CRITERES[critere][0]), **{etape["profil"]: str(etape["partielles"][critere]) for etape in etapes}}
+    lignes = [{"critere": texteHtml(CRITERES_LIBELLES[critere][0]), **{etape["profil"]: str(etape["partielles"][critere]) for etape in etapes}}
               for critere in criteres]
     html(tableHtml([("Critère", "critere", "texte")] + [(f"c(a, {p})", p, "nombre") for p in PROFILS], lignes))
 
@@ -1456,11 +1559,13 @@ def main():
         depart = platDeDepart(exemples)
         for composante in COMPOSANTES:
             st.session_state[f"saisie_{composante}"] = float(exemples[depart][composante])
+        recopierValeursSuper(exemples[depart])
         st.session_state["exemple"] = depart
     # Les valeurs de départ de la recherche et du type de produit ; les lipides et les édulcorants
     # n'ont un champ que pour leur type, et Streamlit oublie un champ qui n'est pas affiché
     for cle, valeur in {"categorie": "general", "produitCherche": None, "resultatsRecherche": {},
-                        "messageRecherche": None, "saisie_lipides": 0.0, "saisie_edulcorants": False}.items():
+                        "messageRecherche": None, "saisie_lipides": 0.0, "saisie_edulcorants": False,
+                        "saisie_nova": None, "saisie_additifs": None, "saisie_aRisque": None, "saisie_bio": False}.items():
         st.session_state.setdefault(cle, valeur)
     if modelesDisponibles():                           # par défaut : 375 plats, et le meilleur apprentissage
         st.session_state.setdefault("apprisSur", modelesDisponibles()[0][0])

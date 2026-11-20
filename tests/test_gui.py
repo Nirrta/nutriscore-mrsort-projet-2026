@@ -529,12 +529,13 @@ def test_les_poids_possibles_ne_sont_annonces_qu_avec_leur_colonne():
 
 @baseConstruite
 def test_la_classe_est_rappelee_au_dessus_des_editeurs():
-    """Au-dessus de chaque éditeur des paramètres, la classe du plat est celle de son panneau MR-Sort."""
+    """Au-dessus de chaque éditeur des paramètres, la classe du plat est celle de son panneau : MR-Sort, puis SuperNutri-score."""
     at = lancer()
     lignes = blocsHtml(at, "class='sous-titre-editeur'")              # et non le bloc du style, qui nomme la classe CSS
-    assert len(lignes) == 2
+    assert len(lignes) == 3
     for ligne, nom in zip(lignes, ("sept", "trois")):
         assert f"<span class='lettre'>{gui.nomDeClasse(at.session_state[f'mrsort_{nom}']['classe'])}</span>" in ligne
+    assert f"<span class='lettre'>{at.session_state['superNutri']['lettre']}</span>" in lignes[2]
 
 
 @baseConstruite
@@ -645,8 +646,8 @@ def test_une_boisson_a_une_classe_indicative():
     at.selectbox(key="categorie").select("boisson").run()
     assert not at.exception
     assert blocsHtml(at, "class='hors-domaine'") and "yaourts à boire" in at.session_state["raisonHorsDomaine"]
-    verdicts = blocsHtml(at, "class='verdict-modele'")             # les deux panneaux, et l'étape 4 du pas à pas
-    assert len(verdicts) == 3
+    verdicts = blocsHtml(at, "class='verdict-modele'")             # MR-Sort, le SuperNutri-score, et l'étape 4 du pas à pas
+    assert len(verdicts) == 4
     assert all("titre indicatif" in verdict and "classe-modele indicatif" in verdict for verdict in verdicts)
     assert not any("Nutri-Score dit" in verdict or "classe du Nutri-Score" in verdict for verdict in verdicts)
 
@@ -800,3 +801,50 @@ def test_le_pas_a_pas_suit_lambda_du_curseur():
     at = lancerAvecLesProfilsAppris()
     curseurLambda(at).set_value(0.7).run()
     assert blocsHtml(at, "λ = 0,7, paramètres modifiés à la main")
+
+
+# --- Le SuperNutri-score au calculateur (§3.5) ---
+
+@baseConstruite
+def test_les_champs_du_super_nutri_score_suivent_le_plat():
+    """La Poêlée Fermière : NOVA 4, 3 additifs (E14XX, E412, E415), aucun à risque, pas bio."""
+    at = lancer()
+    valeurs = [at.session_state[f"saisie_{cle}"] for cle in ("nova", "additifs", "aRisque", "bio")]
+    assert valeurs == [4, 3, 0, False]
+
+
+@baseConstruite
+def test_le_super_nutri_score_range_le_plat_du_calculateur():
+    """B au Nutri-Score, C′ au SuperNutri-score : face à B′, elle rate les protéines, les fibres, NOVA, les additifs et le bio."""
+    at = lancer()
+    assert not at.exception
+    assert at.session_state["superNutri"]["lettre"] == "C′"
+    assert blocsHtml(at, "Classe C′</strong> : plats moyens ; le Nutri-Score dit B")
+
+
+@baseConstruite
+def test_moins_transformee_la_poelee_passerait_en_b_prime():
+    """Transformée (NOVA 3) plutôt qu'ultra-transformée, avec un seul additif : face à B′, elle ne rate plus que 0,26."""
+    at = lancer()
+    at.session_state["saisie_nova"] = 3
+    at.session_state["saisie_additifs"] = 1
+    at.run()
+    assert at.session_state["superNutri"]["lettre"] == "B′"
+    assert at.session_state["valeursModifiees"]
+
+
+@baseConstruite
+def test_lambda_du_super_nutri_score_se_regle_aussi():
+    """Le troisième curseur règle λ du SuperNutri-score : à 0,9, la Poêlée ne franchit plus rien (0,876 face à D′), E′."""
+    at = lancer()
+    assert curseurLambda(at, 2).value == 0.7
+    curseurLambda(at, 2).set_value(0.9).run()
+    assert at.session_state["superNutri"]["lettre"] == "E′"
+
+
+@baseConstruite
+def test_une_eau_n_a_pas_de_super_nutri_score():
+    at = AppTest.from_file("../projet_gui.py", default_timeout=20)
+    at.session_state["categorie"] = "eau"
+    at.run()
+    assert blocsHtml(at, "Pas de classe SuperNutri-score pour une eau")

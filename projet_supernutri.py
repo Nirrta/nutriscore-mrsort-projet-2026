@@ -183,8 +183,12 @@ def valeursDuPlat(plat):
     valeurs = {}
     for critere in ["en", "sa", "su", "so", "pr", "fi", "fr", "nova", "additifs"]:
         valeurs[critere] = plat.get(critere)
-    # La liste des additifs n'est connue que si leur nombre l'est : une liste vide veut alors dire « aucun »
-    valeurs["aRisque"] = None if plat.get("additifs") is None else additifsARisque(plat.get("listeAdditifs"))
+    if "aRisque" in plat:                               # saisi directement, dans l'interface
+        valeurs["aRisque"] = plat["aRisque"]
+    elif plat.get("additifs") is None:                  # la liste n'est connue que si le nombre l'est
+        valeurs["aRisque"] = None
+    else:                                               # une liste vide veut alors dire « aucun »
+        valeurs["aRisque"] = additifsARisque(plat.get("listeAdditifs"))
     bio = plat.get("bio")
     if bio in ("oui", True):
         valeurs["bio"] = 1
