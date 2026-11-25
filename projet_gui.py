@@ -50,7 +50,7 @@ from projet_mrsort import (CRITERES, CRITERES_SEPT, CRITERES_TROIS, PROFILS, SEU
 from projet_nutriscore import (CATEGORIES, EXEMPLES_SUJET, LIBELLES, NEGATIFS, POSITIFS, UNITES,
                                composantesDeLaCategorie, scoreNutriscore)
 from projet_supernutri import (CRITERES_LIBELLES, MODELE_SUPER, NOMS_DES_BASES, PILIERS, SENS_DES_CLASSES,
-                               additifsARisque, libelleEnMinuscule, valeursDuPlat)
+                               additifsARisque, libelleEnMinuscule, proteinesRetenues, valeursDuPlat)
 
 
 COMPOSANTES = NEGATIFS + POSITIFS
@@ -1103,6 +1103,21 @@ def editeurSuperNutri():
     return modeleDuTableau(tableau, dict(MODELE_SUPER, lam=lamEdite))
 
 
+def noteDesProteines(plat, categorie):
+    """
+    Pourquoi les protéines du produit votent moins qu'elles ne pèsent, ou None : le SuperNutri-score
+    retient les protéines que compte le Nutri-Score de 2023, selon le type du produit.
+    """
+    retenues = proteinesRetenues(plat, categorie)
+    if plat.get("pr") is None or retenues == plat["pr"]:
+        return None
+    if retenues is None:
+        raison = scoreNutriscore(plat, categorie=categorie)["raison"].split(" : ", 1)[1]
+        return f"Les protéines ne votent pas : le Nutri-Score de 2023 ne les compte pas pour ce produit ({raison})."
+    return (f"Les protéines votent comme {nombre(retenues, 1)} g : pour une viande rouge, le Nutri-Score de 2023 n'en "
+            "garde que 2 points.")
+
+
 def resultatSuperNutri(plat, edition, labelNutriscore, categorie="general", horsDomaine=False):
     """
     La classe du plat au SuperNutri-score (onze critères), ce qu'elle veut dire, sa raison et ses
@@ -1121,15 +1136,19 @@ def resultatSuperNutri(plat, edition, labelNutriscore, categorie="general", hors
         html(f"<p class='erreur'>{texteHtml(message)}</p>")
     if not valide:
         return None
-    valeurs = valeursDuPlat(plat)
+    valeurs = valeursDuPlat(plat, categorie)                 # les protéines suivent la règle du type de produit
     detail = affecter(valeurs, modele)
     lettre = nomDeClasse(detail["classe"])
-    st.session_state["superNutri"] = {"classe": detail["classe"], "lettre": lettre, "lam": modele["lam"]}
+    st.session_state["superNutri"] = {"classe": detail["classe"], "lettre": lettre, "lam": modele["lam"],
+                                      "concordances": detail["concordances"]}
     accord = accordAvecLeNutriscore(lettre, labelNutriscore, categorie, horsDomaine)
     html(f"<div class='verdict-modele'>{classeModeleHtml(detail['classe'], horsDomaine)}"
          f"<div class='texte'><strong>Classe {lettre}</strong> : plats {SENS_DES_CLASSES[lettre]} ; {accord}.<br>"
          f"{texteHtml(phraseDeFranchissement(detail, modele['lam']))}</div></div>")
     html(barresDeConcordanceHtml(detail, modele, valeurs, large=True))
+    note = noteDesProteines(plat, categorie)
+    if note:
+        html(f"<p class='note'>{texteHtml(note)}</p>")
     return detail["classe"]
 
 
@@ -1609,6 +1628,33 @@ def lignesDesPoidsUnParUn(unParUn):
     return list(lignes.values())
 
 
+def lignesDuTableauCroise(autre):
+    """
+    Le tableau croisé de l'autre groupe : une ligne par modèle (le nôtre, le leur), puis leur
+    accord. Pour leurs produits et pour nos plats, la part des produits rangés dans la même classe
+    que le Nutri-Score (ou, pour l'accord, que l'autre modèle), puis à une classe près.
+    """
+    lignes = []
+    for cle, libelle in (("notreFaceAuNutriscore", "Notre SuperNutri-score"), ("leurFaceAuNutriscore", "Leur SuperNutri-score"),
+                         ("notreFaceALeur", "Les deux modèles d'accord")):
+        ligne = {"modele": libelle}
+        for base in ("leurs", "nos"):
+            ligne[f"{base}Meme"] = f"{nombre(100 * autre[base][cle]['exactitude'], 1)} %"
+            ligne[f"{base}Pres"] = f"{nombre(100 * autre[base][cle]['aUneClassePres'], 1)} %"
+        lignes.append(ligne)
+    return lignes
+
+
+def phraseDesBloquants(autre):
+    """Ce qui bloque chaque modèle sur la base de l'autre, au seuil de B′ : ses deux critères les plus souvent ratés."""
+    morceaux = []
+    for base, modele, debut in (("leurs", "notre", "sur leurs céréales, notre modèle"), ("nos", "leur", "sur nos plats, le leur")):
+        parts = sorted(autre[base]["bloquants"][modele].items(), key=lambda paire: -paire[1])[:2]
+        morceaux.append(f"{debut} bute surtout sur "
+                        + " et ".join(f"{libelleEnMinuscule(critere)} ({nombre(100 * part)} %)" for critere, part in parts))
+    return "Au seuil de B′, " + " ; ".join(morceaux) + "."
+
+
 def ongletSuperNutri():
     """
     L'onglet du SuperNutri-score (question 3.4) : le modèle et la source de chaque seuil, le sens
@@ -1686,13 +1732,19 @@ def ongletSuperNutri():
 
     autre = resultats.get("autreGroupe")
     if autre:
-        leur = autre["leurSuperNutri"]
-        texteLeur = (f"même classe que leur SuperNutri-score pour {leur['bienRanges']} aliments sur {leur['total']}"
-                     if leur else "leur base ne donne pas les classes de leur SuperNutri-score")
-        html(panneau("La base d'un autre groupe", f"{autre['total']} aliments ; {texteLeur}."))
+        communs = autre["recoupement"][0]
+        enCommun = "aucun produit en commun" if communs == 0 else f"{communs} produits en commun"
+        html(panneau("La base d'un autre groupe",
+                     f"{autre['total']} céréales du petit-déjeuner, d'un autre groupe du cours ({enCommun} avec nos plats). "
+                     f"Leur modèle, recodé dans notre moteur depuis leur note, redonne {autre['reproduits']} de leurs "
+                     f"{autre['total']} classes. Chaque modèle range les deux bases."))
+        html(tableHtml([("Modèle", "modele", "texte"), ("Leurs céréales : même classe que le Nutri-Score", "leursMeme", "nombre"),
+                        ("À une classe près", "leursPres", "nombre"), ("Nos plats : même classe", "nosMeme", "nombre"),
+                        ("À une classe près", "nosPres", "nombre")], lignesDuTableauCroise(autre)))
+        html(f"<p class='note'>{texteHtml(phraseDesBloquants(autre))}</p>")
     else:
-        html(panneau("La base d'un autre groupe", "Pas encore là : déposez-la dans donnees/autre_groupe/, remplissez la "
-                                                   "correspondance de ses colonnes, puis relancez projet_supernutri.py."))
+        html(panneau("La base d'un autre groupe", "Pas encore là : déposez-la dans donnees/autre_groupe/, puis relancez "
+                                                   "projet_supernutri.py."))
 
 
 # --- Page ---

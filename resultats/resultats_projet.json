@@ -5530,85 +5530,85 @@
               "critere": "en",
               "delta": 0.05,
               "poids": 0.1227,
-              "plats": 13,
-              "part": 0.104
+              "plats": 4,
+              "part": 0.032
             },
             {
               "critere": "en",
               "delta": -0.05,
               "poids": 0.0227,
-              "plats": 9,
-              "part": 0.072
+              "plats": 5,
+              "part": 0.04
             },
             {
               "critere": "sa",
               "delta": 0.05,
               "poids": 0.1227,
-              "plats": 10,
-              "part": 0.08
+              "plats": 5,
+              "part": 0.04
             },
             {
               "critere": "sa",
               "delta": -0.05,
               "poids": 0.0227,
-              "plats": 13,
-              "part": 0.104
+              "plats": 7,
+              "part": 0.056
             },
             {
               "critere": "su",
               "delta": 0.05,
               "poids": 0.1591,
-              "plats": 10,
-              "part": 0.08
+              "plats": 0,
+              "part": 0.0
             },
             {
               "critere": "su",
               "delta": -0.05,
               "poids": 0.0591,
-              "plats": 11,
-              "part": 0.088
-            },
-            {
-              "critere": "so",
-              "delta": 0.05,
-              "poids": 0.1955,
               "plats": 10,
               "part": 0.08
             },
             {
               "critere": "so",
-              "delta": -0.05,
-              "poids": 0.0955,
+              "delta": 0.05,
+              "poids": 0.1955,
               "plats": 14,
               "part": 0.112
+            },
+            {
+              "critere": "so",
+              "delta": -0.05,
+              "poids": 0.0955,
+              "plats": 8,
+              "part": 0.064
             },
             {
               "critere": "pr",
               "delta": 0.05,
               "poids": 0.1735,
-              "plats": 23,
-              "part": 0.184
+              "plats": 26,
+              "part": 0.208
             },
             {
               "critere": "pr",
               "delta": -0.05,
               "poids": 0.0735,
-              "plats": 9,
-              "part": 0.072
+              "plats": 5,
+              "part": 0.04
             },
             {
               "critere": "fi",
               "delta": 0.05,
               "poids": 0.1382,
-              "plats": 15,
-              "part": 0.12
+              "plats": 12,
+              "part": 0.096
             },
             {
               "critere": "fi",
               "delta": -0.05,
               "poids": 0.0382,
-              "plats": 16,
-              "part": 0.128
+              "plats": 7,
+              "part": 0.056
             },
             {
               "critere": "fr",
@@ -5621,69 +5621,69 @@
               "critere": "fr",
               "delta": -0.05,
               "poids": 0.0382,
-              "plats": 19,
-              "part": 0.152
+              "plats": 8,
+              "part": 0.064
             },
             {
               "critere": "nova",
               "delta": 0.05,
               "poids": 0.15,
-              "plats": 13,
-              "part": 0.104
+              "plats": 6,
+              "part": 0.048
             },
             {
               "critere": "nova",
               "delta": -0.05,
               "poids": 0.05,
-              "plats": 12,
-              "part": 0.096
+              "plats": 9,
+              "part": 0.072
             },
             {
               "critere": "additifs",
               "delta": 0.05,
               "poids": 0.125,
-              "plats": 11,
-              "part": 0.088
+              "plats": 3,
+              "part": 0.024
             },
             {
               "critere": "additifs",
               "delta": -0.05,
               "poids": 0.025,
-              "plats": 12,
-              "part": 0.096
+              "plats": 7,
+              "part": 0.056
             },
             {
               "critere": "aRisque",
               "delta": 0.05,
               "poids": 0.125,
-              "plats": 10,
-              "part": 0.08
+              "plats": 3,
+              "part": 0.024
             },
             {
               "critere": "aRisque",
               "delta": -0.05,
               "poids": 0.025,
-              "plats": 11,
-              "part": 0.088
+              "plats": 5,
+              "part": 0.04
             },
             {
               "critere": "bio",
               "delta": 0.05,
               "poids": 0.1,
-              "plats": 20,
-              "part": 0.16
+              "plats": 13,
+              "part": 0.104
             },
             {
               "critere": "bio",
               "delta": -0.05,
               "poids": 0.0,
-              "plats": 10,
-              "part": 0.08
+              "plats": 4,
+              "part": 0.032
             }
           ],
           "tirages": 1000,
-          "partMoyenne": 0.137576,
-          "partMax": 0.312,
+          "partMoyenne": 0.11706399999999999,
+          "partMax": 0.344,
           "platsSensibles": [
             {
               "code": "5411788042543",
@@ -5716,52 +5716,52 @@
               "frequence": 0.455
             },
             {
-              "code": "8006669008113",
-              "nom": "Medaglioni Speck e Brie",
+              "code": "3596710259953",
+              "nom": "Quenelles à la lyonnaise nature, au beurre",
               "lettre": "D′",
-              "frequence": 0.447
+              "frequence": 0.45
             },
             {
-              "code": "4104420053861",
-              "nom": "Mini bretzels à l'épeautre",
-              "lettre": "D′",
-              "frequence": 0.447
-            },
-            {
-              "code": "8006013989020",
-              "nom": "Luigi & fratelli ravioli ricotta epinard 250gx6",
+              "code": "3760174580759",
+              "nom": "8 crepes au chocolat kids",
               "lettre": "E′",
-              "frequence": 0.445
+              "frequence": 0.438
             },
             {
-              "code": "3258561471310",
-              "nom": "Pizza Fromage 180G. Bf,",
-              "lettre": "C′",
-              "frequence": 0.439
+              "code": "3660140913157",
+              "nom": "Savane Crêpes Cacao Noisette (x 8)",
+              "lettre": "E′",
+              "frequence": 0.438
             },
             {
-              "code": "0021000010875",
-              "nom": "mac & cheese",
+              "code": "3270190202790",
+              "nom": "Paniers feuilletés Noix de Saint-Jacques*",
               "lettre": "D′",
-              "frequence": 0.439
+              "frequence": 0.379
+            },
+            {
+              "code": "3240931546469",
+              "nom": "Girasoli carbonara",
+              "lettre": "C′",
+              "frequence": 0.37
             }
           ]
         },
         "courbe": [
           {
             "amplitude": 0.01,
-            "partMoyenne": 0.042376,
-            "partMax": 0.104
+            "partMoyenne": 0.023248,
+            "partMax": 0.064
           },
           {
             "amplitude": 0.02,
-            "partMoyenne": 0.066776,
-            "partMax": 0.168
+            "partMoyenne": 0.037759999999999995,
+            "partMax": 0.176
           },
           {
             "amplitude": 0.05,
-            "partMoyenne": 0.137576,
-            "partMax": 0.312
+            "partMoyenne": 0.11706399999999999,
+            "partMax": 0.344
           }
         ],
         "profils": {
@@ -5773,8 +5773,10 @@
               "critere": "en",
               "ancienne": 1340,
               "nouvelle": 1407.0,
-              "plats": 0,
-              "codes": []
+              "plats": 1,
+              "codes": [
+                "8006669008113"
+              ]
             },
             {
               "profil": "b2",
@@ -5829,8 +5831,10 @@
               "critere": "so",
               "ancienne": 1.4,
               "nouvelle": 1.33,
-              "plats": 0,
-              "codes": []
+              "plats": 1,
+              "codes": [
+                "3266191060392"
+              ]
             },
             {
               "profil": "b2",
@@ -5853,12 +5857,8 @@
               "critere": "fi",
               "ancienne": 1,
               "nouvelle": 1.05,
-              "plats": 3,
-              "codes": [
-                "8001420005820",
-                "7231326087878",
-                "3245390021212"
-              ]
+              "plats": 0,
+              "codes": []
             },
             {
               "profil": "b2",
@@ -5881,37 +5881,38 @@
               "critere": "additifs",
               "ancienne": 5,
               "nouvelle": 4,
-              "plats": 0,
-              "codes": []
-            },
-            {
-              "profil": "b2",
-              "critere": "aRisque",
-              "ancienne": 2,
-              "nouvelle": 3,
               "plats": 1,
               "codes": [
-                "3325420020153"
+                "3011250018599"
               ]
             },
             {
               "profil": "b2",
               "critere": "aRisque",
               "ancienne": 2,
-              "nouvelle": 1,
+              "nouvelle": 3,
               "plats": 0,
               "codes": []
+            },
+            {
+              "profil": "b2",
+              "critere": "aRisque",
+              "ancienne": 2,
+              "nouvelle": 1,
+              "plats": 1,
+              "codes": [
+                "3011250018599"
+              ]
             },
             {
               "profil": "b3",
               "critere": "en",
               "ancienne": 1005,
               "nouvelle": 1055.25,
-              "plats": 3,
+              "plats": 2,
               "codes": [
-                "3596710457236",
-                "3701192502064",
-                "3270190202790"
+                "3560070258635",
+                "3250391777808"
               ]
             },
             {
@@ -5919,10 +5920,11 @@
               "critere": "en",
               "ancienne": 1005,
               "nouvelle": 954.75,
-              "plats": 2,
+              "plats": 3,
               "codes": [
-                "3596710259953",
-                "3560070852833"
+                "3560070602735",
+                "3560070822508",
+                "3222475393822"
               ]
             },
             {
@@ -5940,8 +5942,11 @@
               "critere": "sa",
               "ancienne": 5,
               "nouvelle": 4.75,
-              "plats": 0,
-              "codes": []
+              "plats": 2,
+              "codes": [
+                "3560070822508",
+                "3240931546469"
+              ]
             },
             {
               "profil": "b3",
@@ -6009,21 +6014,16 @@
               "critere": "fi",
               "ancienne": 2,
               "nouvelle": 1.9,
-              "plats": 2,
-              "codes": [
-                "7613033139642",
-                "3256220666435"
-              ]
+              "plats": 0,
+              "codes": []
             },
             {
               "profil": "b3",
               "critere": "fr",
               "ancienne": 20,
               "nouvelle": 21.0,
-              "plats": 1,
-              "codes": [
-                "3287390083326"
-              ]
+              "plats": 0,
+              "codes": []
             },
             {
               "profil": "b3",
@@ -6038,7 +6038,7 @@
               "critere": "nova",
               "ancienne": 4,
               "nouvelle": 3,
-              "plats": 22,
+              "plats": 19,
               "codes": [
                 "3760054095618",
                 "3596710025305",
@@ -6050,18 +6050,15 @@
                 "3274935011654",
                 "3254566706075",
                 "3263850566219",
+                "3560070602735",
                 "3256225739783",
                 "3256225054350",
+                "3560070822508",
                 "3368951768996",
                 "3256225718191",
                 "3245414207875",
                 "3760132082561",
-                "3240931546247",
-                "3258561471310",
-                "3560070258635",
-                "3250391777808",
-                "3596710259953",
-                "3560070852833"
+                "3240931546469"
               ]
             },
             {
@@ -6081,8 +6078,10 @@
               "critere": "additifs",
               "ancienne": 3,
               "nouvelle": 2,
-              "plats": 0,
-              "codes": []
+              "plats": 1,
+              "codes": [
+                "3560070602735"
+              ]
             },
             {
               "profil": "b3",
@@ -6601,6 +6600,16 @@
               ]
             },
             {
+              "code": "3560070602735",
+              "nom": "Grands Ravioli Cèpes",
+              "lettre": "C′",
+              "decalages": [
+                "b3 énergie 1005 → 954.75 : C′ → D′",
+                "b3 groupe NOVA 4 → 3 : C′ → D′",
+                "b3 nombre d'additifs 3 → 2 : C′ → D′"
+              ]
+            },
+            {
               "code": "3560070478965",
               "nom": "Les Bons Petits Plats - Gratin de Macaroni au jambon cuit à l'emmental râpé",
               "lettre": "D′",
@@ -6626,19 +6635,21 @@
               ]
             },
             {
+              "code": "3560070822508",
+              "nom": "Pizza 4 Fromages",
+              "lettre": "C′",
+              "decalages": [
+                "b3 énergie 1005 → 954.75 : C′ → D′",
+                "b3 acides gras saturés 5 → 4.75 : C′ → D′",
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
+              ]
+            },
+            {
               "code": "3368951768996",
               "nom": "Préparation pour aligot d'Aveyron, 3/4 parts, sachet de 185g",
               "lettre": "C′",
               "decalages": [
                 "b3 groupe NOVA 4 → 3 : C′ → D′"
-              ]
-            },
-            {
-              "code": "7613033139642",
-              "nom": "Regina",
-              "lettre": "D′",
-              "decalages": [
-                "b3 fibres 2 → 1.9 : D′ → C′"
               ]
             },
             {
@@ -6675,11 +6686,12 @@
               ]
             },
             {
-              "code": "3596710457236",
-              "nom": "Girasole tomate mozzarella",
+              "code": "3011250018599",
+              "nom": "Crousty croc fromage",
               "lettre": "D′",
               "decalages": [
-                "b3 énergie 1005 → 1055.25 : D′ → C′"
+                "b2 nombre d'additifs 5 → 4 : D′ → E′",
+                "b2 additifs à risque 2 → 1 : D′ → E′"
               ]
             },
             {
@@ -6687,127 +6699,55 @@
               "nom": "Girasoli carbonara",
               "lettre": "C′",
               "decalages": [
-                "b3 sel 1.0 → 0.95 : C′ → D′"
-              ]
-            },
-            {
-              "code": "3701192502064",
-              "nom": "L'originale Napoletana",
-              "lettre": "D′",
-              "decalages": [
-                "b3 énergie 1005 → 1055.25 : D′ → C′"
-              ]
-            },
-            {
-              "code": "3240931546247",
-              "nom": "Lustucru ravioli tomate emmental 300g",
-              "lettre": "C′",
-              "decalages": [
+                "b3 acides gras saturés 5 → 4.75 : C′ → D′",
+                "b3 sel 1.0 → 0.95 : C′ → D′",
                 "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
-              "code": "3270190202790",
-              "nom": "Paniers feuilletés Noix de Saint-Jacques*",
-              "lettre": "D′",
+              "code": "8006669008113",
+              "nom": "Medaglioni Speck e Brie",
+              "lettre": "E′",
               "decalages": [
-                "b3 énergie 1005 → 1055.25 : D′ → C′"
+                "b2 énergie 1340 → 1407.0 : E′ → D′"
               ]
             },
             {
-              "code": "3287390083326",
-              "nom": "Pizza 4 fromages apéritif",
+              "code": "3222475393822",
+              "nom": "Pizza 3 Fromages",
               "lettre": "C′",
               "decalages": [
-                "b3 fruits, légumes et légumineuses 20 → 21.0 : C′ → D′"
-              ]
-            },
-            {
-              "code": "3258561471310",
-              "nom": "Pizza Fromage 180G. Bf,",
-              "lettre": "C′",
-              "decalages": [
-                "b3 groupe NOVA 4 → 3 : C′ → D′"
+                "b3 énergie 1005 → 954.75 : C′ → D′"
               ]
             },
             {
               "code": "3560070258635",
               "nom": "Pizza Mozzarella",
-              "lettre": "C′",
+              "lettre": "D′",
               "decalages": [
-                "b3 groupe NOVA 4 → 3 : C′ → D′"
+                "b3 énergie 1005 → 1055.25 : D′ → C′"
               ]
             },
             {
               "code": "3250391777808",
               "nom": "Pizza Saumon Fumé",
-              "lettre": "C′",
-              "decalages": [
-                "b3 groupe NOVA 4 → 3 : C′ → D′"
-              ]
-            },
-            {
-              "code": "3596710259953",
-              "nom": "Quenelles à la lyonnaise nature, au beurre",
-              "lettre": "C′",
-              "decalages": [
-                "b3 énergie 1005 → 954.75 : C′ → D′",
-                "b3 groupe NOVA 4 → 3 : C′ → D′"
-              ]
-            },
-            {
-              "code": "8001420005820",
-              "nom": "Risotto Ai Quattro Formaggi Gallo 175 G.",
               "lettre": "D′",
               "decalages": [
-                "b2 fibres 1 → 1.05 : D′ → E′"
+                "b3 énergie 1005 → 1055.25 : D′ → C′"
               ]
             },
             {
-              "code": "3560070852833",
-              "nom": "Tarte fine Champignons & Fromages",
-              "lettre": "C′",
-              "decalages": [
-                "b3 énergie 1005 → 954.75 : C′ → D′",
-                "b3 groupe NOVA 4 → 3 : C′ → D′"
-              ]
-            },
-            {
-              "code": "3256220666435",
-              "nom": "Fajita Kit 505g",
+              "code": "3266191060392",
+              "nom": "Girasoli chèvre miel noix",
               "lettre": "D′",
               "decalages": [
-                "b3 fibres 2 → 1.9 : D′ → C′"
-              ]
-            },
-            {
-              "code": "3325420020153",
-              "nom": "Friand Strasbourg",
-              "lettre": "E′",
-              "decalages": [
-                "b2 additifs à risque 2 → 3 : E′ → D′"
-              ]
-            },
-            {
-              "code": "7231326087878",
-              "nom": "Magret de Canard du Sud-Ouest Fumé",
-              "lettre": "D′",
-              "decalages": [
-                "b2 fibres 1 → 1.05 : D′ → E′"
-              ]
-            },
-            {
-              "code": "3245390021212",
-              "nom": "Magret de Canard du Sud-Ouest FUMÉ AU BOIS DE HÊTRE",
-              "lettre": "D′",
-              "decalages": [
-                "b2 fibres 1 → 1.05 : D′ → E′"
+                "b2 sel 1.4 → 1.33 : D′ → E′"
               ]
             }
           ],
-          "part": 0.392,
-          "platsComposantes": 22,
-          "platsEntiers": 34
+          "part": 0.328,
+          "platsComposantes": 18,
+          "platsEntiers": 31
         },
         "auBord": [
           {
@@ -6840,160 +6780,160 @@
               "critere": "en",
               "delta": 0.05,
               "poids": 0.1227,
-              "plats": 34,
-              "part": 0.09066666666666667
+              "plats": 16,
+              "part": 0.042666666666666665
             },
             {
               "critere": "en",
               "delta": -0.05,
               "poids": 0.0227,
-              "plats": 39,
-              "part": 0.104
+              "plats": 27,
+              "part": 0.072
             },
             {
               "critere": "sa",
               "delta": 0.05,
               "poids": 0.1227,
-              "plats": 30,
-              "part": 0.08
+              "plats": 23,
+              "part": 0.06133333333333333
             },
             {
               "critere": "sa",
               "delta": -0.05,
               "poids": 0.0227,
-              "plats": 45,
-              "part": 0.12
+              "plats": 24,
+              "part": 0.064
             },
             {
               "critere": "su",
               "delta": 0.05,
               "poids": 0.1591,
-              "plats": 29,
-              "part": 0.07733333333333334
+              "plats": 6,
+              "part": 0.016
             },
             {
               "critere": "su",
               "delta": -0.05,
               "poids": 0.0591,
-              "plats": 37,
-              "part": 0.09866666666666667
+              "plats": 32,
+              "part": 0.08533333333333333
             },
             {
               "critere": "so",
               "delta": 0.05,
               "poids": 0.1955,
-              "plats": 26,
-              "part": 0.06933333333333333
+              "plats": 36,
+              "part": 0.096
             },
             {
               "critere": "so",
               "delta": -0.05,
               "poids": 0.0955,
-              "plats": 49,
-              "part": 0.13066666666666665
+              "plats": 28,
+              "part": 0.07466666666666667
             },
             {
               "critere": "pr",
               "delta": 0.05,
               "poids": 0.1735,
-              "plats": 66,
-              "part": 0.176
+              "plats": 74,
+              "part": 0.19733333333333333
             },
             {
               "critere": "pr",
               "delta": -0.05,
               "poids": 0.0735,
-              "plats": 25,
-              "part": 0.06666666666666667
+              "plats": 17,
+              "part": 0.04533333333333334
             },
             {
               "critere": "fi",
               "delta": 0.05,
               "poids": 0.1382,
-              "plats": 51,
-              "part": 0.136
+              "plats": 46,
+              "part": 0.12266666666666666
             },
             {
               "critere": "fi",
               "delta": -0.05,
               "poids": 0.0382,
-              "plats": 51,
-              "part": 0.136
+              "plats": 16,
+              "part": 0.042666666666666665
             },
             {
               "critere": "fr",
               "delta": 0.05,
               "poids": 0.1382,
-              "plats": 32,
-              "part": 0.08533333333333333
+              "plats": 31,
+              "part": 0.08266666666666667
             },
             {
               "critere": "fr",
               "delta": -0.05,
               "poids": 0.0382,
-              "plats": 53,
-              "part": 0.14133333333333334
+              "plats": 16,
+              "part": 0.042666666666666665
             },
             {
               "critere": "nova",
               "delta": 0.05,
               "poids": 0.15,
-              "plats": 31,
-              "part": 0.08266666666666667
+              "plats": 17,
+              "part": 0.04533333333333334
             },
             {
               "critere": "nova",
               "delta": -0.05,
               "poids": 0.05,
-              "plats": 42,
-              "part": 0.112
+              "plats": 30,
+              "part": 0.08
             },
             {
               "critere": "additifs",
               "delta": 0.05,
               "poids": 0.125,
-              "plats": 32,
-              "part": 0.08533333333333333
+              "plats": 16,
+              "part": 0.042666666666666665
             },
             {
               "critere": "additifs",
               "delta": -0.05,
               "poids": 0.025,
-              "plats": 37,
-              "part": 0.09866666666666667
+              "plats": 23,
+              "part": 0.06133333333333333
             },
             {
               "critere": "aRisque",
               "delta": 0.05,
               "poids": 0.125,
-              "plats": 28,
-              "part": 0.07466666666666667
+              "plats": 14,
+              "part": 0.037333333333333336
             },
             {
               "critere": "aRisque",
               "delta": -0.05,
               "poids": 0.025,
-              "plats": 37,
-              "part": 0.09866666666666667
+              "plats": 22,
+              "part": 0.058666666666666666
             },
             {
               "critere": "bio",
               "delta": 0.05,
               "poids": 0.1,
-              "plats": 54,
-              "part": 0.144
+              "plats": 40,
+              "part": 0.10666666666666667
             },
             {
               "critere": "bio",
               "delta": -0.05,
               "poids": 0.0,
-              "plats": 37,
-              "part": 0.09866666666666667
+              "plats": 22,
+              "part": 0.058666666666666666
             }
           ],
           "tirages": 1000,
-          "partMoyenne": 0.140928,
-          "partMax": 0.2826666666666667,
+          "partMoyenne": 0.11514133333333333,
+          "partMax": 0.272,
           "platsSensibles": [
             {
               "code": "3760247832143",
@@ -7060,18 +7000,18 @@
         "courbe": [
           {
             "amplitude": 0.01,
-            "partMoyenne": 0.04926133333333333,
-            "partMax": 0.11466666666666667
+            "partMoyenne": 0.03483733333333333,
+            "partMax": 0.07733333333333334
           },
           {
             "amplitude": 0.02,
-            "partMoyenne": 0.073224,
-            "partMax": 0.184
+            "partMoyenne": 0.047626666666666664,
+            "partMax": 0.16533333333333333
           },
           {
             "amplitude": 0.05,
-            "partMoyenne": 0.140928,
-            "partMax": 0.2826666666666667
+            "partMoyenne": 0.11514133333333333,
+            "partMax": 0.272
           }
         ],
         "profils": {
@@ -7083,16 +7023,20 @@
               "critere": "en",
               "ancienne": 1340,
               "nouvelle": 1407.0,
-              "plats": 0,
-              "codes": []
+              "plats": 1,
+              "codes": [
+                "8006669008113"
+              ]
             },
             {
               "profil": "b2",
               "critere": "en",
               "ancienne": 1340,
               "nouvelle": 1273.0,
-              "plats": 0,
-              "codes": []
+              "plats": 1,
+              "codes": [
+                "3276770009889"
+              ]
             },
             {
               "profil": "b2",
@@ -7141,9 +7085,11 @@
               "critere": "so",
               "ancienne": 1.4,
               "nouvelle": 1.33,
-              "plats": 1,
+              "plats": 3,
               "codes": [
-                "3256227741234"
+                "3266191060392",
+                "3560071506827",
+                "3245412730108"
               ]
             },
             {
@@ -7167,14 +7113,8 @@
               "critere": "fi",
               "ancienne": 1,
               "nouvelle": 1.05,
-              "plats": 5,
-              "codes": [
-                "8001420005820",
-                "7231326087878",
-                "3245390021212",
-                "3560070504527",
-                "8934563283148"
-              ]
+              "plats": 0,
+              "codes": []
             },
             {
               "profil": "b2",
@@ -7189,19 +7129,19 @@
               "critere": "additifs",
               "ancienne": 5,
               "nouvelle": 6,
-              "plats": 1,
-              "codes": [
-                "0851683004454"
-              ]
+              "plats": 0,
+              "codes": []
             },
             {
               "profil": "b2",
               "critere": "additifs",
               "ancienne": 5,
               "nouvelle": 4,
-              "plats": 1,
+              "plats": 3,
               "codes": [
-                "3178538007000"
+                "3011250018599",
+                "3599740008379",
+                "3560071190705"
               ]
             },
             {
@@ -7209,9 +7149,8 @@
               "critere": "aRisque",
               "ancienne": 2,
               "nouvelle": 3,
-              "plats": 2,
+              "plats": 1,
               "codes": [
-                "3325420020153",
                 "3596710747542"
               ]
             },
@@ -7220,8 +7159,11 @@
               "critere": "aRisque",
               "ancienne": 2,
               "nouvelle": 1,
-              "plats": 0,
-              "codes": []
+              "plats": 2,
+              "codes": [
+                "3011250018599",
+                "3276770009889"
+              ]
             },
             {
               "profil": "b3",
@@ -7230,11 +7172,11 @@
               "nouvelle": 1055.25,
               "plats": 5,
               "codes": [
-                "3596710457236",
-                "3701192502064",
-                "3270190202790",
+                "3560070258635",
+                "3250391777808",
                 "2000000118457",
-                "3222477592681"
+                "3289475001232",
+                "6133012000318"
               ]
             },
             {
@@ -7244,11 +7186,11 @@
               "nouvelle": 954.75,
               "plats": 5,
               "codes": [
-                "3596710259953",
-                "3560070852833",
-                "00449458",
-                "3596710462070",
-                "3248830000617"
+                "3560070602735",
+                "3560070822508",
+                "3222475393822",
+                "3560070124817",
+                "3292590837501"
               ]
             },
             {
@@ -7256,10 +7198,9 @@
               "critere": "sa",
               "ancienne": 5,
               "nouvelle": 5.25,
-              "plats": 2,
+              "plats": 1,
               "codes": [
-                "3560070478965",
-                "20057602"
+                "3560070478965"
               ]
             },
             {
@@ -7267,8 +7208,12 @@
               "critere": "sa",
               "ancienne": 5,
               "nouvelle": 4.75,
-              "plats": 0,
-              "codes": []
+              "plats": 3,
+              "codes": [
+                "3560070822508",
+                "3240931546469",
+                "3560070124817"
+              ]
             },
             {
               "profil": "b3",
@@ -7301,7 +7246,7 @@
               "critere": "so",
               "ancienne": 1.0,
               "nouvelle": 0.95,
-              "plats": 9,
+              "plats": 8,
               "codes": [
                 "4005496224066",
                 "3700260001836",
@@ -7310,8 +7255,7 @@
                 "3240931542119",
                 "3240931539546",
                 "3240931539539",
-                "4000915107715",
-                "3289475001232"
+                "4000915107715"
               ]
             },
             {
@@ -7337,21 +7281,17 @@
               "critere": "fi",
               "ancienne": 2,
               "nouvelle": 2.1,
-              "plats": 2,
-              "codes": [
-                "3270160892846",
-                "3368954060318"
-              ]
+              "plats": 0,
+              "codes": []
             },
             {
               "profil": "b3",
               "critere": "fi",
               "ancienne": 2,
               "nouvelle": 1.9,
-              "plats": 2,
+              "plats": 1,
               "codes": [
-                "7613033139642",
-                "3256220666435"
+                "00449458"
               ]
             },
             {
@@ -7359,27 +7299,23 @@
               "critere": "fr",
               "ancienne": 20,
               "nouvelle": 21.0,
-              "plats": 1,
-              "codes": [
-                "3287390083326"
-              ]
+              "plats": 0,
+              "codes": []
             },
             {
               "profil": "b3",
               "critere": "fr",
               "ancienne": 20,
               "nouvelle": 19.0,
-              "plats": 1,
-              "codes": [
-                "3222477592681"
-              ]
+              "plats": 0,
+              "codes": []
             },
             {
               "profil": "b3",
               "critere": "nova",
               "ancienne": 4,
               "nouvelle": 3,
-              "plats": 60,
+              "plats": 52,
               "codes": [
                 "3760054095618",
                 "3596710025305",
@@ -7391,18 +7327,15 @@
                 "3274935011654",
                 "3254566706075",
                 "3263850566219",
+                "3560070602735",
                 "3256225739783",
                 "3256225054350",
+                "3560070822508",
                 "3368951768996",
                 "3256225718191",
                 "3245414207875",
                 "3760132082561",
-                "3240931546247",
-                "3258561471310",
-                "3560070258635",
-                "3250391777808",
-                "3596710259953",
-                "3560070852833",
+                "3240931546469",
                 "3254560171831",
                 "8431876012347",
                 "3270160752331",
@@ -7431,16 +7364,11 @@
                 "3250391504220",
                 "3560070823796",
                 "3596710383184",
-                "3301091900062",
-                "3240931545370",
-                "3153571017223",
-                "00449458",
-                "3289475001232",
-                "3596710462070",
-                "3700966554933",
-                "3564700845271",
-                "6133012000318",
-                "3368954060318"
+                "3270160890200",
+                "3560070124817",
+                "3292590837501",
+                "3292590818531",
+                "3270160890149"
               ]
             },
             {
@@ -7448,13 +7376,11 @@
               "critere": "additifs",
               "ancienne": 3,
               "nouvelle": 4,
-              "plats": 5,
+              "plats": 3,
               "codes": [
                 "3560070847266",
                 "3560070478965",
-                "3560070847297",
-                "3282740200101",
-                "3256227549670"
+                "3560070847297"
               ]
             },
             {
@@ -7462,11 +7388,13 @@
               "critere": "additifs",
               "ancienne": 3,
               "nouvelle": 2,
-              "plats": 3,
+              "plats": 5,
               "codes": [
+                "3560070602735",
                 "20902995",
                 "3245390181954",
-                "3596710462070"
+                "3292590837501",
+                "3270160890149"
               ]
             },
             {
@@ -7482,7 +7410,7 @@
               "critere": "aRisque",
               "ancienne": 1,
               "nouvelle": 0,
-              "plats": 9,
+              "plats": 10,
               "codes": [
                 "3596710025305",
                 "01425587",
@@ -7491,8 +7419,9 @@
                 "3564709166681",
                 "3245390181954",
                 "3180071003067",
-                "3596710462070",
-                "3564700845271"
+                "3292590837501",
+                "3292590818531",
+                "3270160890149"
               ]
             },
             {
@@ -8033,6 +7962,16 @@
               ]
             },
             {
+              "code": "3560070602735",
+              "nom": "Grands Ravioli Cèpes",
+              "lettre": "C′",
+              "decalages": [
+                "b3 énergie 1005 → 954.75 : C′ → D′",
+                "b3 groupe NOVA 4 → 3 : C′ → D′",
+                "b3 nombre d'additifs 3 → 2 : C′ → D′"
+              ]
+            },
+            {
               "code": "3560070478965",
               "nom": "Les Bons Petits Plats - Gratin de Macaroni au jambon cuit à l'emmental râpé",
               "lettre": "D′",
@@ -8058,19 +7997,21 @@
               ]
             },
             {
+              "code": "3560070822508",
+              "nom": "Pizza 4 Fromages",
+              "lettre": "C′",
+              "decalages": [
+                "b3 énergie 1005 → 954.75 : C′ → D′",
+                "b3 acides gras saturés 5 → 4.75 : C′ → D′",
+                "b3 groupe NOVA 4 → 3 : C′ → D′"
+              ]
+            },
+            {
               "code": "3368951768996",
               "nom": "Préparation pour aligot d'Aveyron, 3/4 parts, sachet de 185g",
               "lettre": "C′",
               "decalages": [
                 "b3 groupe NOVA 4 → 3 : C′ → D′"
-              ]
-            },
-            {
-              "code": "7613033139642",
-              "nom": "Regina",
-              "lettre": "D′",
-              "decalages": [
-                "b3 fibres 2 → 1.9 : D′ → C′"
               ]
             },
             {
@@ -8107,11 +8048,12 @@
               ]
             },
             {
-              "code": "3596710457236",
-              "nom": "Girasole tomate mozzarella",
+              "code": "3011250018599",
+              "nom": "Crousty croc fromage",
               "lettre": "D′",
               "decalages": [
-                "b3 énergie 1005 → 1055.25 : D′ → C′"
+                "b2 nombre d'additifs 5 → 4 : D′ → E′",
+                "b2 additifs à risque 2 → 1 : D′ → E′"
               ]
             },
             {
@@ -8119,121 +8061,49 @@
               "nom": "Girasoli carbonara",
               "lettre": "C′",
               "decalages": [
-                "b3 sel 1.0 → 0.95 : C′ → D′"
-              ]
-            },
-            {
-              "code": "3701192502064",
-              "nom": "L'originale Napoletana",
-              "lettre": "D′",
-              "decalages": [
-                "b3 énergie 1005 → 1055.25 : D′ → C′"
-              ]
-            },
-            {
-              "code": "3240931546247",
-              "nom": "Lustucru ravioli tomate emmental 300g",
-              "lettre": "C′",
-              "decalages": [
+                "b3 acides gras saturés 5 → 4.75 : C′ → D′",
+                "b3 sel 1.0 → 0.95 : C′ → D′",
                 "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
-              "code": "3270190202790",
-              "nom": "Paniers feuilletés Noix de Saint-Jacques*",
-              "lettre": "D′",
+              "code": "8006669008113",
+              "nom": "Medaglioni Speck e Brie",
+              "lettre": "E′",
               "decalages": [
-                "b3 énergie 1005 → 1055.25 : D′ → C′"
+                "b2 énergie 1340 → 1407.0 : E′ → D′"
               ]
             },
             {
-              "code": "3287390083326",
-              "nom": "Pizza 4 fromages apéritif",
+              "code": "3222475393822",
+              "nom": "Pizza 3 Fromages",
               "lettre": "C′",
               "decalages": [
-                "b3 fruits, légumes et légumineuses 20 → 21.0 : C′ → D′"
-              ]
-            },
-            {
-              "code": "3258561471310",
-              "nom": "Pizza Fromage 180G. Bf,",
-              "lettre": "C′",
-              "decalages": [
-                "b3 groupe NOVA 4 → 3 : C′ → D′"
+                "b3 énergie 1005 → 954.75 : C′ → D′"
               ]
             },
             {
               "code": "3560070258635",
               "nom": "Pizza Mozzarella",
-              "lettre": "C′",
+              "lettre": "D′",
               "decalages": [
-                "b3 groupe NOVA 4 → 3 : C′ → D′"
+                "b3 énergie 1005 → 1055.25 : D′ → C′"
               ]
             },
             {
               "code": "3250391777808",
               "nom": "Pizza Saumon Fumé",
-              "lettre": "C′",
-              "decalages": [
-                "b3 groupe NOVA 4 → 3 : C′ → D′"
-              ]
-            },
-            {
-              "code": "3596710259953",
-              "nom": "Quenelles à la lyonnaise nature, au beurre",
-              "lettre": "C′",
-              "decalages": [
-                "b3 énergie 1005 → 954.75 : C′ → D′",
-                "b3 groupe NOVA 4 → 3 : C′ → D′"
-              ]
-            },
-            {
-              "code": "8001420005820",
-              "nom": "Risotto Ai Quattro Formaggi Gallo 175 G.",
               "lettre": "D′",
               "decalages": [
-                "b2 fibres 1 → 1.05 : D′ → E′"
+                "b3 énergie 1005 → 1055.25 : D′ → C′"
               ]
             },
             {
-              "code": "3560070852833",
-              "nom": "Tarte fine Champignons & Fromages",
-              "lettre": "C′",
-              "decalages": [
-                "b3 énergie 1005 → 954.75 : C′ → D′",
-                "b3 groupe NOVA 4 → 3 : C′ → D′"
-              ]
-            },
-            {
-              "code": "3256220666435",
-              "nom": "Fajita Kit 505g",
+              "code": "3266191060392",
+              "nom": "Girasoli chèvre miel noix",
               "lettre": "D′",
               "decalages": [
-                "b3 fibres 2 → 1.9 : D′ → C′"
-              ]
-            },
-            {
-              "code": "3325420020153",
-              "nom": "Friand Strasbourg",
-              "lettre": "E′",
-              "decalages": [
-                "b2 additifs à risque 2 → 3 : E′ → D′"
-              ]
-            },
-            {
-              "code": "7231326087878",
-              "nom": "Magret de Canard du Sud-Ouest Fumé",
-              "lettre": "D′",
-              "decalages": [
-                "b2 fibres 1 → 1.05 : D′ → E′"
-              ]
-            },
-            {
-              "code": "3245390021212",
-              "nom": "Magret de Canard du Sud-Ouest FUMÉ AU BOIS DE HÊTRE",
-              "lettre": "D′",
-              "decalages": [
-                "b2 fibres 1 → 1.05 : D′ → E′"
+                "b2 sel 1.4 → 1.33 : D′ → E′"
               ]
             },
             {
@@ -8750,66 +8620,43 @@
               ]
             },
             {
-              "code": "3282740200101",
-              "nom": "2 Feuilletés Saint-Jacques",
-              "lettre": "D′",
-              "decalages": [
-                "b3 nombre d'additifs 3 → 4 : D′ → C′"
-              ]
-            },
-            {
-              "code": "3301091900062",
-              "nom": "Délice au Saumon & Épinard",
+              "code": "3270160890200",
+              "nom": "2 Tourtes Courgette, Fromage de Brebis, Tomate",
               "lettre": "C′",
               "decalages": [
                 "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
-              "code": "3240931545370",
-              "nom": "Girasoli legumes du soleil 250g lustucru",
-              "lettre": "C′",
-              "decalages": [
-                "b3 groupe NOVA 4 → 3 : C′ → D′"
-              ]
-            },
-            {
-              "code": "3153571017223",
-              "nom": "Les Quenelles de l'Atelier Brochet Sauvage",
-              "lettre": "C′",
-              "decalages": [
-                "b3 groupe NOVA 4 → 3 : C′ → D′"
-              ]
-            },
-            {
-              "code": "00449458",
-              "nom": "Mozzarella roasted tomato and basil girasoli",
+              "code": "3560070124817",
+              "nom": "5 fromaggi",
               "lettre": "C′",
               "decalages": [
                 "b3 énergie 1005 → 954.75 : C′ → D′",
+                "b3 acides gras saturés 5 → 4.75 : C′ → D′",
                 "b3 groupe NOVA 4 → 3 : C′ → D′"
               ]
             },
             {
-              "code": "3289475001232",
-              "nom": "Panier feuilleté fromage La Vache Qui Rit et petits légumes, 4",
-              "lettre": "C′",
+              "code": "3599740008379",
+              "nom": "Appizzi",
+              "lettre": "D′",
               "decalages": [
-                "b3 sel 1.0 → 0.95 : C′ → D′",
-                "b3 groupe NOVA 4 → 3 : C′ → D′"
+                "b2 nombre d'additifs 5 → 4 : D′ → E′"
               ]
             },
             {
-              "code": "3270160892846",
-              "nom": "Pithiviers - Pintade, farce aux champignons, dinde, bloc de foie gras de canard et épinards",
-              "lettre": "C′",
+              "code": "3276770009889",
+              "nom": "Cake à l'Andouille",
+              "lettre": "D′",
               "decalages": [
-                "b3 fibres 2 → 2.1 : C′ → D′"
+                "b2 énergie 1340 → 1273.0 : D′ → E′",
+                "b2 additifs à risque 2 → 1 : D′ → E′"
               ]
             },
             {
-              "code": "3596710462070",
-              "nom": "Pizza chèvre lardons",
+              "code": "3292590837501",
+              "nom": "Girasoli aux champignons de paris et cèpes",
               "lettre": "C′",
               "decalages": [
                 "b3 énergie 1005 → 954.75 : C′ → D′",
@@ -8819,65 +8666,16 @@
               ]
             },
             {
-              "code": "3222477592681",
-              "nom": "Pizza chèvre lardons tomates mi-séchées",
+              "code": "00449458",
+              "nom": "Mozzarella roasted tomato and basil girasoli",
               "lettre": "D′",
               "decalages": [
-                "b3 énergie 1005 → 1055.25 : D′ → C′",
-                "b3 fruits, légumes et légumineuses 20 → 19.0 : D′ → C′"
+                "b3 fibres 2 → 1.9 : D′ → C′"
               ]
             },
             {
-              "code": "3248830000617",
-              "nom": "Tarte Chèvre Epinards Pur Beurre",
-              "lettre": "C′",
-              "decalages": [
-                "b3 énergie 1005 → 954.75 : C′ → D′"
-              ]
-            },
-            {
-              "code": "3700966554933",
-              "nom": "Tartinable fromager thon",
-              "lettre": "C′",
-              "decalages": [
-                "b3 groupe NOVA 4 → 3 : C′ → D′"
-              ]
-            },
-            {
-              "code": "3178538007000",
-              "nom": "8 Crêpes au Chocolat",
-              "lettre": "D′",
-              "decalages": [
-                "b2 nombre d'additifs 5 → 4 : D′ → E′"
-              ]
-            },
-            {
-              "code": "3560070504527",
-              "nom": "Bouchées Apéritives au Lard Fumé Emmental",
-              "lettre": "D′",
-              "decalages": [
-                "b2 fibres 1 → 1.05 : D′ → E′"
-              ]
-            },
-            {
-              "code": "20057602",
-              "nom": "Crêpes chocolat",
-              "lettre": "D′",
-              "decalages": [
-                "b3 acides gras saturés 5 → 5.25 : D′ → C′"
-              ]
-            },
-            {
-              "code": "3256227741234",
-              "nom": "Effiloché de viande de canard cuite assisonnée sous vide",
-              "lettre": "D′",
-              "decalages": [
-                "b2 sel 1.4 → 1.33 : D′ → E′"
-              ]
-            },
-            {
-              "code": "3564700845271",
-              "nom": "Kit pour crunchy fajitas",
+              "code": "3292590818531",
+              "nom": "Opéra aux légumes du soleil",
               "lettre": "C′",
               "decalages": [
                 "b3 groupe NOVA 4 → 3 : C′ → D′",
@@ -8885,50 +8683,59 @@
               ]
             },
             {
+              "code": "3289475001232",
+              "nom": "Panier feuilleté fromage La Vache Qui Rit et petits légumes, 4",
+              "lettre": "D′",
+              "decalages": [
+                "b3 énergie 1005 → 1055.25 : D′ → C′"
+              ]
+            },
+            {
+              "code": "3270160890149",
+              "nom": "Pizza Diavola",
+              "lettre": "C′",
+              "decalages": [
+                "b3 groupe NOVA 4 → 3 : C′ → D′",
+                "b3 nombre d'additifs 3 → 2 : C′ → D′",
+                "b3 additifs à risque 1 → 0 : C′ → D′"
+              ]
+            },
+            {
+              "code": "3560071506827",
+              "nom": "2 CROUSTILLANTS Chèvre, confit de Figue",
+              "lettre": "D′",
+              "decalages": [
+                "b2 sel 1.4 → 1.33 : D′ → E′"
+              ]
+            },
+            {
+              "code": "3560071190705",
+              "nom": "8 Mini Religieuses salées apéritives",
+              "lettre": "D′",
+              "decalages": [
+                "b2 nombre d'additifs 5 → 4 : D′ → E′"
+              ]
+            },
+            {
+              "code": "3245412730108",
+              "nom": "Feuilletés tressés CHAMPIGNONS POULET",
+              "lettre": "D′",
+              "decalages": [
+                "b2 sel 1.4 → 1.33 : D′ → E′"
+              ]
+            },
+            {
               "code": "6133012000318",
               "nom": "Marinade poulet",
-              "lettre": "C′",
-              "decalages": [
-                "b3 groupe NOVA 4 → 3 : C′ → D′"
-              ]
-            },
-            {
-              "code": "3368954060318",
-              "nom": "Mini préfou pain apéritif tranché beurre et ail Saveurs",
-              "lettre": "C′",
-              "decalages": [
-                "b3 fibres 2 → 2.1 : C′ → D′",
-                "b3 groupe NOVA 4 → 3 : C′ → D′"
-              ]
-            },
-            {
-              "code": "8934563283148",
-              "nom": "Saigon Phỏ saveur Bœuf",
               "lettre": "D′",
               "decalages": [
-                "b2 fibres 1 → 1.05 : D′ → E′"
-              ]
-            },
-            {
-              "code": "3256227549670",
-              "nom": "Salade addict saumon fumé mini blini tzatziki sauce au vinaigre balsamique",
-              "lettre": "D′",
-              "decalages": [
-                "b3 nombre d'additifs 3 → 4 : D′ → C′"
-              ]
-            },
-            {
-              "code": "0851683004454",
-              "nom": "Vermicelle d'haricot à l'arôme de champignons shiitake",
-              "lettre": "E′",
-              "decalages": [
-                "b2 nombre d'additifs 5 → 6 : E′ → D′"
+                "b3 énergie 1005 → 1055.25 : D′ → C′"
               ]
             }
           ],
-          "part": 0.352,
-          "platsComposantes": 50,
-          "platsEntiers": 100
+          "part": 0.30933333333333335,
+          "platsComposantes": 43,
+          "platsEntiers": 91
         },
         "auBord": [
           {
@@ -9068,15 +8875,15 @@
       "repartition": {
         "A′": 4,
         "B′": 14,
-        "C′": 60,
-        "D′": 37,
-        "E′": 10
+        "C′": 53,
+        "D′": 27,
+        "E′": 27
       },
       "comparaison": {
         "total": 125,
-        "bienRanges": 52,
-        "exactitude": 0.416,
-        "exactitudeEquilibree": 0.416,
+        "bienRanges": 70,
+        "exactitude": 0.56,
+        "exactitudeEquilibree": 0.56,
         "aUneClassePres": 0.904,
         "matrice": [
           [
@@ -9103,16 +8910,16 @@
           [
             0,
             0,
-            9,
-            15,
-            1
+            2,
+            19,
+            4
           ],
           [
             0,
             0,
             0,
-            16,
-            9
+            2,
+            23
           ]
         ]
       },
@@ -10235,9 +10042,9 @@
           "classe": 2,
           "lettre": "C′",
           "concordances": [
-            1.0,
-            0.8545,
-            0.3959,
+            0.8765,
+            0.731,
+            0.2723,
             0.1841
           ],
           "ecart": 0,
@@ -10349,10 +10156,10 @@
           "classe": 2,
           "lettre": "C′",
           "concordances": [
-            1.0,
-            0.8545,
-            0.4709,
-            0.3826
+            0.8765,
+            0.731,
+            0.3473,
+            0.2591
           ],
           "ecart": 0,
           "rates": []
@@ -10424,14 +10231,15 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.6163,
-            0.3209,
+            0.8765,
+            0.4928,
+            0.1973,
             0.1973
           ],
           "ecart": -1,
           "rates": [
             "so",
+            "pr",
             "fi",
             "additifs",
             "aRisque"
@@ -10539,10 +10347,10 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.6163,
-            0.2326,
-            0.2326
+            0.731,
+            0.4928,
+            0.1091,
+            0.1091
           ],
           "ecart": 0,
           "rates": []
@@ -10569,8 +10377,8 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.6053,
+            0.8765,
+            0.4818,
             0.1841,
             0.1841
           ],
@@ -10584,9 +10392,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.6936,
-            0.3826,
+            0.731,
+            0.5701,
+            0.2591,
             0.1841
           ],
           "ecart": 0,
@@ -10599,14 +10407,15 @@
           "classe": 2,
           "lettre": "C′",
           "concordances": [
-            1.0,
-            0.839,
-            0.3076,
+            0.8765,
+            0.7155,
+            0.1841,
             0.075
           ],
           "ecart": 1,
           "rates": [
             "en",
+            "pr",
             "fr"
           ]
         },
@@ -10617,9 +10426,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.6936,
-            0.4076,
+            0.731,
+            0.5701,
+            0.2841,
             0.2841
           ],
           "ecart": 0,
@@ -10629,35 +10438,35 @@
           "code": "3240931546247",
           "nom": "Lustucru ravioli tomate emmental 300g",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            1.0,
-            0.7508,
-            0.2735,
+            0.8765,
+            0.6273,
+            0.15,
             0.15
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "fi",
-            "fr"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "8006669008113",
           "nom": "Medaglioni Speck e Brie",
           "label": "D",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7818,
-            0.6936,
-            0.4709,
-            0.2735
+            0.6583,
+            0.5701,
+            0.3473,
+            0.15
           ],
-          "ecart": 0,
-          "rates": []
+          "ecart": -1,
+          "rates": [
+            "en",
+            "so",
+            "pr"
+          ]
         },
         {
           "code": "3270190202790",
@@ -10666,9 +10475,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.839,
-            0.6781,
-            0.3826,
+            0.7155,
+            0.5545,
+            0.2591,
             0.1841
           ],
           "ecart": 0,
@@ -10681,33 +10490,31 @@
           "classe": 2,
           "lettre": "C′",
           "concordances": [
-            1.0,
-            0.8545,
-            0.5326,
+            0.8765,
+            0.731,
+            0.4091,
             0.4091
           ],
           "ecart": 1,
           "rates": [
-            "so"
+            "so",
+            "pr"
           ]
         },
         {
           "code": "3287390083326",
           "nom": "Pizza 4 fromages apéritif",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            1.0,
-            0.7818,
-            0.4826,
+            0.8765,
+            0.6583,
+            0.3591,
             0.2841
           ],
-          "ecart": 1,
-          "rates": [
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "8059070744682",
@@ -10716,10 +10523,10 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.5326,
-            0.4076,
-            0.4076
+            0.731,
+            0.4091,
+            0.2841,
+            0.2841
           ],
           "ecart": 0,
           "rates": []
@@ -10728,71 +10535,65 @@
           "code": "3258561471310",
           "nom": "Pizza Fromage 180G. Bf,",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
-          "concordances": [
-            1.0,
-            0.7068,
-            0.3959,
-            0.3076
-          ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "so",
-            "additifs"
-          ]
-        },
-        {
-          "code": "0219236036084",
-          "nom": "Pizza jambon fromage",
-          "label": "D",
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.7663,
-            0.5303,
-            0.2326,
-            0.2326
+            0.8765,
+            0.5833,
+            0.2723,
+            0.1841
           ],
           "ecart": 0,
           "rates": []
         },
         {
+          "code": "0219236036084",
+          "nom": "Pizza jambon fromage",
+          "label": "D",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6428,
+            0.4068,
+            0.1091,
+            0.1091
+          ],
+          "ecart": -1,
+          "rates": [
+            "so",
+            "pr",
+            "fi"
+          ]
+        },
+        {
           "code": "3560070258635",
           "nom": "Pizza Mozzarella",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            1.0,
-            0.7818,
-            0.4709,
+            0.8765,
+            0.6583,
+            0.3473,
             0.2591
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3250391777808",
           "nom": "Pizza Saumon Fumé",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            1.0,
-            0.7818,
-            0.3076,
+            0.8765,
+            0.6583,
+            0.1841,
             0.0
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3270160875528",
@@ -10816,8 +10617,8 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.6186,
+            0.731,
+            0.4951,
             0.1818,
             0.1818
           ],
@@ -10831,7 +10632,7 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
+            0.8765,
             0.6583,
             0.2568,
             0.1841
@@ -10843,20 +10644,16 @@
           "code": "3596710259953",
           "nom": "Quenelles à la lyonnaise nature, au beurre",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            0.839,
-            0.7508,
+            0.7155,
+            0.6273,
             0.2591,
             0.2591
           ],
-          "ecart": 1,
-          "rates": [
-            "sa",
-            "fi",
-            "fr"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3560071170370",
@@ -10865,9 +10662,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.6936,
-            0.3826,
+            0.8765,
+            0.5701,
+            0.2591,
             0.2591
           ],
           "ecart": 0,
@@ -10877,35 +10674,35 @@
           "code": "8001420005820",
           "nom": "Risotto Ai Quattro Formaggi Gallo 175 G.",
           "label": "D",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7818,
-            0.6053,
-            0.4553,
+            0.6583,
+            0.4818,
+            0.3318,
             0.2591
           ],
-          "ecart": 0,
-          "rates": []
+          "ecart": -1,
+          "rates": [
+            "en",
+            "so",
+            "pr"
+          ]
         },
         {
           "code": "3560070852833",
           "nom": "Tarte fine Champignons & Fromages",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            1.0,
-            0.7508,
-            0.3076,
+            0.8765,
+            0.6273,
+            0.1841,
             0.1841
           ],
-          "ecart": 1,
-          "rates": [
-            "sa",
-            "fi",
-            "fr"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3245413922830",
@@ -10914,8 +10711,8 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.6936,
+            0.8765,
+            0.5701,
             0.2591,
             0.1841
           ],
@@ -10929,14 +10726,15 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6913,
-            0.5303,
-            0.3053,
+            0.5678,
+            0.4068,
+            0.1818,
             0.1091
           ],
           "ecart": -1,
           "rates": [
             "so",
+            "pr",
             "fi",
             "additifs"
           ]
@@ -10945,57 +10743,46 @@
           "code": "3261089225532",
           "nom": "24 escargots de Bourgogne à la bourguignonne",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7091,
-            0.5326,
-            0.4826,
+            0.5856,
+            0.4091,
+            0.3591,
             0.3591
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3178530410082",
           "nom": "6 Crêpes Bretonnes",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7455,
-            0.569,
+            0.6219,
+            0.4455,
             0.075,
             0.075
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "sa",
-            "su"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3760174580759",
           "nom": "8 crepes au chocolat kids",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.8182,
-            0.6572,
+            0.6947,
+            0.5337,
             0.15,
             0.075
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "su"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3256224765431",
@@ -11004,9 +10791,9 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6,
-            0.3485,
-            0.1985,
+            0.4765,
+            0.225,
+            0.075,
             0.075
           ],
           "ecart": 0,
@@ -11019,10 +10806,10 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6209,
-            0.5326,
-            0.3076,
-            0.2326
+            0.4973,
+            0.4091,
+            0.1841,
+            0.1091
           ],
           "ecart": 0,
           "rates": []
@@ -11031,57 +10818,46 @@
           "code": "3222475366857",
           "nom": "Crêpes fourrées coeur choco",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7299,
-            0.4235,
+            0.6064,
+            0.3,
             0.15,
             0.075
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "su",
-            "fi"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3256220666435",
           "nom": "Fajita Kit 505g",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7795,
-            0.6913,
+            0.656,
+            0.5678,
             0.236,
             0.236
           ],
-          "ecart": 1,
-          "rates": [
-            "so",
-            "additifs"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3266191037936",
           "nom": "Feuilletés Jambon & Emmental",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7663,
-            0.5326,
-            0.2826,
+            0.6428,
+            0.4091,
+            0.1591,
             0.1591
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "sa",
-            "fi"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3325420020153",
@@ -11090,9 +10866,9 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6341,
-            0.3826,
-            0.2326,
+            0.5106,
+            0.2591,
+            0.1091,
             0.1091
           ],
           "ecart": 0,
@@ -11102,19 +10878,16 @@
           "code": "3240931543536",
           "nom": "Garofalo girasoli champignons cepes & truffe 250g",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7818,
-            0.5326,
-            0.3076,
+            0.6583,
+            0.4091,
+            0.1841,
             0.1841
           ],
-          "ecart": 1,
-          "rates": [
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3266191060392",
@@ -11123,15 +10896,16 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.6209,
-            0.5326,
-            0.5326
+            0.731,
+            0.4973,
+            0.4091,
+            0.4091
           ],
           "ecart": 1,
           "rates": [
             "en",
-            "sa"
+            "sa",
+            "pr"
           ]
         },
         {
@@ -11141,9 +10915,9 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6936,
-            0.5326,
-            0.3076,
+            0.5701,
+            0.4091,
+            0.1841,
             0.075
           ],
           "ecart": 0,
@@ -11153,20 +10927,16 @@
           "code": "0021000010875",
           "nom": "mac & cheese",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7068,
-            0.5303,
-            0.1235,
-            0.1235
+            0.5833,
+            0.4068,
+            0.0,
+            0.0
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "so",
-            "additifs"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3033610061441",
@@ -11175,10 +10945,10 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6209,
-            0.5326,
-            0.3326,
-            0.3326
+            0.4973,
+            0.4091,
+            0.2091,
+            0.2091
           ],
           "ecart": 0,
           "rates": []
@@ -11187,39 +10957,31 @@
           "code": "7231326087878",
           "nom": "Magret de Canard du Sud-Ouest Fumé",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7091,
-            0.5326,
-            0.3326,
-            0.3326
+            0.5856,
+            0.4091,
+            0.2091,
+            0.2091
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3245390021212",
           "nom": "Magret de Canard du Sud-Ouest FUMÉ AU BOIS DE HÊTRE",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7091,
-            0.5326,
-            0.3326,
-            0.3326
+            0.5856,
+            0.4091,
+            0.2091,
+            0.2091
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "08847911",
@@ -11228,10 +10990,10 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6209,
-            0.5326,
-            0.4826,
-            0.4076
+            0.4973,
+            0.4091,
+            0.3591,
+            0.2841
           ],
           "ecart": 0,
           "rates": []
@@ -11243,10 +11005,10 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6209,
-            0.5326,
-            0.3326,
-            0.3326
+            0.4973,
+            0.4091,
+            0.2091,
+            0.2091
           ],
           "ecart": 0,
           "rates": []
@@ -11258,10 +11020,10 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6209,
-            0.5326,
-            0.3326,
-            0.3326
+            0.4973,
+            0.4091,
+            0.2091,
+            0.2091
           ],
           "ecart": 0,
           "rates": []
@@ -11270,74 +11032,61 @@
           "code": "4104420053861",
           "nom": "Mini bretzels à l'épeautre",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7818,
-            0.6936,
-            0.6209,
-            0.5326
+            0.6583,
+            0.5701,
+            0.4973,
+            0.4091
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "83455315",
           "nom": "Pizza 4 fromage",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7818,
-            0.4576,
-            0.3076,
-            0.3076
+            0.6583,
+            0.3341,
+            0.1841,
+            0.1841
           ],
-          "ecart": 1,
-          "rates": [
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3660140913157",
           "nom": "Savane Crêpes Cacao Noisette (x 8)",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.8182,
+            0.6947,
             0.5337,
             0.15,
             0.075
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "su"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "0031146254903",
           "nom": "SHINCUP : Noodle soup",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7068,
-            0.4576,
-            0.3076,
+            0.5833,
+            0.3341,
+            0.1841,
             0.1841
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "so",
-            "additifs"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3256221786033",
@@ -11346,9 +11095,9 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6186,
-            0.4576,
-            0.2326,
+            0.4951,
+            0.3341,
+            0.1091,
             0.1091
           ],
           "ecart": 0,
@@ -11361,28 +11110,33 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.9273,
-            0.5326,
+            0.8037,
+            0.4091,
             0.1841,
             0.1841
           ],
           "ecart": 1,
           "rates": [
-            "sa"
+            "sa",
+            "pr"
           ]
         }
       ],
+      "secsEnAPrime": [
+        "Couscous",
+        "Couscous Complet"
+      ],
       "ecarts": {
-        "montent": 25,
-        "descendent": 48,
-        "egaux": 52,
+        "montent": 4,
+        "descendent": 51,
+        "egaux": 70,
         "raisonsDesDescentes": {
-          "en": 11,
+          "en": 13,
           "sa": 3,
           "su": 1,
-          "so": 38,
-          "pr": 36,
-          "fi": 45,
+          "so": 41,
+          "pr": 41,
+          "fi": 46,
           "fr": 23,
           "nova": 29,
           "additifs": 21,
@@ -11549,16 +11303,16 @@
       "repartition": {
         "A′": 12,
         "B′": 41,
-        "C′": 190,
-        "D′": 101,
-        "E′": 31
+        "C′": 171,
+        "D′": 74,
+        "E′": 77
       },
       "comparaison": {
         "total": 375,
-        "bienRanges": 164,
-        "exactitude": 0.43733333333333335,
-        "exactitudeEquilibree": 0.43733333333333335,
-        "aUneClassePres": 0.8906666666666667,
+        "bienRanges": 210,
+        "exactitude": 0.56,
+        "exactitudeEquilibree": 0.56,
+        "aUneClassePres": 0.8986666666666666,
         "matrice": [
           [
             11,
@@ -11584,16 +11338,16 @@
           [
             0,
             0,
-            26,
-            47,
-            2
+            10,
+            55,
+            10
           ],
           [
             0,
             0,
-            3,
-            44,
-            28
+            0,
+            9,
+            66
           ]
         ]
       },
@@ -12716,9 +12470,9 @@
           "classe": 2,
           "lettre": "C′",
           "concordances": [
-            1.0,
-            0.8545,
-            0.3959,
+            0.8765,
+            0.731,
+            0.2723,
             0.1841
           ],
           "ecart": 0,
@@ -12830,10 +12584,10 @@
           "classe": 2,
           "lettre": "C′",
           "concordances": [
-            1.0,
-            0.8545,
-            0.4709,
-            0.3826
+            0.8765,
+            0.731,
+            0.3473,
+            0.2591
           ],
           "ecart": 0,
           "rates": []
@@ -12905,14 +12659,15 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.6163,
-            0.3209,
+            0.8765,
+            0.4928,
+            0.1973,
             0.1973
           ],
           "ecart": -1,
           "rates": [
             "so",
+            "pr",
             "fi",
             "additifs",
             "aRisque"
@@ -13020,10 +12775,10 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.6163,
-            0.2326,
-            0.2326
+            0.731,
+            0.4928,
+            0.1091,
+            0.1091
           ],
           "ecart": 0,
           "rates": []
@@ -13050,8 +12805,8 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.6053,
+            0.8765,
+            0.4818,
             0.1841,
             0.1841
           ],
@@ -13065,9 +12820,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.6936,
-            0.3826,
+            0.731,
+            0.5701,
+            0.2591,
             0.1841
           ],
           "ecart": 0,
@@ -13080,14 +12835,15 @@
           "classe": 2,
           "lettre": "C′",
           "concordances": [
-            1.0,
-            0.839,
-            0.3076,
+            0.8765,
+            0.7155,
+            0.1841,
             0.075
           ],
           "ecart": 1,
           "rates": [
             "en",
+            "pr",
             "fr"
           ]
         },
@@ -13098,9 +12854,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.6936,
-            0.4076,
+            0.731,
+            0.5701,
+            0.2841,
             0.2841
           ],
           "ecart": 0,
@@ -13110,35 +12866,35 @@
           "code": "3240931546247",
           "nom": "Lustucru ravioli tomate emmental 300g",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            1.0,
-            0.7508,
-            0.2735,
+            0.8765,
+            0.6273,
+            0.15,
             0.15
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "fi",
-            "fr"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "8006669008113",
           "nom": "Medaglioni Speck e Brie",
           "label": "D",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7818,
-            0.6936,
-            0.4709,
-            0.2735
+            0.6583,
+            0.5701,
+            0.3473,
+            0.15
           ],
-          "ecart": 0,
-          "rates": []
+          "ecart": -1,
+          "rates": [
+            "en",
+            "so",
+            "pr"
+          ]
         },
         {
           "code": "3270190202790",
@@ -13147,9 +12903,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.839,
-            0.6781,
-            0.3826,
+            0.7155,
+            0.5545,
+            0.2591,
             0.1841
           ],
           "ecart": 0,
@@ -13162,33 +12918,31 @@
           "classe": 2,
           "lettre": "C′",
           "concordances": [
-            1.0,
-            0.8545,
-            0.5326,
+            0.8765,
+            0.731,
+            0.4091,
             0.4091
           ],
           "ecart": 1,
           "rates": [
-            "so"
+            "so",
+            "pr"
           ]
         },
         {
           "code": "3287390083326",
           "nom": "Pizza 4 fromages apéritif",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            1.0,
-            0.7818,
-            0.4826,
+            0.8765,
+            0.6583,
+            0.3591,
             0.2841
           ],
-          "ecart": 1,
-          "rates": [
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "8059070744682",
@@ -13197,10 +12951,10 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.5326,
-            0.4076,
-            0.4076
+            0.731,
+            0.4091,
+            0.2841,
+            0.2841
           ],
           "ecart": 0,
           "rates": []
@@ -13209,71 +12963,65 @@
           "code": "3258561471310",
           "nom": "Pizza Fromage 180G. Bf,",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
-          "concordances": [
-            1.0,
-            0.7068,
-            0.3959,
-            0.3076
-          ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "so",
-            "additifs"
-          ]
-        },
-        {
-          "code": "0219236036084",
-          "nom": "Pizza jambon fromage",
-          "label": "D",
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.7663,
-            0.5303,
-            0.2326,
-            0.2326
+            0.8765,
+            0.5833,
+            0.2723,
+            0.1841
           ],
           "ecart": 0,
           "rates": []
         },
         {
+          "code": "0219236036084",
+          "nom": "Pizza jambon fromage",
+          "label": "D",
+          "classe": 0,
+          "lettre": "E′",
+          "concordances": [
+            0.6428,
+            0.4068,
+            0.1091,
+            0.1091
+          ],
+          "ecart": -1,
+          "rates": [
+            "so",
+            "pr",
+            "fi"
+          ]
+        },
+        {
           "code": "3560070258635",
           "nom": "Pizza Mozzarella",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            1.0,
-            0.7818,
-            0.4709,
+            0.8765,
+            0.6583,
+            0.3473,
             0.2591
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3250391777808",
           "nom": "Pizza Saumon Fumé",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            1.0,
-            0.7818,
-            0.3076,
+            0.8765,
+            0.6583,
+            0.1841,
             0.0
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3270160875528",
@@ -13297,8 +13045,8 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.6186,
+            0.731,
+            0.4951,
             0.1818,
             0.1818
           ],
@@ -13312,7 +13060,7 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
+            0.8765,
             0.6583,
             0.2568,
             0.1841
@@ -13324,20 +13072,16 @@
           "code": "3596710259953",
           "nom": "Quenelles à la lyonnaise nature, au beurre",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            0.839,
-            0.7508,
+            0.7155,
+            0.6273,
             0.2591,
             0.2591
           ],
-          "ecart": 1,
-          "rates": [
-            "sa",
-            "fi",
-            "fr"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3560071170370",
@@ -13346,9 +13090,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.6936,
-            0.3826,
+            0.8765,
+            0.5701,
+            0.2591,
             0.2591
           ],
           "ecart": 0,
@@ -13358,35 +13102,35 @@
           "code": "8001420005820",
           "nom": "Risotto Ai Quattro Formaggi Gallo 175 G.",
           "label": "D",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7818,
-            0.6053,
-            0.4553,
+            0.6583,
+            0.4818,
+            0.3318,
             0.2591
           ],
-          "ecart": 0,
-          "rates": []
+          "ecart": -1,
+          "rates": [
+            "en",
+            "so",
+            "pr"
+          ]
         },
         {
           "code": "3560070852833",
           "nom": "Tarte fine Champignons & Fromages",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            1.0,
-            0.7508,
-            0.3076,
+            0.8765,
+            0.6273,
+            0.1841,
             0.1841
           ],
-          "ecart": 1,
-          "rates": [
-            "sa",
-            "fi",
-            "fr"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3245413922830",
@@ -13395,8 +13139,8 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.6936,
+            0.8765,
+            0.5701,
             0.2591,
             0.1841
           ],
@@ -13410,14 +13154,15 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6913,
-            0.5303,
-            0.3053,
+            0.5678,
+            0.4068,
+            0.1818,
             0.1091
           ],
           "ecart": -1,
           "rates": [
             "so",
+            "pr",
             "fi",
             "additifs"
           ]
@@ -13426,57 +13171,46 @@
           "code": "3261089225532",
           "nom": "24 escargots de Bourgogne à la bourguignonne",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7091,
-            0.5326,
-            0.4826,
+            0.5856,
+            0.4091,
+            0.3591,
             0.3591
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3178530410082",
           "nom": "6 Crêpes Bretonnes",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7455,
-            0.569,
+            0.6219,
+            0.4455,
             0.075,
             0.075
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "sa",
-            "su"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3760174580759",
           "nom": "8 crepes au chocolat kids",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.8182,
-            0.6572,
+            0.6947,
+            0.5337,
             0.15,
             0.075
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "su"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3256224765431",
@@ -13485,9 +13219,9 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6,
-            0.3485,
-            0.1985,
+            0.4765,
+            0.225,
+            0.075,
             0.075
           ],
           "ecart": 0,
@@ -13500,10 +13234,10 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6209,
-            0.5326,
-            0.3076,
-            0.2326
+            0.4973,
+            0.4091,
+            0.1841,
+            0.1091
           ],
           "ecart": 0,
           "rates": []
@@ -13512,57 +13246,46 @@
           "code": "3222475366857",
           "nom": "Crêpes fourrées coeur choco",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7299,
-            0.4235,
+            0.6064,
+            0.3,
             0.15,
             0.075
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "su",
-            "fi"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3256220666435",
           "nom": "Fajita Kit 505g",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7795,
-            0.6913,
+            0.656,
+            0.5678,
             0.236,
             0.236
           ],
-          "ecart": 1,
-          "rates": [
-            "so",
-            "additifs"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3266191037936",
           "nom": "Feuilletés Jambon & Emmental",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7663,
-            0.5326,
-            0.2826,
+            0.6428,
+            0.4091,
+            0.1591,
             0.1591
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "sa",
-            "fi"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3325420020153",
@@ -13571,9 +13294,9 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6341,
-            0.3826,
-            0.2326,
+            0.5106,
+            0.2591,
+            0.1091,
             0.1091
           ],
           "ecart": 0,
@@ -13583,19 +13306,16 @@
           "code": "3240931543536",
           "nom": "Garofalo girasoli champignons cepes & truffe 250g",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7818,
-            0.5326,
-            0.3076,
+            0.6583,
+            0.4091,
+            0.1841,
             0.1841
           ],
-          "ecart": 1,
-          "rates": [
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3266191060392",
@@ -13604,15 +13324,16 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.6209,
-            0.5326,
-            0.5326
+            0.731,
+            0.4973,
+            0.4091,
+            0.4091
           ],
           "ecart": 1,
           "rates": [
             "en",
-            "sa"
+            "sa",
+            "pr"
           ]
         },
         {
@@ -13622,9 +13343,9 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6936,
-            0.5326,
-            0.3076,
+            0.5701,
+            0.4091,
+            0.1841,
             0.075
           ],
           "ecart": 0,
@@ -13634,20 +13355,16 @@
           "code": "0021000010875",
           "nom": "mac & cheese",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7068,
-            0.5303,
-            0.1235,
-            0.1235
+            0.5833,
+            0.4068,
+            0.0,
+            0.0
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "so",
-            "additifs"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3033610061441",
@@ -13656,10 +13373,10 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6209,
-            0.5326,
-            0.3326,
-            0.3326
+            0.4973,
+            0.4091,
+            0.2091,
+            0.2091
           ],
           "ecart": 0,
           "rates": []
@@ -13668,39 +13385,31 @@
           "code": "7231326087878",
           "nom": "Magret de Canard du Sud-Ouest Fumé",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7091,
-            0.5326,
-            0.3326,
-            0.3326
+            0.5856,
+            0.4091,
+            0.2091,
+            0.2091
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3245390021212",
           "nom": "Magret de Canard du Sud-Ouest FUMÉ AU BOIS DE HÊTRE",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7091,
-            0.5326,
-            0.3326,
-            0.3326
+            0.5856,
+            0.4091,
+            0.2091,
+            0.2091
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "08847911",
@@ -13709,10 +13418,10 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6209,
-            0.5326,
-            0.4826,
-            0.4076
+            0.4973,
+            0.4091,
+            0.3591,
+            0.2841
           ],
           "ecart": 0,
           "rates": []
@@ -13724,10 +13433,10 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6209,
-            0.5326,
-            0.3326,
-            0.3326
+            0.4973,
+            0.4091,
+            0.2091,
+            0.2091
           ],
           "ecart": 0,
           "rates": []
@@ -13739,10 +13448,10 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6209,
-            0.5326,
-            0.3326,
-            0.3326
+            0.4973,
+            0.4091,
+            0.2091,
+            0.2091
           ],
           "ecart": 0,
           "rates": []
@@ -13751,74 +13460,61 @@
           "code": "4104420053861",
           "nom": "Mini bretzels à l'épeautre",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7818,
-            0.6936,
-            0.6209,
-            0.5326
+            0.6583,
+            0.5701,
+            0.4973,
+            0.4091
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "83455315",
           "nom": "Pizza 4 fromage",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7818,
-            0.4576,
-            0.3076,
-            0.3076
+            0.6583,
+            0.3341,
+            0.1841,
+            0.1841
           ],
-          "ecart": 1,
-          "rates": [
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3660140913157",
           "nom": "Savane Crêpes Cacao Noisette (x 8)",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.8182,
+            0.6947,
             0.5337,
             0.15,
             0.075
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "su"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "0031146254903",
           "nom": "SHINCUP : Noodle soup",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7068,
-            0.4576,
-            0.3076,
+            0.5833,
+            0.3341,
+            0.1841,
             0.1841
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "so",
-            "additifs"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3256221786033",
@@ -13827,9 +13523,9 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6186,
-            0.4576,
-            0.2326,
+            0.4951,
+            0.3341,
+            0.1091,
             0.1091
           ],
           "ecart": 0,
@@ -13842,14 +13538,15 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.9273,
-            0.5326,
+            0.8037,
+            0.4091,
             0.1841,
             0.1841
           ],
           "ecart": 1,
           "rates": [
-            "sa"
+            "sa",
+            "pr"
           ]
         },
         {
@@ -16686,9 +16383,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.925,
-            0.3826,
-            0.2326,
+            0.8015,
+            0.2591,
+            0.1091,
             0.0
           ],
           "ecart": 0,
@@ -16701,8 +16398,8 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.9273,
-            0.6936,
+            0.8037,
+            0.5701,
             0.1091,
             0.1091
           ],
@@ -16716,14 +16413,15 @@
           "classe": 2,
           "lettre": "C′",
           "concordances": [
-            0.9273,
-            0.9273,
+            0.8037,
+            0.8037,
             0.4473,
             0.3591
           ],
           "ecart": 1,
           "rates": [
-            "sa"
+            "sa",
+            "pr"
           ]
         },
         {
@@ -16733,8 +16431,8 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.9273,
-            0.6758,
+            0.8037,
+            0.5523,
             0.1841,
             0.1841
           ],
@@ -16748,9 +16446,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.9118,
-            0.5303,
-            0.2326,
+            0.7882,
+            0.4068,
+            0.1091,
             0.1091
           ],
           "ecart": 0,
@@ -16763,9 +16461,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.6936,
-            0.2326,
+            0.8765,
+            0.5701,
+            0.1091,
             0.1091
           ],
           "ecart": 0,
@@ -16778,15 +16476,16 @@
           "classe": 2,
           "lettre": "C′",
           "concordances": [
-            0.9273,
-            0.8545,
+            0.8037,
+            0.731,
             0.3473,
             0.2591
           ],
           "ecart": 1,
           "rates": [
             "en",
-            "sa"
+            "sa",
+            "pr"
           ]
         },
         {
@@ -16796,8 +16495,8 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.9273,
-            0.6781,
+            0.8037,
+            0.5545,
             0.3591,
             0.3591
           ],
@@ -16811,8 +16510,8 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.9273,
-            0.6781,
+            0.8037,
+            0.5545,
             0.1841,
             0.1841
           ],
@@ -16826,14 +16525,15 @@
           "classe": 2,
           "lettre": "C′",
           "concordances": [
-            1.0,
-            0.8545,
-            0.4709,
-            0.3826
+            0.8765,
+            0.731,
+            0.3473,
+            0.2591
           ],
           "ecart": 1,
           "rates": [
-            "so"
+            "so",
+            "pr"
           ]
         },
         {
@@ -16843,9 +16543,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.6341,
-            0.2326,
+            0.731,
+            0.5106,
+            0.1091,
             0.1091
           ],
           "ecart": 0,
@@ -16858,10 +16558,10 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.5436,
-            0.3209,
-            0.2326
+            0.8765,
+            0.4201,
+            0.1973,
+            0.1091
           ],
           "ecart": 0,
           "rates": []
@@ -16873,10 +16573,10 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.4709,
-            0.2326,
-            0.2326
+            0.731,
+            0.3473,
+            0.1091,
+            0.1091
           ],
           "ecart": 0,
           "rates": []
@@ -16885,35 +16585,35 @@
           "code": "3560070543731",
           "nom": "Croq&Moi, Jambon de dinde (x 2)",
           "label": "D",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7795,
-            0.5436,
-            0.2326,
-            0.2326
+            0.656,
+            0.4201,
+            0.1091,
+            0.1091
           ],
-          "ecart": 0,
-          "rates": []
+          "ecart": -1,
+          "rates": [
+            "so",
+            "pr",
+            "additifs"
+          ]
         },
         {
           "code": "3301091900062",
           "nom": "Délice au Saumon & Épinard",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.7663,
-            0.4709,
+            0.731,
+            0.6428,
+            0.3473,
             0.2723
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "sa",
-            "fr"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3560071016142",
@@ -16922,9 +16622,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.6031,
-            0.3076,
+            0.8765,
+            0.4795,
+            0.1841,
             0.1841
           ],
           "ecart": 0,
@@ -16937,8 +16637,8 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.9273,
-            0.5326,
+            0.8037,
+            0.4091,
             0.1091,
             0.1091
           ],
@@ -16952,8 +16652,8 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.9273,
-            0.6781,
+            0.8037,
+            0.5545,
             0.1841,
             0.1841
           ],
@@ -16967,98 +16667,103 @@
           "classe": 2,
           "lettre": "C′",
           "concordances": [
-            1.0,
-            0.8545,
-            0.3209,
+            0.8765,
+            0.731,
+            0.1973,
             0.1091
           ],
           "ecart": 1,
           "rates": [
-            "so"
+            "so",
+            "pr"
           ]
         },
         {
           "code": "3240931545370",
           "nom": "Girasoli legumes du soleil 250g lustucru",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            1.0,
-            0.7068,
-            0.3959,
+            0.8765,
+            0.5833,
+            0.2723,
             0.1841
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "so",
-            "additifs"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3257981937376",
           "nom": "Gésiers de volaille",
           "label": "D",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7663,
-            0.6781,
-            0.2326,
-            0.2326
+            0.6428,
+            0.5545,
+            0.1091,
+            0.1091
           ],
-          "ecart": 0,
-          "rates": []
+          "ecart": -1,
+          "rates": [
+            "so",
+            "pr",
+            "fi"
+          ]
         },
         {
           "code": "3760051585174",
           "nom": "Le kebab lamelles",
           "label": "D",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7663,
-            0.6781,
-            0.3053,
-            0.2326
+            0.6428,
+            0.5545,
+            0.1818,
+            0.1091
           ],
-          "ecart": 0,
-          "rates": []
+          "ecart": -1,
+          "rates": [
+            "so",
+            "pr",
+            "fi"
+          ]
         },
         {
           "code": "3250392490645",
           "nom": "Les Mélanges Bon & Bon - Poelée orientale",
           "label": "D",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7818,
-            0.6936,
-            0.5436,
-            0.5436
+            0.6583,
+            0.5701,
+            0.4201,
+            0.4201
           ],
-          "ecart": 0,
-          "rates": []
+          "ecart": -1,
+          "rates": [
+            "en",
+            "so",
+            "pr"
+          ]
         },
         {
           "code": "3153571017223",
           "nom": "Les Quenelles de l'Atelier Brochet Sauvage",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            0.9273,
-            0.7508,
-            0.3826,
+            0.8037,
+            0.6273,
+            0.2591,
             0.2591
           ],
-          "ecart": 1,
-          "rates": [
-            "sa",
-            "fi",
-            "fr"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3240931546131",
@@ -17067,9 +16772,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.6936,
-            0.1985,
+            0.8765,
+            0.5701,
+            0.075,
             0.075
           ],
           "ecart": 0,
@@ -17079,35 +16784,36 @@
           "code": "5018374007186",
           "nom": "Mini Melton Mowbray Pork Pies",
           "label": "D",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7663,
-            0.6781,
-            0.3826,
+            0.6428,
+            0.5545,
+            0.2591,
             0.1841
           ],
-          "ecart": 0,
-          "rates": []
+          "ecart": -1,
+          "rates": [
+            "en",
+            "sa",
+            "pr",
+            "fi"
+          ]
         },
         {
           "code": "00449458",
           "nom": "Mozzarella roasted tomato and basil girasoli",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            1.0,
-            0.7508,
-            0.3826,
+            0.8765,
+            0.6273,
+            0.2591,
             0.075
           ],
-          "ecart": 1,
-          "rates": [
-            "sa",
-            "fi",
-            "fr"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3700009201596",
@@ -17116,14 +16822,15 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6913,
-            0.6031,
-            0.3781,
+            0.5678,
+            0.4795,
+            0.2545,
             0.1818
           ],
           "ecart": -1,
           "rates": [
             "so",
+            "pr",
             "fi",
             "additifs"
           ]
@@ -17135,14 +16842,15 @@
           "classe": 2,
           "lettre": "C′",
           "concordances": [
-            0.9273,
-            0.8523,
+            0.8037,
+            0.7287,
             0.1973,
             0.0882
           ],
           "ecart": 1,
           "rates": [
             "sa",
+            "pr",
             "additifs"
           ]
         },
@@ -17150,38 +16858,31 @@
           "code": "3289475001232",
           "nom": "Panier feuilleté fromage La Vache Qui Rit et petits légumes, 4",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            0.9273,
-            0.7663,
+            0.8037,
+            0.6428,
             0.1841,
             0.1841
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "sa",
-            "fi"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3270160892846",
           "nom": "Pithiviers - Pintade, farce aux champignons, dinde, bloc de foie gras de canard et épinards",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            0.9273,
-            0.7818,
-            0.3326,
+            0.8037,
+            0.6583,
+            0.2091,
             0.2091
           ],
-          "ecart": 1,
-          "rates": [
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3660140002837",
@@ -17190,9 +16891,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.6053,
-            0.3826,
+            0.8765,
+            0.4818,
+            0.2591,
             0.2591
           ],
           "ecart": 0,
@@ -17202,19 +16903,16 @@
           "code": "3596710462070",
           "nom": "Pizza chèvre lardons",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            1.0,
-            0.7663,
-            0.2326,
+            0.8765,
+            0.6428,
+            0.1091,
             0.1091
           ],
-          "ecart": 1,
-          "rates": [
-            "so",
-            "fr"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3222477592681",
@@ -17223,10 +16921,10 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.6936,
-            0.3826,
-            0.3826
+            0.8765,
+            0.5701,
+            0.2591,
+            0.2591
           ],
           "ecart": 0,
           "rates": []
@@ -17238,9 +16936,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.6209,
-            0.3076,
+            0.8765,
+            0.4973,
+            0.1841,
             0.1841
           ],
           "ecart": 0,
@@ -17253,14 +16951,15 @@
           "classe": 2,
           "lettre": "C′",
           "concordances": [
-            0.8545,
-            0.8545,
-            0.2326,
+            0.731,
+            0.731,
+            0.1091,
             0.1091
           ],
           "ecart": 1,
           "rates": [
-            "so"
+            "so",
+            "pr"
           ]
         },
         {
@@ -17270,9 +16969,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.6781,
-            0.2326,
+            0.8765,
+            0.5545,
+            0.1091,
             0.1091
           ],
           "ecart": 0,
@@ -17285,14 +16984,15 @@
           "classe": 2,
           "lettre": "C′",
           "concordances": [
-            0.8545,
-            0.8545,
-            0.5553,
+            0.731,
+            0.731,
+            0.4318,
             0.3591
           ],
           "ecart": 1,
           "rates": [
-            "so"
+            "so",
+            "pr"
           ]
         },
         {
@@ -17302,14 +17002,15 @@
           "classe": 2,
           "lettre": "C′",
           "concordances": [
-            1.0,
-            0.8545,
-            0.4963,
+            0.8765,
+            0.731,
+            0.3727,
             0.3
           ],
           "ecart": 1,
           "rates": [
-            "so"
+            "so",
+            "pr"
           ]
         },
         {
@@ -17319,9 +17020,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.9273,
-            0.4576,
-            0.2326,
+            0.8037,
+            0.3341,
+            0.1091,
             0.1091
           ],
           "ecart": 0,
@@ -17334,9 +17035,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.6053,
-            0.3076,
+            0.731,
+            0.4818,
+            0.1841,
             0.1841
           ],
           "ecart": 0,
@@ -17349,9 +17050,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.5326,
-            0.3076,
+            0.731,
+            0.4091,
+            0.1841,
             0.1841
           ],
           "ecart": 0,
@@ -17364,9 +17065,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.6781,
-            0.5326,
+            0.8765,
+            0.5545,
+            0.4091,
             0.4091
           ],
           "ecart": 0,
@@ -17379,9 +17080,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.6936,
-            0.3826,
+            0.8765,
+            0.5701,
+            0.2591,
             0.2591
           ],
           "ecart": 0,
@@ -17394,7 +17095,7 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
+            0.8765,
             0.5678,
             0.1818,
             0.1091
@@ -17409,9 +17110,9 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.925,
-            0.6758,
-            0.2326,
+            0.8015,
+            0.5523,
+            0.1091,
             0.1091
           ],
           "ecart": 0,
@@ -17421,38 +17122,31 @@
           "code": "3248830000617",
           "nom": "Tarte Chèvre Epinards Pur Beurre",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            0.9273,
-            0.7508,
+            0.8037,
+            0.6273,
             0.3591,
             0.3591
           ],
-          "ecart": 1,
-          "rates": [
-            "sa",
-            "fi",
-            "fr"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3700966554933",
           "nom": "Tartinable fromager thon",
           "label": "D",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            1.0,
-            0.7663,
-            0.3826,
+            0.8765,
+            0.6428,
+            0.2591,
             0.1841
           ],
-          "ecart": 1,
-          "rates": [
-            "so",
-            "fr"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "5400101259416",
@@ -17461,10 +17155,10 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.6936,
-            0.2326,
-            0.2326
+            0.8765,
+            0.5701,
+            0.1091,
+            0.1091
           ],
           "ecart": 0,
           "rates": []
@@ -17476,10 +17170,10 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            1.0,
-            0.6053,
-            0.4303,
-            0.3576
+            0.8765,
+            0.4818,
+            0.3068,
+            0.2341
           ],
           "ecart": 0,
           "rates": []
@@ -17491,14 +17185,15 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.9273,
-            0.5326,
-            0.3735,
-            0.3735
+            0.8037,
+            0.4091,
+            0.25,
+            0.25
           ],
           "ecart": 1,
           "rates": [
-            "sa"
+            "sa",
+            "pr"
           ]
         },
         {
@@ -17508,53 +17203,47 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.6781,
+            0.731,
+            0.5545,
             0.3591,
             0.2841
           ],
           "ecart": 1,
           "rates": [
             "en",
-            "sa"
+            "sa",
+            "pr"
           ]
         },
         {
           "code": "3178538007000",
           "nom": "8 Crêpes au Chocolat",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7299,
+            0.6064,
             0.2977,
             0.075,
             0.075
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "su",
-            "fi"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3596710348237",
           "nom": "8 crêpes chocolat et céréales craquantes",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.8182,
-            0.6572,
+            0.6947,
+            0.5337,
             0.075,
             0.075
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "su"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3560071190705",
@@ -17563,35 +17252,32 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.4576,
+            0.731,
+            0.3341,
             0.1091,
             0.0
           ],
           "ecart": 1,
           "rates": [
             "en",
-            "sa"
+            "sa",
+            "pr"
           ]
         },
         {
           "code": "3560070504527",
           "nom": "Bouchées Apéritives au Lard Fumé Emmental",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7091,
-            0.5326,
-            0.3326,
-            0.3326
+            0.5856,
+            0.4091,
+            0.2091,
+            0.2091
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "5400101242906",
@@ -17612,19 +17298,16 @@
           "code": "0852160006039",
           "nom": "Chocolate filled crepes",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.8182,
-            0.6572,
+            0.6947,
+            0.5337,
             0.2382,
             0.075
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "su"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3322680000062",
@@ -17633,8 +17316,8 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6572,
-            0.569,
+            0.5337,
+            0.4455,
             0.075,
             0.075
           ],
@@ -17645,74 +17328,61 @@
           "code": "3564700871775",
           "nom": "Crepe gout chocolat noisette",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.8182,
-            0.494,
+            0.6947,
+            0.3705,
             0.075,
             0.075
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "su"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3487499662112",
           "nom": "Crème de légumes",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7068,
-            0.6186,
-            0.4686,
-            0.3803
+            0.5833,
+            0.4951,
+            0.3451,
+            0.2568
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "so",
-            "additifs"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3560071130466",
           "nom": "Crêpes au chocolat",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.8182,
-            0.6572,
+            0.6947,
+            0.5337,
             0.15,
             0.075
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "su"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "20057602",
           "nom": "Crêpes chocolat",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.8182,
-            0.6572,
+            0.6947,
+            0.5337,
             0.15,
             0.075
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "su"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3322680009508",
@@ -17721,8 +17391,8 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6572,
-            0.569,
+            0.5337,
+            0.4455,
             0.15,
             0.075
           ],
@@ -17733,20 +17403,16 @@
           "code": "3256227741234",
           "nom": "Effiloché de viande de canard cuite assisonnée sous vide",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7663,
-            0.5326,
-            0.3826,
-            0.3826
+            0.6428,
+            0.4091,
+            0.2591,
+            0.2591
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "sa",
-            "fi"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3596710468416",
@@ -17755,35 +17421,32 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.5326,
-            0.4826,
+            0.731,
+            0.4091,
+            0.3591,
             0.2841
           ],
           "ecart": 1,
           "rates": [
             "en",
-            "sa"
+            "sa",
+            "pr"
           ]
         },
         {
           "code": "3760184160187",
           "nom": "Feuilletés au crottin de chavignol",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7091,
-            0.5326,
-            0.3826,
+            0.5856,
+            0.4091,
+            0.2591,
             0.2591
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3245412730108",
@@ -17792,52 +17455,46 @@
           "classe": 1,
           "lettre": "D′",
           "concordances": [
-            0.9273,
-            0.5326,
+            0.8037,
+            0.4091,
             0.1091,
             0.1091
           ],
           "ecart": 1,
           "rates": [
-            "sa"
+            "sa",
+            "pr"
           ]
         },
         {
           "code": "3245390225245",
           "nom": "Flamiche de l'Avesnois au Maroilles AOP",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7818,
-            0.6209,
-            0.3826,
-            0.3076
+            0.6583,
+            0.4973,
+            0.2591,
+            0.1841
           ],
-          "ecart": 1,
-          "rates": [
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "4005967000991",
           "nom": "Gaufres Épeautre, Pomme de Terre, Poireaux",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7091,
-            0.6209,
-            0.4459,
-            0.4459
+            0.5856,
+            0.4973,
+            0.3223,
+            0.3223
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "7622300571351",
@@ -17846,9 +17503,9 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6341,
-            0.5459,
-            0.3076,
+            0.5106,
+            0.4223,
+            0.1841,
             0.075
           ],
           "ecart": 0,
@@ -17861,9 +17518,9 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.5591,
-            0.3826,
-            0.1235,
+            0.4356,
+            0.2591,
+            0.0,
             0.0
           ],
           "ecart": 0,
@@ -17873,57 +17530,46 @@
           "code": "3564700845271",
           "nom": "Kit pour crunchy fajitas",
           "label": "E",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7068,
-            0.7068,
-            0.4818,
+            0.5833,
+            0.5833,
+            0.3583,
             0.1818
           ],
-          "ecart": 2,
-          "rates": [
-            "en",
-            "so",
-            "additifs"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3560071091163",
           "nom": "Les Crêpes au Caramel au Beurre Salé",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7455,
-            0.4235,
+            0.6219,
+            0.3,
             0.075,
             0.075
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "sa",
-            "su"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "4024398191139",
           "nom": "Macaroni & Cheese Dinner",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7818,
-            0.6936,
-            0.3463,
-            0.2713
+            0.6583,
+            0.5701,
+            0.2227,
+            0.1477
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3033610060192",
@@ -17932,10 +17578,10 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6209,
-            0.5326,
-            0.4826,
-            0.4826
+            0.4973,
+            0.4091,
+            0.3591,
+            0.3591
           ],
           "ecart": 0,
           "rates": []
@@ -17947,10 +17593,10 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6209,
-            0.5326,
-            0.3326,
-            0.3326
+            0.4973,
+            0.4091,
+            0.2091,
+            0.2091
           ],
           "ecart": 0,
           "rates": []
@@ -17962,10 +17608,10 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6209,
-            0.5326,
-            0.3326,
-            0.3326
+            0.4973,
+            0.4091,
+            0.2091,
+            0.2091
           ],
           "ecart": 0,
           "rates": []
@@ -17977,10 +17623,10 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6209,
-            0.5326,
-            0.4826,
-            0.4076
+            0.4973,
+            0.4091,
+            0.3591,
+            0.2841
           ],
           "ecart": 0,
           "rates": []
@@ -17992,10 +17638,10 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6209,
-            0.5326,
-            0.3326,
-            0.3326
+            0.4973,
+            0.4091,
+            0.2091,
+            0.2091
           ],
           "ecart": 0,
           "rates": []
@@ -18007,10 +17653,10 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6209,
-            0.5326,
-            0.3326,
-            0.3326
+            0.4973,
+            0.4091,
+            0.2091,
+            0.2091
           ],
           "ecart": 0,
           "rates": []
@@ -18022,10 +17668,10 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6209,
-            0.5326,
-            0.3326,
-            0.3326
+            0.4973,
+            0.4091,
+            0.2091,
+            0.2091
           ],
           "ecart": 0,
           "rates": []
@@ -18037,10 +17683,10 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6209,
-            0.5326,
-            0.4826,
-            0.4826
+            0.4973,
+            0.4091,
+            0.3591,
+            0.3591
           ],
           "ecart": 0,
           "rates": []
@@ -18049,73 +17695,67 @@
           "code": "3266980146146",
           "nom": "magret de canard séché s/skin",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7663,
-            0.5326,
-            0.2326,
-            0.2326
+            0.6428,
+            0.4091,
+            0.1091,
+            0.1091
           ],
-          "ecart": 1,
-          "rates": [
-            "so",
-            "fi"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "6133012000318",
           "nom": "Marinade poulet",
           "label": "E",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.7818,
+            0.731,
+            0.6583,
             0.311,
             0.236
           ],
-          "ecart": 2,
+          "ecart": 1,
           "rates": [
-            "en",
-            "so"
+            "so",
+            "pr"
           ]
         },
         {
           "code": "3263851127327",
           "nom": "Minestrone",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7818,
-            0.5845,
-            0.4345,
-            0.3595
+            0.6583,
+            0.461,
+            0.311,
+            0.236
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3368954060318",
           "nom": "Mini préfou pain apéritif tranché beurre et ail Saveurs",
           "label": "E",
-          "classe": 2,
-          "lettre": "C′",
+          "classe": 1,
+          "lettre": "D′",
           "concordances": [
-            0.8545,
-            0.7663,
+            0.731,
+            0.6428,
             0.2591,
             0.2591
           ],
-          "ecart": 2,
+          "ecart": 1,
           "rates": [
             "en",
             "sa",
-            "fr"
+            "pr"
           ]
         },
         {
@@ -18125,9 +17765,9 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6936,
-            0.6053,
-            0.1985,
+            0.5701,
+            0.4818,
+            0.075,
             0.075
           ],
           "ecart": 0,
@@ -18137,57 +17777,46 @@
           "code": "8934572372871",
           "nom": "Nems apéritifs aux crevettes",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7091,
-            0.6209,
-            0.2735,
-            0.1985
+            0.5856,
+            0.4973,
+            0.15,
+            0.075
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "8934572396877",
           "nom": "Nems apéritifs aux crevettes piquantes",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7091,
-            0.6209,
-            0.2735,
-            0.1985
+            0.5856,
+            0.4973,
+            0.15,
+            0.075
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "20081324",
           "nom": "Nems au porc",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7818,
-            0.5326,
-            0.4826,
-            0.4826
+            0.6583,
+            0.4091,
+            0.3591,
+            0.3591
           ],
-          "ecart": 1,
-          "rates": [
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3421330145006",
@@ -18196,10 +17825,10 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6209,
-            0.5326,
-            0.2326,
-            0.2326
+            0.4973,
+            0.4091,
+            0.1091,
+            0.1091
           ],
           "ecart": 0,
           "rates": []
@@ -18208,19 +17837,16 @@
           "code": "0084909900562",
           "nom": "Pâte pour « Padthai »",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7455,
-            0.5095,
+            0.6219,
+            0.386,
             0.236,
             0.1477
           ],
-          "ecart": 1,
-          "rates": [
-            "su",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "0041789003530",
@@ -18229,9 +17855,9 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6341,
-            0.4368,
-            0.2868,
+            0.5106,
+            0.3132,
+            0.1632,
             0.075
           ],
           "ecart": 0,
@@ -18241,38 +17867,31 @@
           "code": "8934563283148",
           "nom": "Saigon Phỏ saveur Bœuf",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7068,
-            0.5303,
+            0.5833,
+            0.4068,
             0.075,
             0.075
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "so",
-            "additifs"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "3256227549670",
           "nom": "Salade addict saumon fumé mini blini tzatziki sauce au vinaigre balsamique",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7818,
-            0.6341,
-            0.3209,
-            0.1235
+            0.6583,
+            0.5106,
+            0.1973,
+            0.0
           ],
-          "ecart": 1,
-          "rates": [
-            "en",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "8008698002070",
@@ -18293,19 +17912,16 @@
           "code": "3033124694609",
           "nom": "Tartelette aux fromages",
           "label": "E",
-          "classe": 1,
-          "lettre": "D′",
+          "classe": 0,
+          "lettre": "E′",
           "concordances": [
-            0.7818,
-            0.5326,
-            0.3826,
+            0.6583,
+            0.4091,
+            0.2591,
             0.1841
           ],
-          "ecart": 1,
-          "rates": [
-            "sa",
-            "so"
-          ]
+          "ecart": 0,
+          "rates": []
         },
         {
           "code": "0851683004454",
@@ -18314,7 +17930,7 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6913,
+            0.5678,
             0.4795,
             0.2568,
             0.1841
@@ -18329,29 +17945,36 @@
           "classe": 0,
           "lettre": "E′",
           "concordances": [
-            0.6936,
-            0.4576,
-            0.2326,
-            0.2326
+            0.5701,
+            0.3341,
+            0.1091,
+            0.1091
           ],
           "ecart": 0,
           "rates": []
         }
       ],
+      "secsEnAPrime": [
+        "Couscous",
+        "Couscous Complet",
+        "Couscous fin",
+        "Couscous Moyen",
+        "Velouté de pois cassés"
+      ],
       "ecarts": {
-        "montent": 74,
-        "descendent": 137,
-        "egaux": 164,
+        "montent": 20,
+        "descendent": 145,
+        "egaux": 210,
         "raisonsDesDescentes": {
-          "en": 43,
-          "sa": 15,
+          "en": 47,
+          "sa": 16,
           "su": 3,
-          "so": 98,
-          "pr": 102,
-          "fi": 121,
+          "so": 105,
+          "pr": 113,
+          "fi": 125,
           "fr": 77,
           "nova": 87,
-          "additifs": 60,
+          "additifs": 61,
           "aRisque": 20,
           "bio": 108
         },
@@ -18515,6 +18138,472 @@
             ]
           }
         ]
+      }
+    },
+    "autreGroupe": {
+      "total": 300,
+      "reproduits": 300,
+      "manques": [],
+      "recoupement": [
+        0,
+        0.0
+      ],
+      "types": {
+        "general": 300
+      },
+      "leurs": {
+        "total": 300,
+        "notre": {
+          "A′": 28,
+          "B′": 34,
+          "C′": 76,
+          "D′": 9,
+          "E′": 153
+        },
+        "leur": {
+          "A′": 42,
+          "B′": 69,
+          "C′": 49,
+          "D′": 59,
+          "E′": 81
+        },
+        "notreFaceAuNutriscore": {
+          "total": 300,
+          "bienRanges": 104,
+          "exactitude": 0.3466666666666667,
+          "exactitudeEquilibree": 0.38927884615384617,
+          "aUneClassePres": 0.7566666666666667,
+          "matrice": [
+            [
+              28,
+              12,
+              25,
+              0,
+              0
+            ],
+            [
+              0,
+              22,
+              42,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              9,
+              7,
+              48
+            ],
+            [
+              0,
+              0,
+              0,
+              2,
+              62
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              43
+            ]
+          ]
+        },
+        "leurFaceAuNutriscore": {
+          "total": 300,
+          "bienRanges": 141,
+          "exactitude": 0.47,
+          "exactitudeEquilibree": 0.49087991949910553,
+          "aUneClassePres": 0.9066666666666666,
+          "matrice": [
+            [
+              34,
+              22,
+              7,
+              2,
+              0
+            ],
+            [
+              7,
+              32,
+              20,
+              4,
+              1
+            ],
+            [
+              1,
+              13,
+              18,
+              21,
+              11
+            ],
+            [
+              0,
+              2,
+              4,
+              23,
+              35
+            ],
+            [
+              0,
+              0,
+              0,
+              9,
+              34
+            ]
+          ]
+        },
+        "notreFaceALeur": {
+          "total": 300,
+          "bienRanges": 156,
+          "exactitude": 0.52,
+          "exactitudeEquilibree": 0.49677719719127583,
+          "aUneClassePres": 0.8766666666666667,
+          "matrice": [
+            [
+              25,
+              8,
+              8,
+              1,
+              0
+            ],
+            [
+              3,
+              25,
+              30,
+              2,
+              9
+            ],
+            [
+              0,
+              1,
+              27,
+              6,
+              15
+            ],
+            [
+              0,
+              0,
+              9,
+              0,
+              50
+            ],
+            [
+              0,
+              0,
+              2,
+              0,
+              79
+            ]
+          ]
+        },
+        "leurReproduit": 300,
+        "bloquants": {
+          "notre": {
+            "en": 1.0,
+            "sa": 0.3,
+            "su": 0.8333333333333334,
+            "so": 0.24666666666666667,
+            "pr": 0.5733333333333334,
+            "fi": 0.07333333333333333,
+            "fr": 0.9866666666666667,
+            "nova": 0.6,
+            "additifs": 0.19,
+            "aRisque": 0.013333333333333334,
+            "bio": 0.62
+          },
+          "leur": {
+            "su": 0.7466666666666667,
+            "fi": 0.23333333333333334,
+            "nova": 0.6,
+            "sa": 0.33,
+            "sodium": 0.18333333333333332
+          }
+        }
+      },
+      "nos": {
+        "total": 375,
+        "notre": {
+          "A′": 12,
+          "B′": 41,
+          "C′": 171,
+          "D′": 74,
+          "E′": 77
+        },
+        "leur": {
+          "A′": 5,
+          "B′": 76,
+          "C′": 23,
+          "D′": 22,
+          "E′": 249
+        },
+        "notreFaceAuNutriscore": {
+          "total": 375,
+          "bienRanges": 210,
+          "exactitude": 0.56,
+          "exactitudeEquilibree": 0.56,
+          "aUneClassePres": 0.8986666666666666,
+          "matrice": [
+            [
+              11,
+              27,
+              37,
+              0,
+              0
+            ],
+            [
+              1,
+              14,
+              60,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              64,
+              10,
+              1
+            ],
+            [
+              0,
+              0,
+              10,
+              55,
+              10
+            ],
+            [
+              0,
+              0,
+              0,
+              9,
+              66
+            ]
+          ]
+        },
+        "leurFaceAuNutriscore": {
+          "total": 375,
+          "bienRanges": 104,
+          "exactitude": 0.2773333333333333,
+          "exactitudeEquilibree": 0.2773333333333333,
+          "aUneClassePres": 0.624,
+          "matrice": [
+            [
+              2,
+              38,
+              6,
+              3,
+              26
+            ],
+            [
+              2,
+              21,
+              5,
+              6,
+              41
+            ],
+            [
+              0,
+              14,
+              5,
+              4,
+              52
+            ],
+            [
+              1,
+              2,
+              4,
+              7,
+              61
+            ],
+            [
+              0,
+              1,
+              3,
+              2,
+              69
+            ]
+          ]
+        },
+        "notreFaceALeur": {
+          "total": 375,
+          "bienRanges": 122,
+          "exactitude": 0.3253333333333333,
+          "exactitudeEquilibree": 0.3407745147429744,
+          "aUneClassePres": 0.6746666666666666,
+          "matrice": [
+            [
+              1,
+              2,
+              1,
+              0,
+              1
+            ],
+            [
+              11,
+              33,
+              30,
+              2,
+              0
+            ],
+            [
+              0,
+              3,
+              15,
+              2,
+              3
+            ],
+            [
+              0,
+              3,
+              13,
+              3,
+              3
+            ],
+            [
+              0,
+              0,
+              112,
+              67,
+              70
+            ]
+          ]
+        },
+        "leurReproduit": 0,
+        "bloquants": {
+          "notre": {
+            "en": 0.528,
+            "sa": 0.424,
+            "su": 0.08533333333333333,
+            "so": 0.744,
+            "pr": 0.8,
+            "fi": 0.8213333333333334,
+            "fr": 0.7413333333333333,
+            "nova": 0.6853333333333333,
+            "additifs": 0.448,
+            "aRisque": 0.22933333333333333,
+            "bio": 0.8933333333333333
+          },
+          "leur": {
+            "su": 0.04533333333333334,
+            "fi": 0.96,
+            "nova": 0.6853333333333333,
+            "sa": 0.43733333333333335,
+            "sodium": 0.6426666666666667
+          }
+        }
+      },
+      "exemples": [
+        {
+          "code": "3421557922435",
+          "nom": "Muesli Croustillant Pommes Noisette",
+          "base": "leurs",
+          "label": "C",
+          "notre": "E′",
+          "leur": "B′",
+          "notreAuDessus": {
+            "rates": [
+              "en",
+              "su",
+              "pr"
+            ],
+            "poids": 0.3053475935828877
+          },
+          "leurAuDessus": {
+            "rates": [
+              "su",
+              "nova"
+            ],
+            "poids": 0.5333
+          },
+          "proteinesComptees": false,
+          "notreExplication": "A′ : rate énergie, sucres, protéines, fruits, légumes et légumineuses ; B′ : rate énergie, sucres, protéines, fruits, légumes et légumineuses ; C′ : rate énergie, sucres, protéines, fruits, légumes et légumineuses ; D′ : rate énergie, sucres, protéines",
+          "leurExplication": "A′ : rate sucres, groupe NOVA ; B′ : franchi"
+        },
+        {
+          "code": "3257982125116",
+          "nom": "Poêlée Fermière",
+          "base": "nos",
+          "label": "B",
+          "notre": "C′",
+          "leur": "E′",
+          "notreAuDessus": {
+            "rates": [
+              "pr",
+              "fi",
+              "nova",
+              "additifs",
+              "bio"
+            ],
+            "poids": 0.43676470588235294
+          },
+          "leurAuDessus": {
+            "rates": [
+              "fi",
+              "nova"
+            ],
+            "poids": 0.4667
+          },
+          "proteinesComptees": true,
+          "notreExplication": "A′ : rate acides gras saturés, sel, protéines, fibres, groupe NOVA, nombre d'additifs, bio ; B′ : rate protéines, fibres, groupe NOVA, nombre d'additifs, bio ; C′ : franchi",
+          "leurExplication": "A′ : rate fibres, groupe NOVA, acides gras saturés, sodium ; B′ : rate fibres, groupe NOVA ; C′ : rate fibres, groupe NOVA ; D′ : rate fibres, groupe NOVA"
+        }
+      ],
+      "modele": {
+        "criteres": [
+          "su",
+          "fi",
+          "nova",
+          "sa",
+          "sodium"
+        ],
+        "poids": {
+          "su": 0.3333,
+          "fi": 0.2667,
+          "nova": 0.2,
+          "sa": 0.1333,
+          "sodium": 0.0667
+        },
+        "profils": [
+          {
+            "su": 22.5,
+            "fi": 3,
+            "nova": 3,
+            "sa": 5,
+            "sodium": 600
+          },
+          {
+            "su": 17,
+            "fi": 4,
+            "nova": 3,
+            "sa": 3.8,
+            "sodium": 440
+          },
+          {
+            "su": 11,
+            "fi": 5,
+            "nova": 3,
+            "sa": 2.7,
+            "sodium": 280
+          },
+          {
+            "su": 5,
+            "fi": 6,
+            "nova": 1,
+            "sa": 1.5,
+            "sodium": 120
+          }
+        ],
+        "lam": 0.63,
+        "sens": {
+          "su": "min",
+          "fi": "max",
+          "nova": "min",
+          "sa": "min",
+          "sodium": "min"
+        }
       }
     }
   }

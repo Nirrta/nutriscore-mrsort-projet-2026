@@ -74,8 +74,8 @@ def test_la_slide_6_explique_les_deux_profils_decisifs(slides):
     """La Poêlée Fermière franchit b3 (tout vote pour elle sauf les protéines), mais pas b4 (les acides gras saturés)."""
     textes = textesDeLaSlide(slides.slides[5])
     assert "b3, franchi" in textes and "b4, non franchi" in textes
-    assert "Tous les critères votent pour le plat, sauf les protéines : 0,919 ≥ 0,6." in textes
-    assert "Les acides gras saturés ne votent plus : 0,479 < 0,6. Le plat reste en\u00a0C′." in textes
+    assert slides_projet.typographie("Tous les critères votent pour le plat, sauf les protéines : 0,919 ≥ 0,6.") in textes
+    assert slides_projet.typographie("Les acides gras saturés ne votent plus : 0,479 < 0,6. Le plat reste en\u00a0C′.") in textes
 
 
 def couleurDeLaForme(diapo, nom):

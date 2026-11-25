@@ -33,9 +33,13 @@ def texteDeLaSlide(diapo):
     return " ".join(forme.text_frame.text for forme in diapo.shapes if forme.has_text_frame and forme.text_frame.text)
 
 
-def test_onze_slides_sans_debordement(slides):
-    """Onze slides ; la génération se serait arrêtée si un titre ou un texte débordait."""
-    assert len(slides.slides) == 11
+def test_douze_slides_sans_debordement(slides):
+    """Douze slides ; la génération se serait arrêtée si un titre ou un texte débordait."""
+    assert len(slides.slides) == 12
+
+
+def test_la_slide_2_dit_la_regle_des_proteines(slides):
+    assert "ne votent que si le Nutri-Score les compte" in texteDeLaSlide(slides.slides[1])
 
 
 def test_le_pied_de_page_dit_la_soutenance_finale(slides):
@@ -57,7 +61,7 @@ def test_les_notes_reprennent_le_texte_de_l_oral_final(slides):
 def test_la_slide_5_suit_la_poelee_fermiere(slides):
     """B au Nutri-Score, C′ au SuperNutri-score ; NOVA 3 et un seul additif la feraient monter en B′."""
     texte = texteDeLaSlide(slides.slides[4])
-    assert "Poêlée Fermière : B au Nutri-Score, C′ au SuperNutri-score" in texte
+    assert slides_projet.typographie("Poêlée Fermière : B au Nutri-Score, C′ au SuperNutri-score") in texte
     assert "B′" in texte
 
 
@@ -79,3 +83,48 @@ def test_la_slide_8_cite_les_decalages_les_plus_actifs(slides):
     profils = resultatsDuSuperNutri()["supernutri"]["sensibilite"]["etendue"]["profils"]
     plusActif = max(profils["scenarios"], key=lambda scenario: scenario["plats"])
     assert str(plusActif["plats"]) in texteDeLaSlide(slides.slides[7])
+
+
+def test_la_slide_8_nomme_des_plats_qui_changent(slides):
+    """Le sujet demande d'identifier les produits qui changent : la slide en nomme trois, sous le décalage le plus actif."""
+    profils = resultatsDuSuperNutri()["supernutri"]["sensibilite"]["etendue"]["profils"]
+    plusActif = max(profils["scenarios"], key=lambda scenario: scenario["plats"])
+    noms = [plat["nom"] for plat in profils["plats"] if plat["code"] in plusActif["codes"]]
+    texte = texteDeLaSlide(slides.slides[7])
+    assert sum(1 for nom in noms if nom in texte) == 3
+
+
+def autreGroupe():
+    """La comparaison avec l'autre groupe, dans le JSON."""
+    autre = resultatsDuSuperNutri()["supernutri"].get("autreGroupe")
+    if autre is None:
+        pytest.skip("la base de l'autre groupe n'est pas encore comparée")
+    return autre
+
+
+def test_la_slide_9_croise_les_deux_modeles_et_les_deux_bases(slides):
+    """Pour chaque base, chaque modèle face au Nutri-Score, puis les deux modèles entre eux ; et leurs classes redonnées."""
+    autre = autreGroupe()
+    texte = texteDeLaSlide(slides.slides[8])
+    for base in ("leurs", "nos"):
+        for cle in ("notreFaceAuNutriscore", "leurFaceAuNutriscore", "notreFaceALeur"):
+            for mesure in ("exactitude", "aUneClassePres"):
+                assert slides_projet.pourcentage(autre[base][cle][mesure], 1) in texte, (base, cle, mesure)
+    assert f"redonne leurs {autre['reproduits']} classes" in texte
+
+
+def test_la_slide_10_montre_ce_qui_bloque_chaque_modele(slides):
+    """Ce que chaque modèle rate le plus souvent sur la base de l'autre, au seuil de B′, et un produit de chaque base."""
+    autre = autreGroupe()
+    texte = texteDeLaSlide(slides.slides[9])
+    for base, modele in (("leurs", "notre"), ("nos", "leur")):
+        critere, part = max(autre[base]["bloquants"][modele].items(), key=lambda paire: paire[1])
+        assert slides_projet.pourcentage(part) in texte, (base, critere)
+    for exemple in autre["exemples"]:
+        assert exemple["nom"] in texte
+
+
+def test_aucun_signe_double_ne_commence_une_ligne():
+    """Une espace insécable avant « ; », « : », « ? », « ! » et « % », et dans les guillemets ; l'apostrophe typographique."""
+    assert slides_projet.typographie("au bord ; à 0,05 : 11,5 % « oui » l'eau ?") == \
+        "au bord ; à 0,05 : 11,5 % « oui » l’eau ?"

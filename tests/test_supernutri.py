@@ -317,17 +317,6 @@ def test_importer_un_csv_a_point_virgule(tmp_path):
     assert manques == {}
 
 
-def test_comparer_avec_l_autre_groupe():
-    """Nos classes face aux leurs et face à leur Nutri-Score, et le recoupement avec notre base, par code-barres."""
-    plats = [dict(platAuNiveauDeAPrime(), code="1", nom="Même avis", label="A", leurClasse="A"),
-             dict(platAuNiveauDeAPrime(), code="2", nom="Autre avis", label="B", leurClasse="C")]
-    resultat = sn.comparerAvecAutreGroupe(plats, notreBase=[{"code": "2"}, {"code": "9"}])
-    assert resultat["leurSuperNutri"]["bienRanges"] == 1
-    assert resultat["leurNutriscore"]["bienRanges"] == 1
-    assert resultat["recoupement"] == (1, 50.0)
-    assert [(d["code"], d["notre"], d["leur"]) for d in resultat["differences"]] == [("2", "A′", "C")]
-
-
 @pytest.mark.skipif(not projet_base.FICHIER_BASE_ETENDUE.exists(), reason="la base étendue n'est pas construite")
 def test_l_import_rend_les_classes_de_nos_250_plats_ajoutes(tmp_path, monkeypatch):
     """
@@ -452,3 +441,124 @@ def test_leur_modele_recode_redonne_leurs_300_classes():
     modele = sn.modeleDeLAutreGroupe()
     differents = [plat["nom"] for plat in plats if sn.classerAvecUnModele(plat, modele)["lettre"][0] != plat["leurClasse"]]
     assert len(plats) == 300 and differents == []
+
+
+# --- Les deux bases étendues et la comparaison des deux modèles (25/11) ---
+
+@fichePoelee
+def test_l_import_lit_aussi_le_type_au_nutriscore(tmp_path, monkeypatch):
+    """La fiche d'OFF donne aussi le type du produit au Nutri-Score : la Poêlée Fermière est du cas général."""
+    monkeypatch.setenv("PROJET_HORS_LIGNE", "1")
+    classeur = openpyxl.Workbook()
+    classeur.active.append(ENTETES)
+    classeur.active.append(POELEE)
+    chemin = tmp_path / "autre.xlsx"
+    classeur.save(chemin)
+    plats, manques = sn.importerBaseAutreGroupe(chemin, CORRESPONDANCE)
+    assert plats[0]["categorie"] == "general" and plats[0]["ficheLue"]
+
+
+def test_la_base_completee_garde_leurs_colonnes_et_ajoute_les_notres(tmp_path):
+    """Leurs colonnes d'abord, puis ce qu'OFF ajoute ; une feuille « lisez-moi » dit d'où vient chaque chose."""
+    source = tmp_path / "leur.xlsx"
+    classeur = openpyxl.Workbook()
+    classeur.active.append(["code", "nom"])
+    classeur.active.append(["0000000000017", "Muesli"])
+    classeur.save(source)
+    plat = {"code": "0000000000017", "nom": "Muesli", "nova": 3, "additifs": 2, "listeAdditifs": "E250, E330", "bio": "oui",
+            "categorie": "general", "ficheLue": "2026-11-26"}
+    chemin = tmp_path / "completee.xlsx"
+    sn.ecrireBaseCompletee([plat], source, chemin)
+    lu = openpyxl.load_workbook(chemin)
+    entetes = [cellule.value for cellule in lu.worksheets[0][1]]
+    assert entetes[:2] == ["code", "nom"]
+    assert "Additifs à risque (OFF)" in entetes and "Bio (OFF)" in entetes and "Type au Nutri-Score (OFF)" in entetes
+    ligne = dict(zip(entetes, [cellule.value for cellule in lu.worksheets[0][2]]))
+    assert (ligne["Additifs à risque (OFF)"], ligne["Bio (OFF)"]) == (1, "oui")
+    assert "lisez-moi" in lu.sheetnames
+
+
+@baseConstruite
+def test_notre_base_enrichie_explique_chaque_classe(tmp_path):
+    """Chaque plat : les protéines que retient le Nutri-Score, et profil par profil, les critères qui votent contre lui."""
+    sortie = tmp_path / "supernutri.xlsx"
+    sn.superNutriScore(projet_base.FICHIER_BASE, sortie=sortie, afficher=False)
+    feuille = openpyxl.load_workbook(sortie).worksheets[0]
+    entetes = [cellule.value for cellule in feuille[1]]
+    assert "Protéines retenues par le Nutri-Score" in entetes and "Explication" in entetes
+    lignes = [dict(zip(entetes, [cellule.value for cellule in ligne])) for ligne in feuille.iter_rows(min_row=2)]
+    poelee = [ligne for ligne in lignes if ligne["Code-barres"] == "3257982125116"][0]
+    assert poelee["Explication"].startswith("A′ : rate ") and "C′ : franchi" in poelee["Explication"]
+
+
+def test_deux_modeles_comparés_sur_une_base():
+    """Chaque modèle face au Nutri-Score, puis l'un face à l'autre, et ce qui bloque chacun au seuil de B′."""
+    leur = {"criteres": ["su", "fi"], "poids": {"su": 0.5, "fi": 0.5}, "lam": 0.6, "sens": {"su": "min", "fi": "max"},
+            "profils": [{"su": 20, "fi": 1}, {"su": 15, "fi": 2}, {"su": 10, "fi": 3}, {"su": 5, "fi": 6}]}
+    plats = [dict(platAuNiveauDeAPrime(), code="1", nom="Bon", label="A", leurClasse="A"),
+             dict(platAuBordDeAPrime(fi=0.5), code="2", nom="Sans fibres", label="C", leurClasse="E")]
+    resultat = sn.comparerDeuxModeles(plats, leur)
+    assert resultat["total"] == 2
+    assert resultat["notreFaceAuNutriscore"]["total"] == resultat["leurFaceAuNutriscore"]["total"] == 2
+    assert resultat["leurReproduit"] == 2                       # leur modèle redonne leur colonne
+    assert resultat["bloquants"]["leur"]["fi"] == 0.5           # le plat sans fibres rate leur seuil de B′
+
+
+def leurModeleJouet():
+    """Un modèle à deux critères, à la manière du leur : les sucres et le sodium (en mg)."""
+    return {"criteres": ["su", "sodium"], "poids": {"su": 0.5, "sodium": 0.5}, "lam": 0.6,
+            "sens": {"su": "min", "sodium": "min"},
+            "profils": [{"su": 20, "sodium": 800}, {"su": 15, "sodium": 600}, {"su": 10, "sodium": 400}, {"su": 5, "sodium": 200}]}
+
+
+def test_leur_modele_lit_le_sodium_de_nos_plats_dans_le_sel():
+    """Nos plats donnent le sel, en g ; leur modèle lit le sodium, en mg : 1 g de sel, c'est 400 mg de sodium."""
+    plat = dict(platAuNiveauDeAPrime(), so=0.4)
+    assert sn.avecLeSodium(plat)["sodium"] == pytest.approx(160)
+    assert sn.avecLeSodium(dict(plat, sodium=90))["sodium"] == 90            # un sodium donné est gardé
+
+
+def test_l_analyse_de_l_autre_groupe_compare_les_deux_bases():
+    """Leurs produits et nos plats, chacun rangé par les deux modèles ; le recoupement des deux bases, et un exemple par base."""
+    leurs = [dict(platAuNiveauDeAPrime(), code="1", nom="Muesli", label="A", leurClasse="A", sodium=80, categorie="general"),
+             dict(platAuNiveauDeAPrime(), code="2", nom="Pétales", label="C", leurClasse="D", su=18, sodium=700)]
+    nos = [dict(platAuNiveauDeAPrime(), code="3", nom="Poêlée", label="B"),
+           dict(platAuNiveauDeAPrime(), code="2", nom="Même code", label="A")]
+    analyse = sn.analyseAutreGroupe(leurs, {"9": "absent"}, leurModeleJouet(), nos, exemples=("1", "3"))
+    assert analyse["reproduits"] == 2 and analyse["total"] == 2 and analyse["manques"] == ["9"]
+    assert analyse["recoupement"] == [1, 50.0]
+    assert analyse["leurs"]["total"] == 2 and analyse["nos"]["total"] == 2
+    assert analyse["types"] == {"general": 1, "inconnu": 1}
+    assert [(e["code"], e["base"]) for e in analyse["exemples"]] == [("1", "leurs"), ("3", "nos")]
+    assert analyse["exemples"][0]["leur"] == "A′" and analyse["exemples"][0]["notre"] == "A′"
+    assert analyse["exemples"][0]["proteinesComptees"]                # 15 g de protéines, peu de points négatifs
+
+
+def test_l_excel_de_l_autre_groupe_a_trois_feuilles(tmp_path):
+    """Leurs produits rangés par les deux modèles, nos plats rangés par leur modèle, et la comparaison."""
+    leurs = [dict(platAuNiveauDeAPrime(), code="1", nom="Muesli", label="A", leurClasse="A", sodium=80)]
+    nos = [dict(platAuNiveauDeAPrime(), code="3", nom="Poêlée", label="B")]
+    analyse = sn.analyseAutreGroupe(leurs, {}, leurModeleJouet(), nos, exemples=("1", "3"))
+    chemin = tmp_path / "autre.xlsx"
+    sn.ecrireAutreGroupe(leurs, nos, analyse, leurModeleJouet(), chemin)
+    classeur = openpyxl.load_workbook(chemin)
+    assert classeur.sheetnames == ["leurs produits", "nos plats", "comparaison"]
+    entetes = [cellule.value for cellule in classeur["leurs produits"][1]]
+    assert {"Nutri-Score", "Leur SuperNutri-score", "Notre SuperNutri-score", "Additifs à risque"} <= set(entetes)
+    assert classeur["nos plats"].max_row == 2
+
+
+def test_ce_qui_empeche_un_produit_de_monter():
+    """Le plat qui rate toute la transformation, avec 400 kJ (au-dessus des 335 kJ de A′) : B′, car face à A′ il rate cinq critères."""
+    plat = dict(platAuBordDeAPrime(), en=400)
+    detail = sn.rateAuDessus(sn.valeursDuPlat(plat), sn.MODELE_SUPER)
+    assert detail["rates"] == ["en", "nova", "additifs", "aRisque", "bio"]
+    assert detail["poids"] == pytest.approx(sn.MODELE_SUPER["poids"]["en"] + 0.30)
+    assert sn.rateAuDessus(sn.valeursDuPlat(platAuNiveauDeAPrime()), sn.MODELE_SUPER) is None
+
+
+def test_les_produits_secs_en_a_prime():
+    """Un couscous sec (1 500 kJ pour 100 g) peut rester en A′ : la liste des produits secs en A′ le nomme, pas la purée."""
+    sec = dict(platAuNiveauDeAPrime(), en=1500, code="1", nom="Couscous", label="A")
+    frais = dict(platAuNiveauDeAPrime(), code="2", nom="Purée", label="A")
+    assert sn.produitsSecsEnAPrime([sec, frais]) == ["Couscous"]

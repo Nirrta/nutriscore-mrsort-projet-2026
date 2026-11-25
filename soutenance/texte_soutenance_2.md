@@ -5,13 +5,13 @@ subtitle: Le SuperNutri-score, vendredi 27 novembre 2026
 
 # Le déroulé
 
-Quinze minutes au plus, en trois parties. Le texte vise 13 minutes 50 secondes, pour garder une marge.
+Quinze minutes au plus, en trois parties. Le texte vise 14 minutes 40 secondes, pour garder une marge.
 
 | Partie | Orateur | Slides | Durée |
 |---|---|---|---|
-| Le modèle | Daniel | 1 à 4 | 4 min 50 |
-| Le plat suivi, la comparaison et les deux sensibilités | Anis | 5 à 8 | 6 min |
-| L'autre groupe, la démonstration et la conclusion | Biyao | 9 à 11 | 3 min |
+| Le modèle | Daniel | 1 à 4 | 4 min 20 |
+| Le plat suivi, la comparaison et les deux sensibilités | Anis | 5 à 8 | 5 min 40 |
+| L'autre groupe, la démonstration et la conclusion | Biyao | 9 à 12 | 4 min 40 |
 
 La répartition des orateurs n'est qu'une proposition : échangez les parties si vous le souhaitez.
 
@@ -23,7 +23,7 @@ Le texte de chaque slide est aussi dans les notes du fichier PowerPoint : il se 
 - l'interface déjà lancée (`streamlit run projet_gui.py`), dans un onglet prêt, sur le calculateur ;
 - le fichier PowerPoint ouvert en mode présentateur.
 
-Tous les chiffres portent sur nos 375 plats, et viennent de `python3 projet_supernutri.py`.
+Tous les chiffres viennent de `python3 projet_supernutri.py` : nos 375 plats, et les 300 céréales de l'autre groupe.
 
 # Le texte, slide par slide
 
@@ -45,29 +45,27 @@ Bonjour. Le 30 octobre, nous approchions le Nutri-Score par MR-Sort. Aujourd'hui
 
 Le SuperNutri-score a onze critères, groupés en trois piliers. À limiter, 0,40 : l'énergie, les graisses saturées, les sucres et le sel. À favoriser, 0,30 : les protéines, les fibres, les fruits et légumes. Ces sept critères sont ceux du Nutri-Score.
 
-Dans ces deux piliers, chaque critère pèse au prorata de ses points maximaux dans le Nutri-Score : le sel, qui peut coûter 20 points, pèse deux fois l'énergie, qui en coûte 10. Les poids ne sortent donc pas de notre chapeau.
+Dans ces deux piliers, chaque critère pèse au prorata de ses points maximaux dans le Nutri-Score : le sel, qui peut coûter 20 points, pèse deux fois l'énergie, qui en coûte 10. Et les protéines comptent comme dans le Nutri-Score de 2023 : il ne les compte pas pour un produit qui a 11 points négatifs ou plus, et chez nous, elles ne votent pas non plus.
 
-Le troisième pilier, 0,30, est notre ajout : la transformation et la production. Le groupe NOVA pèse 0,10. Les additifs pèsent 0,15 en tout, partagés entre leur nombre et les additifs à risque, ceux qu'une autorité sanitaire signale : les nitrites, les phosphates, les carraghénanes. Enfin le bio, 0,05 : c'est le plus petit poids, car son effet sur la santé est le moins établi.
+Le troisième pilier, 0,30, est notre ajout : la transformation et la production. Le groupe NOVA pèse 0,10. Les additifs pèsent 0,15 en tout, partagés entre leur nombre et les additifs à risque : les nitrites, les phosphates, les carraghénanes. Enfin le bio, 0,05 : c'est le plus petit poids, car son effet sur la santé est le moins établi.
 
 Le seuil majoritaire vaut 0,7. Face à un profil, un plat peut donc rater au plus 0,3 du poids : par exemple tout un pilier, mais rien de plus.
 
 **Transition :** Restent les profils, les frontières entre les classes.
 
-## Slide 3 : les seuils (Daniel, 1 min 30)
+## Slide 3 : les seuils (Daniel, 1 min 10)
 
 **On montre :** le tableau des seuils, de D prime à A prime, et la colonne des sources.
 
 **On dit :**
 
-Chaque seuil vient d'un texte officiel. Pour A prime, nous reprenons les allégations nutritionnelles du règlement européen de 2006 : faible teneur en graisses saturées, 1,5 gramme pour 100 grammes ; faible teneur en sucres, 5 grammes ; faible teneur en sel, 0,3 gramme ; riche en fibres, 6 grammes.
+Chaque seuil vient d'un texte officiel. Pour A prime, les allégations nutritionnelles du règlement européen de 2006 : faible teneur en graisses saturées, 1,5 gramme pour 100 grammes ; en sucres, 5 grammes ; en sel, 0,3 gramme ; riche en fibres, 6 grammes. Pour les autres classes, les barèmes du Nutri-Score de 2023 : par exemple 670 kilojoules pour B prime, soit au plus un point d'énergie.
 
-Pour les classes suivantes, nous prenons les barèmes du Nutri-Score de 2023 : par exemple 670 kilojoules pour B prime, soit au plus un point d'énergie.
-
-Pour la transformation : un plat ultra-transformé, NOVA 4, ne vote pas pour A prime ni pour B prime. Aucun additif pour A prime, un au plus pour B prime. Et le bio n'est exigé que pour les deux premières classes.
+Pour la transformation : un plat ultra-transformé, NOVA 4, ne vote ni pour A prime ni pour B prime. Aucun additif pour A prime, un au plus pour B prime. Et le bio n'est exigé que pour ces deux classes.
 
 **Transition :** Que veulent dire ces classes ?
 
-## Slide 4 : le sens des classes (Daniel, 1 min 10)
+## Slide 4 : le sens des classes (Daniel, 1 min 00)
 
 **On montre :** les cinq classes avec leur sens, et leur répartition sur nos 375 plats.
 
@@ -75,11 +73,11 @@ Pour la transformation : un plat ultra-transformé, NOVA 4, ne vote pas pour A p
 
 Nous avons repris le sens que la FAQ officielle donne au Nutri-Score : il ne range pas les aliments en bons ou mauvais, il va des plus favorables à la santé aux moins favorables. Nous l'étendons à la transformation et à la production. Les classes servent à comparer des plats préparés entre eux, pas à juger un plat seul.
 
-Sur nos 375 plats, 12 sont en A prime, 41 en B prime, et la moitié, 190, en C prime. Notre modèle est exigeant en haut.
+Sur nos 375 plats, 12 sont en A prime, 41 en B prime, et près de la moitié, 171, en C prime. Notre modèle est exigeant en haut.
 
 **Transition :** Anis va suivre le plat que nous suivons depuis octobre.
 
-## Slide 5 : la Poêlée Fermière (Anis, 1 min 40)
+## Slide 5 : la Poêlée Fermière (Anis, 1 min 35)
 
 **On montre :** les quatre barres de concordance de la Poêlée Fermière, puis la colonne « Et si… ».
 
@@ -99,11 +97,11 @@ Et si elle était moins transformée ? Avec NOVA 3 et un seul additif, elle pass
 
 **On dit :**
 
-Sur nos 375 plats, 164 gardent la classe du Nutri-Score, 137 descendent et 74 montent.
+Sur nos 375 plats, 210 gardent la classe du Nutri-Score, 145 descendent et 20 montent.
 
-Pourquoi descendent-ils ? Face au profil de leur classe au Nutri-Score, ils ratent surtout les fibres, pour 121 plats, le label bio, pour 108, les protéines, pour 102, le sel, pour 98, et le groupe NOVA, pour 87. Les plats A du Nutri-Score, par exemple, ne sont pas tous assez riches en fibres ni assez peu salés pour nos seuils de A prime.
+Pourquoi descendent-ils ? Face au profil de leur classe au Nutri-Score, ils ratent surtout les fibres, pour 125 plats, les protéines, pour 113, le label bio, pour 108, le sel, pour 105, et le groupe NOVA, pour 87. Les plats A du Nutri-Score, par exemple, ne sont pas tous assez riches en fibres ni assez peu salés pour nos seuils de A prime.
 
-Et pourquoi montent-ils ? Au milieu, C prime n'exige plus ni NOVA 3 ni le bio : 26 plats D du Nutri-Score montent ainsi en C prime. Notre modèle sépare donc davantage le haut du classement, et resserre le milieu.
+Et pourquoi montent-ils ? Au milieu, C prime n'exige plus ni NOVA 3 ni le bio : 10 plats D du Nutri-Score montent ainsi en C prime. Notre modèle sépare donc davantage le haut du classement, et resserre le milieu.
 
 **Transition :** Nos poids sont un choix. Que se passe-t-il s'ils bougent un peu ?
 
@@ -115,37 +113,51 @@ Et pourquoi montent-ils ? Au milieu, C prime n'exige plus ni NOVA 3 ni le bio : 
 
 Le sujet demande de modifier légèrement les poids, en gardant des poids positifs de somme 1. Nous l'avons fait de deux façons.
 
-Un poids à la fois : il gagne ou perd 0,05, et les autres sont rajustés. Le plus sensible est celui des protéines : quand il gagne 0,05, 66 plats changent de classe.
+Un poids à la fois : il gagne ou perd 0,05, et les autres sont rajustés. Le plus sensible est celui des protéines : quand il gagne 0,05, 74 plats changent de classe.
 
-Tous les poids ensemble, au hasard, mille fois par amplitude : à plus ou moins 0,01, 4,9 % des plats changent en moyenne ; à plus ou moins 0,02, 7,3 % ; à plus ou moins 0,05, 14,1 %.
+Tous les poids ensemble, au hasard, mille fois par amplitude : à plus ou moins 0,01, 3,5 % des plats changent en moyenne ; à plus ou moins 0,02, 4,8 % ; à plus ou moins 0,05, 11,5 %.
 
 Pourquoi des changements dès 0,01 ? Parce que 13 plats sont au bord de leur classe : ils ratent tout le pilier à favoriser, et leur concordance vaut 0,7 pile. Le moindre souffle sur les poids les fait basculer.
 
 **Transition :** Et si ce sont les seuils qui bougent ?
 
-## Slide 8 : la sensibilité aux profils (Anis, 1 min 20)
+## Slide 8 : la sensibilité aux profils (Anis, 1 min 05)
 
-**On montre :** le tableau des décalages qui changent le plus de plats.
-
-**On dit :**
-
-Nous déplaçons une valeur de profil à la fois, sans casser leur ordre : 5 % pour les composantes nutritionnelles, un cran pour NOVA et les additifs. Au total, 132 plats changent au moins une fois.
-
-Les seuils nutritionnels sont assez stables : 50 plats changent par eux. NOVA et les additifs, 100. Le décalage le plus actif : exiger NOVA 3 dès C prime ferait changer 60 plats. C'est logique : NOVA ne vaut que 3 ou 4 dans nos plats préparés, alors un cran, c'est la moitié de l'échelle.
-
-**Transition :** Biyao présente la base de l'autre groupe et l'interface.
-
-## Slide 9 : la base d'un autre groupe (Biyao, 0 min 50)
-
-**On montre :** les trois étapes de l'import.
+**On montre :** le tableau des décalages qui changent le plus de plats, puis les plats nommés.
 
 **On dit :**
 
-Le sujet demande de tester notre modèle sur la base d'un autre groupe, et de comparer nos résultats aux leurs. L'import est prêt : leurs colonnes gardent leurs noms, une table les relie aux nôtres, et NOVA, les additifs et le bio se retrouvent par le code-barres. Nous l'avons vérifié sur nos 250 plats ajoutés, déguisés en base étrangère : chaque plat retrouve sa classe. Il nous manque leur base, et les classes que leur SuperNutri-score donne à leurs aliments.
+Nous déplaçons une valeur de profil à la fois, sans casser leur ordre : 5 % pour les composantes nutritionnelles, un cran pour NOVA et les additifs. Au total, 116 plats changent au moins une fois : 43 par les seuils nutritionnels, 91 par NOVA et les additifs.
+
+Le décalage le plus actif : exiger NOVA 3 dès C prime ferait changer 52 plats, par exemple les 5 fromaggi de Carrefour, la Ratatouille et la Tartiflette, qui passeraient de C prime à D prime. C'est logique : NOVA ne vaut que 3 ou 4 dans nos plats préparés, alors un cran, c'est la moitié de l'échelle.
+
+**Transition :** Biyao compare notre modèle à celui d'un autre groupe.
+
+## Slide 9 : deux modèles, deux bases (Biyao, 1 min 15)
+
+**On montre :** le tableau croisé, puis la phrase en gras.
+
+**On dit :**
+
+Le sujet demande de tester notre modèle sur la base d'un autre groupe. Nous avons reçu celle de Branchu, Becavin, Bundhoo et Castan : 300 céréales du petit-déjeuner, aucune en commun avec nos plats. Leur base n'avait ni les additifs ni le bio : nous les avons lus sur Open Food Facts, par le code-barres. Nous avons aussi recodé leur modèle dans notre moteur, depuis leur seule note : il redonne leurs 300 classes.
+
+Résultat : chaque modèle colle mieux au Nutri-Score sur sa propre base. Sur leurs céréales, leur modèle retrouve la classe du Nutri-Score pour 47 % des produits, le nôtre pour 34,7 %. Sur nos plats, c'est l'inverse : 56 % pour le nôtre, 27,7 % pour le leur. Et les deux modèles ne donnent la même classe qu'à 52 % de leurs céréales : nos résultats diffèrent bien des leurs.
+
+**Transition :** Pourquoi ?
+
+## Slide 10 : chaque modèle porte sa catégorie (Biyao, 1 min 10)
+
+**On montre :** les deux colonnes, puis les deux produits et leurs trois classes.
+
+**On dit :**
+
+Chaque modèle porte la catégorie pour laquelle il est fait. Sur leurs céréales, notre seuil d'énergie, pensé pour des plats préparés, ne vote pour aucune au seuil de B prime : une céréale sèche dépasse toujours 670 kilojoules pour 100 grammes. Prenez ce muesli croustillant, bio et sans additif : C au Nutri-Score, B prime chez eux, E prime chez nous. Il rate l'énergie, les sucres, et les protéines, que le Nutri-Score ne compte pas : 0,31 du poids, plus que les 0,30 permis.
+
+À l'inverse, leur modèle exige des fibres : 96 % de nos plats ratent leur seuil de fibres pour B prime. Notre Poêlée Fermière tombe chez eux en E prime : peu de fibres et ultra-transformée, elle rate 0,47 du poids, quand leur seuil n'en permet que 0,37.
 
 **Transition :** Place à la démonstration.
 
-## Slide 10 : l'interface (Biyao, 1 min 20)
+## Slide 11 : l'interface (Biyao, 1 min 15)
 
 **On montre :** l'interface en direct, geste par geste, en suivant les repères de la slide.
 
@@ -155,16 +167,16 @@ Dans le calculateur, le SuperNutri-score est sous le Nutri-Score. La Poêlée Fe
 
 Je passe NOVA à 3 et les additifs à 1 : elle monte en B prime, en direct.
 
-Le seuil λ se règle maintenant au curseur, avec les poids et les profils. Avec les profils appris sur 375 plats, MR-Sort à 7 critères range la Poêlée en B prime à 0,6 ; à 0,7, elle passe en C prime.
+Le seuil λ se règle au curseur, avec les poids et les profils. Avec les profils appris sur 375 plats, MR-Sort à 7 critères range la Poêlée en B prime à 0,6 ; à 0,7, elle passe en C prime.
 
-Enfin, l'onglet SuperNutri-score montre le modèle, la source de chaque seuil, et les deux analyses de sensibilité.
+Enfin, l'onglet SuperNutri-score montre le modèle, la source de chaque seuil, les deux analyses de sensibilité, et le tableau croisé avec l'autre groupe.
 
 **Transition :** Pour finir, ce que nous retenons.
 
-## Slide 11 : ce que nous retenons (Biyao, 0 min 50)
+## Slide 12 : ce que nous retenons (Biyao, 1 min 00)
 
 **On montre :** les trois colonnes, puis le merci.
 
 **On dit :**
 
-Trois choses. Le SuperNutri-score est un score de santé : onze critères, des seuils tirés de textes officiels, des classes au sens du Nutri-Score. Il est plus exigeant en haut : 12 plats en A prime sur 375, et les descentes viennent surtout des fibres et du label bio. Et il est fragile aux frontières : 13 plats sont au bord, et à plus ou moins 0,05, 14,1 % des plats changent. Nos poids sont un choix, et nous le disons. Merci.
+Trois choses. Le SuperNutri-score est un score de santé : onze critères, des seuils tirés de textes officiels, des classes au sens du Nutri-Score. Il est fait pour nos plats : 56 % gardent la classe du Nutri-Score, contre 27,7 % avec le modèle de l'autre groupe. Et il a ses limites : 5 de nos 12 plats en A prime sont des produits secs, des couscous et un velouté déshydraté, car nos seuils lisent 100 grammes tels que vendus. Enfin, 13 plats sont au bord, et à plus ou moins 0,05, 11,5 % des plats changent. Nos poids sont un choix, et nous le disons. Merci.

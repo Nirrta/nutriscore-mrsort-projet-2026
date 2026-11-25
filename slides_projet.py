@@ -32,12 +32,12 @@ from pptx.oxml.ns import qn
 from pptx.util import Inches, Pt
 
 import projet_figures as figures
-from projet_base import DOSSIER, FICHIER_BASE, FICHIER_BASE_ETENDUE, FICHIER_RESULTATS, LOT_AJOUT, lireBase
+from projet_base import DOSSIER, FICHIER_BASE, FICHIER_RESULTATS, lireBase
 from projet_design import (COULEUR_NEGATIFS, COULEUR_POSITIFS, COULEURS_CLASSES, DOSSIER_POLICES, ENCRE,
                            ENCRE_SECONDAIRE, FICHIERS_POLICES, LETTRE_SUR_CLASSE, PAPIER, TRAME, couleurClasse,
                            lettreDeClasse)
 from projet_mrsort import CRITERES, CRITERES_SEPT, PROFILS, affecter, concordancePartielle, nomDeClasse, sensDuCritere
-from projet_nutriscore import EXEMPLES_SUJET, NEGATIFS, POINTS_MAX, POSITIFS, scoreNutriscore
+from projet_nutriscore import EXEMPLES_SUJET, NEGATIFS, POINTS_MAX, POSITIFS, SEUIL_PROTEINES, scoreNutriscore
 from projet_supernutri import PILIERS, SENS_DES_CLASSES, ecartsAuNutriscore, valeursDuPlat
 
 
@@ -84,10 +84,21 @@ def m(texte, police=TEXTE, taille=18, teinte=ENCRE, gras=False):
     return texte, {"police": police, "taille": taille, "teinte": teinte, "gras": gras}
 
 
+def typographie(texte):
+    """
+    Le texte tel qu'il s'affiche : l'apostrophe typographique, et une espace insécable avant « ; »,
+    « : », « ? », « ! », « % » et « » », et après « « » : aucun de ces signes ne commence une ligne.
+    """
+    texte = texte.replace("'", "’")
+    for signe in (";", ":", "?", "!", "%", "»"):
+        texte = texte.replace(f" {signe}", f"\u00a0{signe}")
+    return texte.replace("« ", "«\u00a0")
+
+
 def ajouterMorceau(paragraphe, texte, style):
-    """Ajoute un morceau de texte stylé à un paragraphe."""
+    """Ajoute un morceau de texte stylé à un paragraphe, avec la typographie de l'affichage."""
     morceau = paragraphe.add_run()
-    morceau.text = texte.replace("'", "’")      # l'apostrophe typographique, à l'affichage seulement
+    morceau.text = typographie(texte)
     morceau.font.name = style["police"]
     morceau.font.size = Pt(style["taille"])
     morceau.font.bold = style["gras"] or style["police"] == TITRE     # la graisse 800 est le gras d'Archivo Condensed
@@ -207,7 +218,7 @@ def largeurTexte(texte, police=TEXTE, taille=18, gras=False):
 def nombreDeLignes(texte, largeur, taille, police=TEXTE, gras=False):
     """Nombre de lignes d'un texte coupé aux espaces (pas aux espaces insécables), avec 3 % de marge."""
     courant, lignes = "", 1
-    for mot in [mot for mot in texte.split(" ") if mot]:
+    for mot in [mot for mot in typographie(texte).split(" ") if mot]:      # coupé comme à l'affichage
         essai = mot if not courant else courant + " " + mot
         if courant and largeurTexte(essai, police, taille, gras) > largeur * 0.97:
             lignes += 1
@@ -309,9 +320,9 @@ SA_DEMONSTRATION = 1.4            # les acides gras saturés saisis pendant la d
 # chaque critère en toutes lettres, et son article : avec « les », le verbe se met au pluriel
 NOMS_COURTS = {"en": "énergie", "sa": "acides gras saturés", "su": "sucres", "so": "sel", "pr": "protéines",
                "fi": "fibres", "fr": "fruits et légumes", "nova": "groupe NOVA", "additifs": "nombre d'additifs",
-               "aRisque": "additifs à risque", "bio": "label bio"}
+               "aRisque": "additifs à risque", "bio": "label bio", "sodium": "sodium"}
 ARTICLES = {"en": "l'", "sa": "les ", "su": "les ", "so": "le ", "pr": "les ", "fi": "les ", "fr": "les ",
-            "nova": "le ", "additifs": "le ", "aRisque": "les ", "bio": "le "}
+            "nova": "le ", "additifs": "le ", "aRisque": "les ", "bio": "le ", "sodium": "le "}
 # les sigles des critères du SuperNutri-score dans les barres de concordance : deux lettres, comme en, sa, su…
 SIGLES = {"nova": "nv", "additifs": "ad", "aRisque": "ar", "bio": "bi"}
 
@@ -985,8 +996,8 @@ def slidePiliers(presentation, supernutri):
     explications = {
         "à limiter": f"Au prorata des points maximaux du Nutri-Score : le sel ({POINTS_MAX['so']} points) pèse deux fois "
                      f"l'énergie ({POINTS_MAX['en']}).",
-        "à favoriser": f"Même règle : les protéines ({POINTS_MAX['pr']} points) pèsent plus que les fibres et les fruits "
-                       f"({POINTS_MAX['fi']}).",
+        "à favoriser": f"Même règle. Les protéines ne votent que si le Nutri-Score les compte : pas à partir de "
+                       f"{SEUIL_PROTEINES} points négatifs.",
         "transformation et production": "NOVA d'abord ; les additifs, entre leur nombre et leur risque ; le bio pèse le "
                                         "moins, car son effet sur la santé est le moins établi.",
     }
@@ -1141,42 +1152,112 @@ def slideSensibiliteProfils(presentation, sensibilite, total):
                           f"± 5 % sur les composantes : {profils['platsComposantes']} plats ; ± 1 sur NOVA et les additifs : "
                           f"{profils['platsEntiers']} plats.")
     lignes = []
-    for scenario in sorted(profils["scenarios"], key=lambda s: -s["plats"])[:7]:
+    for scenario in sorted(profils["scenarios"], key=lambda s: -s["plats"])[:6]:
         numero = PROFILS.index(scenario["profil"])
         lignes.append([f"{scenario['profil']} ({nomDeClasse(numero + 1)})", LIBELLES_COURTS[scenario["critere"]],
                        f"{nombreCourt(scenario['ancienne'])} → {nombreCourt(scenario['nouvelle'])}", str(scenario["plats"])])
     colonnes = [("Profil", 1.8, PP_ALIGN.LEFT), ("Critère", 4.4, PP_ALIGN.LEFT), ("Seuil", 2.6, PP_ALIGN.RIGHT),
                 ("Plats qui changent", 3.1, PP_ALIGN.RIGHT)]
     bas = tableauVerso(diapo, MARGE, 2.05, colonnes, lignes, "Décalages", taille=15, hauteurLigne=0.4)
+    plusActif = max(profils["scenarios"], key=lambda scenario: scenario["plats"])
+    noms = platsDuDecalage(profils, plusActif)
+    paragraphesMesures(diapo, MARGE, bas + 0.25, LARGEUR - 2 * MARGE, [
+        [m(f"Sous le décalage le plus actif, changent par exemple : {', '.join(noms[:-1])} et {noms[-1]}. La liste entière "
+           "est dans l'Excel de la sensibilité.", DEMI_GRAS, 15)],
+        [m(f"Sur {total} plats, une valeur de profil bouge à la fois, sans casser leur ordre. NOVA ne vaut que 3 ou 4 dans "
+           "nos plats préparés : un cran sur son seuil change plus de plats que 5 % sur un seuil nutritionnel.",
+           TEXTE, 15, ENCRE_SECONDAIRE)]], "Lecture des décalages")
+
+
+def platsDuDecalage(profils, scenario, nombreDePlats=3):
+    """
+    Les plats dont un décalage change la classe, pour les nommer sur la slide : les noms les plus
+    courts, pour tenir sur une ligne (la liste entière est dans supernutri_sensibilite.xlsx).
+    """
+    noms = [plat["nom"] for plat in profils["plats"] if plat["code"] in scenario["codes"]]
+    return sorted(noms, key=lambda nom: (len(nom), nom))[:nombreDePlats]
+
+
+def slideDeuxModeles(presentation, autre, total):
+    """
+    Deux SuperNutri-scores sur deux bases : leurs céréales et nos plats, rangés par chaque modèle,
+    face au Nutri-Score (même classe, puis à une classe près), puis les deux modèles entre eux.
+    """
+    leurs, nos = autre["leurs"], autre["nos"]
+    chacunChezSoi = (leurs["leurFaceAuNutriscore"]["exactitude"] > leurs["notreFaceAuNutriscore"]["exactitude"]
+                     and nos["notreFaceAuNutriscore"]["exactitude"] > nos["leurFaceAuNutriscore"]["exactitude"])
+    titre = "Chaque modèle colle mieux au Nutri-Score sur sa propre base" if chacunChezSoi else "Deux modèles sur deux bases"
+    communs = autre["recoupement"][0]
+    diapo = nouvelleDiapo(presentation, titre,
+                          f"Leur modèle, recodé depuis leur note, redonne leurs {autre['reproduits']} classes. "
+                          + ("Aucun produit en commun." if communs == 0 else f"{communs} produits en commun."))
+    largeurs = [3.9, 2.0, 2.0, 2.0, 2.0]
+    x = MARGE + largeurs[0]
+    colonne(diapo, x, 2.0, largeurs[1] + largeurs[2] - 0.2, f"Leurs {autre['total']} céréales", "leurs céréales")
+    colonne(diapo, x + largeurs[1] + largeurs[2], 2.0, largeurs[3] + largeurs[4], f"Nos {total} plats", "nos plats")
+    colonnes = [("Part des produits", largeurs[0], PP_ALIGN.LEFT), ("même classe", largeurs[1], PP_ALIGN.RIGHT),
+                ("à une classe près", largeurs[2], PP_ALIGN.RIGHT), ("même classe", largeurs[3], PP_ALIGN.RIGHT),
+                ("à une classe près", largeurs[4], PP_ALIGN.RIGHT)]
+    lignes = []
+    for cle, libelle in (("notreFaceAuNutriscore", "Notre modèle face au Nutri-Score"),
+                         ("leurFaceAuNutriscore", "Leur modèle face au Nutri-Score"),
+                         ("notreFaceALeur", "Notre modèle face au leur")):
+        lignes.append([libelle] + [pourcentage(comparaison[cle][mesure], 1) for comparaison in (leurs, nos)
+                                   for mesure in ("exactitude", "aUneClassePres")])
+    bas = tableauVerso(diapo, MARGE, 2.75, colonnes, lignes, "Deux modèles", taille=16, hauteurLigne=0.5)
+    # λ et sa valeur ne se séparent pas en fin de ligne : espaces insécables
+    lams = [f"λ\u00a0=\u00a0{nombreCourt(lam)}" for lam in (autre["modele"]["lam"], 0.7)]
+    bas = paragraphesMesures(diapo, MARGE, bas + 0.3, LARGEUR - 2 * MARGE, [[m(
+        f"Le Nutri-Score est la même référence des deux côtés : notre calcul de 2023 redonne leurs {autre['total']} labels. "
+        f"Leur modèle a {len(autre['modele']['criteres'])} critères et {lams[0]} ; le nôtre en a onze, et {lams[1]}.",
+        TEXTE, 15, ENCRE_SECONDAIRE)]], "Lecture des deux modèles")
     paragraphesMesures(diapo, MARGE, bas + 0.25, LARGEUR - 2 * MARGE, [[m(
-        f"Sur {total} plats, une valeur de profil bouge à la fois, sans casser leur ordre. NOVA ne vaut que 3 ou 4 dans nos "
-        "plats préparés : déplacer son seuil d'un cran change beaucoup plus de plats que 5 % sur un seuil nutritionnel.",
-        TEXTE, 15, ENCRE_SECONDAIRE)]], "Lecture des décalages")
+        f"Nos résultats diffèrent donc des leurs : sur leurs céréales, les deux modèles ne donnent la même classe qu'à "
+        f"{pourcentage(leurs['notreFaceALeur']['exactitude'], 1)} des produits.", DEMI_GRAS, 17)]], "Réponse au sujet")
 
 
-def slideAutreGroupe(presentation, supernutri, ajoutes):
-    """La base d'un autre groupe : ses résultats si elle est là, sinon l'import prêt et vérifié."""
-    autre = supernutri.get("autreGroupe")
-    if autre and autre.get("leurSuperNutri"):
-        leur = autre["leurSuperNutri"]
-        diapo = nouvelleDiapo(presentation, f"Sur leur base, {leur['bienRanges']} aliments sur {leur['total']} ont la "
-                                            "même classe",
-                              f"{autre['total']} aliments, rangés par notre SuperNutri-score puis comparés au leur.")
-        etapes = [f"À une classe près : {pourcentage(leur['aUneClassePres'], 1)}.",
-                  f"Recoupement avec notre base : {autre['recoupement'][0]} plats." if autre.get("recoupement") else "",
-                  f"Face à leur Nutri-Score : {autre['leurNutriscore']['bienRanges']} aliments sur "
-                  f"{autre['leurNutriscore']['total']}." if autre.get("leurNutriscore") else ""]
-    else:
-        diapo = nouvelleDiapo(presentation, "La base d'un autre groupe : l'import est prêt",
-                              "Il nous manque leur base, et les classes que leur SuperNutri-score donne à leurs aliments.")
-        etapes = ["Leurs colonnes gardent leurs noms : une table de correspondance les relie aux nôtres.",
-                  "NOVA, les additifs et le bio se retrouvent par le code-barres, dans notre cache d'Open Food Facts.",
-                  f"Vérifié sur nos {ajoutes} plats ajoutés, déguisés en base étrangère : chaque plat retrouve sa classe."]
-    y = 2.1
-    for rang, etape in enumerate([etape for etape in etapes if etape]):
-        repere(diapo, MARGE, y, rang + 1, f"Repère {rang + 1}")
-        bas = paragraphesMesures(diapo, MARGE + 0.6, y, LARGEUR - 2 * MARGE - 0.6, [[m(etape, TEXTE, 18)]], f"Étape {rang + 1}")
-        y = max(bas, y + 0.42) + 0.35
+def slideCategories(presentation, autre):
+    """
+    Ce qui bloque chaque modèle sur la base de l'autre : les critères les plus souvent ratés au
+    seuil de B′, puis un produit de chaque base, vu par le Nutri-Score et les deux modèles.
+    """
+    diapo = nouvelleDiapo(presentation, "Chaque modèle porte la catégorie pour laquelle il est fait",
+                          "Au seuil de B′, la part des produits de l'autre base qui ratent chaque critère.")
+    largeur = (LARGEUR - 2 * MARGE - 0.6) / 2
+    exemples = {exemple["base"]: exemple for exemple in autre["exemples"]}
+    for rang, (base, modele, sujet, titre, lam) in enumerate(
+            (("leurs", "notre", "Notre modèle", "Notre modèle sur leurs céréales", 0.7),
+             ("nos", "leur", "Leur modèle", "Leur modèle sur nos plats", autre["modele"]["lam"]))):
+        x = MARGE + rang * (largeur + 0.6)
+        colonne(diapo, x, 2.0, largeur, titre, titre)
+        parts = sorted(autre[base]["bloquants"][modele].items(), key=lambda paire: -paire[1])[:3]
+        bas = tableauVerso(diapo, x, 2.7, [("Critère raté", largeur - 1.4, PP_ALIGN.LEFT), ("Produits", 1.4, PP_ALIGN.RIGHT)],
+                           [[majuscule(NOMS_COURTS[critere]), pourcentage(part)] for critere, part in parts],
+                           f"Bloquants {base}", taille=15, hauteurLigne=0.38)
+        exemple = exemples.get(base)
+        if exemple is None:
+            continue
+        y = bas + 0.35
+        boite(diapo, x, y, largeur, 0.4, [[m(exemple["nom"], DEMI_GRAS, 16)]], f"Exemple {base}")
+        y += 0.5
+        for numero, (lettre, legende, duModele) in enumerate(((exemple["label"], "Nutri-Score", False),
+                                                              (exemple["leur"][0], "leur modèle", True),
+                                                              (exemple["notre"][0], "notre modèle", True))):
+            gauche = x + numero * 1.75
+            pastille(diapo, gauche, y, 0.5, lettre, f"Exemple {base} {legende}", modele=duModele)
+            boite(diapo, gauche + 0.6, y, 1.1, 0.5, [[m(legende, TEXTE, 12, ENCRE_SECONDAIRE)]], f"Légende {legende}",
+                  ancrage=MSO_ANCHOR.MIDDLE)
+        auDessus = exemple[f"{modele}AuDessus"]
+        if auDessus:                                   # ce qui empêche le produit de monter d'une classe
+            classe = exemple[modele]
+            dessus = nomDeClasse(4 - "ABCDE".index(classe[0]) + 1)
+            rates = enToutesLettres(auDessus["rates"])
+            if "pr" in auDessus["rates"] and not exemple["proteinesComptees"]:
+                rates = rates.replace("les protéines", "les protéines (le Nutri-Score ne les compte pas)")
+            paragraphesMesures(diapo, x, y + 0.7, largeur, [[m(
+                f"{sujet} range ce produit en {classe} : face à {dessus}, il rate {rates}, soit "
+                f"{nombre(auDessus['poids'], 2)} du poids, plus que les {nombre(1 - lam, 2)} permis.",
+                TEXTE, 14, ENCRE_SECONDAIRE)]], f"Raison {base}")
 
 
 def slideDemonstrationFinale(presentation, resultats, plats):
@@ -1205,20 +1286,21 @@ def slideDemonstrationFinale(presentation, resultats, plats):
         y = max(bas, y + 0.42) + 0.35
 
 
-def slideConclusionFinale(presentation, donnees, sensibilite):
-    """Ce que nous retenons, en trois colonnes, puis le merci."""
+def slideConclusionFinale(presentation, donnees, sensibilite, autre):
+    """Ce que nous retenons, en trois colonnes (le modèle, la comparaison, les limites), puis le merci."""
     diapo = nouvelleDiapo(presentation, "Ce que nous retenons", "Un modèle à nous, transparent, et ses limites.")
     total = sum(donnees["repartition"].values())
-    raisons = sorted(donnees["ecarts"]["raisonsDesDescentes"].items(), key=lambda paire: -paire[1])[:2]
     principal = [point for point in sensibilite["courbe"] if point["amplitude"] == sensibilite["poids"]["amplitude"]][0]
+    nos = autre["nos"]
     colonnes = [
         ("Un score de santé", "Onze critères en trois piliers, des seuils tirés de textes officiels, des classes au sens "
-                              "du Nutri-Score."),
-        ("Plus exigeant en haut", f"{donnees['repartition']['A′']} plats en A′ sur {total}. Les descentes viennent surtout "
-                                  f"{' et '.join('des ' + NOMS_COURTS[c] if ARTICLES[c] == 'les ' else 'du ' + NOMS_COURTS[c] for c, _ in raisons)}."),
-        ("Fragile aux frontières", f"{len(sensibilite['auBord'])} plats au bord ; à ± {nombreCourt(principal['amplitude'])}, "
-                                   f"{pourcentage(principal['partMoyenne'], 1)} des plats changent : nos poids sont un "
-                                   "choix, et nous le disons."),
+                              "du Nutri-Score, et les protéines comptées comme lui."),
+        ("Fait pour nos plats", f"Sur nos {total} plats, {pourcentage(nos['notreFaceAuNutriscore']['exactitude'], 1)} gardent "
+                                f"la classe du Nutri-Score, contre {pourcentage(nos['leurFaceAuNutriscore']['exactitude'], 1)} "
+                                "avec le modèle de l'autre groupe. Sur leurs céréales, c'est l'inverse."),
+        ("Ses limites", f"{len(donnees['secsEnAPrime'])} de nos {donnees['repartition']['A′']} plats A′ sont des produits secs. "
+                        f"{len(sensibilite['auBord'])} plats sont au bord ; à ± {nombreCourt(principal['amplitude'])}, "
+                        f"{pourcentage(principal['partMoyenne'], 1)} des plats changent : nos poids sont un choix."),
     ]
     largeur = (LARGEUR - 2 * MARGE - 2 * 0.4) / 3
     for rang, (titre, texte) in enumerate(colonnes):
@@ -1242,7 +1324,6 @@ def slidesSoutenance2(chemin=SORTIES[2]):
     donnees, sensibilite = supernutri[BASE_FINALE], supernutri["sensibilite"][BASE_FINALE]
     total = sum(donnees["repartition"].values())
     plats = lireBase(FICHIER_BASE)
-    ajoutes = sum(1 for plat in lireBase(FICHIER_BASE_ETENDUE) if plat.get("lot") == LOT_AJOUT)
     presentation = Presentation()
     presentation.slide_width = Inches(LARGEUR)
     presentation.slide_height = Inches(HAUTEUR)
@@ -1254,9 +1335,12 @@ def slidesSoutenance2(chemin=SORTIES[2]):
     slideFaceAuNutriscore(presentation, donnees)
     slideSensibilitePoids(presentation, sensibilite, total)
     slideSensibiliteProfils(presentation, sensibilite, total)
-    slideAutreGroupe(presentation, supernutri, ajoutes)
+    if "autreGroupe" not in supernutri:
+        raise ValueError("La clé « autreGroupe » manque : déposer leur base, puis lancer python3 projet_supernutri.py.")
+    slideDeuxModeles(presentation, supernutri["autreGroupe"], total)
+    slideCategories(presentation, supernutri["autreGroupe"])
     slideDemonstrationFinale(presentation, resultats, plats)
-    slideConclusionFinale(presentation, donnees, sensibilite)
+    slideConclusionFinale(presentation, donnees, sensibilite, supernutri["autreGroupe"])
     numeroterPages(presentation, "soutenance finale")
     notesParSlide = notesDuTexte(2)
     for numero, diapo in enumerate(presentation.slides, start=1):

@@ -34,13 +34,14 @@ import csv
 import math
 import random
 import re
+from datetime import date
 from pathlib import Path
 
 from projet_base import (DOSSIER, DOSSIER_BRUT, FICHIER_BASE, FICHIER_BASE_ETENDUE, champsDeLaFiche,
                          enregistrerResultats, ficheEnDirect, ficheProduit, intersectionAvecAutreBase, lireBase)
 from projet_mrsort import (CLASSES, PROFILS, TOLERANCE, affecter, classeDuLabel, comparerAuNutriscore,
                            concordancePartielle, nomDeClasse)
-from projet_nutriscore import POINTS_MAX, PROTEINES_MAX_VIANDE_ROUGE, SEUILS_PROTEINES, scoreNutriscore
+from projet_nutriscore import POINTS_MAX, PROTEINES_MAX_VIANDE_ROUGE, SEUILS_PROTEINES, categorieDepuisOff, scoreNutriscore
 
 
 # --- Question 3.4 : le modèle ---
@@ -58,6 +59,7 @@ CRITERES_LIBELLES = {
     "additifs": ("Nombre d'additifs", "", "min"),
     "aRisque": ("Additifs à risque", "", "min"),
     "bio": ("Bio", "1 si bio, 0 sinon", "max"),
+    "sodium": ("Sodium", "mg/100 g", "min"),          # un critère du modèle de l'autre groupe, pas du nôtre
 }
 
 # Les trois piliers : (poids du pilier, critères)
@@ -236,6 +238,24 @@ def valeursDuPlat(plat, categorie=None):
     return valeurs
 
 
+def explicationDuPlat(valeurs, modele):
+    """
+    Profil par profil, de A′ jusqu'à la classe du plat, les critères qui votent contre lui :
+    « A′ : rate sel, fibres ; B′ : rate fibres ; C′ : franchi ».
+    """
+    detail = affecter(valeurs, modele)
+    satisfaits = criteresSatisfaits(valeurs, modele)
+    morceaux = []
+    for numero in range(len(modele["profils"]) - 1, -1, -1):
+        classe = nomDeClasse(numero + 1)
+        if detail["franchis"][numero]:
+            morceaux.append(f"{classe} : franchi")
+            break
+        rates = [libelleEnMinuscule(critere) for critere in modele["criteres"] if critere not in satisfaits[numero]]
+        morceaux.append(f"{classe} : rate {', '.join(rates)}")
+    return " ; ".join(morceaux)
+
+
 def classerPlat(plat, modele=None, categorie=None):
     """
     Range un plat avec le SuperNutri-score (MODELE_SUPER par défaut) ; categorie : son type au
@@ -245,6 +265,17 @@ def classerPlat(plat, modele=None, categorie=None):
     detail = affecter(valeursDuPlat(plat, categorie), modele or MODELE_SUPER)
     detail["lettre"] = nomDeClasse(detail["classe"])
     return detail
+
+
+def produitsSecsEnAPrime(plats, modele=None):
+    """
+    Les plats en A′ qui dépassent le seuil d'énergie de D′ (1 340 kJ pour 100 g) : des produits
+    secs, à cuire ou à réhydrater. Une limite de notre modèle : ses seuils lisent 100 g du produit
+    tel qu'il est vendu, et λ = 0,7 laisse rater l'énergie.
+    """
+    modele = modele or MODELE_SUPER
+    seuil = modele["profils"][0]["en"]
+    return [plat["nom"] for plat in plats if plat["en"] > seuil and classerPlat(plat, modele)["lettre"] == "A′"]
 
 
 def superNutriScore(fichier=FICHIER_BASE, modele=None, sortie=None, afficher=True):
@@ -267,7 +298,7 @@ def superNutriScore(fichier=FICHIER_BASE, modele=None, sortie=None, afficher=Tru
     comparaison = comparerAuNutriscore([classeDuLabel(ligne["label"]) for ligne in lignes],
                                        [ligne["classe"] for ligne in lignes])
     resultat = {"modele": modele, "plats": lignes, "repartition": repartition, "comparaison": comparaison,
-                "ecarts": ecartsAuNutriscore(plats, modele)}
+                "ecarts": ecartsAuNutriscore(plats, modele), "secsEnAPrime": produitsSecsEnAPrime(plats, modele)}
     if sortie:
         ecrireSuperNutri(plats, resultat, sortie)
     if afficher:
@@ -290,14 +321,18 @@ def ecrireSuperNutri(plats, resultat, chemin):
     feuille = classeur.active
     feuille.title = "supernutri-score"
     feuille.append(["Code-barres", "Nom"] + [CRITERES_LIBELLES[critere][0] for critere in CRITERES_SUPER]
-                   + ["Nutri-Score", "SuperNutri-score", "Écart au Nutri-Score", "Critères ratés"])
+                   + ["Nutri-Score", "SuperNutri-score", "Écart au Nutri-Score", "Critères ratés",
+                      "Protéines retenues par le Nutri-Score", "Explication"])
     for plat, ligne, ecart in zip(plats, resultat["plats"], resultat["ecarts"]["plats"]):
         valeurs = valeursDuPlat(plat)
         cellules = [None if math.isinf(valeurs[critere]) else valeurs[critere] for critere in CRITERES_SUPER]
         rates = ", ".join(CRITERES_LIBELLES[critere][0] for critere in ecart["rates"])
-        feuille.append([plat["code"], plat["nom"]] + cellules + [plat["label"], ligne["lettre"], ecart["ecart"], rates])
+        retenues = proteinesRetenues(plat, plat.get("categorie") or "general")
+        feuille.append([plat["code"], plat["nom"]] + cellules + [plat["label"], ligne["lettre"], ecart["ecart"], rates,
+                                                                  "non comptées" if retenues is None else retenues,
+                                                                  explicationDuPlat(valeurs, resultat["modele"])])
     colonneNutriscore = 3 + len(CRITERES_SUPER)
-    mettreEnFormeFeuille(feuille, [16, 40] + [12] * len(CRITERES_SUPER) + [12, 16, 12, 60],
+    mettreEnFormeFeuille(feuille, [16, 40] + [12] * len(CRITERES_SUPER) + [12, 16, 12, 60, 14, 90],
                          colonnesClasses=(colonneNutriscore, colonneNutriscore + 1))
 
     feuille = classeur.create_sheet("comparaison")
@@ -750,6 +785,14 @@ def ficheDuCode(code, reseau=None):
     return ficheEnDirect(ficheGardee(code) or code, reseau)
 
 
+def dateDeLaFiche(code):
+    """La date où la fiche d'OFF d'un produit a été rangée dans le cache, ou aujourd'hui si elle n'y est pas."""
+    gardee = ficheGardee(code)
+    if gardee is None:
+        return date.today().isoformat()
+    return date.fromtimestamp((DOSSIER_BRUT / "produits" / f"{gardee}.json").stat().st_mtime).isoformat()
+
+
 def telechargerFichesAutreGroupe(fichier=FICHIER_AUTRE_GROUPE, correspondance=None):
     """
     Range dans le cache d'Open Food Facts (donnees/brut/produits/) la fiche de chaque produit de
@@ -806,13 +849,18 @@ def importerBaseAutreGroupe(fichier, correspondance, completer=True, reseau=None
                 plat[cle] = None if nombre is None else int(nombre)
             else:
                 plat[cle] = nombreDeLaCellule(valeur)
+        plat["categorie"], plat["ficheLue"] = None, None
         manque = plat["nova"] is None or plat["additifs"] is None or plat["bio"] is None
         if completer and plat["code"] and manque:
             reponse, message = ficheDuCode(plat["code"], reseau)
             if reponse is None:
                 manques[plat["code"]] = message
             else:
-                champs = champsDeLaFiche(reponse["product"], plat["code"])
+                fiche = reponse["product"]
+                calcul = ((fiche.get("nutriscore") or {}).get("2023") or {}).get("data") or {}
+                plat["categorie"] = categorieDepuisOff(calcul)
+                plat["ficheLue"] = dateDeLaFiche(plat["code"])
+                champs = champsDeLaFiche(fiche, plat["code"])
                 if plat["nova"] is None:
                     plat["nova"] = champs["nova"]
                 if plat["additifs"] is None:                    # la liste va avec le nombre qu'on reprend
@@ -822,6 +870,56 @@ def importerBaseAutreGroupe(fichier, correspondance, completer=True, reseau=None
                     plat["bio"] = champs["bio"]
         plats.append(plat)
     return plats, manques
+
+
+# Les deux produits suivis dans la comparaison, un par base : un muesli bio sans additif de leur base
+# (C au Nutri-Score, B′ chez eux), et notre Poêlée Fermière (B au Nutri-Score, C′ chez nous)
+EXEMPLES_AUTRE_GROUPE = ("3421557922435", "3257982125116")
+
+# La base de l'autre groupe, complétée par OFF de ce que notre SuperNutri-score demande en plus
+FICHIER_BASE_COMPLETEE = DOSSIER / "donnees" / "autre_groupe" / "base_cereales_completee.xlsx"
+AJOUTS_DE_LA_BASE_COMPLETEE = ["NOVA (OFF s'il manquait)", "Additifs (OFF)", "Liste des additifs (OFF)", "Additifs à risque (OFF)",
+                               "Bio (OFF)", "Type au Nutri-Score (OFF)", "Fiche lue le"]
+
+
+def ecrireBaseCompletee(plats, fichierSource, chemin):
+    """
+    Écrit la base de l'autre groupe complétée par Open Food Facts : leurs colonnes, telles
+    quelles, puis ce que notre SuperNutri-score demande en plus (AJOUTS_DE_LA_BASE_COMPLETEE).
+    Une feuille « lisez-moi » dit d'où vient chaque chose. plats : les produits de
+    importerBaseAutreGroupe, dans l'ordre des lignes de fichierSource.
+    """
+    from openpyxl import Workbook
+    from projet_design import mettreEnFormeFeuille, mettreEnFormeNotice
+
+    lignes = lignesDuFichier(fichierSource)
+    entetes = list(lignes[0]) if lignes else []
+    classeur = Workbook()
+    feuille = classeur.active
+    feuille.title = "produits"
+    feuille.append(entetes + AJOUTS_DE_LA_BASE_COMPLETEE)
+    for ligne, plat in zip(lignes, plats):
+        aRisque = None if plat.get("additifs") is None else additifsARisque(plat.get("listeAdditifs"))
+        feuille.append([ligne[entete] for entete in entetes]
+                       + [plat.get("nova"), plat.get("additifs"), plat.get("listeAdditifs"), aRisque, plat.get("bio"),
+                          plat.get("categorie"), plat.get("ficheLue")])
+    mettreEnFormeFeuille(feuille, [14] * len(entetes) + [16, 12, 30, 16, 10, 18, 14])
+
+    notice = classeur.create_sheet("lisez-moi")
+    for element, valeur in [
+        ("Base d'origine", f"{Path(fichierSource).name} : leurs colonnes, telles qu'ils nous les ont envoyées."),
+        ("Ajouts", "Lus sur Open Food Facts (API produit), fiche par fiche, d'après le code-barres ; les fiches sont "
+                   "gardées dans donnees/brut/produits/. Leur groupe NOVA est gardé ; celui d'OFF ne sert que s'il manquait."),
+        ("Additifs à risque", "Nitrites et nitrates (E249 à E252), phosphates (E338 à E341, E343, E450 à E452), "
+                              "carraghénanes (E407), comptés dans la liste des additifs."),
+        ("Bio", "« oui » si la fiche porte un label bio (en:organic, en:eu-organic, AB)."),
+        ("Type au Nutri-Score", "Celui que donnent les marqueurs du calcul de 2023 d'OFF : « general » pour le cas général."),
+        ("Produits introuvables sur OFF", str(sum(1 for plat in plats if plat.get("ficheLue") is None))),
+    ]:
+        notice.append([element, valeur])
+    mettreEnFormeNotice(notice)
+    chemin.parent.mkdir(parents=True, exist_ok=True)
+    classeur.save(chemin)
 
 
 # Leurs critères dans nos clés : leur « tr » est le groupe NOVA ; leur « so » est le sodium en mg (notre « so »
@@ -852,59 +950,204 @@ def modeleDeLAutreGroupe(fichier=FICHIER_AUTRE_GROUPE):
             "profils": profils, "lam": lam, "sens": sens}
 
 
-def classerAvecUnModele(plat, modele):
-    """
-    Range un produit avec un modèle MR-Sort quelconque (celui de l'autre groupe) : chaque
-    critère prend la valeur du produit, et une valeur absente ne vote pas (la pire possible).
-    Renvoie le détail d'affecter, plus la lettre de la classe.
-    """
+def valeursPourUnModele(plat, modele):
+    """Les valeurs d'un produit pour un modèle quelconque : celles du produit, et une valeur absente ne vote pas (la pire possible)."""
     valeurs = {}
     for critere in modele["criteres"]:
         valeur = plat.get(critere)
         if valeur is None:
             valeur = math.inf if modele["sens"][critere] == "min" else -math.inf
         valeurs[critere] = valeur
-    detail = affecter(valeurs, modele)
+    return valeurs
+
+
+def classerAvecUnModele(plat, modele):
+    """
+    Range un produit avec un modèle MR-Sort quelconque (celui de l'autre groupe), avec
+    valeursPourUnModele. Renvoie le détail d'affecter, plus la lettre de la classe.
+    """
+    detail = affecter(valeursPourUnModele(plat, modele), modele)
     detail["lettre"] = nomDeClasse(detail["classe"])
     return detail
 
 
-def comparerAvecAutreGroupe(plats, modele=None, notreBase=None):
-    """
-    Range les aliments d'un autre groupe avec notre SuperNutri-score, puis compare nos classes à
-    leurs résultats (question 3.4) :
-    - à la classe de leur SuperNutri-score, si leur base la donne (leurClasse) ;
-    - à leur Nutri-Score (label).
-    notreBase (une liste de plats ou un fichier) : on mesure aussi le recoupement des deux bases,
-    par code-barres (intersectionAvecAutreBase). Renvoie la répartition de nos classes, les deux
-    comparaisons (None sans données), le recoupement, et les aliments où nos classes diffèrent des
-    leurs, des plus grands écarts aux plus petits.
-    """
-    modele = modele or MODELE_SUPER
-    lignes = []
+def repartitionDesClasses(classes):
+    """Le nombre de produits de chaque classe, de A′ à E′."""
     repartition = {lettre: 0 for lettre in reversed(CLASSES)}
+    for classe in classes:
+        repartition[nomDeClasse(classe)] += 1
+    return repartition
+
+
+def comparerDeuxModeles(plats, leurModele, notreModele=None):
+    """
+    Les deux SuperNutri-scores sur une même base (§3.4) : chacun face au Nutri-Score (même classe,
+    à une classe près, matrice), puis le nôtre face au leur. Pour chaque modèle, la part des
+    produits qui ratent chaque critère au seuil de B′ : ce qui le bloque sur cette base. Avec leur
+    colonne de classes (leurClasse), compte aussi les produits où leur modèle redonne leur classe.
+    """
+    notreModele = notreModele or MODELE_SUPER
+    nos, leurs, nutriscore, reproduits = [], [], [], 0
+    bloquants = {"notre": {critere: 0 for critere in notreModele["criteres"]},
+                 "leur": {critere: 0 for critere in leurModele["criteres"]}}
     for plat in plats:
-        detail = classerPlat(plat, modele)
-        repartition[detail["lettre"]] += 1
-        lignes.append({"code": plat.get("code"), "nom": plat.get("nom"), "classe": detail["classe"],
-                       "notre": detail["lettre"], "leur": plat.get("leurClasse"), "label": plat.get("label")})
-    avecLeur = [ligne for ligne in lignes if ligne["leur"]]
-    avecLabel = [ligne for ligne in lignes if ligne["label"]]
-    leurSuperNutri = comparerAuNutriscore([classeDuLabel(l["leur"]) for l in avecLeur],
-                                          [l["classe"] for l in avecLeur]) if avecLeur else None
-    leurNutriscore = comparerAuNutriscore([classeDuLabel(l["label"]) for l in avecLabel],
-                                          [l["classe"] for l in avecLabel]) if avecLabel else None
-    differences = []
-    for ligne in avecLeur:
-        ecart = ligne["classe"] - classeDuLabel(ligne["leur"])
-        if ecart != 0:
-            differences.append({"code": ligne["code"], "nom": ligne["nom"], "notre": ligne["notre"],
-                                "leur": ligne["leur"], "ecart": ecart})
-    differences.sort(key=lambda difference: -abs(difference["ecart"]))
-    return {"total": len(plats), "repartition": repartition, "leurSuperNutri": leurSuperNutri,
-            "leurNutriscore": leurNutriscore,
-            "recoupement": intersectionAvecAutreBase(notreBase, plats) if notreBase is not None else None,
-            "differences": differences}
+        for nom, modele, valeurs in (("notre", notreModele, valeursDuPlat(plat)),
+                                     ("leur", leurModele, valeursPourUnModele(plat, modele=leurModele))):
+            classe = affecter(valeurs, modele)["classe"]
+            (nos if nom == "notre" else leurs).append(classe)
+            satisfaits = criteresSatisfaits(valeurs, modele)[2]            # le profil b4, le seuil de B′
+            for critere in modele["criteres"]:
+                if critere not in satisfaits:
+                    bloquants[nom][critere] += 1
+        nutriscore.append(classeDuLabel(plat["label"]))
+        if plat.get("leurClasse") and nomDeClasse(leurs[-1])[0] == plat["leurClasse"]:
+            reproduits += 1
+    total = len(plats)
+    return {"total": total, "notre": repartitionDesClasses(nos), "leur": repartitionDesClasses(leurs),
+            "notreFaceAuNutriscore": comparerAuNutriscore(nutriscore, nos),
+            "leurFaceAuNutriscore": comparerAuNutriscore(nutriscore, leurs),
+            "notreFaceALeur": comparerAuNutriscore(leurs, nos), "leurReproduit": reproduits,
+            "bloquants": {nom: {critere: nombre / total for critere, nombre in compte.items()}
+                          for nom, compte in bloquants.items()}}
+
+
+def avecLeSodium(plat):
+    """
+    Le plat, avec son sodium en mg, tiré du sel s'il ne le donne pas : le sel vaut 2,5 fois le
+    sodium (règlement UE 1169/2011), donc 1 g de sel, c'est 400 mg de sodium. Nos plats donnent
+    le sel ; le modèle de l'autre groupe lit le sodium.
+    """
+    if plat.get("sodium") is None and plat.get("so") is not None:
+        return dict(plat, sodium=plat["so"] * 400)
+    return plat
+
+
+def rateAuDessus(valeurs, modele):
+    """
+    Les critères qu'un produit rate face au profil de la classe juste au-dessus de la sienne, et
+    leur poids : ce qui l'empêche de monter (il monterait si ce poids ne dépassait pas 1 − λ).
+    None pour un produit en A′.
+    """
+    classe = affecter(valeurs, modele)["classe"]
+    if classe == len(modele["profils"]):
+        return None
+    satisfaits = criteresSatisfaits(valeurs, modele)[classe]
+    rates = [critere for critere in modele["criteres"] if critere not in satisfaits]
+    return {"rates": rates, "poids": sum(modele["poids"][critere] for critere in rates)}
+
+
+def exempleDesDeuxModeles(plat, base, leurModele):
+    """
+    Un produit vu par les deux modèles : sa classe au Nutri-Score, dans le nôtre et dans le leur ;
+    pour chacun, ce qui l'empêche de monter d'une classe (rateAuDessus), et profil par profil, les
+    critères qui votent contre lui (explicationDuPlat).
+    """
+    nosValeurs, leursValeurs = valeursDuPlat(plat), valeursPourUnModele(plat, leurModele)
+    return {"code": plat["code"], "nom": plat["nom"], "base": base, "label": plat.get("label"),
+            "notre": nomDeClasse(affecter(nosValeurs, MODELE_SUPER)["classe"]),
+            "leur": nomDeClasse(affecter(leursValeurs, leurModele)["classe"]),
+            "notreAuDessus": rateAuDessus(nosValeurs, MODELE_SUPER), "leurAuDessus": rateAuDessus(leursValeurs, leurModele),
+            "proteinesComptees": proteinesRetenues(plat, plat.get("categorie") or "general") is not None,
+            "notreExplication": explicationDuPlat(nosValeurs, MODELE_SUPER),
+            "leurExplication": explicationDuPlat(leursValeurs, leurModele)}
+
+
+def analyseAutreGroupe(leurs, manques, leurModele, nos, exemples=()):
+    """
+    La comparaison avec l'autre groupe (§3.4), sur les deux bases : leurs produits et nos plats,
+    rangés chacun par les deux modèles et comparés au Nutri-Score (comparerDeuxModeles). Donne
+    aussi : combien de leurs classes leur modèle recodé redonne, les fiches d'OFF manquantes, le
+    recoupement des deux bases par code-barres (§3.1 : moins de 25 %), le type au Nutri-Score de
+    leurs produits, et, pour chaque code d'exemples, le produit vu par les deux modèles.
+    """
+    leurs = [avecLeSodium(plat) for plat in leurs]
+    nos = [avecLeSodium(plat) for plat in nos]
+    types = {}
+    for plat in leurs:
+        typeDuProduit = plat.get("categorie") or "inconnu"
+        types[typeDuProduit] = types.get(typeDuProduit, 0) + 1
+    comparaisonLeurs = comparerDeuxModeles(leurs, leurModele)
+    communs, part = intersectionAvecAutreBase(nos, leurs)
+    lignesExemples = []
+    for code in exemples:
+        for base, plats in (("leurs", leurs), ("nos", nos)):
+            lignesExemples += [exempleDesDeuxModeles(plat, base, leurModele) for plat in plats if plat["code"] == code]
+    return {"total": len(leurs), "reproduits": comparaisonLeurs["leurReproduit"], "manques": sorted(manques),
+            "recoupement": [communs, part], "types": types,
+            "leurs": comparaisonLeurs, "nos": comparerDeuxModeles(nos, leurModele), "exemples": lignesExemples}
+
+
+def ecrireAutreGroupe(leurs, nos, analyse, leurModele, chemin):
+    """
+    Écrit resultats/supernutri_autre_groupe.xlsx au style Verso, en trois feuilles :
+    - leurs produits, rangés par les deux modèles, avec ce que notre modèle leur reproche ;
+    - nos plats, rangés par leur modèle ;
+    - la comparaison : chaque modèle face au Nutri-Score sur chaque base, et l'accord des deux.
+    """
+    from openpyxl import Workbook
+    from projet_design import mettreEnFormeFeuille
+
+    classeur = Workbook()
+    feuille = classeur.active
+    feuille.title = "leurs produits"
+    feuille.append(["Code-barres", "Nom"] + [CRITERES_LIBELLES[critere][0] for critere in CRITERES_SUPER + ["sodium"]]
+                   + ["Type au Nutri-Score", "Nutri-Score", "Leur SuperNutri-score", "Notre SuperNutri-score",
+                      "Écart (classes)", "Notre explication"])
+    for plat in (avecLeSodium(plat) for plat in leurs):
+        valeurs = valeursDuPlat(plat)
+        cellules = [None if math.isinf(valeurs[critere]) else valeurs[critere] for critere in CRITERES_SUPER]
+        notre = affecter(valeurs, MODELE_SUPER)["classe"]
+        leur = affecter(valeursPourUnModele(plat, leurModele), leurModele)["classe"]
+        feuille.append([plat["code"], plat["nom"]] + cellules + [plat.get("sodium"), plat.get("categorie"), plat.get("label"),
+                                                                  nomDeClasse(leur), nomDeClasse(notre), notre - leur,
+                                                                  explicationDuPlat(valeurs, MODELE_SUPER)])
+    colonne = 4 + len(CRITERES_SUPER)                       # la colonne du Nutri-Score
+    mettreEnFormeFeuille(feuille, [16, 40] + [12] * (len(CRITERES_SUPER) + 1) + [14, 12, 16, 16, 12, 90],
+                         colonnesClasses=(colonne + 1, colonne + 2, colonne + 3))
+
+    feuille = classeur.create_sheet("nos plats")
+    feuille.append(["Code-barres", "Nom", "Nutri-Score", "Notre SuperNutri-score", "Leur SuperNutri-score",
+                    "Écart (classes)", "Leur explication"])
+    for plat in (avecLeSodium(plat) for plat in nos):
+        leursValeurs = valeursPourUnModele(plat, leurModele)
+        notre = affecter(valeursDuPlat(plat), MODELE_SUPER)["classe"]
+        leur = affecter(leursValeurs, leurModele)["classe"]
+        feuille.append([plat["code"], plat["nom"], plat.get("label"), nomDeClasse(notre), nomDeClasse(leur), notre - leur,
+                        explicationDuPlat(leursValeurs, leurModele)])
+    mettreEnFormeFeuille(feuille, [16, 40, 12, 16, 16, 12, 70], colonnesClasses=(3, 4, 5))
+
+    feuille = classeur.create_sheet("comparaison")
+    feuille.append(["Base", "Modèle", "Même classe que le Nutri-Score", "À une classe près", "A′", "B′", "C′", "D′", "E′"])
+    for base, nom in (("leurs", "leurs produits"), ("nos", "nos plats")):
+        for modele, libelle in (("notre", "le nôtre"), ("leur", "le leur")):
+            face = analyse[base][f"{modele}FaceAuNutriscore"]
+            feuille.append([nom, libelle, face["exactitude"], face["aUneClassePres"]]
+                           + list(analyse[base][modele].values()))
+    feuille.append([])
+    feuille.append(["Base", "Les deux modèles donnent la même classe", "À une classe près"])
+    for base, nom in (("leurs", "leurs produits"), ("nos", "nos plats")):
+        accord = analyse[base]["notreFaceALeur"]
+        feuille.append([nom, accord["exactitude"], accord["aUneClassePres"]])
+    mettreEnFormeFeuille(feuille, [18, 12, 18, 14, 8, 8, 8, 8, 8], formats={2: "0.0%", 3: "0.0%", 4: "0.0%"})
+    chemin.parent.mkdir(parents=True, exist_ok=True)
+    classeur.save(chemin)
+
+
+def afficherAutreGroupe(analyse):
+    """Affiche la comparaison avec l'autre groupe : la reproduction de leurs classes, puis les deux modèles sur les deux bases."""
+    print(f"\nBase de l'autre groupe : {analyse['total']} produits, {len(analyse['manques'])} fiches d'OFF introuvables, "
+          f"types au Nutri-Score {analyse['types']} ; leur modèle recodé redonne {analyse['reproduits']} de leurs classes ; "
+          f"recoupement avec nos plats : {analyse['recoupement'][0]} ({analyse['recoupement'][1]:.1f} %)")
+    for base, nom in (("leurs", "leurs produits"), ("nos", "nos plats")):
+        comparaison = analyse[base]
+        for modele in ("notre", "leur"):
+            face = comparaison[f"{modele}FaceAuNutriscore"]
+            print(f"  {nom}, {modele} modèle : {', '.join(f'{l} {n}' for l, n in comparaison[modele].items())} ; "
+                  f"même classe que le Nutri-Score {100 * face['exactitude']:.1f} %, à une classe près "
+                  f"{100 * face['aUneClassePres']:.1f} %")
+        accord = comparaison["notreFaceALeur"]
+        print(f"  {nom}, les deux modèles d'accord : {100 * accord['exactitude']:.1f} %, à une classe près "
+              f"{100 * accord['aUneClassePres']:.1f} %")
 
 
 def main():
@@ -932,22 +1175,24 @@ def main():
             for ligne, ecart in zip(resultat["plats"], ecarts["plats"]):
                 ligne.update(ecart=ecart["ecart"], rates=ecart["rates"])
             resume[nom] = {"repartition": resultat["repartition"], "comparaison": resultat["comparaison"],
-                           "plats": resultat["plats"],
+                           "plats": resultat["plats"], "secsEnAPrime": resultat["secsEnAPrime"],
                            "ecarts": {cle: ecarts[cle] for cle in ("montent", "descendent", "egaux",
                                                                    "raisonsDesDescentes", "plusGrandsEcarts")}}
             resume["sensibilite"][nom] = sensibilites(lireBase(fichier))
             afficherSensibilite(nom, resume["sensibilite"][nom])
     ecrireSensibilite(resume["sensibilite"], DOSSIER / "resultats" / "supernutri_sensibilite.xlsx")
-    # La base d'un autre groupe, dès qu'elle est déposée et que la correspondance de ses colonnes est remplie
-    if FICHIER_AUTRE_GROUPE.exists() and CORRESPONDANCE_AUTRE_GROUPE:
-        plats, manques = importerBaseAutreGroupe(FICHIER_AUTRE_GROUPE, CORRESPONDANCE_AUTRE_GROUPE)
-        comparaison = comparerAvecAutreGroupe(plats, notreBase=FICHIER_BASE)
-        resume["autreGroupe"] = dict(comparaison, manques=manques)
-        print(f"Base de l'autre groupe : {comparaison['total']} aliments, {len(manques)} fiches introuvables ; "
-              f"recoupement avec notre base : {comparaison['recoupement']}")
+    # La base de l'autre groupe : leurs produits complétés par OFF (depuis le cache), puis les deux modèles sur les deux bases
+    if FICHIER_AUTRE_GROUPE.exists():
+        leurs, manques = importerBaseAutreGroupe(FICHIER_AUTRE_GROUPE, CORRESPONDANCE_AUTRE_GROUPE)
+        ecrireBaseCompletee(leurs, FICHIER_AUTRE_GROUPE, FICHIER_BASE_COMPLETEE)
+        leurModele = modeleDeLAutreGroupe()
+        nos = lireBase(FICHIER_BASE_ETENDUE if FICHIER_BASE_ETENDUE.exists() else FICHIER_BASE)
+        analyse = analyseAutreGroupe(leurs, manques, leurModele, nos, exemples=EXEMPLES_AUTRE_GROUPE)
+        ecrireAutreGroupe(leurs, nos, analyse, leurModele, DOSSIER / "resultats" / "supernutri_autre_groupe.xlsx")
+        resume["autreGroupe"] = dict(analyse, modele=leurModele)
+        afficherAutreGroupe(analyse)
     else:
-        print(f"Base de l'autre groupe : pas encore là ({FICHIER_AUTRE_GROUPE.relative_to(DOSSIER)}, "
-              "et CORRESPONDANCE_AUTRE_GROUPE à remplir).")
+        print(f"Base de l'autre groupe : pas encore là ({FICHIER_AUTRE_GROUPE.relative_to(DOSSIER)}).")
     enregistrerResultats("supernutri", resume)
 
 

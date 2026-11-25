@@ -842,6 +842,26 @@ def test_lambda_du_super_nutri_score_se_regle_aussi():
     assert at.session_state["superNutri"]["lettre"] == "E′"
 
 
+def lancerChargeEnNegatifs(categorie):
+    """Le calculateur sur un produit à 15 g de protéines, mais chargé en points négatifs (au moins 11), du type donné."""
+    at = AppTest.from_file("../projet_gui.py", default_timeout=20)
+    for cle, valeur in {"en": 2100.0, "sa": 8.0, "su": 20.0, "so": 2.0, "pr": 15.0, "fi": 1.0, "fr": 0.0}.items():
+        at.session_state[f"saisie_{cle}"] = valeur
+    at.session_state["categorie"] = categorie
+    return at.run()
+
+
+def test_les_proteines_du_super_nutri_score_suivent_le_type_de_produit():
+    """Au cas général, le Nutri-Score ne compte pas ses protéines, et le SuperNutri-score non plus ; pour un fromage, si."""
+    import projet_supernutri as sn
+    general, fromage = lancerChargeEnNegatifs("general"), lancerChargeEnNegatifs("fromage")
+    assert not general.exception and not fromage.exception
+    ecart = fromage.session_state["superNutri"]["concordances"][0] - general.session_state["superNutri"]["concordances"][0]
+    assert ecart == pytest.approx(sn.MODELE_SUPER["poids"]["pr"])
+    assert blocsHtml(general, "Les protéines ne votent pas")
+    assert not blocsHtml(fromage, "Les protéines ne votent pas")
+
+
 @baseConstruite
 def test_une_eau_n_a_pas_de_super_nutri_score():
     at = AppTest.from_file("../projet_gui.py", default_timeout=20)
@@ -880,6 +900,21 @@ def test_l_onglet_super_nutri_score():
     for titre in ("Le modèle", "Le sens des classes", "Face au Nutri-Score", "Sensibilité aux poids", "Sensibilité aux profils",
                   "La base d'un autre groupe"):
         assert blocsHtml(at, f"<div class='titre'>{titre}</div>"), titre
+
+
+def test_le_tableau_croise_de_l_autre_groupe():
+    """Une ligne par modèle, puis leur accord ; pour chaque base, la même classe que le Nutri-Score, puis à une classe près."""
+    def face(exactitude, pres):
+        return {"exactitude": exactitude, "aUneClassePres": pres}
+    autre = {"leurs": {"notreFaceAuNutriscore": face(0.5, 0.9), "leurFaceAuNutriscore": face(0.4, 0.8),
+                       "notreFaceALeur": face(0.3, 0.7)},
+             "nos": {"notreFaceAuNutriscore": face(0.56, 0.95), "leurFaceAuNutriscore": face(0.277, 0.624),
+                     "notreFaceALeur": face(0.2, 0.6)}}
+    lignes = gui.lignesDuTableauCroise(autre)
+    assert [ligne["modele"] for ligne in lignes] == ["Notre SuperNutri-score", "Leur SuperNutri-score",
+                                                     "Les deux modèles d'accord"]
+    assert lignes[1] == {"modele": "Leur SuperNutri-score", "leursMeme": "40,0 %", "leursPres": "80,0 %",
+                         "nosMeme": "27,7 %", "nosPres": "62,4 %"}
 
 
 def test_les_barres_du_super_nutri_score_prennent_toute_la_largeur():
