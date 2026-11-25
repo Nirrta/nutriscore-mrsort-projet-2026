@@ -37,10 +37,10 @@ import re
 from pathlib import Path
 
 from projet_base import (DOSSIER, DOSSIER_BRUT, FICHIER_BASE, FICHIER_BASE_ETENDUE, champsDeLaFiche,
-                         enregistrerResultats, ficheEnDirect, intersectionAvecAutreBase, lireBase)
+                         enregistrerResultats, ficheEnDirect, ficheProduit, intersectionAvecAutreBase, lireBase)
 from projet_mrsort import (CLASSES, PROFILS, TOLERANCE, affecter, classeDuLabel, comparerAuNutriscore,
                            concordancePartielle, nomDeClasse)
-from projet_nutriscore import POINTS_MAX
+from projet_nutriscore import POINTS_MAX, PROTEINES_MAX_VIANDE_ROUGE, SEUILS_PROTEINES, scoreNutriscore
 
 
 # --- Question 3.4 : le modèle ---
@@ -179,16 +179,44 @@ def additifsARisque(listeAdditifs):
     return total
 
 
-def valeursDuPlat(plat):
+# Les sept composantes du Nutri-Score : il faut toutes les connaître pour savoir s'il compte les protéines
+COMPOSANTES_NUTRISCORE = ["en", "sa", "su", "so", "pr", "fi", "fr"]
+
+# Une viande rouge garde au plus 2 points de protéines au Nutri-Score : ses protéines votent comme 4,8 g au plus
+PROTEINES_RETENUES_VIANDE_ROUGE = SEUILS_PROTEINES[PROTEINES_MAX_VIANDE_ROUGE - 1]
+
+
+def proteinesRetenues(plat, categorie):
     """
-    Les onze valeurs d'un plat pour le SuperNutri-score. Le bio vaut 1 (label bio) ou 0 ; les
-    additifs à risque se comptent dans la liste des additifs. Une valeur absente prend la pire
-    valeur possible (+∞ pour un critère à minimiser, −∞ pour un critère à maximiser) : elle ne
-    vote jamais pour le plat.
+    Les protéines que le Nutri-Score de 2023 retient pour ce type de produit (FAQ de 2023), c'est
+    la performance du critère des protéines : None s'il ne les compte pas (cas général à partir de
+    11 points négatifs, matière grasse à partir de 7) ; 4,8 g au plus pour une viande rouge, qui
+    garde au plus 2 points ; sinon les protéines du plat. Un fromage et une boisson les gardent
+    toujours. Si une des sept composantes manque, le Nutri-Score ne peut pas trancher : on garde
+    les protéines du plat.
+    """
+    if any(plat.get(composante) is None for composante in COMPOSANTES_NUTRISCORE):
+        return plat.get("pr")
+    if not scoreNutriscore(plat, categorie=categorie)["proteinesComptees"]:
+        return None
+    if categorie == "viandeRouge":
+        return min(plat["pr"], PROTEINES_RETENUES_VIANDE_ROUGE)
+    return plat["pr"]
+
+
+def valeursDuPlat(plat, categorie=None):
+    """
+    Les onze valeurs d'un plat pour le SuperNutri-score. Les protéines sont celles que le
+    Nutri-Score de 2023 retient pour le type du produit (proteinesRetenues) : categorie, sinon le
+    type que porte le produit, sinon le cas général. Le bio vaut 1 (label bio) ou 0 ; les additifs
+    à risque se comptent dans la liste des additifs. Une valeur absente prend la pire valeur
+    possible (+∞ pour un critère à minimiser, −∞ pour un critère à maximiser) : elle ne vote
+    jamais pour le plat.
     """
     valeurs = {}
-    for critere in ["en", "sa", "su", "so", "pr", "fi", "fr", "nova", "additifs"]:
+    for critere in ["en", "sa", "su", "so", "fi", "fr", "nova", "additifs"]:
         valeurs[critere] = plat.get(critere)
+    valeurs["pr"] = proteinesRetenues(plat, categorie or plat.get("categorie") or "general")
     if "aRisque" in plat:                               # saisi directement, dans l'interface
         valeurs["aRisque"] = plat["aRisque"]
     elif plat.get("additifs") is None:                  # la liste n'est connue que si le nombre l'est
@@ -208,12 +236,13 @@ def valeursDuPlat(plat):
     return valeurs
 
 
-def classerPlat(plat, modele=None):
+def classerPlat(plat, modele=None, categorie=None):
     """
-    Range un plat avec le SuperNutri-score (MODELE_SUPER par défaut). Renvoie le détail
-    d'affecter (classe, concordances, profils franchis), plus la lettre de la classe.
+    Range un plat avec le SuperNutri-score (MODELE_SUPER par défaut) ; categorie : son type au
+    Nutri-Score, sinon le sien, sinon le cas général. Renvoie le détail d'affecter (classe,
+    concordances, profils franchis), plus la lettre de la classe.
     """
-    detail = affecter(valeursDuPlat(plat), modele or MODELE_SUPER)
+    detail = affecter(valeursDuPlat(plat, categorie), modele or MODELE_SUPER)
     detail["lettre"] = nomDeClasse(detail["classe"])
     return detail
 
@@ -634,18 +663,22 @@ def ecartsAuNutriscore(produits, modele=None):
 # --- Question 3.4 : la base d'un autre groupe ---
 
 # Nos clés, dans l'ordre : la correspondance donne, pour chacune, le nom de la colonne de leur base
-CLES_AUTRE_GROUPE = ["code", "nom", "en", "sa", "su", "so", "pr", "fi", "fr", "label", "nova", "additifs",
+CLES_AUTRE_GROUPE = ["code", "nom", "en", "sa", "su", "so", "sodium", "pr", "fi", "fr", "label", "nova", "additifs",
                      "listeAdditifs", "bio", "leurClasse"]
 
-# Leur base, à déposer dans donnees/autre_groupe/, et la correspondance de ses colonnes, à remplir à son arrivée
-FICHIER_AUTRE_GROUPE = DOSSIER / "donnees" / "autre_groupe" / "base_autre_groupe.xlsx"
-CORRESPONDANCE_AUTRE_GROUPE = {}
+# La base de l'autre groupe (Branchu, Becavin, Bundhoo, Castan : 300 céréales du petit-déjeuner, reçue le 20/11),
+# et la correspondance de ses colonnes avec nos clés. Leur « so » est le sodium en mg ; notre « so » est le sel en g.
+FICHIER_AUTRE_GROUPE = DOSSIER / "donnees" / "autre_groupe" / "Base_cereales_Branchu_Becavin_Bundhoo_Castan.xlsx"
+CORRESPONDANCE_AUTRE_GROUPE = {"code": "code", "nom": "nom", "en": "en_kJ", "sa": "sa_g", "su": "su_g", "so": "sel_g",
+                               "sodium": "so_mg", "pr": "pr_g", "fi": "fi_g", "fr": "fr_pct", "label": "nutriscore_label",
+                               "nova": "nova", "leurClasse": "supernutriscore"}
 
 
-def lignesDuFichier(fichier):
+def lignesDuFichier(fichier, feuille=None):
     """
-    Les lignes d'un Excel (sa première feuille) ou d'un CSV (séparé par des virgules ou des
-    points-virgules), chacune en dictionnaire {en-tête : valeur}. Les lignes vides sont sautées.
+    Les lignes d'un Excel (la feuille nommée, sinon la première) ou d'un CSV (séparé par des
+    virgules ou des points-virgules), chacune en dictionnaire {en-tête : valeur}. Les lignes
+    vides sont sautées.
     """
     fichier = Path(fichier)
     if fichier.suffix.lower() == ".csv":
@@ -654,8 +687,8 @@ def lignesDuFichier(fichier):
         return [dict(ligne) for ligne in csv.DictReader(lignes, delimiter=separateur)]
     from openpyxl import load_workbook
 
-    feuille = load_workbook(fichier, read_only=True, data_only=True).worksheets[0]
-    lignes = list(feuille.iter_rows(values_only=True))
+    classeur = load_workbook(fichier, read_only=True, data_only=True)
+    lignes = list((classeur[feuille] if feuille else classeur.worksheets[0]).iter_rows(values_only=True))
     entetes = ["" if entete is None else str(entete).strip() for entete in lignes[0]]
     return [dict(zip(entetes, ligne)) for ligne in lignes[1:] if any(valeur is not None for valeur in ligne)]
 
@@ -695,19 +728,46 @@ def bioDeLaCellule(valeur):
     return None
 
 
-def ficheDuCode(code, reseau=None):
+def ficheGardee(code):
     """
-    La fiche d'OFF d'un code-barres. Le cache garde parfois une fiche sous une autre écriture du
-    même code (« 0635646 » pour « 00635646 ») : on essaie d'abord le code tel quel, puis le code
-    sans ses zéros de tête, complété de zéros jusqu'à 13 chiffres. Faute de fiche gardée, une seule
-    requête à OFF avec le code tel quel (ficheEnDirect). Renvoie (réponse, None) ou (None, message).
+    Le code sous lequel le cache garde la fiche d'un produit, ou None. Le cache garde parfois une
+    fiche sous une autre écriture du même code (« 0635646 » pour « 00635646 ») : on essaie le code
+    tel quel, puis le code sans ses zéros de tête, complété de zéros jusqu'à 13 chiffres.
     """
     sansZeros = code.lstrip("0")
-    variantes = [code] + [sansZeros.zfill(longueur) for longueur in range(len(sansZeros), 14)]
-    for variante in variantes:
+    for variante in [code] + [sansZeros.zfill(longueur) for longueur in range(len(sansZeros), 14)]:
         if variante and (DOSSIER_BRUT / "produits" / f"{variante}.json").exists():
-            return ficheEnDirect(variante, reseau)
-    return ficheEnDirect(code, reseau)
+            return variante
+    return None
+
+
+def ficheDuCode(code, reseau=None):
+    """
+    La fiche d'OFF d'un code-barres : celle du cache, sous l'une des écritures du code
+    (ficheGardee), sinon une seule requête à OFF avec le code tel quel (ficheEnDirect). Renvoie
+    (réponse, None) ou (None, message).
+    """
+    return ficheEnDirect(ficheGardee(code) or code, reseau)
+
+
+def telechargerFichesAutreGroupe(fichier=FICHIER_AUTRE_GROUPE, correspondance=None):
+    """
+    Range dans le cache d'Open Food Facts (donnees/brut/produits/) la fiche de chaque produit de
+    la base de l'autre groupe : ensuite, leur base se complète hors ligne. Une fiche déjà gardée
+    n'est pas redemandée, et ficheProduit respecte la cadence d'OFF. Renvoie (fiches lues, codes
+    qu'OFF ne connaît pas).
+    """
+    correspondance = correspondance or CORRESPONDANCE_AUTRE_GROUPE
+    lues, introuvables = 0, []
+    for ligne in lignesDuFichier(fichier):
+        code = codeDeLaCellule(ligne.get(correspondance["code"]))
+        if not code or ficheGardee(code):
+            continue
+        reponse = ficheProduit(code, False)
+        lues += 1
+        if reponse.get("status") != 1:
+            introuvables.append(code)
+    return lues, introuvables
 
 
 def importerBaseAutreGroupe(fichier, correspondance, completer=True, reseau=None):
@@ -764,6 +824,51 @@ def importerBaseAutreGroupe(fichier, correspondance, completer=True, reseau=None
     return plats, manques
 
 
+# Leurs critères dans nos clés : leur « tr » est le groupe NOVA ; leur « so » est le sodium en mg (notre « so »
+# est le sel en g, d'où la clé « sodium »)
+CRITERES_DE_L_AUTRE_GROUPE = {"su": "su", "fi": "fi", "tr": "nova", "sa": "sa", "so": "sodium"}
+
+
+def modeleDeLAutreGroupe(fichier=FICHIER_AUTRE_GROUPE):
+    """
+    Le SuperNutri-score de l'autre groupe, tel que leur feuille « notre_modele » le décrit :
+    critères (dans nos clés), sens, poids, profils de b2 à b5, et λ. Leurs poids sont des parts
+    de 15 points arrondies au dix-millième : on les ramène à une somme de 1. Le modèle se range
+    dans notre moteur MR-Sort, comme le nôtre.
+    """
+    criteres, poids, sens, profils, lam = [], {}, {}, [{}, {}, {}, {}], None
+    for ligne in lignesDuFichier(fichier, "notre_modele"):
+        if ligne["critere"] == "lambda":
+            lam = nombreDeLaCellule(ligne["poids"])
+            continue
+        critere = CRITERES_DE_L_AUTRE_GROUPE[ligne["critere"]]
+        criteres.append(critere)
+        poids[critere] = nombreDeLaCellule(ligne["poids"])
+        sens[critere] = ligne["sens"]
+        for numero, colonne in enumerate(("b2", "b3", "b4", "b5")):
+            profils[numero][critere] = nombreDeLaCellule(ligne[colonne])
+    total = sum(poids.values())
+    return {"criteres": criteres, "poids": {critere: valeur / total for critere, valeur in poids.items()},
+            "profils": profils, "lam": lam, "sens": sens}
+
+
+def classerAvecUnModele(plat, modele):
+    """
+    Range un produit avec un modèle MR-Sort quelconque (celui de l'autre groupe) : chaque
+    critère prend la valeur du produit, et une valeur absente ne vote pas (la pire possible).
+    Renvoie le détail d'affecter, plus la lettre de la classe.
+    """
+    valeurs = {}
+    for critere in modele["criteres"]:
+        valeur = plat.get(critere)
+        if valeur is None:
+            valeur = math.inf if modele["sens"][critere] == "min" else -math.inf
+        valeurs[critere] = valeur
+    detail = affecter(valeurs, modele)
+    detail["lettre"] = nomDeClasse(detail["classe"])
+    return detail
+
+
 def comparerAvecAutreGroupe(plats, modele=None, notreBase=None):
     """
     Range les aliments d'un autre groupe avec notre SuperNutri-score, puis compare nos classes à
@@ -805,8 +910,19 @@ def comparerAvecAutreGroupe(plats, modele=None, notreBase=None):
 def main():
     """
     Range la base de 125 plats, puis la base étendue si elle existe, et fait leurs deux analyses de
-    sensibilité ; écrit les Excel de resultats/ et la clé « supernutri » du JSON.
+    sensibilité ; écrit les Excel de resultats/ et la clé « supernutri » du JSON. Avec
+    --telecharger-autre-groupe, range seulement dans le cache les fiches d'OFF de la base de
+    l'autre groupe (une seule fois, quelques minutes).
     """
+    import argparse
+
+    parseur = argparse.ArgumentParser(description="Le SuperNutri-score : nos bases, ses sensibilités, l'autre groupe.")
+    parseur.add_argument("--telecharger-autre-groupe", action="store_true",
+                         help="ranger dans le cache les fiches d'OFF des produits de l'autre groupe, puis s'arrêter")
+    if parseur.parse_args().telecharger_autre_groupe:
+        lues, introuvables = telechargerFichesAutreGroupe()
+        print(f"{lues} fiches lues sur Open Food Facts ; {len(introuvables)} produits inconnus d'OFF : {introuvables}")
+        return
     resume = {"modele": MODELE_SUPER, "sources": SOURCES_DES_SEUILS, "sensDesClasses": SENS_DES_CLASSES,
               "amplitudes": AMPLITUDES, "sensibilite": {}}
     for nom, fichier in (("base", FICHIER_BASE), ("etendue", FICHIER_BASE_ETENDUE)):

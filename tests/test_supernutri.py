@@ -367,3 +367,88 @@ def test_un_nombre_d_additifs_a_risque_saisi_prime_sur_la_liste():
 def test_un_libelle_en_minuscule_garde_ses_sigles():
     """Dans une phrase, « Groupe NOVA » devient « groupe NOVA », et non « groupe nova »."""
     assert (sn.libelleEnMinuscule("nova"), sn.libelleEnMinuscule("so")) == ("groupe NOVA", "sel")
+
+
+# --- La base de l'autre groupe : le téléchargement des fiches (25/11) ---
+
+def test_le_telechargement_ne_redemande_pas_une_fiche_gardee(tmp_path, monkeypatch):
+    """Seules les fiches absentes du cache sont demandées à OFF ; un produit inconnu d'OFF est compté à part."""
+    demandes = []
+
+    def ficheProduitSimulee(code, depuisCache):
+        demandes.append(code)
+        return {"status": 0} if code == "0000000000017" else {"status": 1, "product": {}}
+
+    monkeypatch.setattr(sn, "ficheProduit", ficheProduitSimulee)
+    classeur = openpyxl.Workbook()
+    classeur.active.append(["code", "nom"])
+    for code in ("3257982125116", "0000000000017", "0000000000024"):        # le premier est déjà gardé
+        classeur.active.append([code, "un produit"])
+    chemin = tmp_path / "autre.xlsx"
+    classeur.save(chemin)
+    lues, introuvables = sn.telechargerFichesAutreGroupe(chemin, {"code": "code"})
+    assert demandes == ["0000000000017", "0000000000024"]
+    assert (lues, introuvables) == (2, ["0000000000017"])
+
+
+# --- Les protéines que le Nutri-Score retient, selon le type de produit (25/11) ---
+
+def platChargeEnNegatifs(**changements):
+    """Énergie, AGS, sucres et sel élevés (bien plus de 11 points négatifs), et 15 g de protéines."""
+    return dict(platAuNiveauDeAPrime(), en=2100, sa=8.0, su=20.0, so=2.0, pr=15.0, **changements)
+
+
+def test_les_proteines_ne_votent_plus_a_partir_de_11_points_negatifs():
+    """Comme le Nutri-Score de 2023 : au-delà de 11 points négatifs, il ne compte plus les protéines."""
+    assert sn.valeursDuPlat(platChargeEnNegatifs())["pr"] == float("-inf")
+    assert sn.valeursDuPlat(platAuNiveauDeAPrime())["pr"] == 15.0
+
+
+def test_les_proteines_d_un_fromage_votent_toujours():
+    assert sn.valeursDuPlat(platChargeEnNegatifs(), "fromage")["pr"] == 15.0
+
+
+def test_les_proteines_d_une_viande_rouge_comptent_au_plus_comme_deux_points():
+    """Au plus 2 points de protéines : elles votent comme 4,8 g, le seuil de C′, et plus celui de B′ (7,2 g)."""
+    valeurs = sn.valeursDuPlat(platAuNiveauDeAPrime(), "viandeRouge")
+    assert valeurs["pr"] == 4.8
+    satisfaits = sn.criteresSatisfaits(valeurs, sn.MODELE_SUPER)
+    assert "pr" in satisfaits[1] and "pr" not in satisfaits[2]
+
+
+def test_les_proteines_d_une_matiere_grasse_ne_votent_plus_a_partir_de_7_points():
+    """Une matière grasse : le seuil est de 7 points négatifs, et non 11 (son énergie et ses AGS se notent autrement)."""
+    plat = dict(platAuNiveauDeAPrime(), en=900, sa=4.5, su=1.0, so=0.4, pr=15.0, lipides=10.0)   # 8 points négatifs
+    from projet_nutriscore import scoreNutriscore
+    assert 7 <= scoreNutriscore(plat, categorie="matieresGrasses")["N"] < 11
+    assert sn.valeursDuPlat(plat, "matieresGrasses")["pr"] == float("-inf")
+
+
+def test_le_type_vient_du_produit_s_il_n_est_pas_donne():
+    """Un produit de l'autre base porte son type (lu sur OFF) : sans type donné, c'est le sien qui compte."""
+    assert sn.valeursDuPlat(platChargeEnNegatifs(categorie="fromage"))["pr"] == 15.0
+
+
+# --- Le modèle de l'autre groupe, dans notre moteur (25/11) ---
+
+baseAutreGroupe = pytest.mark.skipif(not sn.FICHIER_AUTRE_GROUPE.exists(), reason="la base de l'autre groupe n'est pas là")
+
+
+@baseAutreGroupe
+def test_leur_modele_se_lit_dans_leur_feuille():
+    """Cinq critères dans nos clés (leur « tr » est NOVA, leur « so » le sodium en mg), des poids de somme 1, λ = 0,63."""
+    modele = sn.modeleDeLAutreGroupe()
+    assert modele["criteres"] == ["su", "fi", "nova", "sa", "sodium"]
+    assert sum(modele["poids"].values()) == pytest.approx(1)
+    assert modele["poids"]["su"] == pytest.approx(5 / 15, abs=1e-3)
+    assert modele["lam"] == 0.63
+    assert [profil["nova"] for profil in modele["profils"]] == [3, 3, 3, 1]
+
+
+@baseAutreGroupe
+def test_leur_modele_recode_redonne_leurs_300_classes():
+    """Recodé depuis leur seule feuille, leur modèle redonne la classe de chacun de leurs produits."""
+    plats, manques = sn.importerBaseAutreGroupe(sn.FICHIER_AUTRE_GROUPE, sn.CORRESPONDANCE_AUTRE_GROUPE, completer=False)
+    modele = sn.modeleDeLAutreGroupe()
+    differents = [plat["nom"] for plat in plats if sn.classerAvecUnModele(plat, modele)["lettre"][0] != plat["leurClasse"]]
+    assert len(plats) == 300 and differents == []
