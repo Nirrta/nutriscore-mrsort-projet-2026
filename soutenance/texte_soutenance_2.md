@@ -38,7 +38,7 @@ Bonjour. Le 30 octobre, nous approchions le Nutri-Score par MR-Sort. Aujourd'hui
 
 ## Slide 2 : les trois piliers (Daniel, 1 min 25)
 
-**On montre :** les trois colonnes des piliers, avec le poids de chaque critère, puis la phrase sur λ.
+**On montre :** la barre des poids, une case par critère sous son pilier, puis le repère de λ et ses deux accolades.
 
 **On dit :**
 
@@ -86,7 +86,7 @@ Sur nos 375 plats, 12 sont en A prime, 41 en B prime, et près de la moitié, 17
 
 ## Slide 6 : la Poêlée Fermière (Anis, 1 min 35)
 
-**On montre :** les quatre barres de concordance de la Poêlée Fermière, puis la colonne « Et si… ».
+**On montre :** les quatre barres de concordance de la Poêlée Fermière, leurs cases dans l'ordre des piliers de la slide 2, puis la colonne « Et si… ».
 
 **On dit :**
 
@@ -100,7 +100,7 @@ Et si elle était moins transformée ? Avec NOVA 3 et un seul additif, elle pass
 
 ## Slide 7 : face au Nutri-Score (Anis, 1 min 20)
 
-**On montre :** la matrice, Nutri-Score en ligne et SuperNutri-score en colonne, puis les raisons des descentes.
+**On montre :** la matrice grisée, Nutri-Score en ligne et SuperNutri-score en colonne : la diagonale encadrée, plus sévère à droite ; puis les raisons des descentes, en barres.
 
 **On dit :**
 
@@ -114,7 +114,7 @@ Et ceux qui montent ? 19 des 20 ont au moins 11 points négatifs : des pizzas, d
 
 ## Slide 8 : la sensibilité aux poids (Anis, 1 min 05)
 
-**On montre :** les trois amplitudes à gauche, les variations un poids à la fois à droite, puis la phrase des plats au bord.
+**On montre :** à gauche, une barre par amplitude, la moyenne en noir sur le maximum en gris ; à droite, les variations d'un seul poids, en barres ; puis la phrase des plats au bord.
 
 **On dit :**
 
@@ -128,7 +128,7 @@ Pourquoi des changements dès 0,01 ? Parce que 13 plats sont au bord de leur cla
 
 ## Slide 9 : la sensibilité aux profils (Anis, 1 min 00)
 
-**On montre :** le tableau des décalages qui changent le plus de plats, puis les plats nommés.
+**On montre :** les décalages qui changent le plus de plats, en barres, NOVA en tête, puis les plats nommés.
 
 **On dit :**
 
@@ -140,7 +140,7 @@ Le décalage le plus actif : exiger NOVA 3 dès C prime ferait changer 52 plats,
 
 ## Slide 10 : leur modèle (Biyao, 0 min 50)
 
-**On montre :** le tableau de leurs cinq critères, avec leurs points et leurs seuils, puis les deux phrases du bas.
+**On montre :** leur barre des poids sous la nôtre, cinq cases avec leurs points sur 15 et leur repère λ, puis leurs seuils et les phrases de droite.
 
 **On dit :**
 
@@ -150,7 +150,7 @@ Nous avons reçu la base de Branchu, Becavin, Bundhoo et Castan : 300 céréales
 
 ## Slide 11 : deux modèles, deux bases (Biyao, 0 min 55)
 
-**On montre :** le tableau croisé, puis la phrase en gras.
+**On montre :** les quatre matrices : chacun sur sa base, près de la diagonale ; chacun sur la base de l'autre, tiré vers E prime ; l'écart sous chacune, puis la phrase en gras.
 
 **On dit :**
 
@@ -162,7 +162,7 @@ Résultat : chaque modèle colle mieux au Nutri-Score sur sa propre base, et y e
 
 ## Slide 12 : chaque modèle porte sa catégorie (Biyao, 1 min 10)
 
-**On montre :** les deux colonnes, puis les deux produits et leurs trois classes.
+**On montre :** les critères ratés en barres dans les deux colonnes, puis les deux produits et leurs trois classes.
 
 **On dit :**
 

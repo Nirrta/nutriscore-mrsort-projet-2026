@@ -317,6 +317,162 @@ def tableauVerso(diapo, x, y, colonnes, lignes, nom, taille=15, hauteurLigne=0.4
     return y
 
 
+# --- Les graphiques Verso : des tableaux qui se mettent à dessiner ---
+# Mêmes filets et même police que les tableaux ; le noir porte la donnée, la trame grise le « tout » ; la couleur
+# reste aux classes du Nutri-Score (les pastilles). Pas d'axe : les nombres qui comptent sont écrits.
+
+def grisDeMatrice(part):
+    """
+    Le gris d'une case de matrice, au format « #RRGGBB » : blanc pour une case vide, de plus en plus foncé quand
+    la part grandit, jusqu'à un gris presque noir pour la case la plus pleine (1 − 0,85 × part, comme la figure de
+    la matrice de la soutenance du 30/10).
+    """
+    niveau = round(255 * (1 - 0.85 * part))
+    return f"#{niveau:02X}{niveau:02X}{niveau:02X}"
+
+
+def encreSurGris(teinte):
+    """L'encre d'un nombre posé sur un gris : blanche sur un gris foncé, noire sur un gris clair."""
+    return PAPIER if int(teinte[1:3], 16) < 128 else ENCRE
+
+
+def matriceVerso(diapo, x, y, matrice, largeurCase, hauteurCase, nom, nombres=True, parLigne=False, zones=False,
+                 taille=17):
+    """
+    Une matrice de confusion au style Verso. En ligne, les classes du Nutri-Score (pastilles pleines) ; en colonne,
+    celles du modèle (cadres à barre de couleur). Chaque case est d'un gris d'autant plus foncé qu'elle compte de
+    produits : par rapport à la case la plus pleine, ou, avec parLigne, à sa ligne (où vont les produits de chaque
+    classe du Nutri-Score). La diagonale, la même classe, est encadrée de noir. Avec nombres, chaque case non vide
+    écrit son nombre (les zéros restent blancs). Avec zones, les coins vides nomment « plus sévère » (en haut à
+    droite : le modèle range plus bas) et « plus permissif » (en bas à gauche). Renvoie le bas de la matrice.
+    """
+    lettres = "ABCDE"
+    cote = min(0.46, 0.7 * min(largeurCase, hauteurCase))     # le côté des pastilles d'en-tête
+    gauche = x + cote + 0.15                                  # le bord gauche des cases
+    haut = y + cote + 0.1                                     # le haut des cases
+    plusPleine = max(max(ligne) for ligne in matrice) or 1
+    for j, lettre in enumerate(lettres):
+        pastille(diapo, gauche + j * largeurCase + (largeurCase - cote) / 2, y, cote, lettre, f"{nom} modèle {lettre}",
+                 modele=True)
+    for i, ligne in enumerate(matrice):
+        pastille(diapo, x, haut + i * hauteurCase + (hauteurCase - cote) / 2, cote, lettres[i],
+                 f"{nom} Nutri-Score {lettres[i]}")
+        total = (sum(ligne) if parLigne else plusPleine) or 1
+        for j, valeur in enumerate(ligne):
+            gris = grisDeMatrice(valeur / total)
+            rectangle(diapo, gauche + j * largeurCase, haut + i * hauteurCase, largeurCase, hauteurCase,
+                      f"{nom} case {i} {j}", fond=gris, trait=TRAME, epaisseur=0.75)
+            if nombres and valeur:
+                boite(diapo, gauche + j * largeurCase, haut + i * hauteurCase, largeurCase, hauteurCase,
+                      [[m(str(valeur), DEMI_GRAS if i == j else TEXTE, taille, encreSurGris(gris))]],
+                      f"{nom} nombre {i} {j}", ancrage=MSO_ANCHOR.MIDDLE, alignement=PP_ALIGN.CENTER)
+    # le cadre de la diagonale, dessiné après les cases pour passer par-dessus leurs filets gris
+    for k in range(len(lettres)):
+        rectangle(diapo, gauche + k * largeurCase, haut + k * hauteurCase, largeurCase, hauteurCase,
+                  f"{nom} diagonale {k}", trait=ENCRE, epaisseur=2.5)
+    if zones:
+        # chaque zone est nommée au centre de son coin de deux cases sur deux, s'il est vide, sur un fond blanc qui
+        # cache les filets gris des cases sous le texte
+        for libelle, lignesDuCoin, colonnesDuCoin in (("plus sévère", (0, 1), (3, 4)), ("plus permissif", (3, 4), (0, 1))):
+            if all(matrice[i][j] == 0 for i in lignesDuCoin for j in colonnesDuCoin):
+                centreX = gauche + (colonnesDuCoin[0] + 1) * largeurCase
+                centreY = haut + (lignesDuCoin[0] + 1) * hauteurCase
+                largeurDuFond = largeurTexte(libelle, TEXTE, taille - 1) + 0.16
+                rectangle(diapo, centreX - largeurDuFond / 2, centreY - 0.18, largeurDuFond, 0.36,
+                          f"{nom} fond de la zone {libelle}", fond=PAPIER)
+                boite(diapo, centreX - largeurDuFond / 2, centreY - 0.18, largeurDuFond, 0.36,
+                      [[m(libelle, TEXTE, taille - 1, ENCRE_SECONDAIRE)]], f"{nom} zone {libelle}",
+                      ancrage=MSO_ANCHOR.MIDDLE, alignement=PP_ALIGN.CENTER)
+    bas = haut + len(matrice) * hauteurCase
+    verifierBas(nom, bas)
+    return bas
+
+
+def barresVerso(diapo, x, y, colonnes, lignes, valeurs, nom, largeur, titreBarre="", textes=None, touts=None,
+                taille=15, hauteurLigne=0.4):
+    """
+    Un tableau Verso, large de `largeur`, dont la dernière colonne dessine. colonnes = [(titre, largeur, alignement)]
+    pour les colonnes de texte, lignes = leurs textes ; puis, sur chaque ligne, une barre noire proportionnelle à sa
+    valeur, et son texte (la valeur, par défaut) au bout. Avec touts, chaque barre se pose sur la trame grise de son
+    tout (100 %, les plats qui descendent…) : barres et trames partagent l'échelle du plus grand tout. Filet de
+    4 points sous l'en-tête, de 1 point entre les lignes. Renvoie le bas.
+    """
+    textes = textes if textes is not None else [str(valeur) for valeur in valeurs]
+    echelle = max(touts if touts else valeurs) or 1
+    largeurValeur = max(largeurTexte(texte, TEXTE, taille) for texte in textes) + 0.1
+    debutBarre = x + sum(largeurColonne for _, largeurColonne, _ in colonnes) + 0.1
+    largeurBarre = x + largeur - debutBarre - 0.12 - largeurValeur      # la barre prend la place qui reste
+    gauche = x
+    for titre, largeurColonne, alignement in colonnes:
+        boite(diapo, gauche, y, largeurColonne - 0.1, hauteurLigne, [[m(titre, DEMI_GRAS, taille - 2)]],
+              f"{nom} en-tête", ancrage=MSO_ANCHOR.MIDDLE, alignement=alignement)
+        gauche += largeurColonne
+    boite(diapo, debutBarre, y, x + largeur - debutBarre, hauteurLigne, [[m(titreBarre, DEMI_GRAS, taille - 2)]],
+          f"{nom} en-tête des barres", ancrage=MSO_ANCHOR.MIDDLE, alignement=PP_ALIGN.RIGHT)
+    y += hauteurLigne
+    filet(diapo, x, y, largeur, 4, f"{nom} filet d'en-tête")
+    hauteurBarre = 0.55 * hauteurLigne
+    for rang, (ligne, valeur, texte) in enumerate(zip(lignes, valeurs, textes), start=1):
+        gauche = x
+        for (_, largeurColonne, alignement), case in zip(colonnes, ligne):
+            boite(diapo, gauche, y + 0.03, largeurColonne - 0.1, hauteurLigne, [[m(case, TEXTE, taille)]], f"{nom} case",
+                  ancrage=MSO_ANCHOR.MIDDLE, alignement=alignement)
+            gauche += largeurColonne
+        haut = y + 0.03 + (hauteurLigne - hauteurBarre) / 2
+        longueur = largeurBarre * valeur / echelle
+        bout = longueur                                       # le texte s'écrit après la barre, ou après sa trame
+        if touts:
+            longueurDuTout = largeurBarre * touts[rang - 1] / echelle
+            rectangle(diapo, debutBarre, haut, longueurDuTout, hauteurBarre, f"{nom} trame {rang}", fond=TRAME)
+            bout = max(bout, longueurDuTout)
+        rectangle(diapo, debutBarre, haut, max(longueur, 0.01), hauteurBarre, f"{nom} barre {rang}", fond=ENCRE)
+        boite(diapo, debutBarre + bout + 0.12, y + 0.03, largeurValeur, hauteurLigne, [[m(texte, TEXTE, taille)]],
+              f"{nom} valeur {rang}", ancrage=MSO_ANCHOR.MIDDLE)
+        y += hauteurLigne + 0.03
+        filet(diapo, x, y, largeur, 1, f"{nom} filet")
+    verifierBas(nom, y)
+    return y
+
+
+def tailleQuiTient(lignes, largeur, taille, police=DEMI_GRAS):
+    """
+    La plus grande taille, au plus `taille` et au moins 8 points, à laquelle chaque mot des lignes tient dans la
+    largeur : une case étroite rétrécit son texte plutôt que de couper un mot.
+    """
+    mots = [mot for ligne in lignes for mot in ligne.split()]
+    while taille > 8 and max(largeurTexte(mot, police, taille) for mot in mots) > largeur:
+        taille -= 1
+    return taille
+
+
+def barreDesPoids(diapo, x, y, largeur, hauteur, criteres, poids, noms, nom, lam=None, sousLesCases=None, taille=14):
+    """
+    La barre des poids d'un modèle MR-Sort : une case blanche par critère, large comme son poids, avec son nom (un
+    « \\n » le coupe en deux lignes), dans un cadre noir de 2 points. Avec sousLesCases, un texte sous chaque case
+    (son poids). Avec lam, le repère de λ : un trait noir vertical à λ de la largeur, le poids qu'un produit doit
+    réunir pour franchir un profil. Renvoie le bas de la barre, textes compris.
+    """
+    total = sum(poids[critere] for critere in criteres)
+    gauche = x
+    for critere in criteres:
+        largeurCase = poids[critere] / total * largeur
+        rectangle(diapo, gauche, y, largeurCase, hauteur, f"{nom} case {critere}", fond=PAPIER, trait=ENCRE, epaisseur=1)
+        lignes = noms[critere].split("\n")
+        tailleDuNom = tailleQuiTient(lignes, largeurCase - 0.1, taille)
+        boite(diapo, gauche + 0.02, y, largeurCase - 0.04, hauteur, [[m(ligne, DEMI_GRAS, tailleDuNom)] for ligne in lignes],
+              f"{nom} nom {critere}", ancrage=MSO_ANCHOR.MIDDLE, alignement=PP_ALIGN.CENTER)
+        if sousLesCases:
+            boite(diapo, gauche, y + hauteur + 0.06, largeurCase, 0.3,
+                  [[m(sousLesCases[critere], TEXTE, taille, ENCRE_SECONDAIRE)]], f"{nom} poids {critere}",
+                  alignement=PP_ALIGN.CENTER)
+        gauche += largeurCase
+    rectangle(diapo, x, y, largeur, hauteur, f"{nom} cadre", trait=ENCRE, epaisseur=2)
+    bas = y + hauteur + (0.36 if sousLesCases else 0)
+    if lam is not None:
+        rectangle(diapo, x + lam * largeur - 0.025, y - 0.14, 0.05, bas - y + 0.28, f"{nom} repère λ", fond=ENCRE)
+    return bas
+
+
 # --- Les données de la soutenance ---
 
 PLAT_EXEMPLE = "3257982125116"     # la Poêlée Fermière (Cora) : B pour le Nutri-Score, C′ pour MR-Sort à 7 critères
@@ -329,6 +485,13 @@ ARTICLES = {"en": "l'", "sa": "les ", "su": "les ", "so": "le ", "pr": "les ", "
             "nova": "le ", "additifs": "le ", "aRisque": "les ", "bio": "le ", "sodium": "le "}
 # les sigles des critères du SuperNutri-score dans les barres de concordance : deux lettres, comme en, sa, su…
 SIGLES = {"nova": "nv", "additifs": "ad", "aRisque": "ar", "bio": "bi"}
+# le nom de chaque critère dans la barre des poids : court, pour tenir dans sa case
+NOMS_DANS_LA_BARRE = {"en": "Énergie", "sa": "AGS", "su": "Sucres", "so": "Sel", "pr": "Protéines", "fi": "Fibres",
+                      "fr": "Fruits et légumes", "nova": "NOVA", "additifs": "Additifs", "aRisque": "À risque",
+                      "bio": "Bio", "sodium": "Sodium"}
+# le titre de chaque pilier du SuperNutri-score sur les slides
+TITRES_DES_PILIERS = {"à limiter": "À limiter", "à favoriser": "À favoriser",
+                      "transformation et production": "Transformation"}
 
 
 def quantite(plat):
@@ -599,17 +762,28 @@ def barreDeConcordance(diapo, x, y, largeur, hauteur, regle, plat, numero, nom):
     rectangle(diapo, x, y, largeur, hauteur, f"{nom} cadre", trait=ENCRE, epaisseur=2)
 
 
-def lignesDeConcordance(diapo, x, y, largeur, regle, plat, detail, nom, avecClasse=False):
+def lignesDeConcordance(diapo, x, y, largeur, regle, plat, detail, nom, avecClasse=False, avecPiliers=False):
     """
     Les barres de concordance d'un plat, de b5 à b2 : à gauche le profil (avec avecClasse, la
     classe qu'il ouvre : « b5 (A′) »), au milieu sa barre, à droite son verdict, en demi-gras quand
-    le profil est franchi. Renvoie le bas des barres.
+    le profil est franchi. Avec avecPiliers, les trois piliers du SuperNutri-score sont nommés
+    au-dessus de la première barre, comme sur la barre des poids. Renvoie le bas des barres.
     """
     hauteur, taille = 0.42, 15
     numeros = list(range(len(PROFILS) - 1, -1, -1))
     largeurVerdict = max(largeurTexte(verdict(detail, regle, numero), DEMI_GRAS, taille) for numero in numeros) + 0.1
     largeurProfil = 1.15 if avecClasse else 0.5
     largeurBarre = largeur - largeurProfil - 0.05 - 0.2 - largeurVerdict
+    if avecPiliers:
+        # chaque pilier à la largeur de son poids : les cases de la barre suivent l'ordre des piliers
+        gauche = x + largeurProfil + 0.05
+        for pilier, (poidsDuPilier, _) in PILIERS.items():
+            largeurPilier = poidsDuPilier * largeurBarre
+            boite(diapo, gauche, y, largeurPilier - 0.06, 0.28, [[m(TITRES_DES_PILIERS[pilier], DEMI_GRAS, 12)]],
+                  f"{nom} pilier {pilier}")
+            filet(diapo, gauche, y + 0.3, largeurPilier - 0.06, 4, f"{nom} filet du pilier {pilier}")
+            gauche += largeurPilier
+        y += 0.45
     for numero in numeros:
         police = DEMI_GRAS if detail["franchis"][numero] else TEXTE
         profil = f"{PROFILS[numero]} ({nomDeClasse(numero + 1)})" if avecClasse else PROFILS[numero]
@@ -1000,14 +1174,17 @@ def slideTitreFinale(presentation):
 
 
 def slidePiliers(presentation, supernutri):
-    """Les onze critères en trois piliers : le poids de chaque critère, et ce qui le fonde."""
+    """
+    Les onze critères en trois piliers, en une barre des poids : une case par critère, large comme son poids, sous
+    le titre de son pilier. Le repère de λ tombe à 0,7 de la barre, au début de la transformation : deux accolades
+    disent ce qu'il faut réunir pour franchir un profil, et ce qu'on peut rater. Puis ce qui fonde chaque pilier.
+    """
     modele = supernutri["modele"]
-    diapo = nouvelleDiapo(presentation, f"Onze critères en trois piliers, et λ = {nombre(modele['lam'], 1)}",
-                          "Un score de santé : la composition du plat, puis sa transformation et sa production.")
-    largeur = (LARGEUR - 2 * MARGE - 2 * 0.4) / 3
-    titres = {"à limiter": "À limiter", "à favoriser": "À favoriser", "transformation et production": "Transformation"}
-    negatifs, positifs = (sum(POINTS_MAX[critere] for critere in criteres) for criteres in (NEGATIFS, POSITIFS))
     lam = modele["lam"]
+    diapo = nouvelleDiapo(presentation, f"Onze critères en trois piliers, et λ = {nombre(lam, 1)}",
+                          "Un score de santé : la composition du plat, puis sa transformation et sa production.")
+    largeur = LARGEUR - 2 * MARGE
+    negatifs, positifs = (sum(POINTS_MAX[critere] for critere in criteres) for criteres in (NEGATIFS, POSITIFS))
     explications = {
         "à limiter": f"Le plus lourd : au Nutri-Score, les points négatifs ({negatifs} au plus) dépassent les positifs "
                      f"({positifs}). Au prorata : le sel ({POINTS_MAX['so']} points) pèse deux fois l'énergie "
@@ -1018,17 +1195,36 @@ def slidePiliers(presentation, supernutri):
                                         "seule, elle ne fait jamais perdre une classe ; elle départage des plats de "
                                         "composition proche. Le bio pèse le moins.",
     }
-    for rang, (pilier, (poidsDuPilier, criteres)) in enumerate(PILIERS.items()):
-        x = MARGE + rang * (largeur + 0.4)
-        colonne(diapo, x, 2.0, largeur, f"{titres[pilier]} : {nombre(poidsDuPilier, 2)}", pilier)
-        lignes = [[LIBELLES_COURTS[critere].split(" (")[0], nombre(modele["poids"][critere], 3)] for critere in criteres]
-        bas = tableauVerso(diapo, x, 2.75, [("Critère", largeur - 1.2, PP_ALIGN.LEFT), ("Poids", 1.2, PP_ALIGN.RIGHT)],
-                           lignes, f"Poids {pilier}", taille=15, hauteurLigne=0.4)
-        paragraphesMesures(diapo, x, bas + 0.2, largeur, [[m(explications[pilier], TEXTE, 14, ENCRE_SECONDAIRE)]],
-                           f"Explication {pilier}")
-    boite(diapo, MARGE, 6.2, LARGEUR - 2 * MARGE, 0.45,
-          [[m(f"λ = {nombre(lam, 1)} : face à un profil, un plat peut rater au plus {nombre(1 - lam, 1)} du poids, "
-              "par exemple tout un pilier.", DEMI_GRAS, 16)]], "Lambda", ancrage=MSO_ANCHOR.MIDDLE)
+    # les piliers : un filet de 4 points et un titre, à la largeur de leur poids dans la barre (un blanc les sépare ;
+    # le dernier finit avec la barre)
+    gauche = MARGE
+    for rang, (pilier, (poidsDuPilier, _)) in enumerate(PILIERS.items(), start=1):
+        blanc = 0.15 if rang < len(PILIERS) else 0
+        colonne(diapo, gauche, 2.0, poidsDuPilier * largeur - blanc,
+                f"{TITRES_DES_PILIERS[pilier]} : {nombre(poidsDuPilier, 2)}", pilier)
+        gauche += poidsDuPilier * largeur
+    # la barre : une case par critère, son nom dedans, son poids dessous, et le repère de λ
+    criteres = modele["criteres"]
+    bas = barreDesPoids(diapo, MARGE, 2.8, largeur, 0.8, criteres, modele["poids"],
+                        {critere: NOMS_DANS_LA_BARRE[critere] for critere in criteres}, "Poids", lam=lam,
+                        sousLesCases={critere: nombre(modele["poids"][critere], 3) for critere in criteres})
+    # les deux accolades de λ : ce qu'il faut réunir, puis ce qu'on peut rater
+    repere = MARGE + lam * largeur
+    yAccolade = bas + 0.2
+    filet(diapo, MARGE, yAccolade, repere - MARGE - 0.15, 4, "Accolade de λ")
+    filet(diapo, repere + 0.15, yAccolade, MARGE + largeur - repere - 0.15, 4, "Accolade de 1 − λ")
+    basLam = paragraphesMesures(diapo, MARGE, yAccolade + 0.12, repere - MARGE - 0.15, [[m(
+        f"λ = {nombre(lam, 1)} : il faut {nombre(lam, 1)} du poids pour franchir un profil", DEMI_GRAS, 16)]],
+        "Lecture de λ")
+    basReste = paragraphesMesures(diapo, repere + 0.15, yAccolade + 0.12, MARGE + largeur - repere - 0.15,
+                                  [[m(f"un plat peut rater {nombre(1 - lam, 1)} :", DEMI_GRAS, 16)],
+                                   [m("tout ce pilier", DEMI_GRAS, 16)]], "Lecture de 1 − λ", apres=0)
+    # ce qui fonde chaque pilier, sous lui
+    gauche = MARGE
+    for pilier, (poidsDuPilier, _) in PILIERS.items():
+        paragraphesMesures(diapo, gauche, max(basLam, basReste) + 0.3, poidsDuPilier * largeur - 0.3,
+                           [[m(explications[pilier], TEXTE, 14, ENCRE_SECONDAIRE)]], f"Explication {pilier}")
+        gauche += poidsDuPilier * largeur
 
 
 # Les noms des additifs des deux exemples de la slide de la transformation (pour l'affichage seulement)
@@ -1161,7 +1357,8 @@ def slidePoeleeFinale(presentation, supernutri, plats):
     diapo = nouvelleDiapo(presentation, f"La {plat['nom']} : {plat['label']} au Nutri-Score, {lettre} au SuperNutri-score",
                           f"{plat['marque']}, {quantite(plat)}, NOVA {plat['nova']}, {plat['additifs']} additifs, {bio}.")
     largeur = 8.0
-    bas = lignesDeConcordance(diapo, MARGE, 2.05, largeur, regle, valeurs, detail, "Concordance", avecClasse=True)
+    bas = lignesDeConcordance(diapo, MARGE, 2.05, largeur, regle, valeurs, detail, "Concordance", avecClasse=True,
+                              avecPiliers=True)
     sigles = ", ".join(f"{SIGLES[critere]} {NOMS_COURTS[critere]}" for critere in ("nova", "additifs", "aRisque", "bio"))
     paragraphesMesures(diapo, MARGE, bas + 0.25, largeur, [[m(
         f"Une case par critère, large comme son poids, noire quand il vote pour le plat. {sigles}.",
@@ -1179,24 +1376,27 @@ def slidePoeleeFinale(presentation, supernutri, plats):
 
 
 def slideFaceAuNutriscore(presentation, donnees):
-    """La matrice SuperNutri-score × Nutri-Score, et les critères qui font descendre les plats."""
+    """
+    La matrice SuperNutri-score × Nutri-Score, grisée, la diagonale encadrée, les deux zones nommées ; puis les
+    critères que ratent les plats qui descendent, en barres sur la trame de ces plats.
+    """
     ecarts = donnees["ecarts"]
     total = sum(donnees["repartition"].values())
     diapo = nouvelleDiapo(presentation, f"Plus sévère que le Nutri-Score : {ecarts['descendent']} plats descendent, "
                                         f"{ecarts['montent']} montent",
-                          f"Sur nos {total} plats, {ecarts['egaux']} gardent la classe du Nutri-Score. En ligne le "
-                          "Nutri-Score, en colonne le SuperNutri-score.")
-    matrice = donnees["comparaison"]["matrice"]
-    colonnes = [("", 1.0, PP_ALIGN.LEFT)] + [(lettre, 0.95, PP_ALIGN.RIGHT) for lettre in ("A′", "B′", "C′", "D′", "E′")]
-    lignes = [[lettre] + [str(valeur) for valeur in matrice[rang]] for rang, lettre in enumerate("ABCDE")]
-    tableauVerso(diapo, MARGE, 2.05, colonnes, lignes, "Matrice", taille=17, hauteurLigne=0.5)
+                          f"Sur nos {total} plats, {ecarts['egaux']} gardent la classe du Nutri-Score : la diagonale "
+                          "encadrée.")
+    bas = matriceVerso(diapo, MARGE, 2.05, donnees["comparaison"]["matrice"], 0.95, 0.6, "Matrice", zones=True)
+    paragraphesMesures(diapo, MARGE, bas + 0.15, 5.9, [[m("En ligne le Nutri-Score, en colonne le SuperNutri-score.",
+                                                          TEXTE, 14, ENCRE_SECONDAIRE)]], "Lecture de la matrice")
     x = 7.2
     largeur = LARGEUR - MARGE - x
     colonne(diapo, x, 2.0, largeur, "Pourquoi ils descendent", "raisons")
     raisons = sorted(ecarts["raisonsDesDescentes"].items(), key=lambda paire: -paire[1])[:5]
-    bas = tableauVerso(diapo, x, 2.75, [("Critère raté", largeur - 1.3, PP_ALIGN.LEFT), ("Plats", 1.3, PP_ALIGN.RIGHT)],
-                       [[majuscule(NOMS_COURTS[critere]), str(compte)] for critere, compte in raisons], "Raisons",
-                       taille=15, hauteurLigne=0.38)
+    bas = barresVerso(diapo, x, 2.75, [("Critère raté", 1.9, PP_ALIGN.LEFT)],
+                      [[majuscule(NOMS_COURTS[critere])] for critere, _ in raisons], [compte for _, compte in raisons],
+                      "Raisons", largeur, titreBarre=f"sur les {ecarts['descendent']} qui descendent",
+                      touts=[ecarts["descendent"]] * len(raisons), taille=15, hauteurLigne=0.38)
     montees = ecarts["montees"]
     paragraphesMesures(diapo, x, bas + 0.2, largeur, [[m(
         f"Sur les {ecarts['montent']} plats qui montent, {montees['chargees']} ont au moins 11 points négatifs. Le Nutri-Score "
@@ -1212,25 +1412,38 @@ def slideSensibilitePoids(presentation, sensibilite, total):
                                         "des plats changent de classe",
                           f"{nombre(poids['tirages'])} tirages au hasard par amplitude ; les poids restent positifs, "
                           "de somme 1. En moyenne sur les tirages.")
-    colonne(diapo, MARGE, 2.0, 5.6, "Tous les poids ensemble", "tirages")
+    # à gauche, pour chaque amplitude : la moyenne en noir sur la trame du maximum, tout à la même échelle
+    largeurColonne = 5.6
+    colonne(diapo, MARGE, 2.0, largeurColonne, "Tous les poids ensemble", "tirages")
+    largeurParts = max(largeurTexte(f"{pourcentage(point['partMoyenne'], 1)} en moyenne", DEMI_GRAS, 15)
+                       for point in sensibilite["courbe"]) + 0.1
+    largeurBarre = largeurColonne - 1.6 - 0.15 - largeurParts
+    plusGrand = max(point["partMax"] for point in sensibilite["courbe"])
     y = 2.75
-    for point in sensibilite["courbe"]:
-        boite(diapo, MARGE, y, 1.9, 0.6, [[m(f"± {nombreCourt(point['amplitude'])}", TITRE, 30)]],
+    for rang, point in enumerate(sensibilite["courbe"], start=1):
+        boite(diapo, MARGE, y, 1.5, 0.6, [[m(f"± {nombreCourt(point['amplitude'])}", TITRE, 30)]],
               f"Amplitude {point['amplitude']}", ancrage=MSO_ANCHOR.MIDDLE)
-        boite(diapo, MARGE + 2.0, y, 3.6, 0.6,
-              [[m(f"{pourcentage(point['partMoyenne'], 1)} en moyenne, {pourcentage(point['partMax'], 1)} au plus", TEXTE, 16)]],
-              f"Part {point['amplitude']}", ancrage=MSO_ANCHOR.MIDDLE)
+        rectangle(diapo, MARGE + 1.6, y + 0.17, largeurBarre * point["partMax"] / plusGrand, 0.26, f"Tirages trame {rang}",
+                  fond=TRAME)
+        rectangle(diapo, MARGE + 1.6, y + 0.17, largeurBarre * point["partMoyenne"] / plusGrand, 0.26,
+                  f"Tirages barre {rang}", fond=ENCRE)
+        parts = [[m(f"{pourcentage(point['partMoyenne'], 1)} en moyenne", DEMI_GRAS, 15)],
+                 [m(f"{pourcentage(point['partMax'], 1)} au plus", TEXTE, 13, ENCRE_SECONDAIRE)]]
+        boite(diapo, MARGE + 1.6 + largeurBarre + 0.15, y, largeurParts, 0.6, parts, f"Part {point['amplitude']}",
+              ancrage=MSO_ANCHOR.MIDDLE)
         y += 0.72
+    # à droite, un poids à la fois : les cinq variations qui changent le plus de plats
     x = 6.9
     largeur = LARGEUR - MARGE - x
     colonne(diapo, x, 2.0, largeur, "Un poids à la fois", "un par un")
+    variations = sorted(poids["unParUn"], key=lambda ligne: -ligne["plats"])[:5]
     lignes = []
-    for variation in sorted(poids["unParUn"], key=lambda ligne: -ligne["plats"])[:5]:
+    for variation in variations:
         signeDuDelta = "+" if variation["delta"] > 0 else "−"
-        lignes.append([f"{majuscule(NOMS_COURTS[variation['critere']])} {signeDuDelta} {nombreCourt(abs(variation['delta']))}",
-                       f"{variation['plats']} plats"])
-    tableauVerso(diapo, x, 2.75, [("Variation", largeur - 1.7, PP_ALIGN.LEFT), ("Changent", 1.7, PP_ALIGN.RIGHT)], lignes,
-                 "Un par un", taille=15, hauteurLigne=0.38)
+        lignes.append([f"{majuscule(NOMS_COURTS[variation['critere']])} {signeDuDelta} {nombreCourt(abs(variation['delta']))}"])
+    barresVerso(diapo, x, 2.75, [("Variation", 2.5, PP_ALIGN.LEFT)], lignes, [variation["plats"] for variation in variations],
+                "Un par un", largeur, titreBarre="Plats qui changent",
+                textes=[f"{variation['plats']} plats" for variation in variations], taille=15, hauteurLigne=0.38)
     auBord = sensibilite["auBord"]
     favoriser = set(PILIERS["à favoriser"][1])
     pourquoi = (" : ils ratent tout le pilier « à favoriser »" if auBord and all(set(p["rates"]) == favoriser for p in auBord)
@@ -1246,14 +1459,17 @@ def slideSensibiliteProfils(presentation, sensibilite, total):
     diapo = nouvelleDiapo(presentation, f"Profils : {len(profils['plats'])} plats changent au moins une fois",
                           f"± 5 % sur les composantes : {profils['platsComposantes']} plats ; ± 1 sur NOVA et les additifs : "
                           f"{profils['platsEntiers']} plats.")
+    # les six décalages qui changent le plus de plats : la colonne des plats devient une barre
+    scenarios = sorted(profils["scenarios"], key=lambda s: -s["plats"])[:6]
     lignes = []
-    for scenario in sorted(profils["scenarios"], key=lambda s: -s["plats"])[:6]:
+    for scenario in scenarios:
         numero = PROFILS.index(scenario["profil"])
         lignes.append([f"{scenario['profil']} ({nomDeClasse(numero + 1)})", LIBELLES_COURTS[scenario["critere"]],
-                       f"{nombreCourt(scenario['ancienne'])} → {nombreCourt(scenario['nouvelle'])}", str(scenario["plats"])])
-    colonnes = [("Profil", 1.8, PP_ALIGN.LEFT), ("Critère", 4.4, PP_ALIGN.LEFT), ("Seuil", 2.6, PP_ALIGN.RIGHT),
-                ("Plats qui changent", 3.1, PP_ALIGN.RIGHT)]
-    bas = tableauVerso(diapo, MARGE, 2.05, colonnes, lignes, "Décalages", taille=15, hauteurLigne=0.4)
+                       f"{nombreCourt(scenario['ancienne'])} → {nombreCourt(scenario['nouvelle'])}"])
+    colonnes = [("Profil", 1.6, PP_ALIGN.LEFT), ("Critère", 3.0, PP_ALIGN.LEFT), ("Seuil", 2.2, PP_ALIGN.RIGHT)]
+    bas = barresVerso(diapo, MARGE, 2.05, colonnes, lignes, [scenario["plats"] for scenario in scenarios], "Décalages",
+                      LARGEUR - 2 * MARGE, titreBarre="Plats qui changent", taille=15,
+                      hauteurLigne=0.4)
     plusActif = max(profils["scenarios"], key=lambda scenario: scenario["plats"])
     noms = platsDuDecalage(profils, plusActif)
     paragraphesMesures(diapo, MARGE, bas + 0.25, LARGEUR - 2 * MARGE, [
@@ -1275,40 +1491,67 @@ def platsDuDecalage(profils, scenario, nombreDePlats=3):
 
 def slideLeurModele(presentation, autre, notreModele):
     """
-    Le SuperNutri-score de l'autre groupe, avant de le comparer au nôtre : leur base, leurs cinq
-    critères avec leurs points sur 15 et leurs seuils, leur règle de franchissement, le sens de
-    leurs classes, et ce qui manque à leur modèle par rapport au nôtre.
+    Le SuperNutri-score de l'autre groupe, avant de le comparer au nôtre. En haut, les deux barres des poids, à la
+    même largeur : le rappel de la nôtre (slide 2), puis la leur, dont chaque case dit ses points sur 15, avec leur
+    repère λ et leur règle en points. En dessous, leurs seuils de D′ à A′ ; à droite, le sens de leurs classes, leur
+    base, et ce qui manque à leur modèle par rapport au nôtre.
     """
     modele = autre["modele"]
     lam = modele["lam"]
     diapo = nouvelleDiapo(presentation, f"L'autre groupe : {autre['total']} céréales, cinq critères, λ = {nombreCourt(lam)}",
                           f"Branchu, Becavin, Bundhoo et Castan. Recodé dans notre moteur, leur modèle redonne leurs "
                           f"{autre['reproduits']} classes.")
-    colonnes = [("Critère", 3.0, PP_ALIGN.LEFT), ("Points sur 15", 1.8, PP_ALIGN.RIGHT)] + \
-               [(lettre, 1.3, PP_ALIGN.RIGHT) for lettre in ("D′", "C′", "B′", "A′")]
-    lignes = [[LIBELLES_COURTS[critere], nombreCourt(round(15 * modele["poids"][critere], 2))]
+    largeurLibelle = 1.75
+    xBarre = MARGE + largeurLibelle
+    largeurBarre = LARGEUR - MARGE - xBarre
+    # notre barre, en rappel de la slide 2
+    boite(diapo, MARGE, 2.05, largeurLibelle - 0.15, 0.5, [[m("Notre modèle", DEMI_GRAS, 15)],
+                                                         [m(f"λ = {nombreCourt(notreModele['lam'])}", TEXTE, 13,
+                                                            ENCRE_SECONDAIRE)]],
+          "Libellé de notre barre", ancrage=MSO_ANCHOR.MIDDLE)
+    barreDesPoids(diapo, xBarre, 2.05, largeurBarre, 0.5, notreModele["criteres"], notreModele["poids"],
+                  {critere: NOMS_DANS_LA_BARRE[critere] for critere in notreModele["criteres"]}, "Notre barre",
+                  lam=notreModele["lam"], taille=11)
+    # leur barre : chaque case dit ses points sur 15 (les poids valent des points entiers sur 15)
+    noms = {}
+    for critere in modele["criteres"]:
+        pointsDuCritere = round(15 * modele["poids"][critere])
+        noms[critere] = f"{NOMS_DANS_LA_BARRE[critere]}\n{pointsDuCritere} point{'s' if pointsDuCritere > 1 else ''}"
+    boite(diapo, MARGE, 2.9, largeurLibelle - 0.15, 0.62, [[m("Leur modèle", DEMI_GRAS, 15)],
+                                                         [m(f"λ = {nombreCourt(lam)}", TEXTE, 13, ENCRE_SECONDAIRE)]],
+          "Libellé de leur barre", ancrage=MSO_ANCHOR.MIDDLE)
+    bas = barreDesPoids(diapo, xBarre, 2.9, largeurBarre, 0.62, modele["criteres"], modele["poids"], noms, "Leur barre",
+                        lam=lam, taille=13)
+    points = math.ceil(15 * lam - 1e-9)
+    bas = paragraphesMesures(diapo, xBarre + lam * largeurBarre + 0.1, bas + 0.06, (1 - lam) * largeurBarre - 0.1, [[m(
+        f"{points} points sur 15 pour franchir un profil", DEMI_GRAS, 13)]], "Règle de leur barre")
+    # à gauche, leurs seuils ; à droite, leurs classes, leur base, et ce qui manque à leur modèle
+    colonnes = [("Critère", 2.9, PP_ALIGN.LEFT)] + [(lettre, 1.1, PP_ALIGN.RIGHT) for lettre in ("D′", "C′", "B′", "A′")]
+    lignes = [[LIBELLES_COURTS[critere]]
               + [seuilEcrit(critere, profil[critere], modele["sens"][critere]) for profil in modele["profils"]]
               for critere in modele["criteres"]]
-    bas = tableauVerso(diapo, MARGE, 2.05, colonnes, lignes, "Leur modèle", taille=15, hauteurLigne=0.42)
-    points = math.ceil(15 * lam - 1e-9)                  # les poids valent des points entiers sur 15
+    yTableau = bas + 0.25
+    tableauVerso(diapo, MARGE, yTableau, colonnes, lignes, "Leur modèle", taille=15, hauteurLigne=0.4)
     sens = autre.get("sensDeLeursClasses", {})
     labels = [sum(ligne) for ligne in autre["leurs"]["notreFaceAuNutriscore"]["matrice"]]
     repartition = ", ".join(f"{nombre} {lettre}" for nombre, lettre in zip(labels[:-1], "ABCD")) + f" et {labels[-1]} E"
     manquants = [critere for critere in notreModele["criteres"]
                  if critere not in modele["criteres"] and not (critere == "so" and "sodium" in modele["criteres"])]
-    bas = paragraphesMesures(diapo, MARGE, bas + 0.25, LARGEUR - 2 * MARGE, [[m(
-        f"Un produit franchit un profil avec {points} points sur 15. Leurs classes vont de « {sens.get('A′', 'A′')} » (A′) "
-        f"à « {sens.get('E′', 'E′')} » (E′). Leur base : {repartition} au Nutri-Score.", TEXTE, 15, ENCRE_SECONDAIRE)]],
-        "Leur règle")
-    paragraphesMesures(diapo, MARGE, bas + 0.2, LARGEUR - 2 * MARGE, [[m(
+    x = MARGE + 7.3 + 0.5
+    basTexte = paragraphesMesures(diapo, x, yTableau + 0.05, LARGEUR - MARGE - x, [[m(
+        f"Leurs classes vont de « {sens.get('A′', 'A′')} » (A′) à « {sens.get('E′', 'E′')} » (E′). Leur base : "
+        f"{repartition} au Nutri-Score.", TEXTE, 14, ENCRE_SECONDAIRE)]], "Leur règle")
+    paragraphesMesures(diapo, x, basTexte + 0.2, LARGEUR - MARGE - x, [[m(
         f"Comme nous, A′ reprend les allégations du règlement CE 1924/2006. Absents de leur modèle : "
-        f"{enToutesLettres(manquants)}.", DEMI_GRAS, 16)]], "Ce qui les distingue")
+        f"{enToutesLettres(manquants)}.", DEMI_GRAS, 14)]], "Ce qui les distingue")
 
 
 def slideDeuxModeles(presentation, autre, total):
     """
-    Deux SuperNutri-scores sur deux bases : leurs céréales et nos plats, rangés par chaque modèle,
-    face au Nutri-Score (même classe, puis à une classe près), puis les deux modèles entre eux.
+    Deux SuperNutri-scores sur deux bases, en quatre matrices face au Nutri-Score : chacun sur sa base, puis chacun
+    sur la base de l'autre. Chaque matrice est grisée ligne par ligne : on y voit où vont les produits de chaque
+    classe du Nutri-Score. Sous chacune, l'écart moyen en classes (positif quand le modèle est plus sévère) et la
+    part des produits dans la même classe ; en bas, l'accord entre les deux modèles sur chaque base.
     """
     leurs, nos = autre["leurs"], autre["nos"]
     chacunChezSoi = (leurs["leurFaceAuNutriscore"]["exactitude"] > leurs["notreFaceAuNutriscore"]["exactitude"]
@@ -1318,32 +1561,40 @@ def slideDeuxModeles(presentation, autre, total):
     diapo = nouvelleDiapo(presentation, titre,
                           ("Aucun produit en commun. " if communs == 0 else f"{communs} produits en commun. ")
                           + "Leurs céréales sont complétées par Open Food Facts : additifs et bio.")
-    largeur = 1.4                                    # chacune des six colonnes de nombres
-    x = MARGE + 3.5
-    colonne(diapo, x, 2.0, 3 * largeur - 0.2, f"Leurs {autre['total']} céréales", "leurs céréales")
-    colonne(diapo, x + 3 * largeur, 2.0, 3 * largeur, f"Nos {total} plats", "nos plats")
-    mesures = [("pareil", "même classe"), ("plusSevere", "plus sévère"), ("plusPermissif", "plus permissif")]
-    colonnes = [("Part des produits", 3.5, PP_ALIGN.LEFT)] + [(titre, largeur, PP_ALIGN.RIGHT) for _ in (leurs, nos)
-                                                              for _, titre in mesures]
-    lignes = []
-    for cle, libelle in (("notreFaceAuNutriscore", "Notre modèle face au Nutri-Score"),
-                         ("leurFaceAuNutriscore", "Leur modèle face au Nutri-Score"),
-                         ("notreFaceALeur", "Notre modèle face au leur")):
-        lignes.append([libelle] + [pourcentage(comparaison[cle]["sens"][mesure], 1) for comparaison in (leurs, nos)
-                                   for mesure, _ in mesures])
-    bas = tableauVerso(diapo, MARGE, 2.75, colonnes, lignes, "Deux modèles", taille=15, hauteurLigne=0.5)
-    # λ et sa valeur ne se séparent pas en fin de ligne : espaces insécables
-    bas = paragraphesMesures(diapo, MARGE, bas + 0.2, LARGEUR - 2 * MARGE, [[m(
-        f"Même référence des deux côtés : notre calcul du Nutri-Score de 2023 redonne leurs {autre['total']} labels.",
-        TEXTE, 15, ENCRE_SECONDAIRE)]], "Lecture des deux modèles")
-    ecarts = [ecartSigne(comparaison[cle]["sens"]["ecartMoyen"])
-              for comparaison, cle in ((nos, "notreFaceAuNutriscore"), (leurs, "leurFaceAuNutriscore"),
-                                       (leurs, "notreFaceAuNutriscore"), (nos, "leurFaceAuNutriscore"))]
-    paragraphesMesures(diapo, MARGE, bas + 0.2, LARGEUR - 2 * MARGE, [[m(
-        f"Chaque modèle est un peu plus sévère que le Nutri-Score sur sa base (écart moyen {ecarts[0]} classe pour le nôtre, "
-        f"{ecarts[1]} pour le leur), bien plus sur celle de l'autre ({ecarts[2]} et {ecarts[3]}). Ils ne donnent la même "
-        f"classe qu'à {pourcentage(leurs['notreFaceALeur']['exactitude'], 1)} de leurs céréales.", DEMI_GRAS, 16)]],
-        "Réponse au sujet")
+    largeur = LARGEUR - 2 * MARGE
+    largeurGroupe = (largeur - 0.5) / 2
+    colonne(diapo, MARGE, 2.0, largeurGroupe, "Chacun sur sa base", "sa base")
+    colonne(diapo, MARGE + largeurGroupe + 0.5, 2.0, largeurGroupe, "Chacun sur la base de l'autre", "l'autre base")
+    cote = 0.36                                       # le côté d'une case
+    largeurMatrice = min(0.46, 0.7 * cote) + 0.15 + 5 * cote
+    ecart = 0.55                                      # entre les deux matrices d'un groupe, moins qu'entre les groupes
+    matrices = [(nos["notreFaceAuNutriscore"], "Notre modèle, nos plats"),
+                (leurs["leurFaceAuNutriscore"], "Leur modèle, leurs céréales"),
+                (leurs["notreFaceAuNutriscore"], "Notre modèle, leurs céréales"),
+                (nos["leurFaceAuNutriscore"], "Leur modèle, nos plats")]
+    bas = 0
+    for rang, (comparaison, legende) in enumerate(matrices, start=1):
+        groupe, place = divmod(rang - 1, 2)
+        x = MARGE + groupe * (largeurGroupe + 0.5) + place * (largeurMatrice + ecart)
+        largeurDesTextes = largeurMatrice + ecart - 0.1
+        verifierUneLigne(f"La légende de la matrice {rang}", legende, DEMI_GRAS, 14, largeurDesTextes)
+        boite(diapo, x, 2.68, largeurDesTextes, 0.28, [[m(legende, DEMI_GRAS, 14)]], f"Légende {rang}")
+        basMatrice = matriceVerso(diapo, x, 2.98, comparaison["matrice"], cote, cote, f"Matrice {rang}", nombres=False,
+                                  parLigne=True)
+        sens = comparaison["sens"]
+        boite(diapo, x, basMatrice + 0.05, largeurDesTextes, 0.42,
+              [[m(ecartSigne(sens["ecartMoyen"]), TITRE, 24), m(" classe en moyenne", TEXTE, 12, ENCRE_SECONDAIRE)]],
+              f"Écart {rang}", ancrage=MSO_ANCHOR.BOTTOM)
+        boite(diapo, x, basMatrice + 0.5, largeurDesTextes, 0.28,
+              [[m(f"même classe : {pourcentage(sens['pareil'], 1)}", TEXTE, 14)]], f"Même classe {rang}")
+        bas = basMatrice + 0.78
+    bas = paragraphesMesures(diapo, MARGE, bas + 0.06, largeur, [[m(
+        f"Écart positif : plus sévère. Même référence des deux côtés : notre calcul du Nutri-Score de 2023 redonne leurs "
+        f"{autre['total']} labels.", TEXTE, 13, ENCRE_SECONDAIRE)]], "Lecture des deux modèles")
+    paragraphesMesures(diapo, MARGE, bas + 0.1, largeur, [[m(
+        f"Entre eux, les deux modèles ne donnent la même classe qu'à {pourcentage(leurs['notreFaceALeur']['exactitude'], 1)} "
+        f"de leurs céréales et {pourcentage(nos['notreFaceALeur']['exactitude'], 1)} de nos plats.", DEMI_GRAS, 15)]],
+        "Accord des deux modèles")
 
 
 def slideCategories(presentation, autre):
@@ -1360,10 +1611,13 @@ def slideCategories(presentation, autre):
              ("nos", "leur", "Leur modèle", "Leur modèle sur nos plats", autre["modele"]["lam"]))):
         x = MARGE + rang * (largeur + 0.6)
         colonne(diapo, x, 2.0, largeur, titre, titre)
+        # les trois critères les plus ratés : la part des produits, en noir sur la trame de 100 %
         parts = sorted(autre[base]["bloquants"][modele].items(), key=lambda paire: -paire[1])[:3]
-        bas = tableauVerso(diapo, x, 2.7, [("Critère raté", largeur - 1.4, PP_ALIGN.LEFT), ("Produits", 1.4, PP_ALIGN.RIGHT)],
-                           [[majuscule(NOMS_COURTS[critere]), pourcentage(part)] for critere, part in parts],
-                           f"Bloquants {base}", taille=15, hauteurLigne=0.38)
+        bas = barresVerso(diapo, x, 2.7, [("Critère raté", 2.2, PP_ALIGN.LEFT)],
+                          [[majuscule(NOMS_COURTS[critere])] for critere, _ in parts], [part for _, part in parts],
+                          f"Bloquants {base}", largeur, titreBarre="Produits",
+                          textes=[pourcentage(part) for _, part in parts], touts=[1] * len(parts), taille=15,
+                          hauteurLigne=0.38)
         exemple = exemples.get(base)
         if exemple is None:
             continue

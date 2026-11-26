@@ -146,6 +146,14 @@ Des champs Streamlit sur fond trame, à bord noir, avec le libellé et l'unité 
 
 Pour un profil, une barre faite d'une case par critère, de largeur égale à son poids. La case est noire si le plat vaut au moins le profil sur ce critère, blanche sinon, et la barre est suivie de son verdict (« 0,919 ≥ 0,6, franchi »). C'est le geste fort du système : elle montre pourquoi MR-Sort classe un plat. Dans les slides, elle est dessinée en formes PowerPoint, avec les mêmes cases que dans l'interface.
 
+### Graphiques des slides
+
+Un graphique est un tableau Verso qui se met à dessiner : mêmes filets (4 px sous l'en-tête, 1 px entre les lignes), même Archivo, et la colonne des nombres devient une barre noire, carrée, avec sa valeur écrite au bout. Pas d'axe : les nombres qui comptent sont écrits. La trame grise porte le « tout » derrière une barre (100 %, les plats qui descendent, le maximum des tirages).
+
+- **La barre des poids** : une case blanche par critère, large comme son poids, sous le titre de son pilier ; le repère de λ est un trait noir vertical. C'est la barre de concordance avant qu'un plat la remplisse.
+- **La matrice face au Nutri-Score** : en ligne les pastilles pleines du Nutri-Score, en colonne les cadres du modèle ; chaque case est grise, d'autant plus foncée qu'elle compte de produits (1 − 0,85 × part) ; la diagonale, la même classe, est encadrée de noir ; les zéros ne s'écrivent pas.
+- La couleur reste aux classes du Nutri-Score : aucune barre de graphique n'est en couleur, sauf la répartition par classe.
+
 ### Diagramme des profils
 
 Un axe vertical par critère, le mieux toujours en haut, les profils b2 à b5 en traits de couleur, et le plat en trait noir épais. Le poids de chaque critère est écrit sous son axe.

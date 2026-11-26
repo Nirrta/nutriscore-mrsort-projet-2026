@@ -47,6 +47,7 @@ Tout retard est sanctionné. Le gel interne est fixé au **dim. 03/01/2027**.
 | 25/11 | **La base de l'autre groupe** (300 céréales, Branchu, Becavin, Bundhoo, Castan) : leur modèle recodé dans notre moteur, leurs céréales complétées par OFF (additifs, bio), la comparaison sur les deux bases ; ils n'ont pas besoin de notre base | Le §3.4 demande nos résultats sur leur base, face aux leurs. Leur modèle redonne leurs 300 classes : la comparaison est loyale |
 | 25/11 | **Deux slides de comparaison** dans la soutenance finale (12 slides, 14 min 40) | La comparaison au Nutri-Score et à l'autre groupe est la réponse au §3.4 |
 | 26/11 | **Chaque comparaison dit son sens** : plus sévère, pareil, plus permissif, écart moyen (choix 34) | Le Nutri-Score n'est pas à copier, mais c'est la référence : on dit dans quel sens on s'en écarte. Notre modèle est plus sévère que lui (+0,43 classe en moyenne), surtout en haut ; plus permissif pour des plats chargés, faute de veto |
+| 26/11 | **Des graphiques à la place des tableaux** dans huit slides de la soutenance finale : la barre des poids (2, 6, 10), les matrices grisées (7, 11), les barres (8, 9, 12) ; on ne coupe que le texte que le graphique dit déjà | Chaque slide prouvait son titre par un tableau de nombres : à lire, pas à voir. Les chiffres, les titres et le texte dit ne changent pas |
 
 ## Phase 0 : mise en place (mer. 28/10)
 
@@ -115,7 +116,7 @@ Déroulé du 30/10 (le texte complet est dans `soutenance/texte_soutenance_1.md`
 - [x] La règle des protéines du Nutri-Score de 2023 (25/11)
 - [x] ~~Variante verte~~ : écartée le 20/11 (voir les décisions)
 - [x] Interface : le SuperNutri-score au calculateur, son onglet, λ au curseur (20/11)
-- [x] Slides finales et texte de l'oral, 11 slides, 13 min 50 (20/11), puis 14 slides, 14 min 50 (26/11) : la transformation (NOVA, additifs à risque) et le modèle de l'autre groupe ont chacun leur slide
+- [x] Slides finales et texte de l'oral, 11 slides, 13 min 50 (20/11), puis 14 slides, 14 min 50 (26/11) : la transformation (NOVA, additifs à risque) et le modèle de l'autre groupe ont chacun leur slide ; les tableaux de huit slides deviennent des graphiques (26/11)
 - [ ] Répétition (23-26/11)
 - [ ] Avant le 27/11 : si la soutenance se fait depuis un autre ordinateur, y installer les polices de `design/polices/`, ou présenter le PDF
 - [ ] **Soutenance finale le 27/11**
