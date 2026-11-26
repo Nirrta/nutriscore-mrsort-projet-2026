@@ -626,3 +626,11 @@ def test_les_deux_exemples_de_la_transformation_sont_dans_la_base():
     assert (poelee["nom"], poelee["nova"], poelee["additifs"], poelee["aRisque"]) == ("Poêlée Fermière", 4, 3, 0)
     assert (regina["nom"], regina["marque"], regina["aRisque"]) == ("Regina", "Buitoni", 2)
     assert {250, 452} <= sn.numerosDesAdditifs(regina["listeAdditifs"])
+
+
+@baseAutreGroupe
+def test_le_sens_de_leurs_classes_se_lit_dans_leur_base():
+    """Leur colonne supernutriscore_sens donne une phrase par classe, de « très bon choix » à « à limiter »."""
+    sens = sn.sensDesClassesDeLAutreGroupe()
+    assert list(sens) == ["A′", "B′", "C′", "D′", "E′"]
+    assert (sens["A′"], sens["E′"]) == ("très bon choix", "à limiter")

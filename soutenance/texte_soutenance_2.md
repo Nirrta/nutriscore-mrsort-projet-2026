@@ -10,8 +10,8 @@ Quinze minutes au plus, en trois parties. Le texte vise 14 minutes 50 secondes, 
 | Partie | Orateur | Slides | Durée |
 |---|---|---|---|
 | Le modèle et la transformation | Daniel | 1 à 5 | 4 min 55 |
-| Le plat suivi, la comparaison et les deux sensibilités | Anis | 6 à 9 | 5 min 20 |
-| L'autre groupe, la démonstration et la conclusion | Biyao | 10 à 13 | 4 min 35 |
+| Le plat suivi, la comparaison et les deux sensibilités | Anis | 6 à 9 | 5 min 00 |
+| L'autre groupe, la démonstration et la conclusion | Biyao | 10 à 14 | 4 min 55 |
 
 La répartition des orateurs n'est qu'une proposition : échangez les parties si vous le souhaitez.
 
@@ -98,7 +98,7 @@ Et si elle était moins transformée ? Avec NOVA 3 et un seul additif, elle pass
 
 **Transition :** Sur toute la base, que change notre modèle par rapport au Nutri-Score ?
 
-## Slide 7 : face au Nutri-Score (Anis, 1 min 30)
+## Slide 7 : face au Nutri-Score (Anis, 1 min 20)
 
 **On montre :** la matrice, Nutri-Score en ligne et SuperNutri-score en colonne, puis les raisons des descentes.
 
@@ -112,7 +112,7 @@ Et ceux qui montent ? 19 des 20 ont au moins 11 points négatifs : des pizzas, d
 
 **Transition :** Nos poids sont un choix. Que se passe-t-il s'ils bougent un peu ?
 
-## Slide 8 : la sensibilité aux poids (Anis, 1 min 15)
+## Slide 8 : la sensibilité aux poids (Anis, 1 min 05)
 
 **On montre :** les trois amplitudes à gauche, les variations un poids à la fois à droite, puis la phrase des plats au bord.
 
@@ -138,19 +138,29 @@ Le décalage le plus actif : exiger NOVA 3 dès C prime ferait changer 52 plats,
 
 **Transition :** Biyao compare notre modèle à celui d'un autre groupe.
 
-## Slide 10 : deux modèles, deux bases (Biyao, 1 min 15)
+## Slide 10 : leur modèle (Biyao, 0 min 50)
+
+**On montre :** le tableau de leurs cinq critères, avec leurs points et leurs seuils, puis les deux phrases du bas.
+
+**On dit :**
+
+Nous avons reçu la base de Branchu, Becavin, Bundhoo et Castan : 300 céréales du petit-déjeuner. Leur SuperNutri-score est aussi un MR-Sort simple, à cinq critères : les sucres pèsent le plus, 5 points sur 15, puis les fibres, 4, le groupe NOVA, 3, les graisses saturées, 2, et le sodium, 1. Un produit franchit un profil avec 10 points sur 15. Pour A prime, ils reprennent les allégations européennes, comme nous ; mais ils n'ont ni énergie, ni protéines, ni additifs, ni bio. Recodé dans notre moteur, leur modèle redonne leurs 300 classes.
+
+**Transition :** Que donnent les deux modèles sur les deux bases ?
+
+## Slide 11 : deux modèles, deux bases (Biyao, 0 min 55)
 
 **On montre :** le tableau croisé, puis la phrase en gras.
 
 **On dit :**
 
-Le sujet demande de tester notre modèle sur la base d'un autre groupe. Nous avons reçu celle de Branchu, Becavin, Bundhoo et Castan : 300 céréales du petit-déjeuner, aucune en commun avec nos plats. Leur base n'avait ni les additifs ni le bio : nous les avons lus sur Open Food Facts, par le code-barres. Nous avons aussi recodé leur modèle dans notre moteur : il redonne leurs 300 classes.
+Aucun produit n'est commun aux deux bases. Leur base n'avait ni les additifs ni le bio : nous les avons lus sur Open Food Facts, par le code-barres.
 
 Résultat : chaque modèle colle mieux au Nutri-Score sur sa propre base, et y est un peu plus sévère que lui, de 0,43 classe en moyenne pour le nôtre, 0,37 pour le leur. Sur la base de l'autre, chacun devient bien plus sévère : 0,90 classe pour le nôtre, 1,16 pour le leur. Et les deux modèles ne donnent la même classe qu'à 52 % de leurs céréales : nos résultats diffèrent bien des leurs.
 
 **Transition :** Pourquoi ?
 
-## Slide 11 : chaque modèle porte sa catégorie (Biyao, 1 min 10)
+## Slide 12 : chaque modèle porte sa catégorie (Biyao, 1 min 10)
 
 **On montre :** les deux colonnes, puis les deux produits et leurs trois classes.
 
@@ -162,7 +172,7 @@ Chaque modèle porte la catégorie pour laquelle il est fait. Sur leurs céréal
 
 **Transition :** Place à la démonstration.
 
-## Slide 12 : l'interface (Biyao, 1 min 10)
+## Slide 13 : l'interface (Biyao, 1 min 00)
 
 **On montre :** l'interface en direct, geste par geste, en suivant les repères de la slide.
 
@@ -176,7 +186,7 @@ Enfin, l'onglet SuperNutri-score montre le modèle, la source de chaque seuil, l
 
 **Transition :** Pour finir, ce que nous retenons.
 
-## Slide 13 : ce que nous retenons (Biyao, 1 min 00)
+## Slide 14 : ce que nous retenons (Biyao, 1 min 00)
 
 **On montre :** les trois colonnes, puis le merci.
 

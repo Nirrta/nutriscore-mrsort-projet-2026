@@ -33,9 +33,9 @@ def texteDeLaSlide(diapo):
     return " ".join(forme.text_frame.text for forme in diapo.shapes if forme.has_text_frame and forme.text_frame.text)
 
 
-def test_treize_slides_sans_debordement(slides):
-    """Treize slides ; la génération se serait arrêtée si un titre ou un texte débordait."""
-    assert len(slides.slides) == 13
+def test_quatorze_slides_sans_debordement(slides):
+    """Quatorze slides ; la génération se serait arrêtée si un titre ou un texte débordait."""
+    assert len(slides.slides) == 14
 
 
 def test_la_slide_2_dit_la_regle_des_proteines(slides):
@@ -140,13 +140,29 @@ def autreGroupe():
     return autre
 
 
-def test_la_slide_9_croise_les_deux_modeles_et_les_deux_bases(slides):
+def test_la_slide_10_presente_leur_modele(slides):
+    """Leur base, leurs cinq critères en points sur 15 et leurs seuils, leur λ, le sens de leurs classes, et ce qui manque."""
+    autre = autreGroupe()
+    modele = autre["modele"]
+    texte = texteDeLaSlide(slides.slides[9])
+    assert [round(15 * modele["poids"][c]) for c in modele["criteres"]] == [5, 4, 3, 2, 1]
+    assert "λ = 0,63" in texte and f"{autre['total']} céréales" in texte
+    assert f"leur modèle redonne leurs {autre['reproduits']} classes" in texte
+    for critere in modele["criteres"]:
+        for profil in modele["profils"]:
+            assert slides_projet.seuilEcrit(critere, profil[critere], modele["sens"][critere]) in texte
+    assert "très bon choix" in texte and "à limiter" in texte
+    assert "65 A, 64 B, 64 C, 64 D et 43 E" in texte
+    assert "l'énergie, les protéines" in texte.replace("’", "'")
+
+
+def test_la_slide_11_croise_les_deux_modeles_et_les_deux_bases(slides):
     """
     Pour chaque base, chaque modèle face au Nutri-Score, puis le nôtre face au leur : la part des produits dans la même
     classe, plus sévère, plus permissive. Puis les écarts moyens, et leurs classes redonnées.
     """
     autre = autreGroupe()
-    texte = texteDeLaSlide(slides.slides[9])
+    texte = texteDeLaSlide(slides.slides[10])
     for base in ("leurs", "nos"):
         for cle in ("notreFaceAuNutriscore", "leurFaceAuNutriscore", "notreFaceALeur"):
             for mesure in ("pareil", "plusSevere", "plusPermissif"):
@@ -155,13 +171,13 @@ def test_la_slide_9_croise_les_deux_modeles_et_les_deux_bases(slides):
     for base, cle in (("nos", "notreFaceAuNutriscore"), ("leurs", "leurFaceAuNutriscore"),
                       ("leurs", "notreFaceAuNutriscore"), ("nos", "leurFaceAuNutriscore")):
         assert slides_projet.ecartSigne(autre[base][cle]["sens"]["ecartMoyen"]) in texte, (base, cle)
-    assert f"redonne leurs {autre['reproduits']} classes" in texte
+    assert "Aucun produit en commun" in texte and "complétées par Open Food Facts" in texte
 
 
-def test_la_slide_10_montre_ce_qui_bloque_chaque_modele(slides):
+def test_la_slide_12_montre_ce_qui_bloque_chaque_modele(slides):
     """Ce que chaque modèle rate le plus souvent sur la base de l'autre, au seuil de B′, et un produit de chaque base."""
     autre = autreGroupe()
-    texte = texteDeLaSlide(slides.slides[10])
+    texte = texteDeLaSlide(slides.slides[11])
     for base, modele in (("leurs", "notre"), ("nos", "leur")):
         critere, part = max(autre[base]["bloquants"][modele].items(), key=lambda paire: paire[1])
         assert slides_projet.pourcentage(part) in texte, (base, critere)
@@ -178,7 +194,7 @@ def test_aucun_signe_double_ne_commence_une_ligne():
 def test_la_conclusion_dit_la_severite_et_les_limites(slides):
     """Plus sévère que le Nutri-Score sur nos plats et sur leurs céréales ; sans veto ; les produits secs en A′."""
     resultats = resultatsDuSuperNutri()["supernutri"]
-    texte = texteDeLaSlide(slides.slides[12])
+    texte = texteDeLaSlide(slides.slides[13])
     ecarts = resultats["etendue"]["ecarts"]
     assert f"{ecarts['descendent']} descendent, surtout en haut, et {ecarts['montent']} montent" in texte
     assert "sans veto" in texte.lower()

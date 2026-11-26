@@ -18873,6 +18873,13 @@
           "sa": "min",
           "sodium": "min"
         }
+      },
+      "sensDeLeursClasses": {
+        "A′": "très bon choix",
+        "B′": "bon choix",
+        "C′": "choix moyen",
+        "D′": "choix médiocre",
+        "E′": "à limiter"
       }
     }
   }

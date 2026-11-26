@@ -22,6 +22,7 @@ Elles doivent être installées sur l'ordinateur de soutenance ; sinon PowerPoin
 
 import argparse
 import io
+import math
 import json
 import subprocess
 from statistics import median
@@ -958,7 +959,7 @@ def slidesSoutenance1(chemin=SORTIES[1]):
 BASE_FINALE = "etendue"            # les chiffres de la soutenance finale portent sur nos 375 plats
 LIBELLES_COURTS = {"en": "Énergie (kJ)", "sa": "AGS (g)", "su": "Sucres (g)", "so": "Sel (g)", "pr": "Protéines (g)",
                    "fi": "Fibres (g)", "fr": "Fruits et légumes (%)", "nova": "Groupe NOVA",
-                   "additifs": "Nombre d'additifs", "aRisque": "Additifs à risque", "bio": "Bio"}
+                   "additifs": "Nombre d'additifs", "aRisque": "Additifs à risque", "bio": "Bio", "sodium": "Sodium (mg)"}
 # d'où vient chaque seuil, en peu de mots (la version longue est dans projet_supernutri.SOURCES_DES_SEUILS)
 SOURCES_COURTES = {"en": "barème du Nutri-Score 2023", "sa": "A′ : « faible teneur » (CE 1924/2006)",
                    "su": "A′ : « faible teneur » (CE 1924/2006)", "so": "A′ : « faible teneur » (CE 1924/2006)",
@@ -1272,6 +1273,38 @@ def platsDuDecalage(profils, scenario, nombreDePlats=3):
     return sorted(noms, key=lambda nom: (len(nom), nom))[:nombreDePlats]
 
 
+def slideLeurModele(presentation, autre, notreModele):
+    """
+    Le SuperNutri-score de l'autre groupe, avant de le comparer au nôtre : leur base, leurs cinq
+    critères avec leurs points sur 15 et leurs seuils, leur règle de franchissement, le sens de
+    leurs classes, et ce qui manque à leur modèle par rapport au nôtre.
+    """
+    modele = autre["modele"]
+    lam = modele["lam"]
+    diapo = nouvelleDiapo(presentation, f"L'autre groupe : {autre['total']} céréales, cinq critères, λ = {nombreCourt(lam)}",
+                          f"Branchu, Becavin, Bundhoo et Castan. Recodé dans notre moteur, leur modèle redonne leurs "
+                          f"{autre['reproduits']} classes.")
+    colonnes = [("Critère", 3.0, PP_ALIGN.LEFT), ("Points sur 15", 1.8, PP_ALIGN.RIGHT)] + \
+               [(lettre, 1.3, PP_ALIGN.RIGHT) for lettre in ("D′", "C′", "B′", "A′")]
+    lignes = [[LIBELLES_COURTS[critere], nombreCourt(round(15 * modele["poids"][critere], 2))]
+              + [seuilEcrit(critere, profil[critere], modele["sens"][critere]) for profil in modele["profils"]]
+              for critere in modele["criteres"]]
+    bas = tableauVerso(diapo, MARGE, 2.05, colonnes, lignes, "Leur modèle", taille=15, hauteurLigne=0.42)
+    points = math.ceil(15 * lam - 1e-9)                  # les poids valent des points entiers sur 15
+    sens = autre.get("sensDeLeursClasses", {})
+    labels = [sum(ligne) for ligne in autre["leurs"]["notreFaceAuNutriscore"]["matrice"]]
+    repartition = ", ".join(f"{nombre} {lettre}" for nombre, lettre in zip(labels[:-1], "ABCD")) + f" et {labels[-1]} E"
+    manquants = [critere for critere in notreModele["criteres"]
+                 if critere not in modele["criteres"] and not (critere == "so" and "sodium" in modele["criteres"])]
+    bas = paragraphesMesures(diapo, MARGE, bas + 0.25, LARGEUR - 2 * MARGE, [[m(
+        f"Un produit franchit un profil avec {points} points sur 15. Leurs classes vont de « {sens.get('A′', 'A′')} » (A′) "
+        f"à « {sens.get('E′', 'E′')} » (E′). Leur base : {repartition} au Nutri-Score.", TEXTE, 15, ENCRE_SECONDAIRE)]],
+        "Leur règle")
+    paragraphesMesures(diapo, MARGE, bas + 0.2, LARGEUR - 2 * MARGE, [[m(
+        f"Comme nous, A′ reprend les allégations du règlement CE 1924/2006. Absents de leur modèle : "
+        f"{enToutesLettres(manquants)}.", DEMI_GRAS, 16)]], "Ce qui les distingue")
+
+
 def slideDeuxModeles(presentation, autre, total):
     """
     Deux SuperNutri-scores sur deux bases : leurs céréales et nos plats, rangés par chaque modèle,
@@ -1283,8 +1316,8 @@ def slideDeuxModeles(presentation, autre, total):
     titre = "Chaque modèle colle mieux au Nutri-Score sur sa propre base" if chacunChezSoi else "Deux modèles sur deux bases"
     communs = autre["recoupement"][0]
     diapo = nouvelleDiapo(presentation, titre,
-                          f"Leur modèle, recodé depuis leur note, redonne leurs {autre['reproduits']} classes. "
-                          + ("Aucun produit en commun." if communs == 0 else f"{communs} produits en commun."))
+                          ("Aucun produit en commun. " if communs == 0 else f"{communs} produits en commun. ")
+                          + "Leurs céréales sont complétées par Open Food Facts : additifs et bio.")
     largeur = 1.4                                    # chacune des six colonnes de nombres
     x = MARGE + 3.5
     colonne(diapo, x, 2.0, 3 * largeur - 0.2, f"Leurs {autre['total']} céréales", "leurs céréales")
@@ -1300,10 +1333,8 @@ def slideDeuxModeles(presentation, autre, total):
                                    for mesure, _ in mesures])
     bas = tableauVerso(diapo, MARGE, 2.75, colonnes, lignes, "Deux modèles", taille=15, hauteurLigne=0.5)
     # λ et sa valeur ne se séparent pas en fin de ligne : espaces insécables
-    lams = [f"λ\u00a0=\u00a0{nombreCourt(lam)}" for lam in (autre["modele"]["lam"], 0.7)]
     bas = paragraphesMesures(diapo, MARGE, bas + 0.2, LARGEUR - 2 * MARGE, [[m(
-        f"Même référence des deux côtés : notre calcul du Nutri-Score de 2023 redonne leurs {autre['total']} labels. Leur "
-        f"modèle a {len(autre['modele']['criteres'])} critères et {lams[0]} ; le nôtre, onze et {lams[1]}.",
+        f"Même référence des deux côtés : notre calcul du Nutri-Score de 2023 redonne leurs {autre['total']} labels.",
         TEXTE, 15, ENCRE_SECONDAIRE)]], "Lecture des deux modèles")
     ecarts = [ecartSigne(comparaison[cle]["sens"]["ecartMoyen"])
               for comparaison, cle in ((nos, "notreFaceAuNutriscore"), (leurs, "leurFaceAuNutriscore"),
@@ -1440,6 +1471,7 @@ def slidesSoutenance2(chemin=SORTIES[2]):
     slideSensibiliteProfils(presentation, sensibilite, total)
     if "autreGroupe" not in supernutri:
         raise ValueError("La clé « autreGroupe » manque : déposer leur base, puis lancer python3 projet_supernutri.py.")
+    slideLeurModele(presentation, supernutri["autreGroupe"], supernutri["modele"])
     slideDeuxModeles(presentation, supernutri["autreGroupe"], total)
     slideCategories(presentation, supernutri["autreGroupe"])
     slideDemonstrationFinale(presentation, resultats, plats)

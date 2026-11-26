@@ -115,7 +115,7 @@ Déroulé du 30/10 (le texte complet est dans `soutenance/texte_soutenance_1.md`
 - [x] La règle des protéines du Nutri-Score de 2023 (25/11)
 - [x] ~~Variante verte~~ : écartée le 20/11 (voir les décisions)
 - [x] Interface : le SuperNutri-score au calculateur, son onglet, λ au curseur (20/11)
-- [x] Slides finales et texte de l'oral, 11 slides, 13 min 50 (20/11), puis 12 slides, 14 min 40 (26/11)
+- [x] Slides finales et texte de l'oral, 11 slides, 13 min 50 (20/11), puis 14 slides, 14 min 50 (26/11) : la transformation (NOVA, additifs à risque) et le modèle de l'autre groupe ont chacun leur slide
 - [ ] Répétition (23-26/11)
 - [ ] Avant le 27/11 : si la soutenance se fait depuis un autre ordinateur, y installer les polices de `design/polices/`, ou présenter le PDF
 - [ ] **Soutenance finale le 27/11**

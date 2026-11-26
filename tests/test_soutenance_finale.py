@@ -42,9 +42,9 @@ def donnees():
 
 
 def test_le_texte_de_l_oral_final_tient_en_15_minutes():
-    """Treize slides, chacune avec son orateur et son texte, et une durée totale d'au plus 15 minutes."""
+    """Quatorze slides, chacune avec son orateur et son texte, et une durée totale d'au plus 15 minutes."""
     slides = soutenance.slidesDuTexte(soutenance.TEXTES_ORAUX[2])
-    assert [slide["numero"] for slide in slides] == list(range(1, 14))
+    assert [slide["numero"] for slide in slides] == list(range(1, 15))
     assert sum(slide["duree"] for slide in slides) <= 15 * 60
     assert all(slide["orateur"] in ("Daniel", "Anis", "Biyao") and slide["texte"] for slide in slides)
 
@@ -160,8 +160,8 @@ def test_l_oral_cite_la_sensibilite_aux_profils(donnees):
 def test_l_oral_compare_les_deux_modeles_sur_les_deux_bases(donnees):
     """Leurs 300 classes redonnées, chaque modèle face au Nutri-Score sur chaque base, et l'accord des deux modèles."""
     autre, oral = donnees["super"]["autreGroupe"], donnees["oral"]
-    assert f"il redonne leurs {autre['reproduits']} classes" in oral and autre["reproduits"] == autre["total"]
-    assert autre["recoupement"][0] == 0 and "aucune en commun avec nos plats" in oral
+    assert f"leur modèle redonne leurs {autre['reproduits']} classes" in oral and autre["reproduits"] == autre["total"]
+    assert autre["recoupement"][0] == 0 and "Aucun produit n'est commun aux deux bases" in oral
     leurs, nos = autre["leurs"], autre["nos"]
     # chaque modèle colle mieux au Nutri-Score sur sa propre base, et chacun est plus sévère que lui partout
     assert leurs["leurFaceAuNutriscore"]["exactitude"] > leurs["notreFaceAuNutriscore"]["exactitude"]
@@ -173,6 +173,17 @@ def test_l_oral_compare_les_deux_modeles_sur_les_deux_bases(donnees):
             "pour le leur") in oral
     assert f"{virgule(ecart['leurs', 'notre'], 2)} classe pour le nôtre, {virgule(ecart['nos', 'leur'], 2)} pour le leur" in oral
     assert f"la même classe qu'à {pourcentageOral(leurs['notreFaceALeur']['exactitude'])} de leurs céréales" in oral
+
+
+def test_l_oral_presente_leur_modele(donnees):
+    """Leurs cinq critères et leurs points, leur règle des 10 points sur 15, et ce qui manque à leur modèle."""
+    autre, oral = donnees["super"]["autreGroupe"], donnees["oral"]
+    modele = autre["modele"]
+    assert [round(15 * modele["poids"][c]) for c in modele["criteres"]] == [5, 4, 3, 2, 1]
+    assert ("les sucres pèsent le plus, 5 points sur 15, puis les fibres, 4, le groupe NOVA, 3, les graisses saturées, 2, "
+            "et le sodium, 1") in oral
+    assert round(15 * modele["lam"], 2) == 9.45 and "Un produit franchit un profil avec 10 points sur 15" in oral
+    assert "ils n'ont ni énergie, ni protéines, ni additifs, ni bio" in oral
 
 
 def test_l_oral_explique_ce_qui_bloque_chaque_modele(donnees):

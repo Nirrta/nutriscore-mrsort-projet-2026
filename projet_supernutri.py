@@ -1048,6 +1048,17 @@ def valeursPourUnModele(plat, modele):
     return valeurs
 
 
+def sensDesClassesDeLAutreGroupe(fichier=FICHIER_AUTRE_GROUPE, colonneClasse="supernutriscore",
+                                  colonneSens="supernutriscore_sens"):
+    """Le sens que l'autre groupe donne à chacune de ses classes, lu dans sa base : {"A′": "très bon choix", …}."""
+    sens = {}
+    for ligne in lignesDuFichier(fichier):
+        lettre = lettreDeLaCellule(ligne.get(colonneClasse))
+        if lettre and ligne.get(colonneSens):
+            sens.setdefault(f"{lettre}′", str(ligne[colonneSens]).strip())
+    return {classe: sens[classe] for classe in ("A′", "B′", "C′", "D′", "E′") if classe in sens}
+
+
 def classerAvecUnModele(plat, modele):
     """
     Range un produit avec un modèle MR-Sort quelconque (celui de l'autre groupe), avec
@@ -1282,7 +1293,7 @@ def main():
         nos = lireBase(FICHIER_BASE_ETENDUE if FICHIER_BASE_ETENDUE.exists() else FICHIER_BASE)
         analyse = analyseAutreGroupe(leurs, manques, leurModele, nos, exemples=EXEMPLES_AUTRE_GROUPE)
         ecrireAutreGroupe(leurs, nos, analyse, leurModele, DOSSIER / "resultats" / "supernutri_autre_groupe.xlsx")
-        resume["autreGroupe"] = dict(analyse, modele=leurModele)
+        resume["autreGroupe"] = dict(analyse, modele=leurModele, sensDeLeursClasses=sensDesClassesDeLAutreGroupe())
         afficherAutreGroupe(analyse)
     else:
         print(f"Base de l'autre groupe : pas encore là ({FICHIER_AUTRE_GROUPE.relative_to(DOSSIER)}).")
