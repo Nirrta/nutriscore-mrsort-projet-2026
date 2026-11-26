@@ -211,3 +211,13 @@ def test_la_conclusion_reprend_les_chiffres(donnees):
     assert sum(1 for nom in secs if nom.startswith("Couscous")) == len(secs) - 1 and "Velouté de pois cassés" in secs
     assert "sans veto, un plat très salé ne perd que la case du sel" in oral
     assert f"et {len(sensibilite['auBord'])} plats sont au bord de leur classe" in oral
+
+
+def test_le_pdf_de_l_oral_suit_son_texte():
+    """Le PDF de l'oral porte l'empreinte du texte dont il vient : il est recompilé après chaque changement du texte."""
+    source = soutenance.TEXTES_ORAUX[2]
+    pdf = source.with_suffix(".pdf")
+    if not pdf.exists():
+        pytest.skip("le PDF de l'oral n'est pas encore compilé")
+    assert soutenance.empreinteDuPdf(pdf) == soutenance.empreinte(source.read_text(encoding="utf-8")), \
+        "le PDF de l'oral est en retard : relancer python3 projet_soutenance.py --soutenance 2"

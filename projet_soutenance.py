@@ -14,6 +14,7 @@ compose le PDF. Il lit aussi le texte de l'oral slide par slide, pour les notes 
     python3 projet_soutenance.py   # soutenance/texte_soutenance_1.pdf et soutenance/dossier_soutenance_1.pdf
 """
 
+import hashlib
 import os
 import re
 import shutil
@@ -79,6 +80,23 @@ def slidesDuTexte(chemin=TEXTE_ORAL):
 
 # --- Compilation en PDF ---
 
+def empreinte(texte):
+    """Les 16 premiers caractères de l'empreinte SHA-256 d'un texte : elle change dès qu'un caractère change."""
+    return hashlib.sha256(texte.encode("utf-8")).hexdigest()[:16]
+
+
+def empreinteDuPdf(chemin):
+    """
+    L'empreinte rangée dans les mots-clés d'un PDF (« empreinte 0123… »), ou None. Chaque PDF de la
+    soutenance porte celle de sa source : un test voit ainsi s'il n'a pas été refait.
+    """
+    from pypdf import PdfReader
+
+    motsCles = (PdfReader(chemin).metadata or {}).get("/Keywords") or ""
+    trouve = re.search(r"empreinte (\w+)", str(motsCles))
+    return trouve.group(1) if trouve else None
+
+
 def corpsLatex(markdown):
     """Convertit le corps Markdown en LaTeX avec pandoc."""
     resultat = subprocess.run(["pandoc", "--from", "markdown", "--to", "latex"], input=markdown,
@@ -86,10 +104,14 @@ def corpsLatex(markdown):
     return resultat.stdout
 
 
-def enveloppe(titre, sousTitre, corps):
-    """Le document LaTeX complet : le style Verso, un bloc de titre, puis le corps."""
+def enveloppe(titre, sousTitre, corps, empreinteDuTexte=""):
+    """
+    Le document LaTeX complet : le style Verso, un bloc de titre, puis le corps. Les mots-clés du
+    PDF portent l'empreinte du texte Markdown (empreinteDuPdf la relit).
+    """
     return rf"""\documentclass[11pt]{{article}}
 \usepackage{{verso}}
+\hypersetup{{pdfkeywords={{empreinte {empreinteDuTexte}}}}}
 \setcounter{{secnumdepth}}{{0}}
 \begin{{document}}
 \thispagestyle{{fancy}}
@@ -111,11 +133,12 @@ def compiler(source, destination):
     verso.sty trouve les polices dans ../design/polices/ ; les fichiers intermédiaires vont
     dans soutenance/construction/.
     """
-    titre, sousTitre, corps = lireEntete(source.read_text(encoding="utf-8"))
+    texte = source.read_text(encoding="utf-8")
+    titre, sousTitre, corps = lireEntete(texte)
     construction = DOSSIER_SOUTENANCE / "construction"
     construction.mkdir(exist_ok=True)
     fichierTex = construction / (source.stem + ".tex")
-    fichierTex.write_text(enveloppe(titre, sousTitre, corpsLatex(corps)), encoding="utf-8")
+    fichierTex.write_text(enveloppe(titre, sousTitre, corpsLatex(corps), empreinte(texte)), encoding="utf-8")
     environnement = dict(os.environ, TEXINPUTS=f"{DOSSIER / 'rapport'}//:")
     subprocess.run(["latexmk", "-xelatex", "-interaction=nonstopmode", "-halt-on-error", "-quiet",
                     f"-outdir={construction.name}", f"{construction.name}/{fichierTex.name}"],

@@ -187,3 +187,13 @@ def test_le_texte_cite_l_etendue_des_criteres(donnees):
     assert f"l'énergie va de {virgule(min(energie), 0)} à {virgule(max(energie), 0)} kJ" in donnees["oral"]
     assert f"le sel de {virgule(min(sel), 0)} à {virgule(max(sel), 2)} g" in donnees["oral"]
     assert f"les fruits et légumes de {virgule(min(fruits), 0)} à {virgule(max(fruits), 0)} %" in donnees["oral"]
+
+
+def test_les_pdf_du_30_octobre_suivent_leur_texte():
+    """Le texte de l'oral et le dossier de la démarche : chaque PDF porte l'empreinte du Markdown dont il vient."""
+    for source in (soutenance.TEXTE_ORAL, soutenance.DOSSIER_DEMARCHE):
+        pdf = source.with_suffix(".pdf")
+        if not pdf.exists():
+            pytest.skip(f"{pdf.name} n'est pas encore compilé")
+        assert soutenance.empreinteDuPdf(pdf) == soutenance.empreinte(source.read_text(encoding="utf-8")), \
+            f"{pdf.name} est en retard : relancer python3 projet_soutenance.py"

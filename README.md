@@ -74,7 +74,7 @@ python3 projet_supernutri.py                     # le SuperNutri-score sur les d
 python3 projet_supernutri.py --telecharger-autre-groupe   # range une fois dans le cache les fiches d'OFF de leurs 300 céréales (~20 min)
 streamlit run projet_gui.py                      # l'interface
 python3 slides_projet.py --soutenance 1          # les 10 slides du 30/10 et leurs figures
-python3 slides_projet.py --soutenance 2          # les 13 slides du 27/11 (le SuperNutri-score)
+python3 slides_projet.py --soutenance 2          # les 13 slides du 27/11 (le SuperNutri-score), et leur PDF par PowerPoint
 python3 projet_soutenance.py                     # le texte de l'oral et le dossier du 30/10, en PDF (soutenance/)
 python3 projet_soutenance.py --soutenance 2      # le texte de l'oral du 27/11, en PDF
 python3 design/generer_polices.py <dossier> design/polices   # les instances d'Archivo, depuis la police variable

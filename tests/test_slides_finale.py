@@ -183,3 +183,17 @@ def test_la_conclusion_dit_la_severite_et_les_limites(slides):
     assert f"{ecarts['descendent']} descendent, surtout en haut, et {ecarts['montent']} montent" in texte
     assert "sans veto" in texte.lower()
     assert f"{len(resultats['etendue']['secsEnAPrime'])} de nos {resultats['etendue']['repartition']['A′']} plats A′" in texte
+
+
+def test_le_pdf_des_slides_suit_les_slides(slides):
+    """Le PDF de secours a autant de pages que les slides, et porte l'empreinte de leur texte et de leurs notes."""
+    from pypdf import PdfReader
+
+    import projet_soutenance
+
+    pdf = slides_projet.SORTIES[2].with_suffix(".pdf")
+    if not pdf.exists():
+        pytest.skip("le PDF des slides n'est pas encore exporté")
+    assert len(PdfReader(pdf).pages) == len(slides.slides)
+    assert projet_soutenance.empreinteDuPdf(pdf) == slides_projet.empreinteDesSlides(slides), \
+        "le PDF des slides est en retard : relancer python3 slides_projet.py --soutenance 2 (PowerPoint l'exporte)"

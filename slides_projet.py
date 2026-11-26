@@ -21,7 +21,9 @@ Elles doivent être installées sur l'ordinateur de soutenance ; sinon PowerPoin
 """
 
 import argparse
+import io
 import json
+import subprocess
 from statistics import median
 
 from pptx import Presentation
@@ -1451,16 +1453,71 @@ def slidesSoutenance2(chemin=SORTIES[2]):
     return len(presentation.slides)
 
 
+# --- Le PDF de secours ---
+
+def empreinteDesSlides(presentation):
+    """L'empreinte du texte des slides et de leurs notes, dans l'ordre : elle change dès qu'un mot change."""
+    from projet_soutenance import empreinte
+
+    morceaux = []
+    for diapo in presentation.slides:
+        morceaux += [forme.text_frame.text for forme in diapo.shapes if forme.has_text_frame]
+        morceaux.append(diapo.notes_slide.notes_text_frame.text if diapo.has_notes_slide else "")
+    return empreinte("\n".join(morceaux))
+
+
+def exporterEnPdf(chemin):
+    """
+    Exporte les slides en PDF avec PowerPoint, piloté par osascript, à côté du .pptx ; puis range
+    dans les mots-clés du PDF l'empreinte des slides (l'export de PowerPoint ne garde pas les
+    propriétés du document). Les tests comparent cette empreinte à celle des slides du code : un
+    PDF en retard se voit. Si le fichier est déjà ouvert dans PowerPoint, l'export lirait la version
+    ouverte : on s'arrête. Renvoie (chemin du PDF ou None, message).
+    """
+    from pypdf import PdfReader, PdfWriter
+
+    pdf = chemin.with_suffix(".pdf")
+    script = f"""tell application "Microsoft PowerPoint"
+    if (name of every presentation) contains "{chemin.name}" then return "ouverte"
+    open POSIX file "{chemin}"
+    delay 3
+    save active presentation in (POSIX file "{pdf}") as save as PDF
+    close active presentation saving no
+    return "fait"
+end tell"""
+    avant = pdf.stat().st_mtime if pdf.exists() else None
+    try:
+        reponse = subprocess.run(["osascript", "-e", script], capture_output=True, text=True, timeout=180)
+    except (OSError, subprocess.TimeoutExpired) as erreur:
+        return None, f"PowerPoint n'a pas pu exporter le PDF ({erreur})."
+    if reponse.stdout.strip() == "ouverte":
+        return None, f"{chemin.name} est ouvert dans PowerPoint : fermez-le, puis relancez pour refaire le PDF."
+    if reponse.returncode != 0 or not pdf.exists() or pdf.stat().st_mtime == avant:
+        return None, f"PowerPoint n'a pas écrit le PDF : {reponse.stderr.strip() or 'raison inconnue'}."
+    ecrivain = PdfWriter(clone_from=PdfReader(io.BytesIO(pdf.read_bytes())))
+    ecrivain.add_metadata({"/Keywords": f"empreinte {empreinteDesSlides(Presentation(chemin))}"})
+    with open(pdf, "wb") as fichier:
+        ecrivain.write(fichier)
+    return pdf, f"{pdf.relative_to(DOSSIER)} exporté par PowerPoint"
+
+
 def main():
-    """Écrit les slides de la soutenance demandée."""
+    """
+    Écrit les slides de la soutenance demandée, puis leur PDF de secours (PowerPoint), sauf avec
+    --sans-pdf. Le PDF se refait à chaque fois : un test vérifie qu'il suit les slides.
+    """
     parseur = argparse.ArgumentParser(description="Slides des soutenances du projet MR-Sort.")
     parseur.add_argument("--soutenance", type=int, choices=[1, 2], default=1)
+    parseur.add_argument("--sans-pdf", action="store_true", help="ne pas refaire le PDF des slides avec PowerPoint")
     arguments = parseur.parse_args()
     if arguments.soutenance == 1:
         total = slidesSoutenance1()
     else:
         total = slidesSoutenance2()
     print(f"{total} slides écrites dans {SORTIES[arguments.soutenance].relative_to(DOSSIER)}")
+    if not arguments.sans_pdf:
+        pdf, message = exporterEnPdf(SORTIES[arguments.soutenance])
+        print(message if pdf else f"Attention : {message}")
 
 
 if __name__ == "__main__":
