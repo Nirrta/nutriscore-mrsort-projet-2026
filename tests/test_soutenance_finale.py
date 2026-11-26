@@ -42,9 +42,9 @@ def donnees():
 
 
 def test_le_texte_de_l_oral_final_tient_en_15_minutes():
-    """Douze slides, chacune avec son orateur et son texte, et une durée totale d'au plus 15 minutes."""
+    """Treize slides, chacune avec son orateur et son texte, et une durée totale d'au plus 15 minutes."""
     slides = soutenance.slidesDuTexte(soutenance.TEXTES_ORAUX[2])
-    assert [slide["numero"] for slide in slides] == list(range(1, 13))
+    assert [slide["numero"] for slide in slides] == list(range(1, 14))
     assert sum(slide["duree"] for slide in slides) <= 15 * 60
     assert all(slide["orateur"] in ("Daniel", "Anis", "Biyao") and slide["texte"] for slide in slides)
 
@@ -56,6 +56,29 @@ def test_l_oral_cite_les_poids(donnees):
     assert f"Les additifs pèsent {virgule(poids['additifs'] + poids['aRisque'], 2)} en tout" in oral
     assert f"le bio, {virgule(poids['bio'], 2)}" in oral and poids["bio"] == min(poids.values())
     assert f"Le seuil majoritaire vaut {virgule(sn.MODELE_SUPER['lam'], 1)}" in oral
+
+
+def test_l_oral_justifie_les_poids_des_piliers(donnees):
+    """À limiter pèse le plus, comme les points négatifs du Nutri-Score ; la transformation pèse 1 − λ."""
+    from projet_nutriscore import NEGATIFS, POINTS_MAX, POSITIFS
+    negatifs, positifs = sum(POINTS_MAX[c] for c in NEGATIFS), sum(POINTS_MAX[c] for c in POSITIFS)
+    assert (f"À limiter pèse le plus, comme au Nutri-Score, où les points négatifs, {negatifs} au plus, dépassent les "
+            f"positifs, {positifs}") in donnees["oral"]
+    assert sn.PILIERS["transformation et production"][0] == pytest.approx(1 - sn.MODELE_SUPER["lam"])
+    assert "pèse justement 0,30 : à lui seul, il ne fait jamais perdre une classe" in donnees["oral"]
+
+
+def test_l_oral_explique_la_transformation(donnees):
+    """Le groupe NOVA de nos plats, la source qui le justifie, et les deux exemples d'additifs."""
+    transformation, oral = donnees["super"]["etendue"]["transformation"], donnees["oral"]
+    nova = transformation["nova"]
+    assert nova["1"] == nova["2"] == 0
+    assert f"Nos plats sont tous NOVA 3 ou 4, et {nova['4']} sur {transformation['total']} sont ultra-transformés" in oral
+    assert "NutriNet-Santé associe l'ultra-transformé à plus de cancers et de maladies cardiovasculaires" in oral
+    poelee, regina = transformation["exemples"]
+    assert poelee["aRisque"] == 0 and 250 in sn.numerosDesAdditifs(regina["listeAdditifs"])
+    assert (f"La Poêlée Fermière a {poelee['additifs']} additifs, aucun à risque ; la pizza Regina en a {regina['aRisque']} "
+            "à risque, dont le nitrite du jambon") in oral
 
 
 def test_l_oral_cite_la_regle_des_proteines(donnees):

@@ -126,6 +126,26 @@ ADDITIFS_A_RISQUE = {
     "carraghénanes": ({407}, "EFSA, réévaluation des carraghénanes de 2018"),
 }
 
+# Pourquoi chaque famille est « à risque », en une ligne (sources vérifiées le 26/11)
+RAISONS_DES_ADDITIFS_A_RISQUE = {
+    "nitrites et nitrates": "associés au cancer colorectal",
+    "phosphates": "une dose admise que l'apport total des enfants dépasse",
+    "carraghénanes": "une dose admise provisoire, faute de données",
+}
+
+# Les quatre groupes NOVA (Université de São Paulo, 2009) : ils rangent les aliments selon leur
+# transformation, pas selon leurs nutriments. Open Food Facts les calcule à partir des ingrédients.
+GROUPES_NOVA = {
+    1: "brut ou peu transformé",
+    2: "ingrédient culinaire : huile, beurre, sucre, sel",
+    3: "transformé : conserve, fromage, pain",
+    4: "ultra-transformé : formulation industrielle, souvent avec des additifs",
+}
+
+# Les deux plats qui illustrent la transformation : la Poêlée Fermière (NOVA 4, trois additifs, aucun
+# à risque) et la pizza Regina de Buitoni (le nitrite du jambon et un polyphosphate)
+EXEMPLES_TRANSFORMATION = ("3257982125116", "7613033139642")
+
 
 def libelleEnMinuscule(critere):
     """Le libellé d'un critère dans une phrase : sa première lettre en minuscule, ses sigles gardés (« groupe NOVA »)."""
@@ -286,6 +306,33 @@ def sensDesEcarts(matrice):
             ecarts += (colonne - ligne) * nombre
     return {"plusSevere": plusSevere / total, "pareil": (total - plusSevere - plusPermissif) / total,
             "plusPermissif": plusPermissif / total, "ecartMoyen": ecarts / total}
+
+
+def transformationDesPlats(plats, exemples=EXEMPLES_TRANSFORMATION):
+    """
+    Le pilier de la transformation, compté sur une base : les plats de chaque groupe NOVA, les plats
+    bio, les plats sans additif, ceux qui ont au moins un additif à risque, et le nombre de plats de
+    chaque famille d'additifs à risque. Pour chaque code d'exemples présent dans la base : son nom,
+    sa marque, son groupe NOVA et ses additifs.
+    """
+    nova = {str(groupe): 0 for groupe in GROUPES_NOVA}
+    familles = {famille: 0 for famille in ADDITIFS_A_RISQUE}
+    bio = sansAdditif = avecARisque = 0
+    for plat in plats:
+        if plat.get("nova") in GROUPES_NOVA:
+            nova[str(plat["nova"])] += 1
+        bio += plat.get("bio") == "oui"
+        sansAdditif += plat.get("additifs") == 0
+        numeros = numerosDesAdditifs(plat.get("listeAdditifs"))
+        avecARisque += additifsARisque(plat.get("listeAdditifs")) > 0
+        for famille, (numerosDeLaFamille, _) in ADDITIFS_A_RISQUE.items():
+            familles[famille] += bool(numeros & numerosDeLaFamille)
+    lignesExemples = [{"code": plat["code"], "nom": plat.get("nom"), "marque": plat.get("marque"), "label": plat.get("label"),
+                       "nova": plat.get("nova"), "additifs": plat.get("additifs"), "listeAdditifs": plat.get("listeAdditifs"),
+                       "aRisque": additifsARisque(plat.get("listeAdditifs"))}
+                      for code in exemples for plat in plats if plat["code"] == code]
+    return {"total": len(plats), "nova": nova, "bio": bio, "sansAdditif": sansAdditif, "avecARisque": avecARisque,
+            "familles": familles, "exemples": lignesExemples}
 
 
 def produitsSecsEnAPrime(plats, modele=None):
@@ -1223,6 +1270,7 @@ def main():
                            "plats": resultat["plats"], "secsEnAPrime": resultat["secsEnAPrime"],
                            "ecarts": {cle: ecarts[cle] for cle in ("montent", "descendent", "egaux", "raisonsDesDescentes",
                                                                    "descentesParLabel", "montees", "plusGrandsEcarts")}}
+            resume[nom]["transformation"] = transformationDesPlats(lireBase(fichier))
             resume["sensibilite"][nom] = sensibilites(lireBase(fichier))
             afficherSensibilite(nom, resume["sensibilite"][nom])
     ecrireSensibilite(resume["sensibilite"], DOSSIER / "resultats" / "supernutri_sensibilite.xlsx")

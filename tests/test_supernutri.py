@@ -597,3 +597,32 @@ def test_chaque_comparaison_dit_son_sens():
     resultat = sn.comparerDeuxModeles(plats, leur)
     assert resultat["notreFaceAuNutriscore"]["sens"]["plusPermissif"] == 1          # A′ pour un plat B
     assert resultat["notreFaceALeur"]["sens"]["pareil"] == 1
+
+
+# --- La transformation des plats : NOVA et additifs à risque (26/11) ---
+
+def test_la_transformation_des_plats():
+    """Les plats de chaque groupe NOVA, les plats bio, sans additif, et ceux qui ont un additif à risque, famille par famille."""
+    plats = [dict(platAuNiveauDeAPrime(), code="1", nova=3, additifs=0, listeAdditifs=None, bio="oui"),
+             dict(platAuNiveauDeAPrime(), code="2", nova=4, additifs=2, listeAdditifs="E250, E452", bio="non"),
+             dict(platAuNiveauDeAPrime(), code="3", nova=4, additifs=1, listeAdditifs="E407", bio="non")]
+    transformation = sn.transformationDesPlats(plats, exemples=("2",))
+    assert transformation["nova"] == {"1": 0, "2": 0, "3": 1, "4": 2}
+    assert (transformation["bio"], transformation["sansAdditif"], transformation["avecARisque"]) == (1, 1, 2)
+    assert transformation["familles"] == {"nitrites et nitrates": 1, "phosphates": 1, "carraghénanes": 1}
+    assert [(e["code"], e["aRisque"], e["listeAdditifs"]) for e in transformation["exemples"]] == [("2", 2, "E250, E452")]
+
+
+def test_chaque_famille_d_additifs_a_risque_a_sa_raison():
+    assert set(sn.RAISONS_DES_ADDITIFS_A_RISQUE) == set(sn.ADDITIFS_A_RISQUE)
+    assert sorted(sn.GROUPES_NOVA) == [1, 2, 3, 4]
+
+
+@pytest.mark.skipif(not projet_base.FICHIER_BASE_ETENDUE.exists(), reason="la base étendue n'est pas construite")
+def test_les_deux_exemples_de_la_transformation_sont_dans_la_base():
+    """La Poêlée Fermière : NOVA 4, trois additifs, aucun à risque. La pizza Regina : le nitrite (E250) et un polyphosphate (E452)."""
+    transformation = sn.transformationDesPlats(projet_base.lireBase(projet_base.FICHIER_BASE_ETENDUE))
+    poelee, regina = transformation["exemples"]
+    assert (poelee["nom"], poelee["nova"], poelee["additifs"], poelee["aRisque"]) == ("Poêlée Fermière", 4, 3, 0)
+    assert (regina["nom"], regina["marque"], regina["aRisque"]) == ("Regina", "Buitoni", 2)
+    assert {250, 452} <= sn.numerosDesAdditifs(regina["listeAdditifs"])

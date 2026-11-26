@@ -38,7 +38,8 @@ from projet_design import (COULEUR_NEGATIFS, COULEUR_POSITIFS, COULEURS_CLASSES,
                            lettreDeClasse)
 from projet_mrsort import CRITERES, CRITERES_SEPT, PROFILS, affecter, concordancePartielle, nomDeClasse, sensDuCritere
 from projet_nutriscore import EXEMPLES_SUJET, NEGATIFS, POINTS_MAX, POSITIFS, SEUIL_PROTEINES, scoreNutriscore
-from projet_supernutri import PILIERS, SENS_DES_CLASSES, ecartsAuNutriscore, valeursDuPlat
+from projet_supernutri import (ADDITIFS_A_RISQUE, GROUPES_NOVA, PILIERS, RAISONS_DES_ADDITIFS_A_RISQUE, SENS_DES_CLASSES,
+                               ecartsAuNutriscore, numerosDesAdditifs, valeursDuPlat)
 
 
 # --- Format, polices et textes fixes ---
@@ -595,20 +596,24 @@ def barreDeConcordance(diapo, x, y, largeur, hauteur, regle, plat, numero, nom):
     rectangle(diapo, x, y, largeur, hauteur, f"{nom} cadre", trait=ENCRE, epaisseur=2)
 
 
-def lignesDeConcordance(diapo, x, y, largeur, regle, plat, detail, nom):
+def lignesDeConcordance(diapo, x, y, largeur, regle, plat, detail, nom, avecClasse=False):
     """
-    Les barres de concordance d'un plat, de b5 à b2 : à gauche le profil, au milieu sa barre,
-    à droite son verdict, en demi-gras quand le profil est franchi. Renvoie le bas des barres.
+    Les barres de concordance d'un plat, de b5 à b2 : à gauche le profil (avec avecClasse, la
+    classe qu'il ouvre : « b5 (A′) »), au milieu sa barre, à droite son verdict, en demi-gras quand
+    le profil est franchi. Renvoie le bas des barres.
     """
     hauteur, taille = 0.42, 15
     numeros = list(range(len(PROFILS) - 1, -1, -1))
     largeurVerdict = max(largeurTexte(verdict(detail, regle, numero), DEMI_GRAS, taille) for numero in numeros) + 0.1
-    largeurBarre = largeur - 0.55 - 0.2 - largeurVerdict
+    largeurProfil = 1.15 if avecClasse else 0.5
+    largeurBarre = largeur - largeurProfil - 0.05 - 0.2 - largeurVerdict
     for numero in numeros:
         police = DEMI_GRAS if detail["franchis"][numero] else TEXTE
-        boite(diapo, x, y, 0.5, hauteur, [[m(PROFILS[numero], DEMI_GRAS, 16)]], f"{nom} {PROFILS[numero]}",
+        profil = f"{PROFILS[numero]} ({nomDeClasse(numero + 1)})" if avecClasse else PROFILS[numero]
+        boite(diapo, x, y, largeurProfil, hauteur, [[m(profil, DEMI_GRAS, 16)]], f"{nom} {PROFILS[numero]}",
               ancrage=MSO_ANCHOR.MIDDLE)
-        barreDeConcordance(diapo, x + 0.55, y, largeurBarre, hauteur, regle, plat, numero, f"{nom} {PROFILS[numero]}")
+        barreDeConcordance(diapo, x + largeurProfil + 0.05, y, largeurBarre, hauteur, regle, plat, numero,
+                           f"{nom} {PROFILS[numero]}")
         boite(diapo, x + largeur - largeurVerdict, y, largeurVerdict, hauteur,
               [[m(verdict(detail, regle, numero), police, taille)]], f"{nom} verdict {PROFILS[numero]}",
               ancrage=MSO_ANCHOR.MIDDLE)
@@ -998,13 +1003,17 @@ def slidePiliers(presentation, supernutri):
                           "Un score de santé : la composition du plat, puis sa transformation et sa production.")
     largeur = (LARGEUR - 2 * MARGE - 2 * 0.4) / 3
     titres = {"à limiter": "À limiter", "à favoriser": "À favoriser", "transformation et production": "Transformation"}
+    negatifs, positifs = (sum(POINTS_MAX[critere] for critere in criteres) for criteres in (NEGATIFS, POSITIFS))
+    lam = modele["lam"]
     explications = {
-        "à limiter": f"Au prorata des points maximaux du Nutri-Score : le sel ({POINTS_MAX['so']} points) pèse deux fois "
-                     f"l'énergie ({POINTS_MAX['en']}).",
+        "à limiter": f"Le plus lourd : au Nutri-Score, les points négatifs ({negatifs} au plus) dépassent les positifs "
+                     f"({positifs}). Au prorata : le sel ({POINTS_MAX['so']} points) pèse deux fois l'énergie "
+                     f"({POINTS_MAX['en']}).",
         "à favoriser": f"Même règle. Les protéines ne votent que si le Nutri-Score les compte : pas à partir de "
                        f"{SEUIL_PROTEINES} points négatifs.",
-        "transformation et production": "NOVA d'abord ; les additifs, entre leur nombre et leur risque ; le bio pèse le "
-                                        "moins, car son effet sur la santé est le moins établi.",
+        "transformation et production": f"{nombre(PILIERS['transformation et production'][0], 2)}, soit 1 − λ : à elle "
+                                        "seule, elle ne fait jamais perdre une classe ; elle départage des plats de "
+                                        "composition proche. Le bio pèse le moins.",
     }
     for rang, (pilier, (poidsDuPilier, criteres)) in enumerate(PILIERS.items()):
         x = MARGE + rang * (largeur + 0.4)
@@ -1014,10 +1023,86 @@ def slidePiliers(presentation, supernutri):
                            lignes, f"Poids {pilier}", taille=15, hauteurLigne=0.4)
         paragraphesMesures(diapo, x, bas + 0.2, largeur, [[m(explications[pilier], TEXTE, 14, ENCRE_SECONDAIRE)]],
                            f"Explication {pilier}")
-    lam = modele["lam"]
     boite(diapo, MARGE, 6.2, LARGEUR - 2 * MARGE, 0.45,
           [[m(f"λ = {nombre(lam, 1)} : face à un profil, un plat peut rater au plus {nombre(1 - lam, 1)} du poids, "
               "par exemple tout un pilier.", DEMI_GRAS, 16)]], "Lambda", ancrage=MSO_ANCHOR.MIDDLE)
+
+
+# Les noms des additifs des deux exemples de la slide de la transformation (pour l'affichage seulement)
+NOMS_DES_ADDITIFS = {"E14XX": "amidon modifié", "E412": "gomme guar", "E415": "gomme xanthane",
+                     "E250": "nitrite de sodium", "E316": "érythorbate de sodium", "E452": "polyphosphates"}
+SIGNALEES_PAR = {"nitrites et nitrates": "ANSES 2022", "phosphates": "EFSA 2019", "carraghénanes": "EFSA 2018"}
+
+
+def plagesDeNumeros(numeros):
+    """Des numéros d'additifs écrits en plages : {338, 339, 340, 341, 343} donne « E338 à E341, E343 »."""
+    plages, debut = [], None
+    for numero in sorted(numeros):
+        if debut is None:
+            debut = fin = numero
+        elif numero == fin + 1:
+            fin = numero
+        else:
+            plages.append((debut, fin))
+            debut = fin = numero
+    plages.append((debut, fin))
+    return ", ".join(f"E{a}" if a == b else f"E{a}\u00a0à\u00a0E{b}" for a, b in plages)     # une plage ne se coupe pas
+
+
+def additifsEnClair(exemple, aRisqueSeulement=False):
+    """
+    Les additifs d'un exemple, avec leur nom : « amidon modifié (E14XX), gomme guar (E412) et gomme
+    xanthane (E415) ». Avec aRisqueSeulement, seulement ceux d'une famille d'additifs à risque.
+    """
+    aRisque = set().union(*(numeros for numeros, _ in ADDITIFS_A_RISQUE.values()))
+    codes = [code.strip() for code in exemple["listeAdditifs"].split(",")]
+    if aRisqueSeulement:
+        codes = [code for code in codes if numerosDesAdditifs(code) & aRisque]
+    noms = [f"{NOMS_DES_ADDITIFS[code]} ({code})" for code in codes]
+    return noms[0] if len(noms) == 1 else ", ".join(noms[:-1]) + " et " + noms[-1]
+
+
+def slideTransformation(presentation, supernutri):
+    """
+    Le pilier de la transformation expliqué : les quatre groupes NOVA et nos plats dans chacun ; les
+    trois familles d'additifs à risque, qui les a signalées et pourquoi ; puis deux plats en exemple.
+    """
+    transformation = supernutri[BASE_FINALE]["transformation"]
+    total = transformation["total"]
+    diapo = nouvelleDiapo(presentation, "La transformation : le groupe NOVA et les additifs à risque",
+                          "NOVA range les aliments selon leur transformation, pas selon leurs nutriments : il complète le "
+                          "Nutri-Score.")
+    largeur = (LARGEUR - 2 * MARGE - 0.6) / 2
+    colonne(diapo, MARGE, 2.0, largeur, "Le groupe NOVA", "nova")
+    lignes = [[str(groupe), GROUPES_NOVA[groupe].split(" : ")[0], str(transformation["nova"][str(groupe)])]
+              for groupe in GROUPES_NOVA]
+    bas = tableauVerso(diapo, MARGE, 2.7, [("Groupe", 1.0, PP_ALIGN.LEFT), ("Ce qu'il range", largeur - 2.4, PP_ALIGN.LEFT),
+                                         (f"Nos {total} plats", 1.4, PP_ALIGN.RIGHT)], lignes, "Groupes NOVA",
+                       taille=15, hauteurLigne=0.38)
+    basGauche = paragraphesMesures(diapo, MARGE, bas + 0.2, largeur, [[m(
+        "Université de São Paulo, 2009 ; calculé par Open Food Facts. La cohorte NutriNet-Santé associe l'ultra-transformé "
+        "à plus de cancers (BMJ, 2018) et de maladies cardiovasculaires (BMJ, 2019).",
+        TEXTE, 13, ENCRE_SECONDAIRE)]], "Source de NOVA")
+
+    x = MARGE + largeur + 0.6
+    colonne(diapo, x, 2.0, largeur, "Les additifs à risque", "additifs à risque")
+    lignes = [[majuscule(famille), f"{SIGNALEES_PAR[famille]} : {RAISONS_DES_ADDITIFS_A_RISQUE[famille]}",
+               str(transformation["familles"][famille])] for famille in ADDITIFS_A_RISQUE]
+    bas = tableauVerso(diapo, x, 2.7, [("Famille", 1.8, PP_ALIGN.LEFT), ("Signalée par", largeur - 2.6, PP_ALIGN.LEFT),
+                                       ("Plats", 0.8, PP_ALIGN.RIGHT)], lignes, "Additifs à risque", taille=12,
+                       hauteurLigne=0.5)
+    numeros = " ; ".join(f"{famille} {plagesDeNumeros(numerosDeLaFamille)}"
+                         for famille, (numerosDeLaFamille, _) in ADDITIFS_A_RISQUE.items())
+    basDroite = paragraphesMesures(diapo, x, bas + 0.2, largeur, [[m(f"{majuscule(numeros)}.", TEXTE, 13, ENCRE_SECONDAIRE)]],
+                                   "Numéros des additifs à risque")
+
+    poelee, regina = transformation["exemples"]
+    paragraphesMesures(diapo, MARGE, max(basGauche, basDroite) + 0.2, LARGEUR - 2 * MARGE, [
+        [m(f"{poelee['nom']} ({poelee['marque']}) : NOVA {poelee['nova']}, {poelee['additifs']} additifs, aucun à risque : "
+           f"{additifsEnClair(poelee)}.", DEMI_GRAS, 14)],
+        [m(f"Pizza {regina['nom']} ({regina['marque']}) : NOVA {regina['nova']}, {regina['additifs']} additifs, dont "
+           f"{regina['aRisque']} à risque : {additifsEnClair(regina, aRisqueSeulement=True)}.", DEMI_GRAS, 14)]],
+        "Exemples de la transformation", apres=4)
 
 
 def slideSeuils(presentation, supernutri):
@@ -1073,7 +1158,7 @@ def slidePoeleeFinale(presentation, supernutri, plats):
     diapo = nouvelleDiapo(presentation, f"La {plat['nom']} : {plat['label']} au Nutri-Score, {lettre} au SuperNutri-score",
                           f"{plat['marque']}, {quantite(plat)}, NOVA {plat['nova']}, {plat['additifs']} additifs, {bio}.")
     largeur = 8.0
-    bas = lignesDeConcordance(diapo, MARGE, 2.05, largeur, regle, valeurs, detail, "Concordance")
+    bas = lignesDeConcordance(diapo, MARGE, 2.05, largeur, regle, valeurs, detail, "Concordance", avecClasse=True)
     sigles = ", ".join(f"{SIGLES[critere]} {NOMS_COURTS[critere]}" for critere in ("nova", "additifs", "aRisque", "bio"))
     paragraphesMesures(diapo, MARGE, bas + 0.25, largeur, [[m(
         f"Une case par critère, large comme son poids, noire quand il vote pour le plat. {sigles}.",
@@ -1344,6 +1429,7 @@ def slidesSoutenance2(chemin=SORTIES[2]):
     presentation.slide_height = Inches(HAUTEUR)
     slideTitreFinale(presentation)
     slidePiliers(presentation, supernutri)
+    slideTransformation(presentation, supernutri)
     slideSeuils(presentation, supernutri)
     slideSensDesClasses(presentation, supernutri, donnees)
     slidePoeleeFinale(presentation, supernutri, plats)

@@ -378,3 +378,19 @@ def test_le_readme_cite_la_regle_des_proteines(monkeypatch):
                      for plats in (nos, leurs)]
     assert (f"Le Nutri-Score ne compte pas les protéines de {sansProteines[0]} de nos {len(nos)} plats, ni de "
             f"{sansProteines[1]} des {len(leurs)} céréales de l'autre groupe") in README.read_text(encoding="utf-8")
+
+
+def test_le_readme_explique_nova_et_les_additifs_a_risque(resultats):
+    """Les groupes NOVA de nos plats, et les plats qui ont un additif à risque, famille par famille : les chiffres du JSON."""
+    if "transformation" not in resultats.get("supernutri", {}).get("etendue", {}):
+        pytest.skip("la transformation des plats n'est pas encore calculée")
+    texte = README.read_text(encoding="utf-8")
+    transformation = resultats["supernutri"]["etendue"]["transformation"]
+    nova, familles = transformation["nova"], transformation["familles"]
+    assert nova["1"] == nova["2"] == 0
+    assert f"NOVA ne vaut que 3 ({nova['3']} plats) ou 4 ({nova['4']} plats)" in texte
+    assert (f"{transformation['avecARisque']} ont au moins un additif à risque ({familles['nitrites et nitrates']} des "
+            f"nitrites ou nitrates, {familles['phosphates']} des phosphates, {familles['carraghénanes']} des carraghénanes) ; "
+            f"{transformation['sansAdditif']} n'ont aucun additif") in texte
+    poelee, regina = transformation["exemples"]
+    assert (poelee["additifs"], poelee["aRisque"], regina["aRisque"]) == (3, 0, 2)

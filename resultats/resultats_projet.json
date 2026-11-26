@@ -11373,6 +11373,45 @@
             ]
           }
         ]
+      },
+      "transformation": {
+        "total": 125,
+        "nova": {
+          "1": 0,
+          "2": 0,
+          "3": 36,
+          "4": 89
+        },
+        "bio": 17,
+        "sansAdditif": 45,
+        "avecARisque": 23,
+        "familles": {
+          "nitrites et nitrates": 16,
+          "phosphates": 7,
+          "carraghénanes": 4
+        },
+        "exemples": [
+          {
+            "code": "3257982125116",
+            "nom": "Poêlée Fermière",
+            "marque": "Cora",
+            "label": "B",
+            "nova": 4,
+            "additifs": 3,
+            "listeAdditifs": "E14XX, E412, E415",
+            "aRisque": 0
+          },
+          {
+            "code": "7613033139642",
+            "nom": "Regina",
+            "marque": "Buitoni",
+            "label": "C",
+            "nova": 4,
+            "additifs": 4,
+            "listeAdditifs": "E14XX, E250, E316, E452",
+            "aRisque": 2
+          }
+        ]
       }
     },
     "etendue": {
@@ -18291,6 +18330,45 @@
               "additifs",
               "bio"
             ]
+          }
+        ]
+      },
+      "transformation": {
+        "total": 375,
+        "nova": {
+          "1": 0,
+          "2": 0,
+          "3": 118,
+          "4": 257
+        },
+        "bio": 40,
+        "sansAdditif": 140,
+        "avecARisque": 86,
+        "familles": {
+          "nitrites et nitrates": 44,
+          "phosphates": 28,
+          "carraghénanes": 26
+        },
+        "exemples": [
+          {
+            "code": "3257982125116",
+            "nom": "Poêlée Fermière",
+            "marque": "Cora",
+            "label": "B",
+            "nova": 4,
+            "additifs": 3,
+            "listeAdditifs": "E14XX, E412, E415",
+            "aRisque": 0
+          },
+          {
+            "code": "7613033139642",
+            "nom": "Regina",
+            "marque": "Buitoni",
+            "label": "C",
+            "nova": 4,
+            "additifs": 4,
+            "listeAdditifs": "E14XX, E250, E316, E452",
+            "aRisque": 2
           }
         ]
       }
