@@ -78,6 +78,63 @@ def test_les_tableaux_a_barres_tiennent_leur_colonne(slides):
     assert raisons.width == pytest.approx(Inches(slides_projet.LARGEUR - slides_projet.MARGE - 7.2), abs=Inches(0.02))
 
 
+def tailles(diapo, debut):
+    """Les tailles de police des textes des formes dont le nom commence par `debut`."""
+    return {morceau.font.size for forme in formes(diapo, debut) for paragraphe in forme.text_frame.paragraphs
+            for morceau in paragraphe.runs}
+
+
+BARRES_DES_POIDS = ((1, "Poids"), (9, "Leur barre"), (9, "Notre barre"))     # (indice de la slide, nom de la barre)
+
+
+def test_le_repere_de_lambda_passe_sous_les_cases(slides):
+    """
+    Le repère de λ est dessiné avant les cases blanches : il ne se voit qu'au-dessus et au-dessous de la barre, et ne
+    coupe jamais une case en deux (leur λ de 0,63 tombe au milieu de la case NOVA).
+    """
+    for indice, nom in BARRES_DES_POIDS:
+        noms = [forme.name for forme in slides.slides[indice].shapes]
+        premiereCase = min(rang for rang, forme in enumerate(noms) if forme.startswith(f"{nom} case "))
+        assert noms.index(f"{nom} repère λ") < premiereCase, nom
+
+
+def test_les_noms_d_une_barre_ont_une_seule_taille(slides):
+    """Dans une barre des poids, tous les noms ont la même taille : celle qui fait tenir le mot le plus long."""
+    for indice, nom in BARRES_DES_POIDS:
+        assert len(tailles(slides.slides[indice], f"{nom} nom ")) == 1, nom
+
+
+def test_la_slide_2_aligne_le_pilier_de_la_transformation(slides):
+    """Le titre du pilier, son accolade, sa lecture et son explication partent du même bord : le repère de λ."""
+    from pptx.util import Inches
+
+    noms = ("Titre transformation et production", "Accolade de 1 − λ", "Lecture de 1 − λ",
+            "Explication transformation et production")
+    bords = [forme.left for forme in slides.slides[1].shapes if forme.name in noms]
+    assert len(bords) == 4 and max(bords) - min(bords) <= Inches(0.01)
+
+
+def test_la_slide_3_ecrit_ses_deux_tableaux_a_la_meme_taille(slides):
+    """Les groupes NOVA et les additifs à risque, côte à côte, s'écrivent à la même taille."""
+    diapo = slides.slides[2]
+    assert tailles(diapo, "Groupes NOVA case") == tailles(diapo, "Additifs à risque case")
+    assert len(tailles(diapo, "Groupes NOVA case")) == 1
+    # leurs filets d'en-tête sont à la même hauteur, même si les lignes des additifs sont plus hautes
+    nova, additifs = formes(diapo, "Groupes NOVA filet d'en-tête")[0], formes(diapo, "Additifs à risque filet d'en-tête")[0]
+    assert nova.top == additifs.top
+
+
+def test_la_slide_8_ecrit_chaque_part_au_bout_de_sa_barre(slides):
+    """La moyenne et le maximum de chaque amplitude s'écrivent au bout de leur barre, pas dans une colonne lointaine."""
+    from pptx.util import Inches
+
+    diapo = slides.slides[7]
+    trames, parts = formes(diapo, "Tirages trame "), formes(diapo, "Part ")
+    assert len(parts) == len(trames) == 3
+    for trame, part in zip(trames, parts):
+        assert part.left - (trame.left + trame.width) == pytest.approx(Inches(0.12), abs=Inches(0.01))
+
+
 def test_quatorze_slides_sans_debordement(slides):
     """Quatorze slides ; la génération se serait arrêtée si un titre ou un texte débordait."""
     assert len(slides.slides) == 14
@@ -334,7 +391,8 @@ def test_la_slide_11_aligne_quatre_matrices(slides):
             for j, valeur in enumerate(ligne):
                 part = valeur / sum(ligne) if sum(ligne) else 0
                 assert teinte(cases[f"Matrice {rang} case {i} {j}"]) == slides_projet.grisDeMatrice(part), (base, cle, i, j)
-        assert not formes(diapo, f"Matrice {rang} nombre ")
+        nombres = [forme.text_frame.text for forme in formes(diapo, f"Matrice {rang} nombre ")]
+        assert sorted(nombres) == sorted(str(v) for ligne in comparaison["matrice"] for v in ligne if v), (base, cle)
         assert slides_projet.ecartSigne(comparaison["sens"]["ecartMoyen"]) in texte, (base, cle)
         assert slides_projet.pourcentage(comparaison["sens"]["pareil"], 1) in texte, (base, cle)
         assert comparaison["sens"]["pareil"] == pytest.approx(comparaison["exactitude"])

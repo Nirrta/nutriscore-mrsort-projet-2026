@@ -291,19 +291,21 @@ def numeroterPages(presentation, soutenance="soutenance intermédiaire"):
                   "Page", alignement=PP_ALIGN.RIGHT)
 
 
-def tableauVerso(diapo, x, y, colonnes, lignes, nom, taille=15, hauteurLigne=0.42):
+def tableauVerso(diapo, x, y, colonnes, lignes, nom, taille=15, hauteurLigne=0.42, hauteurEnTete=None):
     """
     Un tableau au style Verso, fait de zones de texte et de filets : filet de 4 points sous
     l'en-tête, de 1 point entre les lignes. colonnes = [(titre, largeur, alignement)] ;
-    lignes = listes de textes. Renvoie le bas du tableau.
+    lignes = listes de textes. L'en-tête a la hauteur d'une ligne, sauf avec hauteurEnTete (pour
+    aligner son filet sur celui d'un tableau voisin). Renvoie le bas du tableau.
     """
+    hauteurEnTete = hauteurEnTete or hauteurLigne
     largeurTotale = sum(largeur for _, largeur, _ in colonnes)
     gauche = x
     for titre, largeur, alignement in colonnes:
-        boite(diapo, gauche, y, largeur - 0.1, hauteurLigne, [[m(titre, DEMI_GRAS, taille - 2)]], f"{nom} en-tête",
+        boite(diapo, gauche, y, largeur - 0.1, hauteurEnTete, [[m(titre, DEMI_GRAS, taille - 2)]], f"{nom} en-tête",
               ancrage=MSO_ANCHOR.MIDDLE, alignement=alignement)
         gauche += largeur
-    y += hauteurLigne
+    y += hauteurEnTete
     filet(diapo, x, y, largeurTotale, 4, f"{nom} filet d'en-tête")
     for ligne in lignes:
         gauche = x
@@ -347,7 +349,7 @@ def matriceVerso(diapo, x, y, matrice, largeurCase, hauteurCase, nom, nombres=Tr
     droite : le modèle range plus bas) et « plus permissif » (en bas à gauche). Renvoie le bas de la matrice.
     """
     lettres = "ABCDE"
-    cote = min(0.46, 0.7 * min(largeurCase, hauteurCase))     # le côté des pastilles d'en-tête
+    cote = min(0.46, 0.8 * min(largeurCase, hauteurCase))     # le côté des pastilles d'en-tête
     gauche = x + cote + 0.15                                  # le bord gauche des cases
     haut = y + cote + 0.1                                     # le haut des cases
     plusPleine = max(max(ligne) for ligne in matrice) or 1
@@ -448,28 +450,31 @@ def tailleQuiTient(lignes, largeur, taille, police=DEMI_GRAS):
 def barreDesPoids(diapo, x, y, largeur, hauteur, criteres, poids, noms, nom, lam=None, sousLesCases=None, taille=14):
     """
     La barre des poids d'un modèle MR-Sort : une case blanche par critère, large comme son poids, avec son nom (un
-    « \\n » le coupe en deux lignes), dans un cadre noir de 2 points. Avec sousLesCases, un texte sous chaque case
-    (son poids). Avec lam, le repère de λ : un trait noir vertical à λ de la largeur, le poids qu'un produit doit
-    réunir pour franchir un profil. Renvoie le bas de la barre, textes compris.
+    « \\n » le coupe en deux lignes), dans un cadre noir de 2 points. Tous les noms ont la même taille : celle qui fait
+    tenir le mot le plus long dans sa case. Avec sousLesCases, un texte sous chaque case (son poids). Avec lam, le
+    repère de λ : un trait noir vertical à λ de la largeur, le poids qu'un produit doit réunir pour franchir un profil.
+    Il est dessiné avant les cases blanches, qui le cachent : il ne se voit qu'au-dessus et au-dessous de la barre, et
+    ne coupe jamais une case en deux. Renvoie le bas de la barre, textes compris.
     """
     total = sum(poids[critere] for critere in criteres)
+    largeurs = {critere: poids[critere] / total * largeur for critere in criteres}
+    bas = y + hauteur + (0.36 if sousLesCases else 0)
+    if lam is not None:
+        rectangle(diapo, x + lam * largeur - 0.025, y - 0.14, 0.05, bas - y + 0.28, f"{nom} repère λ", fond=ENCRE)
+    tailleDesNoms = min(tailleQuiTient(noms[critere].split("\n"), largeurs[critere] - 0.06, taille) for critere in criteres)
     gauche = x
     for critere in criteres:
-        largeurCase = poids[critere] / total * largeur
+        largeurCase = largeurs[critere]
         rectangle(diapo, gauche, y, largeurCase, hauteur, f"{nom} case {critere}", fond=PAPIER, trait=ENCRE, epaisseur=1)
-        lignes = noms[critere].split("\n")
-        tailleDuNom = tailleQuiTient(lignes, largeurCase - 0.1, taille)
-        boite(diapo, gauche + 0.02, y, largeurCase - 0.04, hauteur, [[m(ligne, DEMI_GRAS, tailleDuNom)] for ligne in lignes],
-              f"{nom} nom {critere}", ancrage=MSO_ANCHOR.MIDDLE, alignement=PP_ALIGN.CENTER)
+        boite(diapo, gauche + 0.02, y, largeurCase - 0.04, hauteur,
+              [[m(ligne, DEMI_GRAS, tailleDesNoms)] for ligne in noms[critere].split("\n")], f"{nom} nom {critere}",
+              ancrage=MSO_ANCHOR.MIDDLE, alignement=PP_ALIGN.CENTER)
         if sousLesCases:
             boite(diapo, gauche, y + hauteur + 0.06, largeurCase, 0.3,
                   [[m(sousLesCases[critere], TEXTE, taille, ENCRE_SECONDAIRE)]], f"{nom} poids {critere}",
                   alignement=PP_ALIGN.CENTER)
         gauche += largeurCase
     rectangle(diapo, x, y, largeur, hauteur, f"{nom} cadre", trait=ENCRE, epaisseur=2)
-    bas = y + hauteur + (0.36 if sousLesCases else 0)
-    if lam is not None:
-        rectangle(diapo, x + lam * largeur - 0.025, y - 0.14, 0.05, bas - y + 0.28, f"{nom} repère λ", fond=ENCRE)
     return bas
 
 
@@ -1209,14 +1214,15 @@ def slidePiliers(presentation, supernutri):
                         {critere: NOMS_DANS_LA_BARRE[critere] for critere in criteres}, "Poids", lam=lam,
                         sousLesCases={critere: nombre(modele["poids"][critere], 3) for critere in criteres})
     # les deux accolades de λ : ce qu'il faut réunir, puis ce qu'on peut rater
+    # (l'accolade de droite part du repère, comme le titre et l'explication de la transformation)
     repere = MARGE + lam * largeur
     yAccolade = bas + 0.2
     filet(diapo, MARGE, yAccolade, repere - MARGE - 0.15, 4, "Accolade de λ")
-    filet(diapo, repere + 0.15, yAccolade, MARGE + largeur - repere - 0.15, 4, "Accolade de 1 − λ")
+    filet(diapo, repere, yAccolade, MARGE + largeur - repere, 4, "Accolade de 1 − λ")
     basLam = paragraphesMesures(diapo, MARGE, yAccolade + 0.12, repere - MARGE - 0.15, [[m(
         f"λ = {nombre(lam, 1)} : il faut {nombre(lam, 1)} du poids pour franchir un profil", DEMI_GRAS, 16)]],
         "Lecture de λ")
-    basReste = paragraphesMesures(diapo, repere + 0.15, yAccolade + 0.12, MARGE + largeur - repere - 0.15,
+    basReste = paragraphesMesures(diapo, repere, yAccolade + 0.12, MARGE + largeur - repere,
                                   [[m(f"un plat peut rater {nombre(1 - lam, 1)} :", DEMI_GRAS, 16)],
                                    [m("tout ce pilier", DEMI_GRAS, 16)]], "Lecture de 1 − λ", apres=0)
     # ce qui fonde chaque pilier, sous lui
@@ -1277,7 +1283,7 @@ def slideTransformation(presentation, supernutri):
               for groupe in GROUPES_NOVA]
     bas = tableauVerso(diapo, MARGE, 2.7, [("Groupe", 1.0, PP_ALIGN.LEFT), ("Ce qu'il range", largeur - 2.4, PP_ALIGN.LEFT),
                                          (f"Nos {total} plats", 1.4, PP_ALIGN.RIGHT)], lignes, "Groupes NOVA",
-                       taille=15, hauteurLigne=0.38)
+                       taille=14, hauteurLigne=0.38)
     basGauche = paragraphesMesures(diapo, MARGE, bas + 0.2, largeur, [[m(
         "Université de São Paulo, 2009 ; calculé par Open Food Facts. La cohorte NutriNet-Santé associe l'ultra-transformé "
         "à plus de cancers (BMJ, 2018) et de maladies cardiovasculaires (BMJ, 2019).",
@@ -1287,9 +1293,10 @@ def slideTransformation(presentation, supernutri):
     colonne(diapo, x, 2.0, largeur, "Les additifs à risque", "additifs à risque")
     lignes = [[majuscule(famille), f"{SIGNALEES_PAR[famille]} : {RAISONS_DES_ADDITIFS_A_RISQUE[famille]}",
                str(transformation["familles"][famille])] for famille in ADDITIFS_A_RISQUE]
-    bas = tableauVerso(diapo, x, 2.7, [("Famille", 1.8, PP_ALIGN.LEFT), ("Signalée par", largeur - 2.6, PP_ALIGN.LEFT),
-                                       ("Plats", 0.8, PP_ALIGN.RIGHT)], lignes, "Additifs à risque", taille=12,
-                       hauteurLigne=0.5)
+    # à la taille du tableau de NOVA, chaque cas sur deux lignes au plus
+    bas = tableauVerso(diapo, x, 2.7, [("Famille", 1.6, PP_ALIGN.LEFT), ("Signalée par", largeur - 2.3, PP_ALIGN.LEFT),
+                                       ("Plats", 0.7, PP_ALIGN.RIGHT)], lignes, "Additifs à risque", taille=14,
+                       hauteurLigne=0.56, hauteurEnTete=0.38)
     numeros = " ; ".join(f"{famille} {plagesDeNumeros(numerosDeLaFamille)}"
                          for famille, (numerosDeLaFamille, _) in ADDITIFS_A_RISQUE.items())
     basDroite = paragraphesMesures(diapo, x, bas + 0.2, largeur, [[m(f"{majuscule(numeros)}.", TEXTE, 13, ENCRE_SECONDAIRE)]],
@@ -1417,7 +1424,7 @@ def slideSensibilitePoids(presentation, sensibilite, total):
     colonne(diapo, MARGE, 2.0, largeurColonne, "Tous les poids ensemble", "tirages")
     largeurParts = max(largeurTexte(f"{pourcentage(point['partMoyenne'], 1)} en moyenne", DEMI_GRAS, 15)
                        for point in sensibilite["courbe"]) + 0.1
-    largeurBarre = largeurColonne - 1.6 - 0.15 - largeurParts
+    largeurBarre = largeurColonne - 1.6 - 0.12 - largeurParts      # la plus longue barre et son texte tiennent
     plusGrand = max(point["partMax"] for point in sensibilite["courbe"])
     y = 2.75
     for rang, point in enumerate(sensibilite["courbe"], start=1):
@@ -1429,8 +1436,8 @@ def slideSensibilitePoids(presentation, sensibilite, total):
                   f"Tirages barre {rang}", fond=ENCRE)
         parts = [[m(f"{pourcentage(point['partMoyenne'], 1)} en moyenne", DEMI_GRAS, 15)],
                  [m(f"{pourcentage(point['partMax'], 1)} au plus", TEXTE, 13, ENCRE_SECONDAIRE)]]
-        boite(diapo, MARGE + 1.6 + largeurBarre + 0.15, y, largeurParts, 0.6, parts, f"Part {point['amplitude']}",
-              ancrage=MSO_ANCHOR.MIDDLE)
+        boite(diapo, MARGE + 1.6 + largeurBarre * point["partMax"] / plusGrand + 0.12, y, largeurParts, 0.6, parts,
+              f"Part {point['amplitude']}", ancrage=MSO_ANCHOR.MIDDLE)
         y += 0.72
     # à droite, un poids à la fois : les cinq variations qui changent le plus de plats
     x = 6.9
@@ -1566,7 +1573,7 @@ def slideDeuxModeles(presentation, autre, total):
     colonne(diapo, MARGE, 2.0, largeurGroupe, "Chacun sur sa base", "sa base")
     colonne(diapo, MARGE + largeurGroupe + 0.5, 2.0, largeurGroupe, "Chacun sur la base de l'autre", "l'autre base")
     cote = 0.36                                       # le côté d'une case
-    largeurMatrice = min(0.46, 0.7 * cote) + 0.15 + 5 * cote
+    largeurMatrice = min(0.46, 0.8 * cote) + 0.15 + 5 * cote
     ecart = 0.55                                      # entre les deux matrices d'un groupe, moins qu'entre les groupes
     matrices = [(nos["notreFaceAuNutriscore"], "Notre modèle, nos plats"),
                 (leurs["leurFaceAuNutriscore"], "Leur modèle, leurs céréales"),
@@ -1579,8 +1586,8 @@ def slideDeuxModeles(presentation, autre, total):
         largeurDesTextes = largeurMatrice + ecart - 0.1
         verifierUneLigne(f"La légende de la matrice {rang}", legende, DEMI_GRAS, 14, largeurDesTextes)
         boite(diapo, x, 2.68, largeurDesTextes, 0.28, [[m(legende, DEMI_GRAS, 14)]], f"Légende {rang}")
-        basMatrice = matriceVerso(diapo, x, 2.98, comparaison["matrice"], cote, cote, f"Matrice {rang}", nombres=False,
-                                  parLigne=True)
+        basMatrice = matriceVerso(diapo, x, 2.98, comparaison["matrice"], cote, cote, f"Matrice {rang}", parLigne=True,
+                                  taille=12)
         sens = comparaison["sens"]
         boite(diapo, x, basMatrice + 0.05, largeurDesTextes, 0.42,
               [[m(ecartSigne(sens["ecartMoyen"]), TITRE, 24), m(" classe en moyenne", TEXTE, 12, ENCRE_SECONDAIRE)]],

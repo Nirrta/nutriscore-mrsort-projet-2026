@@ -49,6 +49,57 @@ def test_le_texte_de_l_oral_final_tient_en_15_minutes():
     assert all(slide["orateur"] in ("Daniel", "Anis", "Biyao") and slide["texte"] for slide in slides)
 
 
+def phrases(texte):
+    """Les phrases d'un texte, coupées après un point, un point d'interrogation ou un point d'exclamation."""
+    import re
+    return [phrase for phrase in re.split(r"(?<=[.?!])\s+", texte) if phrase.strip()]
+
+
+def test_l_oral_parle_en_phrases_courtes():
+    """Des phrases courtes, faciles à dire et à suivre : au plus 22 mots chacune."""
+    for slide in soutenance.slidesDuTexte(soutenance.TEXTES_ORAUX[2]):
+        for paragraphe in slide["texte"]:
+            for phrase in phrases(paragraphe):
+                assert len(phrase.split()) <= 22, (slide["numero"], phrase)
+
+
+def test_l_oral_garde_un_debit_tenable():
+    """Au plus 125 mots par minute sur chaque slide : le temps de montrer ce que l'on dit."""
+    for slide in soutenance.slidesDuTexte(soutenance.TEXTES_ORAUX[2]):
+        mots = sum(len(paragraphe.split()) for paragraphe in slide["texte"])
+        assert mots / (slide["duree"] / 60) <= 125, (slide["numero"], mots)
+
+
+def test_chaque_slide_a_ses_explications_pour_le_groupe():
+    """Un bloc « Pour comprendre » par slide, pour le groupe : il ne se dit pas, donc il n'entre ni dans le texte dit ni dans les notes."""
+    for slide in soutenance.slidesDuTexte(soutenance.TEXTES_ORAUX[2]):
+        assert slide["comprendre"], slide["numero"]
+        assert not set(slide["comprendre"]) & set(slide["texte"]), slide["numero"]
+        assert all(not ligne.startswith("- ") for ligne in slide["comprendre"])
+
+
+def test_le_texte_explique_les_mots_et_prepare_les_questions():
+    """Avant les slides, les mots à connaître ; après, les questions probables du jury et leurs réponses."""
+    texte = soutenance.TEXTES_ORAUX[2].read_text(encoding="utf-8")
+    assert "\n# Les mots à connaître\n" in texte and "\n# Les questions probables du jury\n" in texte
+    for mot in ("MR-Sort", "Profil", "Concordance", "λ", "Veto", "NOVA", "Matrice", "Écart moyen"):
+        assert f"**{mot}" in texte, mot
+
+
+def test_les_explications_citent_les_chiffres_du_code(donnees):
+    """Les calculs détaillés pour le groupe : la Poêlée face à b4 et son « et si », le muesli, leur seuil en points, nos additifs."""
+    comprendre = " ".join(" ".join(slide["comprendre"]) for slide in soutenance.slidesDuTexte(soutenance.TEXTES_ORAUX[2]))
+    poids = sn.MODELE_SUPER["poids"]
+    rates = poids["pr"] + poids["fi"] + poids["nova"] + poids["additifs"] + poids["bio"]
+    assert f"= {virgule(rates, 3)}" in comprendre and f"donc {virgule(1 - rates, 3)}" in comprendre
+    assert virgule(1 - (poids["pr"] + poids["fi"] + poids["bio"]), 3) in comprendre      # NOVA 3 et un seul additif
+    assert f"font {virgule(poids['en'] + poids['su'] + poids['pr'], 3)}" in comprendre  # le muesli face à D′
+    transformation = donnees["super"]["etendue"]["transformation"]
+    assert f"{transformation['sansAdditif']} sans additif" in comprendre
+    assert f"{transformation['avecARisque']} avec au moins un additif à risque" in comprendre
+    assert f"{virgule(15 * donnees['super']['autreGroupe']['modele']['lam'], 2)} points" in comprendre
+
+
 def test_l_oral_cite_les_poids(donnees):
     poids = sn.MODELE_SUPER["poids"]
     oral = donnees["oral"]
@@ -62,8 +113,8 @@ def test_l_oral_justifie_les_poids_des_piliers(donnees):
     """À limiter pèse le plus, comme les points négatifs du Nutri-Score ; la transformation pèse 1 − λ."""
     from projet_nutriscore import NEGATIFS, POINTS_MAX, POSITIFS
     negatifs, positifs = sum(POINTS_MAX[c] for c in NEGATIFS), sum(POINTS_MAX[c] for c in POSITIFS)
-    assert (f"À limiter pèse le plus, comme au Nutri-Score, où les points négatifs, {negatifs} au plus, dépassent les "
-            f"positifs, {positifs}") in donnees["oral"]
+    assert (f"À limiter pèse le plus, comme au Nutri-Score : ses points négatifs vont jusqu'à {negatifs}, les positifs "
+            f"jusqu'à {positifs}") in donnees["oral"]
     assert sn.PILIERS["transformation et production"][0] == pytest.approx(1 - sn.MODELE_SUPER["lam"])
     assert "pèse justement 0,30 : à lui seul, il ne fait jamais perdre une classe" in donnees["oral"]
 
@@ -73,25 +124,25 @@ def test_l_oral_explique_la_transformation(donnees):
     transformation, oral = donnees["super"]["etendue"]["transformation"], donnees["oral"]
     nova = transformation["nova"]
     assert nova["1"] == nova["2"] == 0
-    assert f"Nos plats sont tous NOVA 3 ou 4, et {nova['4']} sur {transformation['total']} sont ultra-transformés" in oral
+    assert f"Nos plats sont tous NOVA 3 ou 4. Et {nova['4']} sur {transformation['total']} sont ultra-transformés" in oral
     assert "NutriNet-Santé associe l'ultra-transformé à plus de cancers et de maladies cardiovasculaires" in oral
     poelee, regina = transformation["exemples"]
     assert poelee["aRisque"] == 0 and 250 in sn.numerosDesAdditifs(regina["listeAdditifs"])
-    assert (f"La Poêlée Fermière a {poelee['additifs']} additifs, aucun à risque ; la pizza Regina en a {regina['aRisque']} "
+    assert (f"La Poêlée Fermière a {poelee['additifs']} additifs, aucun à risque. La pizza Regina en a {regina['aRisque']} "
             "à risque, dont le nitrite du jambon") in oral
 
 
 def test_l_oral_cite_la_regle_des_proteines(donnees):
     from projet_nutriscore import SEUIL_PROTEINES
-    assert f"il ne les compte pas pour un produit qui a {SEUIL_PROTEINES} points négatifs ou plus" in donnees["oral"]
+    assert f"pas pour un produit qui a {SEUIL_PROTEINES} points négatifs ou plus" in donnees["oral"]
 
 
 def test_l_oral_cite_la_repartition(donnees):
     repartition = donnees["super"]["etendue"]["repartition"]
     total = sum(repartition.values())
     assert 0.4 <= repartition["C′"] / total < 0.5                           # « près de la moitié »
-    assert (f"{repartition['A′']} sont en A prime, {repartition['B′']} en B prime, et près de la moitié, "
-            f"{repartition['C′']}, en C prime") in donnees["oral"]
+    assert (f"{repartition['A′']} sont en A prime et {repartition['B′']} en B prime. Près de la moitié, "
+            f"{repartition['C′']}, sont en C prime") in donnees["oral"]
 
 
 def test_l_oral_suit_la_poelee_fermiere(donnees):
@@ -101,7 +152,7 @@ def test_l_oral_suit_la_poelee_fermiere(donnees):
     assert detail["lettre"] == "C′"
     # les concordances vont de b2 à b5 : b3 (le seuil de C′) est la deuxième, b4 (celui de B′) la troisième
     assert f"{virgule(detail['concordances'][1], 3)}, au-dessus de 0,7" in oral
-    assert f"{virgule(detail['concordances'][2], 3)} seulement" in oral
+    assert f"Il ne reste que {virgule(detail['concordances'][2], 3)} du poids" in oral
     assert sn.ecartsAuNutriscore([plat])["plats"][0]["rates"] == ["pr", "fi", "nova", "additifs", "bio"]
     moinsTransforme = sn.classerPlat(dict(plat, nova=3, additifs=1))["lettre"]
     assert f"Avec NOVA 3 et un seul additif, elle passerait en {enPrime(moinsTransforme)}" in oral
@@ -123,8 +174,8 @@ def test_l_oral_cite_la_comparaison_au_nutriscore(donnees):
     raisons = sorted(ecarts["raisonsDesDescentes"].items(), key=lambda paire: -paire[1])[:5]
     assert [critere for critere, _ in raisons] == ["fi", "pr", "bio", "so", "nova"]
     r = dict(raisons)
-    assert (f"les fibres, pour {r['fi']} plats, les protéines, pour {r['pr']}, le label bio, pour {r['bio']}, le sel, "
-            f"pour {r['so']}, et le groupe NOVA, pour {r['nova']}") in oral
+    assert (f"les fibres, pour {r['fi']} plats. Puis les protéines, pour {r['pr']}. Le label bio, pour {r['bio']}. Le sel, "
+            f"pour {r['so']}. Et le groupe NOVA, pour {r['nova']}") in oral
 
 
 def test_l_oral_cite_la_sensibilite_aux_poids(donnees):
@@ -133,8 +184,8 @@ def test_l_oral_cite_la_sensibilite_aux_poids(donnees):
     assert plusSensible["critere"] == "pr" and plusSensible["delta"] > 0
     assert f"quand il gagne 0,05, {plusSensible['plats']} plats changent de classe" in oral
     parts = {point["amplitude"]: f"{virgule(100 * point['partMoyenne'], 1)} %" for point in sensibilite["courbe"]}
-    assert (f"à plus ou moins 0,01, {parts[0.01]} des plats changent en moyenne ; à plus ou moins 0,02, {parts[0.02]} ; "
-            f"à plus ou moins 0,05, {parts[0.05]}") in oral
+    assert (f"À plus ou moins 0,01, {parts[0.01]} des plats changent en moyenne. À plus ou moins 0,02, {parts[0.02]}. "
+            f"À plus ou moins 0,05, {parts[0.05]}") in oral
     favoriser = set(sn.PILIERS["à favoriser"][1])
     assert all(set(plat["rates"]) == favoriser for plat in sensibilite["auBord"])
     assert f"{len(sensibilite['auBord'])} plats sont au bord de leur classe : ils ratent tout le pilier à favoriser" in oral
@@ -146,7 +197,7 @@ def test_l_oral_cite_la_sensibilite_aux_profils(donnees):
             f"seuils nutritionnels, {profils['platsEntiers']} par NOVA et les additifs") in oral
     plusActif = max(profils["scenarios"], key=lambda scenario: scenario["plats"])
     assert (plusActif["profil"], plusActif["critere"], plusActif["ancienne"], plusActif["nouvelle"]) == ("b3", "nova", 4, 3)
-    assert f"exiger NOVA 3 dès C prime ferait changer {plusActif['plats']} plats" in oral
+    assert f"Exiger NOVA 3 dès C prime ferait changer {plusActif['plats']} plats" in oral
     # les plats nommés sont ceux de la slide, et ils passent tous de C′ à D′
     import slides_projet
     noms = slides_projet.platsDuDecalage(profils, plusActif)
@@ -180,7 +231,7 @@ def test_l_oral_presente_leur_modele(donnees):
     autre, oral = donnees["super"]["autreGroupe"], donnees["oral"]
     modele = autre["modele"]
     assert [round(15 * modele["poids"][c]) for c in modele["criteres"]] == [5, 4, 3, 2, 1]
-    assert ("les sucres pèsent le plus, 5 points sur 15, puis les fibres, 4, le groupe NOVA, 3, les graisses saturées, 2, "
+    assert ("les sucres pèsent le plus, 5 points sur 15. Puis les fibres, 4, le groupe NOVA, 3, les graisses saturées, 2, "
             "et le sodium, 1") in oral
     assert round(15 * modele["lam"], 2) == 9.45 and "Un produit franchit un profil avec 10 points sur 15" in oral
     assert "ils n'ont ni énergie, ni protéines, ni additifs, ni bio" in oral
@@ -215,13 +266,13 @@ def test_la_conclusion_reprend_les_chiffres(donnees):
     ecarts, cereales = etendue["ecarts"], autre["leurs"]["notreFaceAuNutriscore"]
     assert cereales["sens"]["plusPermissif"] == 0
     descentes = round(cereales["sens"]["plusSevere"] * cereales["total"])
-    assert (f"sur nos {sum(etendue['repartition'].values())} plats, {ecarts['descendent']} descendent et {ecarts['montent']} "
+    assert (f"Sur nos {sum(etendue['repartition'].values())} plats, {ecarts['descendent']} descendent et {ecarts['montent']} "
             f"montent ; sur leurs céréales, {descentes} descendent et aucune ne monte") in oral
     secs = etendue["secsEnAPrime"]
     assert f"{len(secs)} de nos {etendue['repartition']['A′']} plats en A prime sont des produits secs" in oral
     assert sum(1 for nom in secs if nom.startswith("Couscous")) == len(secs) - 1 and "Velouté de pois cassés" in secs
-    assert "sans veto, un plat très salé ne perd que la case du sel" in oral
-    assert f"et {len(sensibilite['auBord'])} plats sont au bord de leur classe" in oral
+    assert "Sans veto, un plat très salé ne perd que la case du sel" in oral
+    assert f"Et {len(sensibilite['auBord'])} plats sont au bord de leur classe" in oral
 
 
 def test_le_pdf_de_l_oral_suit_son_texte():

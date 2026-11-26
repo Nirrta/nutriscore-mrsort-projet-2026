@@ -51,7 +51,9 @@ def lireEntete(markdown):
 def slidesDuTexte(chemin=TEXTE_ORAL):
     """
     Lit le texte de l'oral et renvoie, pour chaque slide, un dictionnaire : numero, titre,
-    orateur, duree (en secondes), texte (ce qu'on dit, en paragraphes) et transition.
+    orateur, duree (en secondes), texte (ce qu'on dit, en paragraphes), transition, et comprendre
+    (les explications du bloc « Pour comprendre », une par puce : pour le groupe, elles ne se
+    disent pas et n'entrent pas dans les notes des slides).
     """
     lignes = chemin.read_text(encoding="utf-8").splitlines()
     slides, courante, partie = [], None, None
@@ -60,7 +62,8 @@ def slidesDuTexte(chemin=TEXTE_ORAL):
         if entete:
             numero, titre, orateur, minutes, secondes = entete.groups()
             courante = {"numero": int(numero), "titre": titre, "orateur": orateur,
-                        "duree": 60 * int(minutes) + int(secondes or 0), "texte": [], "transition": ""}
+                        "duree": 60 * int(minutes) + int(secondes or 0), "texte": [], "transition": "",
+                        "comprendre": []}
             slides.append(courante)
             partie = None
         elif ligne.startswith("#"):
@@ -73,8 +76,12 @@ def slidesDuTexte(chemin=TEXTE_ORAL):
                 partie = None
             elif ligne.startswith("**On montre :**"):
                 partie = None
+            elif ligne.startswith("**Pour comprendre :**"):
+                partie = "comprendre"
             elif partie == "texte" and ligne.strip():
                 courante["texte"].append(ligne.strip())
+            elif partie == "comprendre" and ligne.strip():
+                courante["comprendre"].append(ligne.strip().removeprefix("- "))
     return slides
 
 
