@@ -121,6 +121,7 @@ table.verso {{ width: 100%; border-collapse: collapse; font-variant-numeric: tab
 table.verso th {{ text-align: left; font-weight: 600; border-bottom: {FILET_GROUPE}px solid {ENCRE}; padding: .3rem .35rem; }}
 table.verso td {{ border-bottom: {FILET_LIGNE}px solid {ENCRE}; padding: .3rem .35rem; }}
 table.verso .nombre {{ text-align: right; white-space: nowrap; }}
+table.verso th.nombre {{ white-space: normal; }}   /* un en-tête long se coupe ; ses nombres, jamais */
 table.verso tr.groupe td {{ border-top: {FILET_GROUPE}px solid {ENCRE}; }}
 table.verso tr.total td {{ font-weight: 700; }}
 table.verso tr.ecarte td {{ color: {ENCRE_SECONDAIRE}; text-decoration: line-through; }}
@@ -1628,21 +1629,46 @@ def lignesDesPoidsUnParUn(unParUn):
     return list(lignes.values())
 
 
+MESURES_DU_SENS = [("Pareil", "pareil", "même classe"), ("PlusSevere", "plusSevere", "plus sévère"),
+                   ("PlusPermissif", "plusPermissif", "plus permissif")]
+
+
 def lignesDuTableauCroise(autre):
     """
-    Le tableau croisé de l'autre groupe : une ligne par modèle (le nôtre, le leur), puis leur
-    accord. Pour leurs produits et pour nos plats, la part des produits rangés dans la même classe
-    que le Nutri-Score (ou, pour l'accord, que l'autre modèle), puis à une classe près.
+    Le tableau croisé de l'autre groupe : une ligne par comparaison (notre modèle face au
+    Nutri-Score, le leur, puis le nôtre face au leur). Pour leurs produits et pour nos plats, la
+    part des produits que le modèle range dans la même classe que sa référence, plus bas (plus
+    sévère) ou plus haut (plus permissif).
     """
     lignes = []
-    for cle, libelle in (("notreFaceAuNutriscore", "Notre SuperNutri-score"), ("leurFaceAuNutriscore", "Leur SuperNutri-score"),
-                         ("notreFaceALeur", "Les deux modèles d'accord")):
+    for cle, libelle in (("notreFaceAuNutriscore", "Notre modèle face au Nutri-Score"),
+                         ("leurFaceAuNutriscore", "Leur modèle face au Nutri-Score"),
+                         ("notreFaceALeur", "Notre modèle face au leur")):
         ligne = {"modele": libelle}
         for base in ("leurs", "nos"):
-            ligne[f"{base}Meme"] = f"{nombre(100 * autre[base][cle]['exactitude'], 1)} %"
-            ligne[f"{base}Pres"] = f"{nombre(100 * autre[base][cle]['aUneClassePres'], 1)} %"
+            for suffixe, mesure, _ in MESURES_DU_SENS:
+                ligne[f"{base}{suffixe}"] = f"{nombre(100 * autre[base][cle]['sens'][mesure], 1)} %"
         lignes.append(ligne)
     return lignes
+
+
+def phrasesDeLaSeverite(donnees):
+    """
+    Deux phrases sur le SuperNutri-score face au Nutri-Score : plus sévère ou plus permissif (les
+    plats qui descendent, qui montent, l'écart moyen), puis pourquoi des plats montent.
+    """
+    ecarts, sens = donnees["ecarts"], donnees["comparaison"]["sens"]
+    verdict = "Plus sévère" if sens["ecartMoyen"] > 0 else "Plus permissif"
+    sensDeLEcart = "perd" if sens["ecartMoyen"] > 0 else "gagne"
+    phrase = (f"{verdict} que le Nutri-Score : {ecarts['descendent']} plats descendent "
+              f"({nombre(100 * sens['plusSevere'], 1)} %), {ecarts['montent']} montent "
+              f"({nombre(100 * sens['plusPermissif'], 1)} %), {ecarts['egaux']} gardent sa classe ; en moyenne, un plat "
+              f"{sensDeLEcart} {nombre(abs(sens['ecartMoyen']), 2)} classe. En ligne, le Nutri-Score ; en colonne, le "
+              "SuperNutri-score.")
+    montees = (f"Sur les {ecarts['montent']} plats qui montent, {ecarts['montees']['chargees']} ont au moins 11 points "
+               "négatifs : le Nutri-Score les additionne, quand MR-Sort, sans veto, ne retire que le poids des critères "
+               "ratés, de peu ou de beaucoup.")
+    return phrase, montees
 
 
 def phraseDesBloquants(autre):
@@ -1650,7 +1676,7 @@ def phraseDesBloquants(autre):
     morceaux = []
     for base, modele, debut in (("leurs", "notre", "sur leurs céréales, notre modèle"), ("nos", "leur", "sur nos plats, le leur")):
         parts = sorted(autre[base]["bloquants"][modele].items(), key=lambda paire: -paire[1])[:2]
-        morceaux.append(f"{debut} bute surtout sur "
+        morceaux.append(f"{debut} bute surtout sur : "
                         + " et ".join(f"{libelleEnMinuscule(critere)} ({nombre(100 * part)} %)" for critere, part in parts))
     return "Au seuil de B′, " + " ; ".join(morceaux) + "."
 
@@ -1689,9 +1715,8 @@ def ongletSuperNutri():
                     (f"Plats, sur {total}", "plats", "nombre")], lignes))
 
     ecarts = donnees["ecarts"]
-    html(panneau("Face au Nutri-Score", f"{ecarts['montent']} plats montent, {ecarts['descendent']} descendent, "
-                                        f"{ecarts['egaux']} gardent la classe du Nutri-Score. En ligne, le Nutri-Score ; "
-                                        "en colonne, le SuperNutri-score."))
+    phraseDuSens, phraseDesMontees = phrasesDeLaSeverite(donnees)
+    html(panneau("Face au Nutri-Score", phraseDuSens))
     matrice = donnees["comparaison"]["matrice"]
     lignes = []
     for rang, lettre in enumerate("ABCDE"):
@@ -1704,7 +1729,7 @@ def ongletSuperNutri():
     raisons = sorted(ecarts["raisonsDesDescentes"].items(), key=lambda paire: -paire[1])[:5]
     html("<p class='note'>Face au profil de la classe que leur donne le Nutri-Score, les plats qui descendent ratent "
          "surtout : " + ", ".join(f"{texteHtml(libelleEnMinuscule(critere))} ({compte})" for critere, compte in raisons)
-         + ".</p>")
+         + f". {texteHtml(phraseDesMontees)}</p>")
 
     poids = sensibilite["poids"]
     html(panneau("Sensibilité aux poids", "Un poids gagne ou perd 0,05, les autres sont rajustés (somme 1) : combien de "
@@ -1738,9 +1763,11 @@ def ongletSuperNutri():
                      f"{autre['total']} céréales du petit-déjeuner, d'un autre groupe du cours ({enCommun} avec nos plats). "
                      f"Leur modèle, recodé dans notre moteur depuis leur note, redonne {autre['reproduits']} de leurs "
                      f"{autre['total']} classes. Chaque modèle range les deux bases."))
-        html(tableHtml([("Modèle", "modele", "texte"), ("Leurs céréales : même classe que le Nutri-Score", "leursMeme", "nombre"),
-                        ("À une classe près", "leursPres", "nombre"), ("Nos plats : même classe", "nosMeme", "nombre"),
-                        ("À une classe près", "nosPres", "nombre")], lignesDuTableauCroise(autre)))
+        lignes = lignesDuTableauCroise(autre)
+        for base, nom in (("leurs", f"Leurs {autre['total']} céréales"), ("nos", f"Nos {autre['nos']['total']} plats")):
+            # un tableau par base : quatre colonnes tiennent aussi sur un téléphone
+            html(tableHtml([(nom, "modele", "texte")] + [(titre, f"{base}{suffixe}", "nombre")
+                                                         for suffixe, _, titre in MESURES_DU_SENS], lignes))
         html(f"<p class='note'>{texteHtml(phraseDesBloquants(autre))}</p>")
     else:
         html(panneau("La base d'un autre groupe", "Pas encore là : déposez-la dans donnees/autre_groupe/, puis relancez "

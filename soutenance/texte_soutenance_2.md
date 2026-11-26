@@ -97,11 +97,11 @@ Et si elle était moins transformée ? Avec NOVA 3 et un seul additif, elle pass
 
 **On dit :**
 
-Sur nos 375 plats, 210 gardent la classe du Nutri-Score, 145 descendent et 20 montent.
+Notre modèle est plus sévère que le Nutri-Score. Sur nos 375 plats, 210 gardent sa classe, 145 descendent et 20 montent : en moyenne, un plat perd 0,43 classe.
 
-Pourquoi descendent-ils ? Face au profil de leur classe au Nutri-Score, ils ratent surtout les fibres, pour 125 plats, les protéines, pour 113, le label bio, pour 108, le sel, pour 105, et le groupe NOVA, pour 87. Les plats A du Nutri-Score, par exemple, ne sont pas tous assez riches en fibres ni assez peu salés pour nos seuils de A prime.
+Les descentes se font surtout en haut : 64 des 75 plats A descendent, et 60 des 75 plats B. Face au profil de leur classe au Nutri-Score, les plats qui descendent ratent surtout les fibres, pour 125 plats, les protéines, pour 113, le label bio, pour 108, le sel, pour 105, et le groupe NOVA, pour 87. C'est voulu : A prime reprend les allégations du règlement européen.
 
-Et pourquoi montent-ils ? Au milieu, C prime n'exige plus ni NOVA 3 ni le bio : 10 plats D du Nutri-Score montent ainsi en C prime. Notre modèle sépare donc davantage le haut du classement, et resserre le milieu.
+Et ceux qui montent ? 19 des 20 ont au moins 11 points négatifs : des pizzas, des feuilletés. Le Nutri-Score additionne leurs points ; MR-Sort, sans veto, ne leur retire que le poids des critères ratés, de peu ou de beaucoup. C'est une limite du MR-Sort simple que le sujet impose.
 
 **Transition :** Nos poids sont un choix. Que se passe-t-il s'ils bougent un peu ?
 
@@ -139,9 +139,9 @@ Le décalage le plus actif : exiger NOVA 3 dès C prime ferait changer 52 plats,
 
 **On dit :**
 
-Le sujet demande de tester notre modèle sur la base d'un autre groupe. Nous avons reçu celle de Branchu, Becavin, Bundhoo et Castan : 300 céréales du petit-déjeuner, aucune en commun avec nos plats. Leur base n'avait ni les additifs ni le bio : nous les avons lus sur Open Food Facts, par le code-barres. Nous avons aussi recodé leur modèle dans notre moteur, depuis leur seule note : il redonne leurs 300 classes.
+Le sujet demande de tester notre modèle sur la base d'un autre groupe. Nous avons reçu celle de Branchu, Becavin, Bundhoo et Castan : 300 céréales du petit-déjeuner, aucune en commun avec nos plats. Leur base n'avait ni les additifs ni le bio : nous les avons lus sur Open Food Facts, par le code-barres. Nous avons aussi recodé leur modèle dans notre moteur : il redonne leurs 300 classes.
 
-Résultat : chaque modèle colle mieux au Nutri-Score sur sa propre base. Sur leurs céréales, leur modèle retrouve la classe du Nutri-Score pour 47 % des produits, le nôtre pour 34,7 %. Sur nos plats, c'est l'inverse : 56 % pour le nôtre, 27,7 % pour le leur. Et les deux modèles ne donnent la même classe qu'à 52 % de leurs céréales : nos résultats diffèrent bien des leurs.
+Résultat : chaque modèle colle mieux au Nutri-Score sur sa propre base, et y est un peu plus sévère que lui, de 0,43 classe en moyenne pour le nôtre, 0,37 pour le leur. Sur la base de l'autre, chacun devient bien plus sévère : 0,90 classe pour le nôtre, 1,16 pour le leur. Et les deux modèles ne donnent la même classe qu'à 52 % de leurs céréales : nos résultats diffèrent bien des leurs.
 
 **Transition :** Pourquoi ?
 
@@ -179,4 +179,4 @@ Enfin, l'onglet SuperNutri-score montre le modèle, la source de chaque seuil, l
 
 **On dit :**
 
-Trois choses. Le SuperNutri-score est un score de santé : onze critères, des seuils tirés de textes officiels, des classes au sens du Nutri-Score. Il est fait pour nos plats : 56 % gardent la classe du Nutri-Score, contre 27,7 % avec le modèle de l'autre groupe. Et il a ses limites : 5 de nos 12 plats en A prime sont des produits secs, des couscous et un velouté déshydraté, car nos seuils lisent 100 grammes tels que vendus. Enfin, 13 plats sont au bord, et à plus ou moins 0,05, 11,5 % des plats changent. Nos poids sont un choix, et nous le disons. Merci.
+Trois choses. Le SuperNutri-score est un score de santé : onze critères, des seuils tirés de textes officiels, des classes au sens du Nutri-Score. Il est plus sévère que le Nutri-Score, surtout en haut : sur nos 375 plats, 145 descendent et 20 montent ; sur leurs céréales, 196 descendent et aucune ne monte. Et il a ses limites : sans veto, un plat très salé ne perd que la case du sel ; 5 de nos 12 plats en A prime sont des produits secs, des couscous et un velouté déshydraté, car nos seuils lisent 100 grammes tels que vendus ; et 13 plats sont au bord de leur classe. Nos poids sont un choix, et nous le disons. Merci.

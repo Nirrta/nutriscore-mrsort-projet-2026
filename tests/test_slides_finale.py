@@ -66,8 +66,12 @@ def test_la_slide_5_suit_la_poelee_fermiere(slides):
 
 
 def test_la_slide_6_compte_les_plats_qui_montent_et_descendent(slides):
+    """Plus sévère que le Nutri-Score ; ceux qui montent sont chargés en points négatifs, et MR-Sort n'a pas de veto."""
     ecarts = resultatsDuSuperNutri()["supernutri"]["etendue"]["ecarts"]
-    assert f"{ecarts['descendent']} plats descendent, {ecarts['montent']} montent" in texteDeLaSlide(slides.slides[5])
+    texte = texteDeLaSlide(slides.slides[5])
+    assert slides_projet.typographie(f"Plus sévère que le Nutri-Score : {ecarts['descendent']} plats descendent, "
+                                     f"{ecarts['montent']} montent") in texte
+    assert f"{ecarts['montees']['chargees']} ont au moins 11 points négatifs" in texte and "sans veto" in texte
 
 
 def test_la_slide_7_cite_les_tirages(slides):
@@ -103,13 +107,20 @@ def autreGroupe():
 
 
 def test_la_slide_9_croise_les_deux_modeles_et_les_deux_bases(slides):
-    """Pour chaque base, chaque modèle face au Nutri-Score, puis les deux modèles entre eux ; et leurs classes redonnées."""
+    """
+    Pour chaque base, chaque modèle face au Nutri-Score, puis le nôtre face au leur : la part des produits dans la même
+    classe, plus sévère, plus permissive. Puis les écarts moyens, et leurs classes redonnées.
+    """
     autre = autreGroupe()
     texte = texteDeLaSlide(slides.slides[8])
     for base in ("leurs", "nos"):
         for cle in ("notreFaceAuNutriscore", "leurFaceAuNutriscore", "notreFaceALeur"):
-            for mesure in ("exactitude", "aUneClassePres"):
-                assert slides_projet.pourcentage(autre[base][cle][mesure], 1) in texte, (base, cle, mesure)
+            for mesure in ("pareil", "plusSevere", "plusPermissif"):
+                assert slides_projet.pourcentage(autre[base][cle]["sens"][mesure], 1) in texte, (base, cle, mesure)
+            assert autre[base][cle]["sens"]["pareil"] == pytest.approx(autre[base][cle]["exactitude"])
+    for base, cle in (("nos", "notreFaceAuNutriscore"), ("leurs", "leurFaceAuNutriscore"),
+                      ("leurs", "notreFaceAuNutriscore"), ("nos", "leurFaceAuNutriscore")):
+        assert slides_projet.ecartSigne(autre[base][cle]["sens"]["ecartMoyen"]) in texte, (base, cle)
     assert f"redonne leurs {autre['reproduits']} classes" in texte
 
 
@@ -128,3 +139,13 @@ def test_aucun_signe_double_ne_commence_une_ligne():
     """Une espace insécable avant « ; », « : », « ? », « ! » et « % », et dans les guillemets ; l'apostrophe typographique."""
     assert slides_projet.typographie("au bord ; à 0,05 : 11,5 % « oui » l'eau ?") == \
         "au bord ; à 0,05 : 11,5 % « oui » l’eau ?"
+
+
+def test_la_conclusion_dit_la_severite_et_les_limites(slides):
+    """Plus sévère que le Nutri-Score sur nos plats et sur leurs céréales ; sans veto ; les produits secs en A′."""
+    resultats = resultatsDuSuperNutri()["supernutri"]
+    texte = texteDeLaSlide(slides.slides[11])
+    ecarts = resultats["etendue"]["ecarts"]
+    assert f"{ecarts['descendent']} descendent, surtout en haut, et {ecarts['montent']} montent" in texte
+    assert "sans veto" in texte.lower()
+    assert f"{len(resultats['etendue']['secsEnAPrime'])} de nos {resultats['etendue']['repartition']['A′']} plats A′" in texte

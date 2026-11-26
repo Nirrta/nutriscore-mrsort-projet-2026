@@ -85,15 +85,23 @@ def test_l_oral_suit_la_poelee_fermiere(donnees):
 
 
 def test_l_oral_cite_la_comparaison_au_nutriscore(donnees):
+    """Plus sévère que le Nutri-Score, surtout en haut ; ceux qui montent sont chargés en points négatifs."""
     etendue = donnees["super"]["etendue"]
     ecarts, oral = etendue["ecarts"], donnees["oral"]
-    assert f"{ecarts['egaux']} gardent la classe du Nutri-Score, {ecarts['descendent']} descendent et {ecarts['montent']} montent" in oral
+    sens, matrice = etendue["comparaison"]["sens"], etendue["comparaison"]["matrice"]
+    assert sens["ecartMoyen"] > 0 and "Notre modèle est plus sévère que le Nutri-Score" in oral
+    assert f"{ecarts['egaux']} gardent sa classe, {ecarts['descendent']} descendent et {ecarts['montent']} montent" in oral
+    assert f"un plat perd {virgule(sens['ecartMoyen'], 2)} classe" in oral
+    parLabel = ecarts["descentesParLabel"]
+    assert (f"{parLabel['A']['plats']} des {sum(matrice[0])} plats A descendent, et {parLabel['B']['plats']} des "
+            f"{sum(matrice[1])} plats B") in oral
+    montees = ecarts["montees"]
+    assert f"{montees['chargees']} des {ecarts['montent']} ont au moins 11 points négatifs" in oral
     raisons = sorted(ecarts["raisonsDesDescentes"].items(), key=lambda paire: -paire[1])[:5]
     assert [critere for critere, _ in raisons] == ["fi", "pr", "bio", "so", "nova"]
     r = dict(raisons)
     assert (f"les fibres, pour {r['fi']} plats, les protéines, pour {r['pr']}, le label bio, pour {r['bio']}, le sel, "
             f"pour {r['so']}, et le groupe NOVA, pour {r['nova']}") in oral
-    assert f"{etendue['comparaison']['matrice'][3][2]} plats D du Nutri-Score montent ainsi en C prime" in oral
 
 
 def test_l_oral_cite_la_sensibilite_aux_poids(donnees):
@@ -132,10 +140,15 @@ def test_l_oral_compare_les_deux_modeles_sur_les_deux_bases(donnees):
     assert f"il redonne leurs {autre['reproduits']} classes" in oral and autre["reproduits"] == autre["total"]
     assert autre["recoupement"][0] == 0 and "aucune en commun avec nos plats" in oral
     leurs, nos = autre["leurs"], autre["nos"]
-    assert (f"leur modèle retrouve la classe du Nutri-Score pour {pourcentageOral(leurs['leurFaceAuNutriscore']['exactitude'])} "
-            f"des produits, le nôtre pour {pourcentageOral(leurs['notreFaceAuNutriscore']['exactitude'])}") in oral
-    assert (f"{pourcentageOral(nos['notreFaceAuNutriscore']['exactitude'])} pour le nôtre, "
-            f"{pourcentageOral(nos['leurFaceAuNutriscore']['exactitude'])} pour le leur") in oral
+    # chaque modèle colle mieux au Nutri-Score sur sa propre base, et chacun est plus sévère que lui partout
+    assert leurs["leurFaceAuNutriscore"]["exactitude"] > leurs["notreFaceAuNutriscore"]["exactitude"]
+    assert nos["notreFaceAuNutriscore"]["exactitude"] > nos["leurFaceAuNutriscore"]["exactitude"]
+    ecart = {(base, modele): autre[base][f"{modele}FaceAuNutriscore"]["sens"]["ecartMoyen"]
+             for base in ("leurs", "nos") for modele in ("notre", "leur")}
+    assert all(valeur > 0 for valeur in ecart.values())
+    assert (f"de {virgule(ecart['nos', 'notre'], 2)} classe en moyenne pour le nôtre, {virgule(ecart['leurs', 'leur'], 2)} "
+            "pour le leur") in oral
+    assert f"{virgule(ecart['leurs', 'notre'], 2)} classe pour le nôtre, {virgule(ecart['nos', 'leur'], 2)} pour le leur" in oral
     assert f"la même classe qu'à {pourcentageOral(leurs['notreFaceALeur']['exactitude'])} de leurs céréales" in oral
 
 
@@ -164,12 +177,14 @@ def test_l_oral_cite_la_demonstration(donnees):
 
 def test_la_conclusion_reprend_les_chiffres(donnees):
     etendue, sensibilite = donnees["super"]["etendue"], donnees["super"]["sensibilite"]["etendue"]
-    nos, oral = donnees["super"]["autreGroupe"]["nos"], donnees["oral"]
-    principal = [point for point in sensibilite["courbe"] if point["amplitude"] == 0.05][0]
-    assert (f"{pourcentageOral(nos['notreFaceAuNutriscore']['exactitude'])} gardent la classe du Nutri-Score, contre "
-            f"{pourcentageOral(nos['leurFaceAuNutriscore']['exactitude'])} avec le modèle de l'autre groupe") in oral
+    autre, oral = donnees["super"]["autreGroupe"], donnees["oral"]
+    ecarts, cereales = etendue["ecarts"], autre["leurs"]["notreFaceAuNutriscore"]
+    assert cereales["sens"]["plusPermissif"] == 0
+    descentes = round(cereales["sens"]["plusSevere"] * cereales["total"])
+    assert (f"sur nos {sum(etendue['repartition'].values())} plats, {ecarts['descendent']} descendent et {ecarts['montent']} "
+            f"montent ; sur leurs céréales, {descentes} descendent et aucune ne monte") in oral
     secs = etendue["secsEnAPrime"]
     assert f"{len(secs)} de nos {etendue['repartition']['A′']} plats en A prime sont des produits secs" in oral
     assert sum(1 for nom in secs if nom.startswith("Couscous")) == len(secs) - 1 and "Velouté de pois cassés" in secs
-    assert (f"{len(sensibilite['auBord'])} plats sont au bord, et à plus ou moins 0,05, "
-            f"{virgule(100 * principal['partMoyenne'], 1)} % des plats changent") in oral
+    assert "sans veto, un plat très salé ne perd que la case du sel" in oral
+    assert f"et {len(sensibilite['auBord'])} plats sont au bord de leur classe" in oral

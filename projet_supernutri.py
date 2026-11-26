@@ -41,7 +41,8 @@ from projet_base import (DOSSIER, DOSSIER_BRUT, FICHIER_BASE, FICHIER_BASE_ETEND
                          enregistrerResultats, ficheEnDirect, ficheProduit, intersectionAvecAutreBase, lireBase)
 from projet_mrsort import (CLASSES, PROFILS, TOLERANCE, affecter, classeDuLabel, comparerAuNutriscore,
                            concordancePartielle, nomDeClasse)
-from projet_nutriscore import POINTS_MAX, PROTEINES_MAX_VIANDE_ROUGE, SEUILS_PROTEINES, categorieDepuisOff, scoreNutriscore
+from projet_nutriscore import (POINTS_MAX, PROTEINES_MAX_VIANDE_ROUGE, SEUIL_PROTEINES, SEUILS_PROTEINES,
+                               categorieDepuisOff, scoreNutriscore)
 
 
 # --- Question 3.4 : le modèle ---
@@ -267,6 +268,26 @@ def classerPlat(plat, modele=None, categorie=None):
     return detail
 
 
+def sensDesEcarts(matrice):
+    """
+    Le sens des écarts d'un modèle à sa référence, lu dans leur matrice de confusion (lignes : la
+    référence, de A à E ; colonnes : le modèle, de A′ à E′). Plus sévère : le modèle range le
+    produit plus bas (à droite de la diagonale) ; plus permissif : plus haut. L'écart moyen se
+    compte en classes, positif quand le modèle est plus sévère.
+    """
+    total = sum(sum(ligne) for ligne in matrice)
+    plusSevere = plusPermissif = ecarts = 0
+    for ligne, comptes in enumerate(matrice):
+        for colonne, nombre in enumerate(comptes):
+            if colonne > ligne:
+                plusSevere += nombre
+            elif colonne < ligne:
+                plusPermissif += nombre
+            ecarts += (colonne - ligne) * nombre
+    return {"plusSevere": plusSevere / total, "pareil": (total - plusSevere - plusPermissif) / total,
+            "plusPermissif": plusPermissif / total, "ecartMoyen": ecarts / total}
+
+
 def produitsSecsEnAPrime(plats, modele=None):
     """
     Les plats en A′ qui dépassent le seuil d'énergie de D′ (1 340 kJ pour 100 g) : des produits
@@ -297,6 +318,7 @@ def superNutriScore(fichier=FICHIER_BASE, modele=None, sortie=None, afficher=Tru
         repartition[ligne["lettre"]] += 1
     comparaison = comparerAuNutriscore([classeDuLabel(ligne["label"]) for ligne in lignes],
                                        [ligne["classe"] for ligne in lignes])
+    comparaison["sens"] = sensDesEcarts(comparaison["matrice"])
     resultat = {"modele": modele, "plats": lignes, "repartition": repartition, "comparaison": comparaison,
                 "ecarts": ecartsAuNutriscore(plats, modele), "secsEnAPrime": produitsSecsEnAPrime(plats, modele)}
     if sortie:
@@ -357,6 +379,9 @@ def afficherSuperNutri(resultat):
     print("  répartition : " + ", ".join(f"{lettre} {nombre}" for lettre, nombre in resultat["repartition"].items()))
     print(f"  même classe que le Nutri-Score : {comparaison['bienRanges']}/{total} ; "
           f"à une classe près : {100 * comparaison['aUneClassePres']:.1f} %")
+    sens = comparaison["sens"]
+    print(f"  plus sévère que le Nutri-Score pour {100 * sens['plusSevere']:.1f} % des plats, plus permissif pour "
+          f"{100 * sens['plusPermissif']:.1f} % ; écart moyen {sens['ecartMoyen']:+.2f} classe")
     ecarts = resultat["ecarts"]
     raisons = sorted(ecarts["raisonsDesDescentes"].items(), key=lambda paire: -paire[1])[:4]
     print(f"  {ecarts['montent']} plats montent, {ecarts['descendent']} descendent ; les plats qui descendent ratent surtout : "
@@ -665,12 +690,17 @@ def ecartsAuNutriscore(produits, modele=None):
       Nutri-Score (pour un plat B, le profil de B′).
     - Un plat qui monte : les critères qu'il rate face au profil de sa classe SuperNutri, qu'il
       franchit pourtant.
-    Renvoie les comptes, le nombre de plats qui descendent en ratant chaque critère, une ligne
-    par plat (écart en classes, positif s'il monte) et les plus grands écarts.
+    Renvoie les comptes, le nombre de plats qui descendent en ratant chaque critère, ces
+    descentes classe par classe du Nutri-Score, une ligne par plat (écart en classes, positif s'il
+    monte) et les plus grands écarts. Pour les plats qui montent : les critères qu'ils ratent, et
+    combien sont chargés, avec au moins 11 points négatifs au Nutri-Score (qui les additionne,
+    quand MR-Sort, sans veto, ne retire que le poids des critères ratés).
     """
     modele = modele or MODELE_SUPER
     lignes = []
     raisonsDesDescentes = {critere: 0 for critere in modele["criteres"]}
+    descentesParLabel = {}
+    montees = {"raisons": {critere: 0 for critere in modele["criteres"]}, "chargees": 0}
     for plat in produits:
         valeurs = valeursDuPlat(plat)
         classe = affecter(valeurs, modele)["classe"]
@@ -683,15 +713,25 @@ def ecartsAuNutriscore(produits, modele=None):
             numero = classeNutri - 1 if ecart < 0 else classe - 1
             rates = [critere for critere in modele["criteres"] if critere not in satisfaits[numero]]
         if ecart < 0:
+            parLabel = descentesParLabel.setdefault(plat["label"], {"plats": 0, "raisons": {}})
+            parLabel["plats"] += 1
             for critere in rates:
                 raisonsDesDescentes[critere] += 1
+                parLabel["raisons"][critere] = parLabel["raisons"].get(critere, 0) + 1
+        if ecart > 0:
+            for critere in rates:
+                montees["raisons"][critere] += 1
+            complet = all(plat.get(composante) is not None for composante in COMPOSANTES_NUTRISCORE)
+            if complet and scoreNutriscore(plat, categorie=plat.get("categorie") or "general")["N"] >= SEUIL_PROTEINES:
+                montees["chargees"] += 1
         lignes.append({"code": plat.get("code"), "nom": plat.get("nom"), "label": plat["label"],
                        "lettre": nomDeClasse(classe), "ecart": ecart, "rates": rates})
     plusGrands = sorted(lignes, key=lambda ligne: (-abs(ligne["ecart"]), ligne["ecart"], str(ligne["nom"])))[:10]
     return {"montent": sum(1 for ligne in lignes if ligne["ecart"] > 0),
             "descendent": sum(1 for ligne in lignes if ligne["ecart"] < 0),
             "egaux": sum(1 for ligne in lignes if ligne["ecart"] == 0),
-            "raisonsDesDescentes": raisonsDesDescentes, "plats": lignes,
+            "raisonsDesDescentes": raisonsDesDescentes, "descentesParLabel": descentesParLabel, "montees": montees,
+            "plats": lignes,
             "plusGrandsEcarts": [ligne for ligne in plusGrands if ligne["ecart"] != 0]}
 
 
@@ -1003,10 +1043,13 @@ def comparerDeuxModeles(plats, leurModele, notreModele=None):
         if plat.get("leurClasse") and nomDeClasse(leurs[-1])[0] == plat["leurClasse"]:
             reproduits += 1
     total = len(plats)
+    comparaisons = {"notreFaceAuNutriscore": comparerAuNutriscore(nutriscore, nos),
+                    "leurFaceAuNutriscore": comparerAuNutriscore(nutriscore, leurs),
+                    "notreFaceALeur": comparerAuNutriscore(leurs, nos)}
+    for comparaison in comparaisons.values():
+        comparaison["sens"] = sensDesEcarts(comparaison["matrice"])
     return {"total": total, "notre": repartitionDesClasses(nos), "leur": repartitionDesClasses(leurs),
-            "notreFaceAuNutriscore": comparerAuNutriscore(nutriscore, nos),
-            "leurFaceAuNutriscore": comparerAuNutriscore(nutriscore, leurs),
-            "notreFaceALeur": comparerAuNutriscore(leurs, nos), "leurReproduit": reproduits,
+            **comparaisons, "leurReproduit": reproduits,
             "bloquants": {nom: {critere: nombre / total for critere, nombre in compte.items()}
                           for nom, compte in bloquants.items()}}
 
@@ -1144,10 +1187,12 @@ def afficherAutreGroupe(analyse):
             face = comparaison[f"{modele}FaceAuNutriscore"]
             print(f"  {nom}, {modele} modèle : {', '.join(f'{l} {n}' for l, n in comparaison[modele].items())} ; "
                   f"même classe que le Nutri-Score {100 * face['exactitude']:.1f} %, à une classe près "
-                  f"{100 * face['aUneClassePres']:.1f} %")
+                  f"{100 * face['aUneClassePres']:.1f} % ; plus sévère {100 * face['sens']['plusSevere']:.1f} %, "
+                  f"plus permissif {100 * face['sens']['plusPermissif']:.1f} %, écart moyen {face['sens']['ecartMoyen']:+.2f}")
         accord = comparaison["notreFaceALeur"]
         print(f"  {nom}, les deux modèles d'accord : {100 * accord['exactitude']:.1f} %, à une classe près "
-              f"{100 * accord['aUneClassePres']:.1f} %")
+              f"{100 * accord['aUneClassePres']:.1f} % ; le nôtre plus sévère que le leur {100 * accord['sens']['plusSevere']:.1f} %, "
+              f"plus permissif {100 * accord['sens']['plusPermissif']:.1f} %, écart moyen {accord['sens']['ecartMoyen']:+.2f}")
 
 
 def main():
@@ -1176,8 +1221,8 @@ def main():
                 ligne.update(ecart=ecart["ecart"], rates=ecart["rates"])
             resume[nom] = {"repartition": resultat["repartition"], "comparaison": resultat["comparaison"],
                            "plats": resultat["plats"], "secsEnAPrime": resultat["secsEnAPrime"],
-                           "ecarts": {cle: ecarts[cle] for cle in ("montent", "descendent", "egaux",
-                                                                   "raisonsDesDescentes", "plusGrandsEcarts")}}
+                           "ecarts": {cle: ecarts[cle] for cle in ("montent", "descendent", "egaux", "raisonsDesDescentes",
+                                                                   "descentesParLabel", "montees", "plusGrandsEcarts")}}
             resume["sensibilite"][nom] = sensibilites(lireBase(fichier))
             afficherSensibilite(nom, resume["sensibilite"][nom])
     ecrireSensibilite(resume["sensibilite"], DOSSIER / "resultats" / "supernutri_sensibilite.xlsx")

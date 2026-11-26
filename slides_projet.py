@@ -384,6 +384,11 @@ def enToutesLettres(criteres):
     return noms[0] if len(noms) == 1 else ", ".join(noms[:-1]) + " et " + noms[-1]
 
 
+def ecartSigne(valeur):
+    """Un écart moyen en classes, avec son signe : « +0,43 » (plus sévère), « −0,72 » (plus permissif)."""
+    return f"{'+' if valeur >= 0 else '−'}{nombre(abs(valeur), 2)}"
+
+
 def majuscule(texte):
     """Le texte avec une majuscule initiale."""
     return texte[0].upper() + texte[1:]
@@ -1089,8 +1094,8 @@ def slideFaceAuNutriscore(presentation, donnees):
     """La matrice SuperNutri-score × Nutri-Score, et les critères qui font descendre les plats."""
     ecarts = donnees["ecarts"]
     total = sum(donnees["repartition"].values())
-    diapo = nouvelleDiapo(presentation, f"{ecarts['descendent']} plats descendent, {ecarts['montent']} montent face au "
-                                        "Nutri-Score",
+    diapo = nouvelleDiapo(presentation, f"Plus sévère que le Nutri-Score : {ecarts['descendent']} plats descendent, "
+                                        f"{ecarts['montent']} montent",
                           f"Sur nos {total} plats, {ecarts['egaux']} gardent la classe du Nutri-Score. En ligne le "
                           "Nutri-Score, en colonne le SuperNutri-score.")
     matrice = donnees["comparaison"]["matrice"]
@@ -1104,8 +1109,10 @@ def slideFaceAuNutriscore(presentation, donnees):
     bas = tableauVerso(diapo, x, 2.75, [("Critère raté", largeur - 1.3, PP_ALIGN.LEFT), ("Plats", 1.3, PP_ALIGN.RIGHT)],
                        [[majuscule(NOMS_COURTS[critere]), str(compte)] for critere, compte in raisons], "Raisons",
                        taille=15, hauteurLigne=0.38)
+    montees = ecarts["montees"]
     paragraphesMesures(diapo, x, bas + 0.2, largeur, [[m(
-        f"Au milieu, C′ n'exige plus ni NOVA 3 ni le bio : {matrice[3][2]} plats D montent en C′.",
+        f"Sur les {ecarts['montent']} plats qui montent, {montees['chargees']} ont au moins 11 points négatifs. Le Nutri-Score "
+        "les additionne ; MR-Sort, sans veto, ne retire que le poids des critères ratés.",
         TEXTE, 14, ENCRE_SECONDAIRE)]], "Lecture des raisons")
 
 
@@ -1191,29 +1198,34 @@ def slideDeuxModeles(presentation, autre, total):
     diapo = nouvelleDiapo(presentation, titre,
                           f"Leur modèle, recodé depuis leur note, redonne leurs {autre['reproduits']} classes. "
                           + ("Aucun produit en commun." if communs == 0 else f"{communs} produits en commun."))
-    largeurs = [3.9, 2.0, 2.0, 2.0, 2.0]
-    x = MARGE + largeurs[0]
-    colonne(diapo, x, 2.0, largeurs[1] + largeurs[2] - 0.2, f"Leurs {autre['total']} céréales", "leurs céréales")
-    colonne(diapo, x + largeurs[1] + largeurs[2], 2.0, largeurs[3] + largeurs[4], f"Nos {total} plats", "nos plats")
-    colonnes = [("Part des produits", largeurs[0], PP_ALIGN.LEFT), ("même classe", largeurs[1], PP_ALIGN.RIGHT),
-                ("à une classe près", largeurs[2], PP_ALIGN.RIGHT), ("même classe", largeurs[3], PP_ALIGN.RIGHT),
-                ("à une classe près", largeurs[4], PP_ALIGN.RIGHT)]
+    largeur = 1.4                                    # chacune des six colonnes de nombres
+    x = MARGE + 3.5
+    colonne(diapo, x, 2.0, 3 * largeur - 0.2, f"Leurs {autre['total']} céréales", "leurs céréales")
+    colonne(diapo, x + 3 * largeur, 2.0, 3 * largeur, f"Nos {total} plats", "nos plats")
+    mesures = [("pareil", "même classe"), ("plusSevere", "plus sévère"), ("plusPermissif", "plus permissif")]
+    colonnes = [("Part des produits", 3.5, PP_ALIGN.LEFT)] + [(titre, largeur, PP_ALIGN.RIGHT) for _ in (leurs, nos)
+                                                              for _, titre in mesures]
     lignes = []
     for cle, libelle in (("notreFaceAuNutriscore", "Notre modèle face au Nutri-Score"),
                          ("leurFaceAuNutriscore", "Leur modèle face au Nutri-Score"),
                          ("notreFaceALeur", "Notre modèle face au leur")):
-        lignes.append([libelle] + [pourcentage(comparaison[cle][mesure], 1) for comparaison in (leurs, nos)
-                                   for mesure in ("exactitude", "aUneClassePres")])
-    bas = tableauVerso(diapo, MARGE, 2.75, colonnes, lignes, "Deux modèles", taille=16, hauteurLigne=0.5)
+        lignes.append([libelle] + [pourcentage(comparaison[cle]["sens"][mesure], 1) for comparaison in (leurs, nos)
+                                   for mesure, _ in mesures])
+    bas = tableauVerso(diapo, MARGE, 2.75, colonnes, lignes, "Deux modèles", taille=15, hauteurLigne=0.5)
     # λ et sa valeur ne se séparent pas en fin de ligne : espaces insécables
     lams = [f"λ\u00a0=\u00a0{nombreCourt(lam)}" for lam in (autre["modele"]["lam"], 0.7)]
-    bas = paragraphesMesures(diapo, MARGE, bas + 0.3, LARGEUR - 2 * MARGE, [[m(
-        f"Le Nutri-Score est la même référence des deux côtés : notre calcul de 2023 redonne leurs {autre['total']} labels. "
-        f"Leur modèle a {len(autre['modele']['criteres'])} critères et {lams[0]} ; le nôtre en a onze, et {lams[1]}.",
+    bas = paragraphesMesures(diapo, MARGE, bas + 0.2, LARGEUR - 2 * MARGE, [[m(
+        f"Même référence des deux côtés : notre calcul du Nutri-Score de 2023 redonne leurs {autre['total']} labels. Leur "
+        f"modèle a {len(autre['modele']['criteres'])} critères et {lams[0]} ; le nôtre, onze et {lams[1]}.",
         TEXTE, 15, ENCRE_SECONDAIRE)]], "Lecture des deux modèles")
-    paragraphesMesures(diapo, MARGE, bas + 0.25, LARGEUR - 2 * MARGE, [[m(
-        f"Nos résultats diffèrent donc des leurs : sur leurs céréales, les deux modèles ne donnent la même classe qu'à "
-        f"{pourcentage(leurs['notreFaceALeur']['exactitude'], 1)} des produits.", DEMI_GRAS, 17)]], "Réponse au sujet")
+    ecarts = [ecartSigne(comparaison[cle]["sens"]["ecartMoyen"])
+              for comparaison, cle in ((nos, "notreFaceAuNutriscore"), (leurs, "leurFaceAuNutriscore"),
+                                       (leurs, "notreFaceAuNutriscore"), (nos, "leurFaceAuNutriscore"))]
+    paragraphesMesures(diapo, MARGE, bas + 0.2, LARGEUR - 2 * MARGE, [[m(
+        f"Chaque modèle est un peu plus sévère que le Nutri-Score sur sa base (écart moyen {ecarts[0]} classe pour le nôtre, "
+        f"{ecarts[1]} pour le leur), bien plus sur celle de l'autre ({ecarts[2]} et {ecarts[3]}). Ils ne donnent la même "
+        f"classe qu'à {pourcentage(leurs['notreFaceALeur']['exactitude'], 1)} de leurs céréales.", DEMI_GRAS, 16)]],
+        "Réponse au sujet")
 
 
 def slideCategories(presentation, autre):
@@ -1291,16 +1303,19 @@ def slideConclusionFinale(presentation, donnees, sensibilite, autre):
     diapo = nouvelleDiapo(presentation, "Ce que nous retenons", "Un modèle à nous, transparent, et ses limites.")
     total = sum(donnees["repartition"].values())
     principal = [point for point in sensibilite["courbe"] if point["amplitude"] == sensibilite["poids"]["amplitude"]][0]
-    nos = autre["nos"]
+    ecarts = donnees["ecarts"]
+    cereales = autre["leurs"]["notreFaceAuNutriscore"]
+    descentes, montees = (round(cereales["sens"][cle] * cereales["total"]) for cle in ("plusSevere", "plusPermissif"))
     colonnes = [
         ("Un score de santé", "Onze critères en trois piliers, des seuils tirés de textes officiels, des classes au sens "
                               "du Nutri-Score, et les protéines comptées comme lui."),
-        ("Fait pour nos plats", f"Sur nos {total} plats, {pourcentage(nos['notreFaceAuNutriscore']['exactitude'], 1)} gardent "
-                                f"la classe du Nutri-Score, contre {pourcentage(nos['leurFaceAuNutriscore']['exactitude'], 1)} "
-                                "avec le modèle de l'autre groupe. Sur leurs céréales, c'est l'inverse."),
-        ("Ses limites", f"{len(donnees['secsEnAPrime'])} de nos {donnees['repartition']['A′']} plats A′ sont des produits secs. "
-                        f"{len(sensibilite['auBord'])} plats sont au bord ; à ± {nombreCourt(principal['amplitude'])}, "
-                        f"{pourcentage(principal['partMoyenne'], 1)} des plats changent : nos poids sont un choix."),
+        ("Plus sévère", f"Sur nos {total} plats, {ecarts['descendent']} descendent, surtout en haut, et {ecarts['montent']} "
+                        f"montent. Sur leurs céréales, {descentes} descendent, "
+                        + ("aucune ne monte." if montees == 0 else f"{montees} montent.")),
+        ("Ses limites", f"Sans veto, un plat très salé ne perd que la case du sel. {len(donnees['secsEnAPrime'])} de nos "
+                        f"{donnees['repartition']['A′']} plats A′ sont des produits secs. {len(sensibilite['auBord'])} plats "
+                        f"sont au bord : à ± {nombreCourt(principal['amplitude'])}, {pourcentage(principal['partMoyenne'], 1)} "
+                        "des plats changent."),
     ]
     largeur = (LARGEUR - 2 * MARGE - 2 * 0.4) / 3
     for rang, (titre, texte) in enumerate(colonnes):

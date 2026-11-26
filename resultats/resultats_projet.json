@@ -8921,7 +8921,13 @@
             2,
             23
           ]
-        ]
+        ],
+        "sens": {
+          "plusSevere": 0.408,
+          "pareil": 0.56,
+          "plusPermissif": 0.032,
+          "ecartMoyen": 0.472
+        }
       },
       "plats": [
         {
@@ -11143,6 +11149,76 @@
           "aRisque": 5,
           "bio": 34
         },
+        "descentesParLabel": {
+          "A": {
+            "plats": 21,
+            "raisons": {
+              "en": 8,
+              "so": 20,
+              "pr": 19,
+              "fi": 20,
+              "fr": 8,
+              "bio": 16,
+              "su": 1,
+              "nova": 12,
+              "additifs": 6,
+              "aRisque": 1,
+              "sa": 1
+            }
+          },
+          "B": {
+            "plats": 20,
+            "raisons": {
+              "so": 14,
+              "pr": 15,
+              "fi": 18,
+              "fr": 11,
+              "nova": 17,
+              "additifs": 9,
+              "bio": 18,
+              "en": 3,
+              "aRisque": 3
+            }
+          },
+          "C": {
+            "plats": 6,
+            "raisons": {
+              "so": 3,
+              "pr": 3,
+              "fi": 6,
+              "additifs": 5,
+              "fr": 4,
+              "sa": 2,
+              "aRisque": 1
+            }
+          },
+          "D": {
+            "plats": 4,
+            "raisons": {
+              "en": 2,
+              "so": 4,
+              "pr": 4,
+              "fi": 2,
+              "additifs": 1
+            }
+          }
+        },
+        "montees": {
+          "raisons": {
+            "en": 2,
+            "sa": 2,
+            "su": 0,
+            "so": 1,
+            "pr": 4,
+            "fi": 0,
+            "fr": 1,
+            "nova": 0,
+            "additifs": 0,
+            "aRisque": 0,
+            "bio": 0
+          },
+          "chargees": 4
+        },
         "plusGrandsEcarts": [
           {
             "code": "3248830770756",
@@ -11349,7 +11425,13 @@
             9,
             66
           ]
-        ]
+        ],
+        "sens": {
+          "plusSevere": 0.38666666666666666,
+          "pareil": 0.56,
+          "plusPermissif": 0.05333333333333334,
+          "ecartMoyen": 0.43466666666666665
+        }
       },
       "plats": [
         {
@@ -17978,6 +18060,79 @@
           "aRisque": 20,
           "bio": 108
         },
+        "descentesParLabel": {
+          "A": {
+            "plats": 64,
+            "raisons": {
+              "en": 35,
+              "so": 53,
+              "pr": 53,
+              "fi": 61,
+              "fr": 34,
+              "bio": 52,
+              "su": 3,
+              "nova": 36,
+              "additifs": 26,
+              "aRisque": 6,
+              "sa": 10
+            }
+          },
+          "B": {
+            "plats": 60,
+            "raisons": {
+              "so": 35,
+              "pr": 45,
+              "fi": 49,
+              "fr": 35,
+              "nova": 51,
+              "additifs": 24,
+              "bio": 56,
+              "en": 7,
+              "aRisque": 12,
+              "sa": 3
+            }
+          },
+          "C": {
+            "plats": 11,
+            "raisons": {
+              "so": 8,
+              "pr": 5,
+              "fi": 9,
+              "additifs": 8,
+              "fr": 8,
+              "sa": 2,
+              "aRisque": 2,
+              "en": 1
+            }
+          },
+          "D": {
+            "plats": 10,
+            "raisons": {
+              "en": 4,
+              "so": 9,
+              "pr": 10,
+              "fi": 6,
+              "additifs": 3,
+              "sa": 1
+            }
+          }
+        },
+        "montees": {
+          "raisons": {
+            "en": 7,
+            "sa": 11,
+            "su": 0,
+            "so": 7,
+            "pr": 20,
+            "fi": 1,
+            "fr": 1,
+            "nova": 0,
+            "additifs": 1,
+            "aRisque": 0,
+            "bio": 1
+          },
+          "chargees": 19
+        },
         "plusGrandsEcarts": [
           {
             "code": "3270160726240",
@@ -18209,7 +18364,13 @@
               0,
               43
             ]
-          ]
+          ],
+          "sens": {
+            "plusSevere": 0.6533333333333333,
+            "pareil": 0.3466666666666667,
+            "plusPermissif": 0.0,
+            "ecartMoyen": 0.8966666666666666
+          }
         },
         "leurFaceAuNutriscore": {
           "total": 300,
@@ -18253,7 +18414,13 @@
               9,
               34
             ]
-          ]
+          ],
+          "sens": {
+            "plusSevere": 0.41,
+            "pareil": 0.47,
+            "plusPermissif": 0.12,
+            "ecartMoyen": 0.37333333333333335
+          }
         },
         "notreFaceALeur": {
           "total": 300,
@@ -18297,7 +18464,13 @@
               0,
               79
             ]
-          ]
+          ],
+          "sens": {
+            "plusSevere": 0.43,
+            "pareil": 0.52,
+            "plusPermissif": 0.05,
+            "ecartMoyen": 0.5233333333333333
+          }
         },
         "leurReproduit": 300,
         "bloquants": {
@@ -18381,7 +18554,13 @@
               9,
               66
             ]
-          ]
+          ],
+          "sens": {
+            "plusSevere": 0.38666666666666666,
+            "pareil": 0.56,
+            "plusPermissif": 0.05333333333333334,
+            "ecartMoyen": 0.43466666666666665
+          }
         },
         "leurFaceAuNutriscore": {
           "total": 375,
@@ -18425,7 +18604,13 @@
               2,
               69
             ]
-          ]
+          ],
+          "sens": {
+            "plusSevere": 0.6453333333333333,
+            "pareil": 0.2773333333333333,
+            "plusPermissif": 0.07733333333333334,
+            "ecartMoyen": 1.1573333333333333
+          }
         },
         "notreFaceALeur": {
           "total": 375,
@@ -18469,7 +18654,13 @@
               67,
               70
             ]
-          ]
+          ],
+          "sens": {
+            "plusSevere": 0.11733333333333333,
+            "pareil": 0.3253333333333333,
+            "plusPermissif": 0.5573333333333333,
+            "ecartMoyen": -0.7226666666666667
+          }
         },
         "leurReproduit": 0,
         "bloquants": {

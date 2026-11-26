@@ -903,18 +903,29 @@ def test_l_onglet_super_nutri_score():
 
 
 def test_le_tableau_croise_de_l_autre_groupe():
-    """Une ligne par modèle, puis leur accord ; pour chaque base, la même classe que le Nutri-Score, puis à une classe près."""
-    def face(exactitude, pres):
-        return {"exactitude": exactitude, "aUneClassePres": pres}
-    autre = {"leurs": {"notreFaceAuNutriscore": face(0.5, 0.9), "leurFaceAuNutriscore": face(0.4, 0.8),
-                       "notreFaceALeur": face(0.3, 0.7)},
-             "nos": {"notreFaceAuNutriscore": face(0.56, 0.95), "leurFaceAuNutriscore": face(0.277, 0.624),
-                     "notreFaceALeur": face(0.2, 0.6)}}
+    """Une ligne par comparaison ; pour chaque base, la part des produits dans la même classe, plus sévère, plus permissive."""
+    def face(pareil, severe, permissif):
+        return {"sens": {"pareil": pareil, "plusSevere": severe, "plusPermissif": permissif}}
+    autre = {"leurs": {"notreFaceAuNutriscore": face(0.347, 0.653, 0), "leurFaceAuNutriscore": face(0.47, 0.41, 0.12),
+                       "notreFaceALeur": face(0.52, 0.43, 0.05)},
+             "nos": {"notreFaceAuNutriscore": face(0.56, 0.387, 0.053), "leurFaceAuNutriscore": face(0.277, 0.645, 0.077),
+                     "notreFaceALeur": face(0.325, 0.117, 0.557)}}
     lignes = gui.lignesDuTableauCroise(autre)
-    assert [ligne["modele"] for ligne in lignes] == ["Notre SuperNutri-score", "Leur SuperNutri-score",
-                                                     "Les deux modèles d'accord"]
-    assert lignes[1] == {"modele": "Leur SuperNutri-score", "leursMeme": "40,0 %", "leursPres": "80,0 %",
-                         "nosMeme": "27,7 %", "nosPres": "62,4 %"}
+    assert [ligne["modele"] for ligne in lignes] == ["Notre modèle face au Nutri-Score", "Leur modèle face au Nutri-Score",
+                                                     "Notre modèle face au leur"]
+    assert lignes[1] == {"modele": "Leur modèle face au Nutri-Score", "leursPareil": "47,0 %", "leursPlusSevere": "41,0 %",
+                         "leursPlusPermissif": "12,0 %", "nosPareil": "27,7 %", "nosPlusSevere": "64,5 %",
+                         "nosPlusPermissif": "7,7 %"}
+
+
+def test_la_phrase_de_la_severite():
+    """Le SuperNutri-score face au Nutri-Score : plus sévère ou plus permissif, et pourquoi des plats montent."""
+    donnees = {"ecarts": {"montent": 20, "descendent": 145, "egaux": 210, "montees": {"chargees": 19}},
+               "comparaison": {"sens": {"plusSevere": 0.387, "pareil": 0.56, "plusPermissif": 0.053, "ecartMoyen": 0.43}}}
+    phrase, montees = gui.phrasesDeLaSeverite(donnees)
+    assert phrase.startswith("Plus sévère que le Nutri-Score : 145 plats descendent (38,7 %), 20 montent (5,3 %)")
+    assert "un plat perd 0,43 classe" in phrase
+    assert montees.startswith("Sur les 20 plats qui montent, 19 ont au moins 11 points négatifs")
 
 
 def test_les_barres_du_super_nutri_score_prennent_toute_la_largeur():

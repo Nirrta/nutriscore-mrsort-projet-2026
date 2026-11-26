@@ -562,3 +562,38 @@ def test_les_produits_secs_en_a_prime():
     sec = dict(platAuNiveauDeAPrime(), en=1500, code="1", nom="Couscous", label="A")
     frais = dict(platAuNiveauDeAPrime(), code="2", nom="Purée", label="A")
     assert sn.produitsSecsEnAPrime([sec, frais]) == ["Couscous"]
+
+
+# --- Plus sévère ou plus permissif que la référence (26/11) ---
+
+def test_le_sens_des_ecarts_d_une_matrice():
+    """Lignes : la référence (A à E) ; colonnes : le modèle (A′ à E′). À droite de la diagonale, le modèle range plus bas."""
+    matrice = [[2, 1, 0, 0, 0],          # deux A restent en A′, un A descend en B′
+               [1, 0, 0, 0, 1],          # un B monte en A′, un B descend de trois classes, en E′
+               [0] * 5, [0] * 5, [0] * 5]
+    assert sn.sensDesEcarts(matrice) == {"plusSevere": 0.4, "pareil": 0.4, "plusPermissif": 0.2,
+                                         "ecartMoyen": pytest.approx(3 / 5)}
+
+
+def test_pourquoi_un_plat_descend_et_pourquoi_un_autre_monte():
+    """
+    Un plat A au Nutri-Score, sans fibres, salé et ultra-transformé, descend en C′. Un plat très salé (5 g de sel, 20 points)
+    que le Nutri-Score classe E monte : MR-Sort, sans veto, ne lui retire que la case du sel.
+    """
+    descend = dict(platAuNiveauDeAPrime(), code="1", nom="Descend", label="A", fi=1.0, so=1.0, nova=4, bio="non")
+    monte = dict(platAuNiveauDeAPrime(), code="2", nom="Monte", label="E", so=5.0)
+    ecarts = sn.ecartsAuNutriscore([descend, monte])
+    assert (ecarts["descendent"], ecarts["montent"]) == (1, 1)
+    assert ecarts["descentesParLabel"]["A"]["plats"] == 1
+    assert set(ecarts["descentesParLabel"]["A"]["raisons"]) == {"so", "fi", "nova", "bio"}
+    assert ecarts["montees"]["chargees"] == 1 and ecarts["montees"]["raisons"]["so"] == 1
+
+
+def test_chaque_comparaison_dit_son_sens():
+    """Les deux modèles face au Nutri-Score, et le nôtre face au leur : chacun avec ses parts plus sévère et plus permissive."""
+    leur = {"criteres": ["su", "fi"], "poids": {"su": 0.5, "fi": 0.5}, "lam": 0.6, "sens": {"su": "min", "fi": "max"},
+            "profils": [{"su": 20, "fi": 1}, {"su": 15, "fi": 2}, {"su": 10, "fi": 3}, {"su": 5, "fi": 6}]}
+    plats = [dict(platAuNiveauDeAPrime(), code="1", nom="Bon", label="B", leurClasse="A")]
+    resultat = sn.comparerDeuxModeles(plats, leur)
+    assert resultat["notreFaceAuNutriscore"]["sens"]["plusPermissif"] == 1          # A′ pour un plat B
+    assert resultat["notreFaceALeur"]["sens"]["pareil"] == 1
