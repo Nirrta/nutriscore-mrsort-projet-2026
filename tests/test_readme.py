@@ -292,7 +292,9 @@ def test_le_readme_cite_le_super_nutri_score(resultats):
     noms = {"fi": "les fibres", "bio": "le bio", "pr": "les protéines", "so": "le sel", "nova": "le groupe NOVA"}
     phrase = ", ".join(f"{noms[critere]} ({nombre})" for critere, nombre in raisons[:-1])
     assert f"{phrase} et {noms[raisons[-1][0]]} ({raisons[-1][1]})" in texte
-    assert f"{etendue['comparaison']['matrice'][3][2]} plats D montent en C′" in texte
+    secs = etendue["secsEnAPrime"]
+    assert (f"{len(secs)} des {etendue['repartition']['A′']} plats A′ sont des produits secs, à plus de 1 340 kJ pour 100 g : "
+            f"{', '.join(secs[:-1])} et {secs[-1]}") in texte
     sensibilite = superNutri["sensibilite"]["etendue"]
     for point in sensibilite["courbe"]:
         ligne = f"| ± {virgule(point['amplitude'], 2)} | {pourcentage(point['partMoyenne'])} | {pourcentage(point['partMax'])} |"
@@ -320,3 +322,59 @@ def test_le_readme_justifie_le_bio_et_l_ecart_du_green_score():
     base = projet_base.lireBase()
     sansGreen = sum(1 for plat in base if plat["green"] is None)
     assert f"il manque pour {sansGreen} plats sur {len(base)} ({round(100 * sansGreen / len(base))} %)" in texte
+
+
+def ecartSigne(valeur):
+    """Un écart moyen en classes, avec son signe : +0,43 ; −0,72."""
+    return f"{'+' if valeur >= 0 else '−'}{virgule(abs(valeur), 2)}"
+
+
+def test_le_readme_dit_si_nos_modeles_sont_plus_severes(resultats):
+    """Le tableau du sens des écarts et ses explications : chaque chiffre vient du JSON."""
+    if "autreGroupe" not in resultats.get("supernutri", {}):
+        pytest.skip("la comparaison avec l'autre groupe n'est pas encore calculée")
+    texte = README.read_text(encoding="utf-8")
+    superNutri = resultats["supernutri"]
+    autre = superNutri["autreGroupe"]
+    noms = {"nos": "nos 375 plats", "leurs": "leurs 300 céréales"}
+    for cle, libelle, base in (("notreFaceAuNutriscore", "Notre modèle face au Nutri-Score", "nos"),
+                               ("leurFaceAuNutriscore", "Leur modèle face au Nutri-Score", "leurs"),
+                               ("notreFaceAuNutriscore", "Notre modèle face au Nutri-Score", "leurs"),
+                               ("leurFaceAuNutriscore", "Leur modèle face au Nutri-Score", "nos"),
+                               ("notreFaceALeur", "Notre modèle face au leur", "leurs"),
+                               ("notreFaceALeur", "Notre modèle face au leur", "nos")):
+        sens = autre[base][cle]["sens"]
+        ligne = (f"| {libelle} | {noms[base]} | {pourcentage(sens['pareil'])} | {pourcentage(sens['plusSevere'])} | "
+                 f"{pourcentage(sens['plusPermissif'])} | {ecartSigne(sens['ecartMoyen'])} |")
+        assert ligne in texte, ligne
+    # le tableau du nôtre sur nos plats est bien celui du calcul sur la base étendue
+    assert superNutri["etendue"]["comparaison"]["sens"] == pytest.approx(autre["nos"]["notreFaceAuNutriscore"]["sens"])
+    ecarts, matrice = superNutri["etendue"]["ecarts"], superNutri["etendue"]["comparaison"]["matrice"]
+    parLabel = ecarts["descentesParLabel"]
+    a, b = parLabel["A"], parLabel["B"]
+    assert (f"{a['plats']} des {sum(matrice[0])} plats A descendent : {a['raisons']['fi']} ont moins de 6 g de fibres, "
+            f"{a['raisons']['so']} plus de 0,3 g de sel. {b['plats']} des {sum(matrice[1])} plats B descendent : "
+            f"{b['raisons']['bio']} ne sont pas bio, {b['raisons']['nova']} sont ultra-transformés") in texte
+    assert (f"Il est plus permissif pour {ecarts['montent']} plats, presque tous chargés** : {ecarts['montees']['chargees']} "
+            "ont au moins 11 points négatifs") in texte
+    assert autre["leurs"]["bloquants"]["notre"]["en"] == 1 and "ne vote pour aucune" in texte
+    assert f"bloque {round(100 * autre['nos']['bloquants']['leur']['fi'])} % des plats" in texte
+    assert (f"la même classe qu'à {pourcentage(autre['leurs']['notreFaceALeur']['exactitude'])} de leurs céréales et "
+            f"{pourcentage(autre['nos']['notreFaceALeur']['exactitude'])} de nos plats") in texte
+    muesli, poelee = autre["exemples"]
+    assert (muesli["label"], muesli["leur"], muesli["notre"]) == ("C", "B′", "E′")
+    assert (poelee["label"], poelee["notre"], poelee["leur"]) == ("B", "C′", "E′")
+
+
+def test_le_readme_cite_la_regle_des_proteines(monkeypatch):
+    """Les protéines que le Nutri-Score ne compte pas : sur nos 375 plats, et sur les 300 céréales de l'autre groupe."""
+    import projet_supernutri as sn
+    if not projet_base.FICHIER_BASE_ETENDUE.exists() or not sn.FICHIER_AUTRE_GROUPE.exists():
+        pytest.skip("la base étendue ou celle de l'autre groupe manque")
+    monkeypatch.setenv("PROJET_HORS_LIGNE", "1")
+    nos = projet_base.lireBase(projet_base.FICHIER_BASE_ETENDUE)
+    leurs, _ = sn.importerBaseAutreGroupe(sn.FICHIER_AUTRE_GROUPE, sn.CORRESPONDANCE_AUTRE_GROUPE)
+    sansProteines = [sum(1 for plat in plats if sn.proteinesRetenues(plat, plat.get("categorie") or "general") is None)
+                     for plats in (nos, leurs)]
+    assert (f"Le Nutri-Score ne compte pas les protéines de {sansProteines[0]} de nos {len(nos)} plats, ni de "
+            f"{sansProteines[1]} des {len(leurs)} céréales de l'autre groupe") in README.read_text(encoding="utf-8")

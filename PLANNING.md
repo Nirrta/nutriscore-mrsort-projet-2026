@@ -43,6 +43,10 @@ Tout retard est sanctionné. Le gel interne est fixé au **dim. 03/01/2027**.
 | 20/11 | **Le SuperNutri-score** : onze critères en trois piliers, à limiter 0,40, à favoriser 0,30, transformation et production 0,30 (NOVA 0,10, nombre d'additifs 0,075, additifs à risque 0,075, bio 0,05) ; profils tirés du règlement CE 1924/2006 (A′) et des barèmes du Nutri-Score de 2023 ; λ = 0,7 ; classes au sens du Nutri-Score | Un score de santé, dont chaque seuil a une source. Le bio fait en partie doublon avec NOVA et les additifs : il garde le plus petit poids, pour les pesticides qu'aucun autre critère ne mesure |
 | 20/11 | **Pas de Green-Score**, ni en critère ni en variante | Il changerait le sens des classes, c'est un agrégat opaque, et il manque pour 43 plats sur 125 |
 | 20/11 | **λ se règle au curseur** dans l'interface, avec les poids et les profils | Le §3.5 demande de saisir les paramètres d'un modèle à la main, et λ en est un |
+| 25/11 | **Les protéines votent comme le Nutri-Score de 2023 les compte**, selon le type du produit (choix 37 du README) | Une revue de notre modèle a montré que les protéines votaient pour des plats gras et salés : la règle du Nutri-Score manquait. Ce n'est pas un veto, mais la valeur du critère |
+| 25/11 | **La base de l'autre groupe** (300 céréales, Branchu, Becavin, Bundhoo, Castan) : leur modèle recodé dans notre moteur, leurs céréales complétées par OFF (additifs, bio), la comparaison sur les deux bases ; ils n'ont pas besoin de notre base | Le §3.4 demande nos résultats sur leur base, face aux leurs. Leur modèle redonne leurs 300 classes : la comparaison est loyale |
+| 25/11 | **Deux slides de comparaison** dans la soutenance finale (12 slides, 14 min 40) | La comparaison au Nutri-Score et à l'autre groupe est la réponse au §3.4 |
+| 26/11 | **Chaque comparaison dit son sens** : plus sévère, pareil, plus permissif, écart moyen (choix 34) | Le Nutri-Score n'est pas à copier, mais c'est la référence : on dit dans quel sens on s'en écarte. Notre modèle est plus sévère que lui (+0,43 classe en moyenne), surtout en haut ; plus permissif pour des plats chargés, faute de veto |
 
 ## Phase 0 : mise en place (mer. 28/10)
 
@@ -99,7 +103,7 @@ Déroulé du 30/10 (le texte complet est dans `soutenance/texte_soutenance_1.md`
 - [x] Interface, ergonomie : « Revenir aux valeurs du produit », la classe au-dessus de chaque éditeur, le pas à pas qui nomme le plat, les onglets collés en haut, un seul vocabulaire des modèles (« Apprentissage »), les profils nommés par leur classe, l'aide des champs des fruits et des fibres (08/11)
 - [x] Interface : le domaine des modèles (classe indicative, raison précise, pas de classe pour une eau) (09/11)
 - [x] Les trois apprentissages sur les 375 plats et leur validation croisée (`--etendue`, `--croisee`) ; l'interface : « Appris sur » et « Apprentissage » (09/11)
-- [ ] Contacter un autre groupe et échanger les bases **avant le 06/11** (leur base doit avoir les codes-barres)
+- [x] Contacter un autre groupe et échanger les bases (leur base est arrivée le 25/11, avec les codes-barres)
 
 ## Phase 3 : le SuperNutri-score (lun. 09/11 → ven. 27/11)
 
@@ -107,10 +111,11 @@ Déroulé du 30/10 (le texte complet est dans `soutenance/texte_soutenance_1.md`
 - [x] Le modèle, onze critères en trois piliers (20/11)
 - [x] Sensibilité aux poids et aux profils (20/11)
 - [x] Comparaison au Nutri-Score, plat par plat (20/11)
-- [ ] La base d'un autre groupe : l'import est prêt et vérifié (20/11) ; il manque leur base et les classes de leur SuperNutri-score
+- [x] La base d'un autre groupe (25-26/11) : leurs 300 céréales complétées par OFF, leur modèle recodé, les deux modèles sur les deux bases, le sens des écarts
+- [x] La règle des protéines du Nutri-Score de 2023 (25/11)
 - [x] ~~Variante verte~~ : écartée le 20/11 (voir les décisions)
 - [x] Interface : le SuperNutri-score au calculateur, son onglet, λ au curseur (20/11)
-- [x] Slides finales et texte de l'oral, 11 slides, 13 min 50 (20/11)
+- [x] Slides finales et texte de l'oral, 11 slides, 13 min 50 (20/11), puis 12 slides, 14 min 40 (26/11)
 - [ ] Répétition (23-26/11)
 - [ ] Avant le 27/11 : si la soutenance se fait depuis un autre ordinateur, y installer les polices de `design/polices/`, ou présenter le PDF
 - [ ] **Soutenance finale le 27/11**

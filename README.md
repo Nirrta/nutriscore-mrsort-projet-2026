@@ -28,6 +28,7 @@ Ce README est interne : il n'est pas rendu. Le rendu comprend le rapport, les fi
 | `donnees/base_plats_prepares.xlsx` | **la base** (feuilles base, lisez-moi, contrôles) | 3.1 | oui |
 | `donnees/base_etendue_plats_prepares.xlsx` | **la base étendue** : les 125 plats, plus 50 par classe tirés hors de la base (colonne « Lot ») | 3.1, 3.3 | oui |
 | `donnees/brut/` | les réponses d'Open Food Facts, en cache : la base se reconstruit à l'identique, sans réseau | 3.1 | oui |
+| `donnees/autre_groupe/` | la base de l'autre groupe (300 céréales du petit-déjeuner) et sa note, telles qu'ils nous les ont envoyées ; `base_cereales_completee.xlsx`, leurs colonnes plus ce qu'Open Food Facts ajoute (additifs, bio, type au Nutri-Score) | 3.4 | oui |
 | `resultats/` | les Excel des résultats, `resultats_projet.json`, les slides | toutes | en partie |
 | `rapport/` | le rapport LaTeX (`verso.sty`, `sections/`, `chiffres.tex` généré) | rapport | le PDF |
 | `design/` | les polices Archivo (OFL) et `generer_polices.py` | design | non |
@@ -68,11 +69,12 @@ python3 projet_mrsort.py --complet               # en plus, le modèle complet s
 python3 projet_mrsort.py --etendue               # en plus, les profils appris et le modèle complet sur les 375 plats (1 h à 2 h)
 python3 projet_mrsort.py --croisee               # en plus, la validation croisée des trois apprentissages sur les 375 plats (plusieurs heures)
                                                  # --limite SECONDES règle la limite de chaque apprentissage des profils (600 s par défaut)
-python3 projet_supernutri.py                     # le SuperNutri-score sur les deux bases, ses deux sensibilités, et la base
-                                                 # d'un autre groupe si elle est déposée (donnees/autre_groupe/)
+python3 projet_supernutri.py                     # le SuperNutri-score sur les deux bases, ses deux sensibilités, et la comparaison
+                                                 # avec l'autre groupe (donnees/autre_groupe/), sans réseau (quelques secondes)
+python3 projet_supernutri.py --telecharger-autre-groupe   # range une fois dans le cache les fiches d'OFF de leurs 300 céréales (~20 min)
 streamlit run projet_gui.py                      # l'interface
 python3 slides_projet.py --soutenance 1          # les 10 slides du 30/10 et leurs figures
-python3 slides_projet.py --soutenance 2          # les 11 slides du 27/11 (le SuperNutri-score)
+python3 slides_projet.py --soutenance 2          # les 12 slides du 27/11 (le SuperNutri-score)
 python3 projet_soutenance.py                     # le texte de l'oral et le dossier du 30/10, en PDF (soutenance/)
 python3 projet_soutenance.py --soutenance 2      # le texte de l'oral du 27/11, en PDF
 python3 design/generer_polices.py <dossier> design/polices   # les instances d'Archivo, depuis la police variable
@@ -144,11 +146,16 @@ Chaque choix d'interprétation du sujet est couvert par un test.
 31. **Les additifs à risque sont ceux qu'une autorité sanitaire signale** : les nitrites et nitrates, E249 à E252 (ANSES, avis de 2022) ; les phosphates, E338 à E341, E343 et E450 à E452 (EFSA, réévaluation de 2019) ; les carraghénanes, E407 (EFSA, réévaluation de 2018). Ils se comptent dans la liste des additifs de la base ; l'interface les fait saisir directement. Tests : `test_les_additifs_a_risque`, `test_un_nombre_d_additifs_a_risque_saisi_prime_sur_la_liste`.
 32. **Les classes ont le sens de celles du Nutri-Score.** La FAQ officielle du Nutri-Score ne range pas les aliments en bons ou mauvais : ses classes vont des plus favorables à la santé aux moins favorables, du point de vue nutritionnel. Nous gardons ce sens, étendu à la transformation et à la production : A′, les plats les plus favorables à la santé ; C′, les plats moyens ; E′, les moins favorables. Les classes servent à comparer des plats préparés entre eux. Nous n'en faisons pas des fréquences de consommation : ce serait un conseil, sans source. Test : `test_l_onglet_super_nutri_score`.
 33. **Les deux analyses de sensibilité.** Les poids : chacun gagne ou perd 0,05, les autres étant rajustés pour garder une somme de 1 et des poids positifs ; puis 1 000 tirages au hasard (graine 2026), où tous les poids bougent ensemble d'au plus ± 0,01, ± 0,02 et ± 0,05. Les profils : une valeur bouge à la fois, de ± 5 % pour les sept composantes et de ± 1 pour NOVA et les deux nombres d'additifs (des entiers) ; le bio ne bouge pas ; un décalage qui casserait l'ordre des profils est écarté. On compte aussi les plats au bord de leur classe, dont la concordance vaut λ pile. Tests : `test_sans_amplitude_aucun_plat_ne_change`, `test_un_plat_au_bord_change_quand_un_de_ses_criteres_pese_moins`, `test_un_tirage_se_refait_a_l_identique`, `test_un_plat_au_seuil_change_quand_le_seuil_bouge`, `test_un_decalage_qui_casserait_l_ordre_est_ecarte`, `test_les_plats_au_bord_de_leur_classe`.
-34. **La comparaison au Nutri-Score se fait plat par plat.** Un plat qui descend est expliqué par les critères qu'il rate face au profil de la classe que lui donne le Nutri-Score (pour un plat B, celui de B′) ; un plat qui monte, par ceux qu'il rate face au profil de sa classe, qu'il franchit pourtant. Tests : `test_un_plat_qui_monte_et_un_plat_qui_descend`, `test_la_poelee_fermiere_descend_d_une_classe`.
-35. **La base d'un autre groupe : « leurs résultats » sont les classes de leur SuperNutri-score.** Pour y répondre, il faut leur base (au moins les codes-barres et les sept composantes) et la classe que leur modèle donne à chaque aliment ; sans elle, on ne compare qu'à leur Nutri-Score. Leurs colonnes gardent leurs noms : une table de correspondance les relie aux nôtres. NOVA, les additifs et le bio qui manquent se lisent dans la fiche d'OFF du code-barres, d'abord dans le cache (sous l'une des écritures du code, avec ou sans zéros de tête). Le recoupement des deux bases se mesure par code-barres. Tests : `test_importer_une_base_aux_colonnes_differentes`, `test_importer_un_csv_a_point_virgule`, `test_comparer_avec_l_autre_groupe`, `test_l_import_rend_les_classes_de_nos_250_plats_ajoutes`, `test_un_code_se_retrouve_meme_ecrit_avec_d_autres_zeros`.
-36. **λ se règle au curseur, avec les poids et les profils.** Le §3.5 demande de saisir à la main les paramètres d'un modèle, et λ en est un (§2.2). Le choix 0,6 / 0,7 de l'en-tête choisit le modèle appris ; le curseur des paramètres règle ensuite λ, de 0,51 à 1 (le sujet veut λ dans ]0,5 ; 1]), en partant du λ appris, et « Revenir aux paramètres appris » le remet. Un modèle appris ne vaut que pour son λ : ailleurs, la classe est une exploration. Le SuperNutri-score a son propre curseur. Tests : `test_lambda_se_regle_au_curseur`, `test_revenir_aux_parametres_appris_remet_lambda`, `test_le_pas_a_pas_suit_lambda_du_curseur`, `test_lambda_du_super_nutri_score_se_regle_aussi`.
+34. **La comparaison au Nutri-Score se fait plat par plat, et dans les deux sens.** Le Nutri-Score n'est pas à copier, mais c'est la référence. Un plat qui descend est expliqué par les critères qu'il rate face au profil de la classe que lui donne le Nutri-Score (pour un plat B, celui de B′) ; un plat qui monte, par ceux qu'il rate face au profil de sa classe, qu'il franchit pourtant. Chaque comparaison dit aussi son sens, lu dans la matrice de confusion : la part des produits rangés plus bas que la référence (plus sévère), pareil, plus haut (plus permissif), et l'écart moyen en classes, positif quand le modèle est plus sévère. Tests : `test_un_plat_qui_monte_et_un_plat_qui_descend`, `test_la_poelee_fermiere_descend_d_une_classe`, `test_le_sens_des_ecarts_d_une_matrice`, `test_pourquoi_un_plat_descend_et_pourquoi_un_autre_monte`, `test_chaque_comparaison_dit_son_sens`.
+35. **La base d'un autre groupe : « leurs résultats » sont les classes de leur SuperNutri-score.** Leur base est arrivée le 25/11 : 300 céréales du petit-déjeuner (Branchu, Becavin, Bundhoo, Castan), dans `donnees/autre_groupe/`, avec la note de leur modèle. Leurs colonnes gardent leurs noms : une table de correspondance les relie aux nôtres.
+    - **Leur modèle, recodé dans notre moteur** depuis leur feuille `notre_modele` : cinq critères (sucres, fibres, groupe NOVA, acides gras saturés, sodium), λ = 0,63 ; un NOVA inconnu ne vote pas, comme chez eux. Il redonne leurs 300 classes. Pour nos plats, leur sodium se tire du sel : le sel vaut 2,5 fois le sodium (règlement UE 1169/2011), soit 400 mg de sodium par gramme de sel.
+    - **Leurs céréales complétées par Open Food Facts.** Leur base n'a ni les additifs ni le bio, que notre modèle demande. Ils se lisent dans la fiche d'OFF du code-barres (300 fiches, rangées une fois dans le cache par `--telecharger-autre-groupe`, aucune introuvable), avec le type du produit au Nutri-Score (le cas général pour les 300). Leur groupe NOVA est gardé ; celui d'OFF ne sert que s'il manquait. Le tout s'écrit dans `donnees/autre_groupe/base_cereales_completee.xlsx` : leurs colonnes, puis les nôtres, et une feuille « lisez-moi ».
+    - **Le même Nutri-Score des deux côtés** : notre calcul de 2023 redonne leurs 300 labels.
+    - **Aucun produit en commun** avec nos plats : le recoupement, mesuré par code-barres, reste sous les 25 % du §3.1.
 
-Les autres choix des questions 3.3 et 3.4 seront ajoutés en phase 3 : sens des classes A′ à E′, interprétation de « leurs résultats ».
+    Tests : `test_leur_modele_se_lit_dans_leur_feuille`, `test_leur_modele_recode_redonne_leurs_300_classes`, `test_leur_modele_lit_le_sodium_de_nos_plats_dans_le_sel`, `test_l_import_lit_aussi_le_type_au_nutriscore`, `test_la_base_completee_garde_leurs_colonnes_et_ajoute_les_notres`, `test_deux_modeles_comparés_sur_une_base`, `test_l_analyse_de_l_autre_groupe_compare_les_deux_bases`, `test_l_excel_de_l_autre_groupe_a_trois_feuilles`, `test_importer_une_base_aux_colonnes_differentes`, `test_importer_un_csv_a_point_virgule`, `test_l_import_rend_les_classes_de_nos_250_plats_ajoutes`, `test_un_code_se_retrouve_meme_ecrit_avec_d_autres_zeros`, `test_le_telechargement_ne_redemande_pas_une_fiche_gardee`.
+36. **λ se règle au curseur, avec les poids et les profils.** Le §3.5 demande de saisir à la main les paramètres d'un modèle, et λ en est un (§2.2). Le choix 0,6 / 0,7 de l'en-tête choisit le modèle appris ; le curseur des paramètres règle ensuite λ, de 0,51 à 1 (le sujet veut λ dans ]0,5 ; 1]), en partant du λ appris, et « Revenir aux paramètres appris » le remet. Un modèle appris ne vaut que pour son λ : ailleurs, la classe est une exploration. Le SuperNutri-score a son propre curseur. Tests : `test_lambda_se_regle_au_curseur`, `test_revenir_aux_parametres_appris_remet_lambda`, `test_le_pas_a_pas_suit_lambda_du_curseur`, `test_lambda_du_super_nutri_score_se_regle_aussi`.
+37. **Les protéines votent comme le Nutri-Score de 2023 les compte** (ajouté le 25/11, après une revue de notre modèle). Le Nutri-Score ne compte pas les protéines d'un produit qui a 11 points négatifs ou plus (7 pour une matière grasse, un fruit à coque ou une graine) ; il les compte toujours pour un fromage et une boisson ; pour une viande rouge, il en garde au plus 2 points (FAQ officielle de 2023). Sans cette règle, les protéines votaient pour des plats gras et salés. La performance de notre critère est donc « les protéines que retient le Nutri-Score » : aucune (le critère ne vote pas) ou, pour une viande rouge, 4,8 g au plus. Ce n'est pas un veto : MR-Sort reste simple, seule la valeur du critère change. Le type du produit vient des marqueurs d'OFF ou, dans l'interface, du « Type de produit » ; si une des sept composantes manque, on garde les protéines du produit. Le Nutri-Score ne compte pas les protéines de 153 de nos 375 plats, ni de 163 des 300 céréales de l'autre groupe. Tests : `test_les_proteines_ne_votent_plus_a_partir_de_11_points_negatifs`, `test_les_proteines_d_un_fromage_votent_toujours`, `test_les_proteines_d_une_viande_rouge_comptent_au_plus_comme_deux_points`, `test_les_proteines_d_une_matiere_grasse_ne_votent_plus_a_partir_de_7_points`, `test_le_type_vient_du_produit_s_il_n_est_pas_donne`, `test_les_proteines_du_super_nutri_score_suivent_le_type_de_produit`, `test_le_readme_cite_la_regle_des_proteines`.
 
 ## La direction visuelle « Verso de l'emballage »
 
@@ -310,26 +317,41 @@ Comme sur les 125 plats, la méthode compte plus que le nombre de plats. À 7 cr
 - **À 3 critères, les poids appris ont la meilleure moyenne** (60,5 %, contre 55,7 % et 56,3 % pour les profils appris), mais pas dans toutes les parts : les profils appris font mieux qu'eux dans 2 parts sur 5, aux deux valeurs de λ. Sur les 375 plats, les profils appris rangeaient pourtant plus de plats que les poids appris (248 contre 233).
 - **D'une part à l'autre, l'exactitude varie** : son écart-type va de 2,2 à 6,3 points. Un écart de 1 ou 2 points entre deux apprentissages ne les départage donc pas.
 
-**Le SuperNutri-score** (`python3 projet_supernutri.py`, choix 28 à 35) :
+**Le SuperNutri-score** (`python3 projet_supernutri.py`, choix 28 à 37) :
 
 | Base | A′ | B′ | C′ | D′ | E′ | Comme le Nutri-Score | À une classe près |
 |---|---|---|---|---|---|---|---|
-| 125 plats | 4 | 14 | 60 | 37 | 10 | 52/125 | 90,4 % |
-| 375 plats | 12 | 41 | 190 | 101 | 31 | 164/375 | 89,1 % |
+| 125 plats | 4 | 14 | 53 | 27 | 27 | 70/125 | 90,4 % |
+| 375 plats | 12 | 41 | 171 | 74 | 77 | 210/375 | 89,9 % |
 
-- Il ne cherche pas à reproduire le Nutri-Score. Sur les 375 plats, 74 montent, 137 descendent. Face au profil de leur classe au Nutri-Score, les plats qui descendent ratent surtout les fibres (121), le bio (108), les protéines (102), le sel (98) et le groupe NOVA (87).
-- Au milieu, C′ n'exige plus ni NOVA 3 ni le bio : 26 plats D montent en C′.
+- Il ne cherche pas à reproduire le Nutri-Score. Sur les 375 plats, 20 montent, 145 descendent. Face au profil de leur classe au Nutri-Score, les plats qui descendent ratent surtout les fibres (125), les protéines (113), le bio (108), le sel (105) et le groupe NOVA (87).
 - La Poêlée Fermière, B au Nutri-Score, est C′ : face à B′, elle rate les protéines, les fibres, NOVA, les additifs et le bio. Avec NOVA 3 et un seul additif, elle serait B′.
+- 5 des 12 plats A′ sont des produits secs, à plus de 1 340 kJ pour 100 g : Couscous, Couscous Complet, Couscous fin, Couscous Moyen et Velouté de pois cassés. Nos seuils lisent 100 g du produit tel qu'il est vendu, et λ = 0,7 laisse rater l'énergie : c'est une limite du modèle.
+
+**Plus sévère ou plus permissif que le Nutri-Score ?** Plus sévère : une classe plus basse que la référence. L'écart moyen se compte en classes, positif quand le modèle est plus sévère (choix 34).
+
+| Comparaison | Base | Même classe | Plus sévère | Plus permissif | Écart moyen |
+|---|---|---|---|---|---|
+| Notre modèle face au Nutri-Score | nos 375 plats | 56,0 % | 38,7 % | 5,3 % | +0,43 |
+| Leur modèle face au Nutri-Score | leurs 300 céréales | 47,0 % | 41,0 % | 12,0 % | +0,37 |
+| Notre modèle face au Nutri-Score | leurs 300 céréales | 34,7 % | 65,3 % | 0,0 % | +0,90 |
+| Leur modèle face au Nutri-Score | nos 375 plats | 27,7 % | 64,5 % | 7,7 % | +1,16 |
+| Notre modèle face au leur | leurs 300 céréales | 52,0 % | 43,0 % | 5,0 % | +0,52 |
+| Notre modèle face au leur | nos 375 plats | 32,5 % | 11,7 % | 55,7 % | −0,72 |
+
+- **Notre modèle est plus sévère que le Nutri-Score, surtout en haut.** 64 des 75 plats A descendent : 61 ont moins de 6 g de fibres, 53 plus de 0,3 g de sel. 60 des 75 plats B descendent : 56 ne sont pas bio, 51 sont ultra-transformés (NOVA 4). C'est voulu : A′ reprend les allégations du règlement CE 1924/2006, et A′ comme B′ exigent le bio et peu de transformation (choix 30).
+- **Il est plus permissif pour 20 plats, presque tous chargés** : 19 ont au moins 11 points négatifs (pizzas, feuilletés). Le Nutri-Score additionne leurs points ; MR-Sort, sans veto (le sujet l'impose), ne retire que le poids des critères ratés, que le seuil soit dépassé de peu ou de beaucoup.
+- **Chaque modèle porte la catégorie pour laquelle il est fait.** Chacun est un peu plus sévère que le Nutri-Score sur sa propre base, et bien plus sur celle de l'autre. Sur leurs céréales, notre seuil d'énergie de B′ (670 kJ) ne vote pour aucune ; sur nos plats, leur seuil de fibres de B′ bloque 96 % des plats.
+- **Nos résultats diffèrent des leurs** (§3.4) : les deux modèles ne donnent la même classe qu'à 52,0 % de leurs céréales et 32,5 % de nos plats. Les deux produits suivis : un muesli croustillant bio sans additif, C au Nutri-Score, B′ chez eux, E′ chez nous ; la Poêlée Fermière, B au Nutri-Score, C′ chez nous, E′ chez eux. Le détail, produit par produit, est dans `resultats/supernutri_autre_groupe.xlsx`.
 
 **Les deux sensibilités, sur 375 plats.** Tous les poids ensemble, 1 000 tirages par amplitude :
 
 | Amplitude | Plats qui changent de classe, en moyenne | Au plus |
 |---|---|---|
-| ± 0,01 | 4,9 % | 11,5 % |
-| ± 0,02 | 7,3 % | 18,4 % |
-| ± 0,05 | 14,1 % | 28,3 % |
+| ± 0,01 | 3,5 % | 7,7 % |
+| ± 0,02 | 4,8 % | 16,5 % |
+| ± 0,05 | 11,5 % | 27,2 % |
 
-- Un poids à la fois, le plus sensible est celui des protéines (+ 0,05 : 66 plats).
+- Un poids à la fois, le plus sensible est celui des protéines (+ 0,05 : 74 plats).
 - 13 plats sont au bord de leur classe : ils ratent tout le pilier « à favoriser », et leur concordance vaut λ pile. Le moindre changement de poids les fait basculer, d'où des changements dès ± 0,01.
-- Les profils : 132 plats changent au moins une fois ; 50 par les composantes (± 5 %), 100 par NOVA et les additifs (± 1). Le décalage le plus actif : NOVA 3 exigé dès C′ (60 plats). NOVA ne vaut que 3 ou 4 dans nos plats préparés : un cran, c'est la moitié de son échelle.
-- La base d'un autre groupe n'est pas encore arrivée (choix 35).
+- Les profils : 116 plats changent au moins une fois ; 43 par les composantes (± 5 %), 91 par NOVA et les additifs (± 1). Le décalage le plus actif : NOVA 3 exigé dès C′ (52 plats). NOVA ne vaut que 3 ou 4 dans nos plats préparés : un cran, c'est la moitié de son échelle.
